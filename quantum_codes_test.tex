@@ -70,6 +70,7 @@
 \newcommand{\reg}[1]{{\textsf{#1}}}
 \newcommand{\ol}[1]{\overline{#1}}
 
+\newcommand{\field}{\mathbb{F}}
 \newcommand{\C}{\ensuremath{\mathbb{C}}}
 \newcommand{\N}{\ensuremath{\mathbb{N}}}
 \newcommand{\bbN}{\ensuremath{\mathbb{N}}}
@@ -84,7 +85,7 @@
 \newcommand{\M}{\ensuremath{\mathbb{M}}}
 \newcommand{\ot}{\otimes}
 \newcommand{\Fp}{\F_p}
-\newcommand{\Fq}{\F_q}
+\newcommand{\Fq}{\field}
 \newcommand{\BH}{\textsc{BH}}
 \newcommand{\ld}{\textsc{ld}}
 \newcommand{\downsize}{\kappa}
@@ -473,11 +474,11 @@
 
 	\section{Preliminaries}
 	
-	For $q=2^t$ and $a\in \F_q$ we let $\kappa(a)$ denote the binary representation of $a$, where the representation is taken in a self-dual normal basis of $\F_q$ over $\F_2$. We extend $\kappa$ to vectors over $\F_q$ coordinate-wise.
+	For $q=2^t$ and $a\in \field$ we let $\kappa(a)$ denote the binary representation of $a$, where the representation is taken in a self-dual normal basis of $\field$ over $\F_2$. We extend $\kappa$ to vectors over $\field$ coordinate-wise.
 	
-	We use $\tau^W(a)$, $a\in F_q^k$, to denote the tensor product of $k$ Pauli $W$ observables over $\F_q$. We use $\tau^W_a$ to denote the associated projective measurement. 
+	We use $\tau^W(a)$, $a\in F_q^k$, to denote the tensor product of $k$ Pauli $W$ observables over $\field$. We use $\tau^W_a$ to denote the associated projective measurement. 
 	
-	Given a projective measurement $\{P_a\}_{a\in \F_q^k}$ and $b\in \F_q^k$ we let $\widehat{P}(b) = \sum_a \omega^{\tr(a\cdot b)} P_a$ be the associated observable. With this notation, $\widehat{\tau^W}(b)=\tau^W(\kappa(b))$.
+	Given a projective measurement $\{P_a\}_{a\in \field^k}$ and $b\in \field^k$ we let $\widehat{P}(b) = \sum_a \omega^{\tr(a\cdot b)} P_a$ be the associated observable. With this notation, $\widehat{\tau^W}(b)=\tau^W(\kappa(b))$.
 	
 	\subsection{Tracial von Neumann algebras}
 	
@@ -486,15 +487,15 @@
 \section{Quantum soundness of linear codes}
 
 \begin{definition}[Code]
-A $[n,k,d]_q$ linear code is a $k$-dimensional subspace $\code\subseteq \F_q^n$ such that for every $c\in \code$ such that $c\neq 0$, $|c|\leq d$. Equivalently, we think of $\code$ as a linear map $\code:\F_q^k\to \F_q^n$. 
+A $[n,k,d]_q$ linear code is a $k$-dimensional subspace $\code\subseteq \field^n$ such that for every $c\in \code$ such that $c\neq 0$, $|c|\leq d$. Equivalently, we think of $\code$ as a linear map $\code:\field^k\to \field^n$. 
 \end{definition}
 
 \begin{definition}
-Let $\code$ be an $[n,k,d]_q$ linear code. Define $\ind:\{1,\ldots,n\}\to \F_q^k$ such that for every $a\in \F_q^k$ and $i\in\{1,\ldots,n\}$, $a\cdot \ind(i) = \code(a)_i$.
+Let $\code$ be an $[n,k,d]_q$ linear code. Define $\ind:\{1,\ldots,n\}\to \field^k$ such that for every $a\in \field^k$ and $i\in\{1,\ldots,n\}$, $a\cdot \ind(i) = \code(a)_i$.
 \end{definition}
 
 \begin{definition}[Oracle machine]
-A \emph{randomized oracle machine} $M$ is a randomized Turing machine that has query access to a string $\pi$. For $\rand$ a setting of $M$'s random tape, we write $S=M(\rand)\subseteq\{1,\ldots,n\}$ for the set of (at most) $r$ queries to $\pi$ made by $M$ on tape $\rand$, and $M(\rand,a)$ or $M(S,a)$ for the decision made by $M$ when the answer to the queries made on tape $\rand$ is $a=\pi_S\in \F_q^S$. We also write $M^\pi(\rand)$ for the same quantity.  
+A \emph{randomized oracle machine} $M$ is a randomized Turing machine that has query access to a string $\pi$. For $\rand$ a setting of $M$'s random tape, we write $S=M(\rand)\subseteq\{1,\ldots,n\}$ for the set of (at most) $r$ queries to $\pi$ made by $M$ on tape $\rand$, and $M(\rand,a)$ or $M(S,a)$ for the decision made by $M$ when the answer to the queries made on tape $\rand$ is $a=\pi_S\in \field^S$. We also write $M^\pi(\rand)$ for the same quantity.  
 \end{definition}
 
 \begin{definition}[Codeword test]
@@ -505,30 +506,41 @@ A $r$-local $\delta(\eps)$-tester for $\code$ is a randomized oracle machine $M$
 \end{itemize}
 \end{definition}
 
-\begin{definition}[Local quantum presentation]
-Let $\code$ be an $[n,k,d]_q$ linear code and $r\in \N$. An \emph{$r$-local quantum presentation of $\code$} is specified by
-\begin{itemize}
-\item A tracial von Neumann algebra $(\mM,\tau)$;
-\item For each $i\in\{1,\ldots,n\}$, a $q$-outcome projective measurement $\{A^i_a\}_{a\in \F_q} \subseteq \mM$;
-\item For each $S\subseteq \{1,\ldots,n\}$ such that $|S|\leq r$, a projective measurement $\{P^S_a\}_{a\in \F_q^S}\subseteq \mM$.
-\end{itemize}
-\end{definition}
+%\begin{definition}[Local quantum presentation]
+%Let $\code$ be an $[n,k,d]_q$ linear code and $r\in \N$. An \emph{$r$-local quantum presentation of $\code$} is specified by
+%\begin{itemize}
+%\item A tracial von Neumann algebra $(\mM,\tau)$;
+%\item For each $i\in\{1,\ldots,n\}$, a $q$-outcome projective measurement $\{A^i_a\}_{a\in \field} \subseteq \mM$;
+%\item For each $S\subseteq \{1,\ldots,n\}$ such that $|S|\leq r$, a projective measurement $\{P^S_a\}_{a\in \field^S}\subseteq \mM$.
+%\end{itemize}
+%\end{definition}
 
 \begin{definition}[Code representation]
-Let $\code$ be an $[n,k,d]_q$ linear code. A \emph{representation} of $\code$ is a collection of projective measurements $\{B^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that the $\{B^i_a\}$ pairwise commute and $\sum_{c\in\code} \prod_{i=1}^n B^i_{c_i}=\Id$.\footnote{This implies that whenever $u\notin \code$, $\prod_i B^i_{u_i}=0$.} 
+Let $\code$ be an $[n,k,d]_q$ linear code. A \emph{representation} of $\code$ is a collection of projective measurements $\{A^i_a\}_{a\in\field} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that the $\{A^i_a\}$ pairwise commute and $\sum_{c\in\code} \prod_{i=1}^n A^i_{c_i}=\Id$.\footnote{This implies that whenever $u\notin \code$, $\prod_i B^i_{u_i}=0$.} 
 \end{definition}
 
 \begin{definition}[Closeness]\label{def:close}
-Let $\{A^i_a\}\subseteq \mM$ and $\{B^i_b\}\subseteq \mN$ be two families of projective measurements, indexed by the same sets $i\in \mI$ and $a\in \mA(I)$ but on different tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$. We say that $\{A^i\}$ and $\{B_i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau^\mM/\tau^\mM_\infty(P)$, and a partial isometry $w\in P \mM_\infty 1_\mM$ such that 
+Let $\{A^i_a\}\subseteq \mM$ and $\{B^i_b\}\subseteq \mN$ be two families of projective measurements, indexed by the same sets $i\in \mI$, but on different tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$. We say that $\{A^i\}$ and $\{B^i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau^\mM/\tau^\mM_\infty(P)$, and a partial isometry $w\in P \mM_\infty 1_\mM$ such that 
 \[ \Es{i\sim\mu} \sum_a \big\| A^i_a - w^* B^i_a w \big\|_2^2 \,\leq\,\delta\]
 and 
 \[ \tau^\mM(1-w^*w)\,,\; \tau^\mN(P-w^*w) \,\leq\, \delta\;.\]
 \end{definition}
 
+\begin{definition}[$\eps$-local presentation]
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$. An \emph{$\eps$-local presentation of $(\code,M)$} is a collection of projective measurements $\{A^i_a\}_{a\in\field} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that for any $S\subseteq\{1,\ldots,n\}$ in the support of $M(\cdot)$ there are $\{B^i_a\}_{i\in S}$ pairwise commuting and $\eps_S\geq 0$ such that 
+\begin{itemize}
+\item $\sum_{a\in \F^S} 1_{M(S,a)=1} \prod_{i\in S} \frac{1}{2}(\Id+A^i_{a_i})= \Id$
+\item $\{A^i\}_{i\in S}$ and $\{B^i\}_{i\in S}$ are $\eps_S$-close
+\end{itemize} 
+and moreover $\Es{S\leftarrow M(\rand)} \eps_S \leq \eps$. 
+\end{definition}
+
+
 \begin{definition}[Quantum soundness]\label{def:q-sound}
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ a $r$-local tester for $\code$. We say that $M$ has \emph{quantum soundness $\delta(\eps)$} if the following holds. For any $r$-local quantum presentation $(\mN,A,P)$ of $\code$ such that 
-\[ \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{a\in \F_q^s} \big[ \tau\big(  P^S_a  A^i_{a_i}\big) \big] \,\geq \,1-\eps\;,\] 
-there is a representation $(\mM,B)$ of $\code$ such that $(\mM,A)$ and $(\mM,B)$ are $\delta$-close. 
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ a $r$-local tester for $\code$. We say that $M$ has \emph{quantum soundness $\delta(\eps)$} if the following holds. For any $\eps$-local quantum presentation $(\mM,A)$ of $(\code,M)$
+% such that 
+%\[ \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{a\in \field^s} \big[ \tau\big(  P^S_a  A^i_{a_i}\big) \big] \,\geq \,1-\eps\;,\] 
+there is a representation $(\mN,B)$ of $\code$ such that $(\mM,A)$ and $(\mN,B)$ are $\delta$-close. 
 \end{definition}
 
 Definition~\ref{def:q-sound} can be reformulated in the language of nonlocal games, see Lemma~\ref{lem:sound-game}. 
@@ -571,7 +583,7 @@ Given a game $G$, we say that $G$ is \emph{$\delta(\eps)$-robust} if any synchro
 
 Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$. Consider the following game $G_{\code,M}$. We set 
 \[\mX = \{ S\subseteq \{1,\ldots,n\},|S|\leq r\} \sqcup\{1,\ldots,n\}\quad\text{and}\quad \mu(S,i)=\frac{1_{i\in S}}{|S|}\Pr_\rand\big(M(\rand)=S\big)\;,\]
-$\mA(S)=\F_q^S$ and $\mA(i)=\F_q$, and $D(S,i,a,b)=M(S,a)1_{a_i=b}$. 
+$\mA(S)=\field^S$ and $\mA(i)=\field$, and $D(S,i,a,b)=M(S,a)1_{a_i=b}$. 
 
 \tnote{The next lemma sounds like a special case of some other lemma about LCS games, which is probably written somewhere}
 
@@ -583,10 +595,10 @@ If $M$ has quantum soundness $\delta(\eps)$, then $G$ is $O(\delta(\eps))$-robus
 \begin{proof}[Proof sketch]
 Suppose first that $G$ is $\delta'(\eps)$-robust, for some function $\delta'$. Let $(\mM,A,P)$ be be an $r$-local presentation of $\code$ such that 
 \begin{equation}\label{eq:s-g-1}
-\Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{a\in \F_q^s} \big[ \tau\big(  P^S_a  A^i_{a_i}\big) \big] \,\geq \,1-\eps\;.
+\Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{a\in \field^s} \big[ \tau\big(  P^S_a  A^i_{a_i}\big) \big] \,\geq \,1-\eps\;.
 \end{equation}
 Using the definition of $G_{\code,M}$ this equation can be rewritten as
-\[ \sum_{(S,i)} \mu(S,i) \sum_{a\in \F_q^s}\sum_{b\in\F_q} D(S,i,a,b) \tau\big(  P^S_a  A^i_{b}\big) \big] \,\geq \,1-\eps\;,\]
+\[ \sum_{(S,i)} \mu(S,i) \sum_{a\in \field^s}\sum_{b\in\field} D(S,i,a,b) \tau\big(  P^S_a  A^i_{b}\big) \big] \,\geq \,1-\eps\;,\]
 or in other words $\omega(G_{\code,M};\strategy)\geq 1-\eps$. Using the definition of robustness we deduce that $(\mM,A,P)$ is $(\delta'(\eps),\mu_\alice)$-close to a perfect strategy for $G$. Specializing to the $A$ measurements, using the definition of closeness there exists a projection $P\in \mM_\infty$ and $\{B^i\}_a \subseteq P\mM_\infty P$ such that $\Es{i}\sum_a \|A^i_a-w^* B^i_a w \|_2^2 \leq 2\delta'$, and moreover $\{B^i_a\}$ satisfy that for any $S$ in the support of $\mu$, $\{B^i_a\}$ pairwise commute for $i\in S$. So all the $\{B^i_a\}$ commute and form a representation of $\code$. 
 
 Conversely, suppose that $M$ has quantum soundness $\delta(\eps)$, for some function $\delta$.
@@ -612,13 +624,13 @@ Let $q=2^t$, $\code$ an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for 
 Let $M$ be an $r$-local tester for the $[n,k,d]_q$ code $\code$. 
     \begin{enumerate}
       \setlength\itemsep{1pt}
-    \item (\textbf{Code test}) Select $W\in \{X,Z\}$ uniformly at random, and $\rand$ a setting for $M$'s random tape at random. Let $S=M(\rand)\subseteq\{1,\ldots,n\}$. Sample $i\in S$ uniformly at random. Send $(W,S)$ to $\alice$ and $(W,i)$ to $\bob$. Receive $a\in \F_q^S$ from $\alice$ and $b\in \F_q$ from $\bob$. Accept if and only if $M(\rand,a)=1$ and $a_i = b$.  
-    \item (\textbf{Anti-commutation test}) Select $\omega=(i_X,i_Z,r_X,r_Z)\in \{1,\ldots,n\}^2 \times \F_q^2$ uniformly at random. Let $\gamma = \tr( (r_X\ind(i_X))\cdot  (r_Z \ind(i_Z)))$.
+    \item (\textbf{Code test}) Select $W\in \{X,Z\}$ uniformly at random, and $\rand$ a setting for $M$'s random tape at random. Let $S=M(\rand)\subseteq\{1,\ldots,n\}$. Sample $i\in S$ uniformly at random. Send $(W,S)$ to $\alice$ and $(W,i)$ to $\bob$. Receive $a\in \field^S$ from $\alice$ and $b\in \field$ from $\bob$. Accept if and only if $M(\rand,a)=1$ and $a_i = b$.  
+    \item (\textbf{Anti-commutation test}) Select $\omega=(i_X,i_Z,r_X,r_Z)\in \{1,\ldots,n\}^2 \times \field^2$ uniformly at random. Let $\gamma = \tr( (r_X\ind(i_X))\cdot  (r_Z \ind(i_Z)))$.
 		\begin{enumerate}
 		\item If $\gamma=0$ then select a pair of questions $(x_c,y_c)$ as in the commutation game. Send $(x_c,\omega)$ to $\alice$ and $(y_c,\omega)$ to Bob. Accept if and only if their answers are accepted in the commutation game. 
 		\item If $\gamma\neq 0$ then do the same but for the anti-commutation game. 
 		\end{enumerate} 
-		 \item (\textbf{Consistency test}) Select $\omega=(i_X,i_Z,r_X,r_Z)\in \{1,\ldots,n\}^2 \times \F_q^2$ and $W\in \{X,Z\}$ uniformly at random. Let $\gamma = \tr( (r_X\ind(i_X))\cdot  (r_Z \ind(i_Z)))$. Send $(W,i_W)$ to $\alice$ and $(x_{W,\gamma},\omega)$ to $\bob$. Receive $a\in \F_q$ and $b\in \F_2$ respectively. Accept if and only if $\tr(a r_W)=b$. 
+		 \item (\textbf{Consistency test}) Select $\omega=(i_X,i_Z,r_X,r_Z)\in \{1,\ldots,n\}^2 \times \field^2$ and $W\in \{X,Z\}$ uniformly at random. Let $\gamma = \tr( (r_X\ind(i_X))\cdot  (r_Z \ind(i_Z)))$. Send $(W,i_W)$ to $\alice$ and $(x_{W,\gamma},\omega)$ to $\bob$. Receive $a\in \field$ and $b\in \F_2$ respectively. Accept if and only if $\tr(a r_W)=b$. 
     \end{enumerate}
   \end{gamespec}
   \caption{The braiding test over $\code$ verifies that the players respond consistently with a uniformly random codeword from $\code$, obtained by measuring $k\log q$ shared EPR pairs in the standard or Hadamard basis.}
@@ -627,25 +639,25 @@ Let $M$ be an $r$-local tester for the $[n,k,d]_q$ code $\code$.
 
 
 \begin{definition}
-A $(k,q,\delta(\eps))$-qubit test is a game $G=(\mX,\mu,\mA,D)$ such there are two sets $S_X,S_Z\subseteq \F_q^k$ and an injection $\phi:\{X\}\times S_Z \cup \{Z\}\times S_Z \to \mX$ such that $\mA(\phi({X},a))=\mA(\phi({Z},b))=\F_q$ for all $a\in S_X$, $b\in S_Z$ and such that the following holds:
+A $(k,q,\delta(\eps))$-qubit test is a game $G=(\mX,\mu,\mA,D)$ such there are two sets $S_X,S_Z\subseteq \field^k$ and an injection $\phi:\{X\}\times S_Z \cup \{Z\}\times S_Z \to \mX$ such that $\mA(\phi({X},a))=\mA(\phi({Z},b))=\field$ for all $a\in S_X$, $b\in S_Z$ and such that the following holds:
 \begin{itemize}
-\item (Completeness:) There is a synchronous strategy for $G$ on $\mM=M_{2^{tk}}(\C)$ that succeeds with probability $1$ in $G$ and is such that $\widehat{P^{\phi({X},a)}}(r) = \tau^X(ra) $, $\widehat{P^{\phi({Z},b)}}(r) = \tau^Z(rb)$ for every $a\in S_X$, $b\in S_Z$ and $r\in \F_q$.
+\item (Completeness:) There is a synchronous strategy for $G$ on $\mM=M_{2^{tk}}(\C)$ that succeeds with probability $1$ in $G$ and is such that $\widehat{P^{\phi({X},a)}}(r) = \tau^X(ra) $, $\widehat{P^{\phi({Z},b)}}(r) = \tau^Z(rb)$ for every $a\in S_X$, $b\in S_Z$ and $r\in \field$.
 \item (Soundness:) Any synchronous strategy in $(\mM,\tau)$ for $G$ that succeeds with probability at least $1-\eps$ is $\delta(\eps)$-close to a strategy on an algebra of the form $(M_{2^{tk}}(\C)\otimes \mN,\tr\otimes \tau')$ where
 \[\widehat{P^{\phi({X},a)}}(r) = \tau^X(ra)\otimes \Id_\mN\;,\qquad \widehat{P^{\phi({Z},b)}}(r) = \tau^Z(rb)\otimes\Id_\mN\;,\]
-on average over $a\in S_X$, $b\in S_Z$, and $r\in \F_q$. 
+on average over $a\in S_X$, $b\in S_Z$, and $r\in \field$. 
 \end{itemize}
 \end{definition}
 
 \begin{remark}
-The definition allows ``trivial'' settings for the sets $S_X,S_Z$, e.g.\ $S_X=S_Z=\emptyset$. In this case, a strategy for $G$ may not give direct access (through specific questions) to any Pauli observable and the soundness condition is trivial. As soon as e.g. $S_X,S_Z$ both contain the basis elements $e_1,\ldots,e_k \in \F_q^k$ then the definition is non-trivial. 
+The definition allows ``trivial'' settings for the sets $S_X,S_Z$, e.g.\ $S_X=S_Z=\emptyset$. In this case, a strategy for $G$ may not give direct access (through specific questions) to any Pauli observable and the soundness condition is trivial. As soon as e.g. $S_X,S_Z$ both contain the basis elements $e_1,\ldots,e_k \in \field^k$ then the definition is non-trivial. 
 \end{remark}
 
 \begin{theorem}
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound. Then the braiding test over $\code$ is an $(k,q,\delta)$-qubit test, where $S_X=S_Z=\{\ind(i):\,i\in\{1,\ldots,n\}\}\subseteq \F_q^k$ and $\phi(W,\ind(i))=(W,i)$. 
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound. Then the braiding test over $\code$ is an $(k,q,\delta)$-qubit test, where $S_X=S_Z=\{\ind(i):\,i\in\{1,\ldots,n\}\}\subseteq \field^k$ and $\phi(W,\ind(i))=(W,i)$. 
 \end{theorem}
 
 \begin{proof}
-Completeness: We first verify completeness. For $W\in\{X,Z\}$ let $P^{(W,i)}_a = \sum_{c:\,c\cdot\ind(i)=a} \tau^W_{c}$ and $P^{(W,S)}_a = \prod_{i\in S} P^{(W,i)}_{a_i}$. Let $\omega=(i_X,i_Z,r_X,r_Z)\in \{1,\ldots,n\}^2 \times \F_q^2$ and $\gamma = \tr( (r_X\ind(i_X))\cdot  (r_Z \ind(i_Z)))$. Then $P^{x_{W,\gamma},\omega} = P^{(W,i_W)}$. 
+Completeness: We first verify completeness. For $W\in\{X,Z\}$ let $P^{(W,i)}_a = \sum_{c:\,c\cdot\ind(i)=a} \tau^W_{c}$ and $P^{(W,S)}_a = \prod_{i\in S} P^{(W,i)}_{a_i}$. Let $\omega=(i_X,i_Z,r_X,r_Z)\in \{1,\ldots,n\}^2 \times \field^2$ and $\gamma = \tr( (r_X\ind(i_X))\cdot  (r_Z \ind(i_Z)))$. Then $P^{x_{W,\gamma},\omega} = P^{(W,i_W)}$. 
 
 With these choices the strategy succeeds with probability $1$ in the code test and in the consistency test. To define $P^{(x_c,\omega)}$ and $P^{(x_a,\omega)}$ for $x_c\notin \{x_{Z,0},x_{Z,0}\}$ and $x_a \notin \{x_{X,1},x_{Z,1}\}$ we observe that the binary observables 
 \[ U = \sum_a (-1)^{\tr(ar_X)} P^{x_{X,\gamma},\omega}_a\quad\text{and}\quad V= \sum_a (-1)^{\tr(a r_Z)} P^{x_{Z,\gamma},\omega}_a \]

@@ -486,23 +486,25 @@
 	
 \section{Quantum soundness of linear codes}
 
+Let $\field$ be the finite field with two elements. 
+
 \begin{definition}[Code]
-A $[n,k,d]_q$ linear code is a $k$-dimensional subspace $\code\subseteq \field^n$ such that for every $c\in \code$ such that $c\neq 0$, $|c|\leq d$. Equivalently, we think of $\code$ as a linear map $\code:\field^k\to \field^n$. 
+A $[n,k,d]$ linear code is a $k$-dimensional subspace $\code\subseteq \field^n$ such that for every $c\in \code$ such that $c\neq 0$, $|c|\geq d$. Equivalently, we think of $\code$ as a linear map $\code:\field^k\to \field^n$. We write $G_\code \in \field^{k\times n}$ for a generator matrix of the code, i.e.\ $ G_\code^T e_i =\code(e_i)$ for some basis $\{e_1,\ldots,e_k\}$ of $\field^k$. 
 \end{definition}
 
-\begin{definition}
-Let $\code$ be an $[n,k,d]_q$ linear code. Define $\ind:\{1,\ldots,n\}\to \field^k$ such that for every $a\in \field^k$ and $i\in\{1,\ldots,n\}$, $a\cdot \ind(i) = \code(a)_i$.
-\end{definition}
+%\begin{definition}
+%Let $\code$ be an $[n,k,d]_q$ linear code. Define $\ind:\{1,\ldots,n\}\to \field^k$ such that for every $a\in \field^k$ and $i\in\{1,\ldots,n\}$, $a\cdot \ind(i) = \code(a)_i$.
+%\end{definition}
 
 \begin{definition}[Oracle machine]
-A \emph{randomized oracle machine} $M$ is a randomized Turing machine that has query access to a string $\pi$. For $\rand$ a setting of $M$'s random tape, we write $S=M(\rand)\subseteq\{1,\ldots,n\}$ for the set of (at most) $r$ queries to $\pi$ made by $M$ on tape $\rand$, and $M(\rand,a)$ or $M(S,a)$ for the decision made by $M$ when the answer to the queries made on tape $\rand$ is $a=\pi_S\in \field^S$. We also write $M^\pi(\rand)$ for the same quantity.  
+A (non-adaptive) \emph{randomized oracle machine} $M$ is a Turing machine that has read access to two special tapes, the randomness tape and the proof tape. $M$ operates in two stages. In the first stage, $M$ accesses the randomness tape in state $\rand$ and returns a set $S=M(\rand)\subseteq\{1,\ldots,n\}$ of (at most) $r$ indices for the proof tape. In the second stage $M$ reads the corresponding entries from the state $\pi$ of the proof tape and returns a decision $M(S,\pi_S)\in\{0,1\}$.\footnote{The final decision depends only on the set $S$ chosen in the first stage, and the corresponding entries $a\pi_S$ of the string $\pi$ written on the proof tape.} %We also write $M^\pi(\rand)$ for the same quantity.  
 \end{definition}
 
 \begin{definition}[Codeword test]
-A $r$-local $\delta(\eps)$-tester for $\code$ is a randomized oracle machine $M$ that makes at most $r$ non-adaptive queries to its oracle and satisfies the following conditions:
+A $r$-local $\delta(\eps)$-tester for $\code$ is a non-adaptive randomized oracle machine $M$ that makes at most $r$ queries to its proof tape and satisfies the following conditions:
 \begin{itemize} 
-\item (Completeness:) For any $c\in \code$, $\Pr_\rand( M^c(\rand)=1)=1$.
-\item (Soundness:) For any $u$ that is within (Hamming) distance at least  $\eps$ from $\code$, $\Pr_\rand(M^u(\rand)=0)\geq \delta(\eps)$. 
+\item (Completeness:) For any $c\in \code$, $\Pr_\rand( M(\rand,c)=1)=1$.
+\item (Soundness:) For any $u$ that is within (Hamming) distance at least  $\eps$ from $\code$, $\Pr_\rand(M(\rand,u)=0)\geq \delta(\eps)$. 
 \end{itemize}
 \end{definition}
 
@@ -516,34 +518,39 @@ A $r$-local $\delta(\eps)$-tester for $\code$ is a randomized oracle machine $M$
 %\end{definition}
 
 \begin{definition}[Code representation]
-Let $\code$ be an $[n,k,d]_q$ linear code. A \emph{representation} of $\code$ is a collection of projective measurements $\{A^i_a\}_{a\in\field} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that the $\{A^i_a\}$ pairwise commute and $\sum_{c\in\code} \prod_{i=1}^n A^i_{c_i}=\Id$.\footnote{This implies that whenever $u\notin \code$, $\prod_i B^i_{u_i}=0$.} 
+Let $\code$ be an $[n,k,d]$ linear code. A \emph{representation} of $\code$ is a collection of projective measurements $\{A^i_a\}_{a\in\field} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that the $\{A^i_a\}$ pairwise commute and $\sum_{c\in\code} \prod_{i=1}^n A^i_{c_i}=\Id$.\footnote{This implies that whenever $u\notin \code$, $\prod_i B^i_{u_i}=0$.} 
 \end{definition}
 
 \begin{definition}[Closeness]\label{def:close}
-Let $\{A^i_a\}\subseteq \mM$ and $\{B^i_b\}\subseteq \mN$ be two families of projective measurements, indexed by the same sets $i\in \mI$, but on different tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$. We say that $\{A^i\}$ and $\{B^i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau^\mM/\tau^\mM_\infty(P)$, and a partial isometry $w\in P \mM_\infty 1_\mM$ such that 
+Let $\{A^i_a\}\subseteq \mM$ and $\{B^i_b\}\subseteq \mN$ be two families of projective measurements on  tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$ respectively, indexed by the same sets $i\in \mI$. For $\delta\geq0$ and $\mu$ a measure on $\mI$ we say that $\{A^i\}$ and $\{B^i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau^\mM/\tau^\mM_\infty(P)$, and a partial isometry $w\in P \mM_\infty 1_\mM$ such that 
 \[ \Es{i\sim\mu} \sum_a \big\| A^i_a - w^* B^i_a w \big\|_2^2 \,\leq\,\delta\]
 and 
-\[ \tau^\mM(1-w^*w)\,,\; \tau^\mN(P-w^*w) \,\leq\, \delta\;.\]
+\[\max\big\{ \tau^\mM(1-w^*w)\,,\; \tau^\mN(P-w^*w)\big\} \,\leq\, \delta\;.\]
+If the measure $\mu$ is omitted then it is the uniform measure on $\mI$.
 \end{definition}
 
 \begin{definition}[$\eps$-local presentation]
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$. An \emph{$\eps$-local presentation of $(\code,M)$} is a collection of projective measurements $\{A^i_a\}_{a\in\field} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that for any $S\subseteq\{1,\ldots,n\}$ in the support of $M(\cdot)$ there are $\{B^i_a\}_{i\in S}$ pairwise commuting and $\eps_S\geq 0$ such that 
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. An \emph{$\eps$-local presentation of $(\code,M)$} is a collection of projective measurements $\{A^i_a\}_{a\in\field} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that for any $S\subseteq\{1,\ldots,n\}$ of size $|S|\leq r$ there are $\{B^{S,i}_a\}_{i\in S}$ pairwise commuting and $\eps_S\geq 0$ such that 
 \begin{itemize}
-\item $\sum_{a\in \F^S} 1_{M(S,a)=1} \prod_{i\in S} \frac{1}{2}(\Id+A^i_{a_i})= \Id$
-\item $\{A^i\}_{i\in S}$ and $\{B^i\}_{i\in S}$ are $\eps_S$-close
+\item $\sum_{a\in \F^S} 1_{M(S,a)=1} \prod_{i\in S} \frac{1}{2}(\Id+B^{S,i}_{a_i})= \Id$
+\item $\{A^i\}_{i\in S}$ and $\{B^{S,i}\}_{i\in S}$ are $\eps_S$-close
 \end{itemize} 
-and moreover $\Es{S\leftarrow M(\rand)} \eps_S \leq \eps$. 
+and moreover $\Es{S\leftarrow M(\cdot)} \eps_S \leq \eps$. 
 \end{definition}
 
 
 \begin{definition}[Quantum soundness]\label{def:q-sound}
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ a $r$-local tester for $\code$. We say that $M$ has \emph{quantum soundness $\delta(\eps)$} if the following holds. For any $\eps$-local quantum presentation $(\mM,A)$ of $(\code,M)$
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ a $r$-local tester for $\code$. Let $\delta:[0,1]\to[0,1]$ be such that $\delta(0)=0$. We say that $M$ has \emph{quantum soundness $\delta(\eps)$} if the following holds. For any $\eps$-local quantum presentation $(\mM,A)$ of $(\code,M)$
 % such that 
 %\[ \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{a\in \field^s} \big[ \tau\big(  P^S_a  A^i_{a_i}\big) \big] \,\geq \,1-\eps\;,\] 
 there is a representation $(\mN,B)$ of $\code$ such that $(\mM,A)$ and $(\mN,B)$ are $\delta$-close. 
 \end{definition}
 
 Definition~\ref{def:q-sound} can be reformulated in the language of nonlocal games, see Lemma~\ref{lem:sound-game}. 
+
+\begin{remark}
+A necessary condition for a code to be quantum sound is that any $0$-local quantum presentation $(\mM,A)$ is automatically a representation of $\mC$. Not all codes satisfy this condition, see e.g.~\cite[Example 2.16]{slofstra}. If $(\mC,M)$ satisfies this condition, then we say that it is \emph{abelian}\tnote{?}.
+\end{remark}
 
 
 		
@@ -574,36 +581,44 @@ such that $D$ is symmetric, i.e. $D(x,y,a,b)=D(y,x,a,b)$ whenever both terms are
 		
 \begin{definition}[Synchronous strategy]
 If $G=(\mX,\mu,\mA,D)$ is a game and $(\mM,\tau)$ a tracial von Neumann algebra, a \emph{synchronous strategy $\strategy$ for $G$ on $(\mM,\tau)$} is, for every $x\in \mX$, a projective measurement $(P^x_a)_{a\in \mA(x)}$ on $\mM$. The value of a strategy $\strategy$ in $G$ is 
-\[ \omega(G;\strategy)\,=\, \sum_{(x,y)\in\mX\times\mX}\mu(x,y) \sum_{(a,b)\in\mA(x)\times\mA(y)} D(x,y,a,b) \tau(P^x_a P^y_b) \;.\]
+\[ \omega(G;\strategy)\,=\, \sum_{(x,y)\in\mX\times\mX}\frac{1}{2}\big(\mu(x,y)+\mu(y,x)\big) \sum_{(a,b)\in\mA(x)\times\mA(y)} D(x,y,a,b) \tau(P^x_a P^y_b) \;.\footnote{Note the symmetrization of $\mu$. This is to avoid explicitly requiring $\mu$ to be permutation-invariant in the definition of a synchronous game.}\]
 \end{definition}
 
 \begin{definition}[Robust game]
-Given a game $G$, we say that $G$ is \emph{$\delta(\eps)$-robust} if any synchronous strategy for $G$ that succeeds with probability at least $1-\eps$ in $G$ is $(\delta(\eps),\mu_\alice)$-close to a perfect strategy, where we used $\mu_\alice$ to denote the marginal of $\mu$ on $\mX$.  
+Given a game $G$, we say that $G$ is \emph{$\delta(\eps)$-robust} if any synchronous strategy for $G$ that succeeds with probability at least $1-\eps$ in $G$ is $(\delta(\eps),\mu)$-close to a perfect strategy, where we abused notation and used $\mu$ to denote the marginal of $\mu$ on $\mX$.  
 \end{definition}
 
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$. Consider the following game $G_{\code,M}$. We set 
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. Consider the following game $G_{\code,M}$. We set 
 \[\mX = \{ S\subseteq \{1,\ldots,n\},|S|\leq r\} \sqcup\{1,\ldots,n\}\quad\text{and}\quad \mu(S,i)=\frac{1_{i\in S}}{|S|}\Pr_\rand\big(M(\rand)=S\big)\;,\]
 $\mA(S)=\field^S$ and $\mA(i)=\field$, and $D(S,i,a,b)=M(S,a)1_{a_i=b}$. 
 
 \tnote{The next lemma sounds like a special case of some other lemma about LCS games, which is probably written somewhere}
 
 \begin{lemma}\label{lem:sound-game}
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$. 
-If $M$ has quantum soundness $\delta(\eps)$, then $G$ is $O(\delta(\eps))$-robust. Conversely, if $G$ is $\delta'(\eps)$-robust then $M$ has quantum soundness $O(r\delta'(\eps))$. 
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. 
+If $M$ has quantum soundness $\delta(\eps)$, then $G_{\code,M}$ is $O(\delta(\eps))$-robust. Conversely, if $G_{\code,M}$ is $\delta'(\eps)$-robust and $(\mC,M)$ is abelian then $M$ has quantum soundness $O(r\delta'(\eps))$. 
 \end{lemma}
 
 \begin{proof}[Proof sketch]
-Suppose first that $G$ is $\delta'(\eps)$-robust, for some function $\delta'$. Let $(\mM,A,P)$ be be an $r$-local presentation of $\code$ such that 
+Suppose first that $G$ is $\delta'(\eps)$-robust, for some function $\delta'$. Let $(\mM,A)$ be be an $r$-local presentation of $\code$, and for each $S\subseteq\{1,\ldots,n\}$ such that $|S|=r$, $\{B^{S,i}\}$ the family of measurements promised by the definition. Let $P^S_a = \prod_{i\in S} \frac{1}{2}(\Id+B^{S,i}_{a_i})$. Then $\{P^S_a\}$ is a projective measurement such that
 \begin{equation}\label{eq:s-g-1}
 \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{a\in \field^s} \big[ \tau\big(  P^S_a  A^i_{a_i}\big) \big] \,\geq \,1-\eps\;.
 \end{equation}
 Using the definition of $G_{\code,M}$ this equation can be rewritten as
-\[ \sum_{(S,i)} \mu(S,i) \sum_{a\in \field^s}\sum_{b\in\field} D(S,i,a,b) \tau\big(  P^S_a  A^i_{b}\big) \big] \,\geq \,1-\eps\;,\]
-or in other words $\omega(G_{\code,M};\strategy)\geq 1-\eps$. Using the definition of robustness we deduce that $(\mM,A,P)$ is $(\delta'(\eps),\mu_\alice)$-close to a perfect strategy for $G$. Specializing to the $A$ measurements, using the definition of closeness there exists a projection $P\in \mM_\infty$ and $\{B^i\}_a \subseteq P\mM_\infty P$ such that $\Es{i}\sum_a \|A^i_a-w^* B^i_a w \|_2^2 \leq 2\delta'$, and moreover $\{B^i_a\}$ satisfy that for any $S$ in the support of $\mu$, $\{B^i_a\}$ pairwise commute for $i\in S$. So all the $\{B^i_a\}$ commute and form a representation of $\code$. 
+\[ \sum_{(S,i)} \mu(S,i) \sum_{a\in \field^s}\sum_{b\in\field} D(S,i,a,b) \tau\big(  P^S_a  A^i_{b}\big) \big] \,\geq \,1-\eps\;.\]
+In other words $\omega(G_{\code,M};\strategy)\geq 1-\eps$ for $\strategy$ the strategy with measurements $\{A^i_b\}$ and $\{P^{S}_a\}$. Using the definition of robustness we deduce that $(\mM,A,P)$ is $(\delta'(\eps),\mu_\alice)$-close to a perfect strategy for $G$. Specializing to the $A$ measurements, using the definition of closeness there exists a projection $P\in \mM_\infty$ and $\{B^i\}_a \subseteq P\mM_\infty P$ such that $\Es{i}\sum_a \|A^i_a-w^* B^i_a w \|_2^2 \leq 2\delta'$, and moreover $\{B^i_a\}$ satisfy that for any $S$ in the support of $\mu$, $\{B^i_a\}$ pairwise commute for $i\in S$. Using that $(\code,M)$ is abelian, all the $\{B^i_a\}$ commute and form a representation of $\code$.
 
 Conversely, suppose that $M$ has quantum soundness $\delta(\eps)$, for some function $\delta$.
-Let $\strategy=(\mM,A,P)$ be a strategy for $G_{\code,M}$ on $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. As above, $(\mM,A,P)$ is automatically an $r$-local presentation of code such that~\eqref{eq:s-g-1} holds. Using quantum soundness, there is a representation $(\mN,B)$ that is $\delta(\eps)$-close. Now, we let $Q^S_a = \prod_{i\in S} B^i_{a_i}$ which is a projective measurement on $\mN$. It is easy to verify that $(\mN,B,Q)$ is a perfect strategy in $G_{\code,M}$, and moreover $(\mN,B,P)$ is $O(r\delta)$-close to $(\mM,A,P)$.\tnote{This last estimate is a guess and needs a calculation}
+Let $\strategy=(\mM,A,P)$ be a strategy for $G_{\code,M}$ on $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. As above, $(\mM,A)$ is automatically an $r$-local presentation of code such that~\eqref{eq:s-g-1} holds. Using quantum soundness, there is a representation $(\mN,B)$ that is $\delta(\eps)$-close. Now, we let $Q^S_a = \prod_{i\in S} B^i_{a_i}$ which is a projective measurement on $\mN$. It is easy to verify that $(\mN,B,Q)$ is a perfect strategy in $G_{\code,M}$, and moreover $(\mN,B,P)$ is $O(r\delta)$-close to $(\mM,A,P)$.\tnote{This last estimate is a guess and needs a calculation}
 \end{proof}
+
+We also need the following. 
+
+\begin{lemma}
+Let $G$ be a synchronous game and $\strategy$ a strategy for $G$ on $(\mM,\tau)$. Let $P\in \mM_\infty$ and $w\in P\mM_\infty 1_\mM$ such that 
+\[\max\big\{ \tau^\mM(1-w^*w)\,,\; \tau^\mN(P-w^*w)\big\} \,\leq\, \delta\;.\]
+Let $\tilde{\strategy} = \{\tilde{P}^x_a\}$ be the strategy for $G$ on $(P\mM_\infty P, \tau/\tau_\infty(P))$ defined by $\tilde{P}^x_a=w^*P^x_a w$
+\end{lemma}
 
 \subsection{Commutation game}
 
@@ -615,7 +630,7 @@ See~\cite[Section 3.2]{de2022spectral}. We denote $x_{X,1}$ and $x_{Z,1}$ the tw
 
 \section{Main result}
 
-Let $q=2^t$, $\code$ an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$. 
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. 
 
 
 \begin{figure}[!htbp]
@@ -624,27 +639,27 @@ Let $q=2^t$, $\code$ an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for 
 Let $M$ be an $r$-local tester for the $[n,k,d]_q$ code $\code$. 
     \begin{enumerate}
       \setlength\itemsep{1pt}
-    \item (\textbf{Code test}) Select $W\in \{X,Z\}$ uniformly at random, and $\rand$ a setting for $M$'s random tape at random. Let $S=M(\rand)\subseteq\{1,\ldots,n\}$. Sample $i\in S$ uniformly at random. Send $(W,S)$ to $\alice$ and $(W,i)$ to $\bob$. Receive $a\in \field^S$ from $\alice$ and $b\in \field$ from $\bob$. Accept if and only if $M(\rand,a)=1$ and $a_i = b$.  
-    \item (\textbf{Anti-commutation test}) Select $\omega=(i_X,i_Z,r_X,r_Z)\in \{1,\ldots,n\}^2 \times \field^2$ uniformly at random. Let $\gamma = \tr( (r_X\ind(i_X))\cdot  (r_Z \ind(i_Z)))$.
+    \item (\textbf{Code test}) Select $W\in \{X,Z\}$ uniformly at random, and $\rand$ a setting for $M$'s random tape at random. Let $S=M(\rand)\subseteq\{1,\ldots,n\}$. Sample $i\in S$ uniformly at random. Send $(W,S)$ to $\alice$ and $(W,i)$ to $\bob$. Receive $a\in \field^S$ from $\alice$ and $b\in \field$ from $\bob$. Accept if and only if $M(S,a)=1$ and $a_i = b$.  
+    \item (\textbf{Anti-commutation test}) Select $\omega=(i_X,i_Z)\in \{1,\ldots,n\}^2 $ uniformly at random. Let $\gamma =  (G_\code i_X) \cdot(G_\code {i_Z}) \in \field$.
 		\begin{enumerate}
 		\item If $\gamma=0$ then select a pair of questions $(x_c,y_c)$ as in the commutation game. Send $(x_c,\omega)$ to $\alice$ and $(y_c,\omega)$ to Bob. Accept if and only if their answers are accepted in the commutation game. 
 		\item If $\gamma\neq 0$ then do the same but for the anti-commutation game. 
 		\end{enumerate} 
-		 \item (\textbf{Consistency test}) Select $\omega=(i_X,i_Z,r_X,r_Z)\in \{1,\ldots,n\}^2 \times \field^2$ and $W\in \{X,Z\}$ uniformly at random. Let $\gamma = \tr( (r_X\ind(i_X))\cdot  (r_Z \ind(i_Z)))$. Send $(W,i_W)$ to $\alice$ and $(x_{W,\gamma},\omega)$ to $\bob$. Receive $a\in \field$ and $b\in \F_2$ respectively. Accept if and only if $\tr(a r_W)=b$. 
+		 \item (\textbf{Consistency test}) Select $\omega=(i_X,i_Z)\in \{1,\ldots,n\}^2 $ and $W\in \{X,Z\}$ uniformly at random. Let $\gamma = (G_\code i_X) \cdot(G_\code {i_Z}) \in \field$. Send $(W,i_W)$ to $\alice$ and $(x_{W,\gamma},\omega)$ to $\bob$. Receive $a\in \field$ and $b\in \field$ respectively. Accept if and only if $a=b$. 
     \end{enumerate}
   \end{gamespec}
-  \caption{The braiding test over $\code$ verifies that the players respond consistently with a uniformly random codeword from $\code$, obtained by measuring $k\log q$ shared EPR pairs in the standard or Hadamard basis.}
+  \caption{The braiding test over $\code$ verifies that the players respond consistently with a uniformly random codeword from $\code$, obtained by measuring $k$ shared EPR pairs in the standard or Hadamard basis and encoding the resulting $k$-bit string.}
   \label{fig:braiding-test}
 \end{figure}
 
 
 \begin{definition}
-A $(k,q,\delta(\eps))$-qubit test is a game $G=(\mX,\mu,\mA,D)$ such there are two sets $S_X,S_Z\subseteq \field^k$ and an injection $\phi:\{X\}\times S_Z \cup \{Z\}\times S_Z \to \mX$ such that $\mA(\phi({X},a))=\mA(\phi({Z},b))=\field$ for all $a\in S_X$, $b\in S_Z$ and such that the following holds:
+A $(k,\delta(\eps))$-qubit test is a synchronous game $G=(\mX,\mu,\mA,D)$ such there are two sets $S_X,S_Z\subseteq \field^k$, a measure $\nu$ on $(\{X\}\times S_Z) \cup (\{Z\}\times S_Z)$ and an injection $\phi:(\{X\}\times S_Z) \cup (\{Z\}\times S_Z) \to \mX$ such that $\mA(\phi({X},a))=\mA(\phi({Z},b))=\field$ for all $a\in S_X$, $b\in S_Z$ and such that the following holds:
 \begin{itemize}
-\item (Completeness:) There is a synchronous strategy for $G$ on $\mM=M_{2^{tk}}(\C)$ that succeeds with probability $1$ in $G$ and is such that $\widehat{P^{\phi({X},a)}}(r) = \tau^X(ra) $, $\widehat{P^{\phi({Z},b)}}(r) = \tau^Z(rb)$ for every $a\in S_X$, $b\in S_Z$ and $r\in \field$.
-\item (Soundness:) Any synchronous strategy in $(\mM,\tau)$ for $G$ that succeeds with probability at least $1-\eps$ is $\delta(\eps)$-close to a strategy on an algebra of the form $(M_{2^{tk}}(\C)\otimes \mN,\tr\otimes \tau')$ where
-\[\widehat{P^{\phi({X},a)}}(r) = \tau^X(ra)\otimes \Id_\mN\;,\qquad \widehat{P^{\phi({Z},b)}}(r) = \tau^Z(rb)\otimes\Id_\mN\;,\]
-on average over $a\in S_X$, $b\in S_Z$, and $r\in \field$. 
+\item (Completeness:) There is a synchronous strategy for $G$ on $\mM=M_{2^{k}}(\C)$ that succeeds with probability $1$ in $G$ and is such that $\widehat{P^{\phi({W},a)}} = \tau^W(a)$ for every $W\in\{X,Z\}$ and $a\in S_W$.
+\item (Soundness:) Any synchronous strategy in $(\mM,\tau)$ for $G$ that succeeds with probability at least $1-\eps$ is $\delta(\eps)$-close to a strategy on an algebra of the form $(M_{2^{k}}(\C)\otimes \mN,\tr\otimes \tau')$ where
+\[\widehat{P^{\phi({W},a)}} = \tau^W(a)\otimes \Id_\mN\;,\]
+on average over $(W,a)\sim \nu$. 
 \end{itemize}
 \end{definition}
 
@@ -653,23 +668,23 @@ The definition allows ``trivial'' settings for the sets $S_X,S_Z$, e.g.\ $S_X=S_
 \end{remark}
 
 \begin{theorem}
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound. Then the braiding test over $\code$ is an $(k,q,\delta)$-qubit test, where $S_X=S_Z=\{\ind(i):\,i\in\{1,\ldots,n\}\}\subseteq \field^k$ and $\phi(W,\ind(i))=(W,i)$. 
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound. Then the braiding test over $\code$ is a $(k,\delta)$-qubit test, where $S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$ and $\phi(W,G_\code e_i)=(W,i)$.\footnote{Assume $G_\code$ has no repeated columns.} 
 \end{theorem}
 
 \begin{proof}
-Completeness: We first verify completeness. For $W\in\{X,Z\}$ let $P^{(W,i)}_a = \sum_{c:\,c\cdot\ind(i)=a} \tau^W_{c}$ and $P^{(W,S)}_a = \prod_{i\in S} P^{(W,i)}_{a_i}$. Let $\omega=(i_X,i_Z,r_X,r_Z)\in \{1,\ldots,n\}^2 \times \field^2$ and $\gamma = \tr( (r_X\ind(i_X))\cdot  (r_Z \ind(i_Z)))$. Then $P^{x_{W,\gamma},\omega} = P^{(W,i_W)}$. 
+\underline{Completeness:} We first verify completeness. For $W\in\{X,Z\}$ and $i\in\{1,\ldots,n\}$ let $P^{(W,i)}_a = (\tau^W(G_\code e_i))_a$ and $P^{(W,S)}_a = \prod_{i\in S} P^{(W,i)}_{a_i}$. For $\omega=(i_X,i_Z)\in \{1,\ldots,n\}^2 \times \field^2$ and $\gamma =(G_\code i_X) \cdot(G_\code {i_Z}) $ we let $P^{x_{W,\gamma},\omega} = P^{(W,i_W)}$. 
 
-With these choices the strategy succeeds with probability $1$ in the code test and in the consistency test. To define $P^{(x_c,\omega)}$ and $P^{(x_a,\omega)}$ for $x_c\notin \{x_{Z,0},x_{Z,0}\}$ and $x_a \notin \{x_{X,1},x_{Z,1}\}$ we observe that the binary observables 
-\[ U = \sum_a (-1)^{\tr(ar_X)} P^{x_{X,\gamma},\omega}_a\quad\text{and}\quad V= \sum_a (-1)^{\tr(a r_Z)} P^{x_{Z,\gamma},\omega}_a \]
-commute in case $\gamma=0$ and anti-commute in case $\gamma=1$. This is because 
-\begin{align*}
-U &=  \sum_a (-1)^{\tr(ar_X)} \sum_{c:\,c\cdot\ind(i_X)=a} \tau^X_{c}\\
-&= \sum_c (-1)^{\tr(r_X (c\cdot\ind(i_X)))} \tau^X_{c}\\
-&= \tau^X(r_X\ind(i_X))
-\end{align*}
-and similarly for $V$. As a consequence, the pair $(U,V)$ can be completed to a perfect strategy for the commutation game (if $\gamma=0)$ or anti-commutation game (if $\gamma=1)$. This defines the measurements $\tau^{(x,\omega)}$ for $x\notin \{x_{W,\gamma},W\in\{X,Z\},\gamma\in\{0,1\}\}$. 
+These choices already ensure that the strategy succeeds with probability $1$ in the consistency test. We verify that it succeeds in the code test. Let $S\subseteq\{1,\ldots,n\}$ and $h\in \F_2^S$ any valid parity check for $\code$ with support in $S$. Then $\sum_{i\in S} h_i G_\code e_i = 0$, so $\prod_{i\in S}(\tau^W(G_\code e_i))^{h_i}=\Id$. This means that for any $a\in\field^S$ such that $P^{W,S}_a\neq 0$, we have that $h\cdot a =0$, i.e.\ $a$ satisfies the parity check. Using the completeness property of $M$ it follows that $M$ must accept any $a$ in the support of $P^{W,S}$, which shows that the strategy succeeds in the code test with probability $1$. 
 
-Next we show soundness \tnote{todo}. 
+Remains the anti-commutation test. For this we observe that 
+% To define $P^{(x_c,\omega)}$ and $P^{(x_a,\omega)}$ for $x_c\notin \{x_{Z,0},x_{Z,0}\}$ and $x_a \notin \{x_{X,1},x_{Z,1}\}$ we observe that 
+the binary observables 
+\[ U=\widehat{ P^{x_{X,\gamma},\omega}} \quad\text{and}\quad V= \widehat{P^{x_{Z,\gamma},\omega} } \]
+commute in case $\gamma=0$ and anti-commute in case $\gamma=1$. This is because by definition $U=\tau^X(G_\code i_X)$ and $V=\tau^W(G_\code i_W)$, and the definition of $\gamma$. Hence the pair $(U,V)$ can be completed to a perfect strategy for the commutation game (if $\gamma=0)$ or anti-commutation game (if $\gamma=1)$. This defines the measurements $P^{(x,\omega)}$ for $x\notin \{x_{W,\gamma},W\in\{X,Z\},\gamma\in\{0,1\}\}$. 
+
+\bigskip 
+
+\underline{Soundness:} Next we show soundness. Let $\strategy$ be a synchronous strategy for $G$  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. For $W\in\{X,Z\}$ let $\strategy^W$ be the strategy in $G_{\code,M}$ that is obtained by restricting $\strategy$ to the relevant measurements, i.e.\ the $P^{W,S}$ and $P^{W,i}$.  Then $\strategy^W$ succeeds with probability at least $1-6\eps$ in $G_{\code,M}$. Using the assumption that $M$ is $\delta(\cdot)$-quantum sound and Lemma~\ref{lem:sound-game} it follows that there is a $\delta_1 = O(\delta(6\eps))$ such that $\strategy^W$ is $(\delta_1,\mu)$ close to a perfect strategy $\tilde{\strategy}^W$. Since $(\code,M)$ is abelian, any perfect strategy comes from a POVM $\{\tilde{P}^W_u\}_{u\in \field^n}$ such that $\sum_{u\in \code}\tilde{P}^W_u = \Id$. 
 \end{proof}
 
 

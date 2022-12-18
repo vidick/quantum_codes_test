@@ -492,15 +492,17 @@
 	Given a projective measurement $\{P_a\}_{a\in \field^k}$ and $b\in \field^k$ we let $\widehat{P}(b) = \sum_a (-1)^{a\cdot b} P_a$ be the associated observable. If $k=1$, we often use the shorthand $\widehat{P}$ for $\widehat{P}(1) = P_0-P_1$.
 	
 	\begin{definition}[Closeness]\label{def:close}
-Let $\{A^i_a\}\subseteq \mM$ and $\{B^i_b\}\subseteq \mN$ be two families of projective measurements on  tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$ respectively, and indexed by the same set $i\in \mI$. For $\delta\geq0$ and $\mu$ a measure on $\mI$ we say that $\{A^i\}$ and $\{B^i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau^\mM/\tau^\mM_\infty(P)$, and a partial isometry $w\in P \mM_\infty 1_\mM$ such that 
+Let $\{A^i_a\}\subseteq \mM$ and $\{B^i_b\}\subseteq \mN$ be two families of projective measurements on  tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$ respectively, indexed by the same set $i\in \mI$. For $\delta\geq0$ and $\mu$ a measure on $\mI$ we say that $\{A^i\}$ and $\{B^i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau_\infty/\tau_\infty(P)$, and a partial isometry $w\in P \mM_\infty 1_\mM$ such that 
 \[ \Es{i\sim\mu} \sum_a \big\| A^i_a - w^* B^i_a w \big\|_2^2 \,\leq\,\delta\]
 and 
-\[\max\big\{ \tau^\mM(1-w^*w)\,,\; \tau^\mN(P-ww^*)\big\} \,\leq\, \delta\;.\]
-If the measure $\mu$ is omitted then it is the uniform measure on $\mI$.
+\[\max\big\{ \tau^\mM(1_\mM-w^*w)\,,\; \tau^\mN(P-ww^*)\big\} \,\leq\, \delta\;.\]
+If the measure $\mu$ is omitted then it is understood to be the uniform measure on $\mI$.
 \end{definition}
 	
+The following uses orthonormalization. 
+	
 \begin{lemma}\label{lem:pull-back}
-Let  $(\mM,\tau^\mM)$ be a tracial von Neumann algebra, $P\in\mM_\infty$ a projection of finite trace, $\mN=P\mM_\infty P$ and $\tau^\mN=\tau^\mM/\tau^\mM_\infty(P)$, and $w\in P \mM_\infty 1_\mM$ a partial isometry. Let 
+Let  $(\mM,\tau^\mM)$ be a tracial von Neumann algebra, $P\in\mM_\infty$ a projection of finite trace, $\mN=P\mM_\infty P$ and $\tau^\mN=\tau_\infty/\tau_\infty(P)$, and $w\in P \mM_\infty 1_\mM$ a partial isometry. Let 
 \[ \eps = 1-\min\big\{ \tau^\mM\big(1_\mM - w^* w\big)\,,\;\tau^\mN\big( P- w w^*\big)\big\}\;.\]
  Then for any projective measurement $\{P_i\}$ on $\mN$, there is a projective measurement $\{Q_i\}$ on $\mM$ such that 
 \[ \sum_i \big\| Q_i - w^* P_i w\big\|_2^2 \,=\, O(\eps)\;.\] 
@@ -510,47 +512,58 @@ Let  $(\mM,\tau^\mM)$ be a tracial von Neumann algebra, $P\in\mM_\infty$ a proje
 If $\eps\geq \frac{1}{2}$ the conclusion is trivial (for a suitably large implicit constant), so assume $\eps<\frac{1}{2}$. 
 Define 
 \[\tilde{Q}_i = w^* P_i w  + \frac{1}{|\mI|}\big(1_\mM - w^* w\big) \in \mM\;.\]
-Then $\{\tilde{Q}_i\}$ is an incomplete POVM. Moreover, 
+Then $\{\tilde{Q}_i\}$ is a POVM on $\mM$. Moreover, 
 \begin{align*}
 \sum_{i} \tau\big( (\tilde{Q}_i)^2 \big) &\geq \sum_{i} \tau\big( \big(w^* P_i w \big)^2 \big) \\
 &= \sum_{i} \tau\big(  w^* P_i w w^*P_i w \big)\\
-&= \sum_i \tau\big(  w^* P_i  P P_i w \big) - \sum_i \tau_\infty\big( w^* P_i  ( P - w w^*) P_i w \big)\\
-&\geq 1 - \eps -  2\tau_\infty\big( P- w w^*\big)\;,
+&= \sum_i \tau\big(  w^* P_i  P P_i w \big) - \sum_i \tau\big( w^* P_i  ( P - w w^*) P_i w \big)\\
+&\geq 1 - \eps -  \tau_\infty\Big(\big( P - w w^*\big)\Big(\sum_i  P_i w w^* P_i\Big)\Big)\\ 
+&\geq 1- \eps- \tau_\infty\big( P- w w^*\big)\;,
 \end{align*}
-where the last inequality uses that $\sum_i P_i = \Id_\mN$ and $\|ww^*\|,\|P\|_\infty\leq 1$. By assumption, 
+where the fourth line uses that $P_iPP_i=P_i$, $\sum_i P_i = \Id_\mN$ and the definition of $\eps$ for the first term, and cyclicity of the trace for the second, and the last uses $\|ww^*\|,\|\sum_i P_i\|_\infty\leq 1$. By assumption, 
 \begin{align*}
-\tau_\infty\big( P- w w^*\big) \,\leq\, \eps \tau_\infty(P)\,\leq \frac{\eps}{1-\eps}\;.
+\tau_\infty\big( P- w w^*\big) \,\leq\, \eps\, \tau_\infty(P)\,\leq \frac{\eps}{1-\eps}\;.
 \end{align*}
 where the last inequality is because by definition, $\tau^N(P)=1$, thus
-\[1-\eps \,\leq\, \tau^\mN(ww^*) \,=\, \frac{\tau_\infty(ww^*)}{\tau_\infty(P)} \,\leq\, \frac{1}{\tau_\infty(P)}\]
-Overall, 
-\[ \sum_{i} \tau\big( (\tilde{Q}_i)^2 \big) \,\leq\, 1-\eps-\frac{2\eps}{1-\eps}\,\leq\, 1-5\eps\;.\]
-Therefore we can apply~\cite[Theorem 1.2]{de2021orthogonalization} to obtain a projective measurement $\{Q_i\}$ on $\mM$ such that 
+\[1-\eps \,\leq\, \tau^\mN(ww^*) \,=\, \frac{\tau_\infty(ww^*)}{\tau_\infty(P)}\,=\, \frac{\tau^\mM(ww^*)}{\tau_\infty(P)}  \,\leq\, \frac{1}{\tau_\infty(P)}\]
+since $\tau^\mM$ is normalized and $ww^*\leq 1_\mM$. Overall, 
+\[ \sum_{i} \tau\big( (\tilde{Q}_i)^2 \big) \,\geq\, 1-\eps-\frac{\eps}{1-\eps}\,\geq\, 1-3\eps\;.\]
+To conclude we apply~\cite[Theorem 1.2]{de2021orthogonalization} to obtain a projective measurement $\{Q_i\}$ on $\mM$ such that 
 \begin{equation*}
 \sum_i \big\|{Q}_i - \tilde{Q}_i \big\|^2_2 \,=\, O(\eps)\;.
 \end{equation*}
 Finally,
 \begin{align*}
-\sum_i \big\|{Q}_i - w^*{P}_i w\big\|^2_2 &= \sum_i \big\|{Q}_i - \tilde{Q}_i  + \frac{1}{|\mI|}\big(1_\mM - w^* w\big) \big\|^2_2\\
-&\leq  \sum_i \big\|{Q}_i - \tilde{Q}_i\big\|_2^2  + 2\tau\big(1_\mM - w^* w\big) \\
-&=  O(\eps)\;.
+\sum_i \big\|{Q}_i - w^*{P}_i w\big\|^2_2 &= \sum_i \Big\|{Q}_i - \tilde{Q}_i  + \frac{1}{|\mI|}\big(1_\mM - w^* w\big) \Big\|^2_2\\
+&\leq  \sum_i 2\big\|{Q}_i - \tilde{Q}_i\big\|_2^2  + 2\frac{1}{|I|}\big\|1_\mM - w^* w\big\|_2^2 \\
+&=  O(\eps)\;,
 \end{align*}
+where the second line is by the triangle inequality. 
 \end{proof}
 
+We end with a couple lemma that will prove useful. 
+
 \begin{lemma}\label{lem:l1-l2}
-Let $\{P_i\}$ and $\{Q_i\}$ be two projective measurements such that $P$ and $Q$ are $(\eps,\mu)$-close. Then 
+Let $\{P_i\}$ and $\{Q_i\}$ be two projective measurements that are $(\eps,\mu)$-close. Then 
 \begin{equation}\label{eq:l1-l2}
-\sum_i \tau\big(|P_i-Q_i|\big) \,\leq\, \eps+ 2 \sqrt{\eps}\;.
+\sum_i \tau\big(|P_i-w^*Q_iw|\big) \,\leq\, \eps+ 2 \sqrt{\eps}\;.
 \end{equation}
 \end{lemma}
 
 \begin{proof}
-Write, using the triangle inequality, 
+Using the triangle inequality, 
 \begin{align*}
- \sum_i \tau\big(|P_i - w^* Q_i w|\big) &\leq\, \sum_i \tau\big(|(P_i-P_i^2)|\big) + \tau\big(|P_i(P_i-w^*Q_iw)|\big) + \tau\big(|(P_i-w^*Q_iw)w^*Q_iw|\big) \\
-&\qquad +\tau\big(| (w^*Q_iw^*wQ_iw-w^*Q_iw)|\big)\;.
+ \sum_i \tau\big(|P_i - w^* Q_i w|\big) &\leq\, \sum_i \Big(\tau\big(|(P_i-P_i^2)|\big) + \tau\big(|P_i(P_i-w^*Q_iw)|\big) + \tau\big(|(P_i-w^*Q_iw)w^*Q_iw|\big) \\
+&\qquad +\tau\big(| (w^*Q_iw^*wQ_iw-w^*Q_iw)|\big)\Big)\;.
 \end{align*}
-The first term on the right-hand side is zero, because $P$ is assumed projective. The terms in the middle are bounded using H\"older's inequality. The last term can be written as 
+The first term on the right-hand side is zero, because $P$ is assumed projective. The terms in the middle are bounded using H\"older's inequality:
+\begin{align*}
+\sum_i  \tau\big(|P_i(P_i-w^*Q_iw)|\big) &\leq  \|P_i\|_2 \|P_i-w^*Q_iw\|_2\\
+&\leq \Big(\sum_i \|P_i\|^2_2\Big)^{1/2}\Big( \sum_i  \|P_i-w^*Q_iw\|_2^2 \Big)^{1/2}\\
+&\leq \sqrt{\eps}
+\end{align*}
+by closeness, and similarly for the second term. 
+Finally the last term can be bounded as 
 \begin{align*}
 \sum_i \tau\big(| (w^*Q_iw^*wQ_iw-w^*Q_iw)|\big) &= \sum_i \tau\big( (w^*Q_i(1-w^*w)Q_iw)\big)\\
 &=  \tau\Big( (1-w^*w)\Big(\sum_i Q_iww^* Q_i\Big)\Big)\\
@@ -559,7 +572,7 @@ The first term on the right-hand side is zero, because $P$ is assumed projective
 \end{align*}
 \end{proof}
 
-\begin{lemma}\label{lem:dp}
+\begin{lemma}[Data-processing]\label{lem:dp}
 Let $\{P_i\}$ and $\{Q_i\}$ be two POVM on $(\mM,\tau)$ with the same index set. Then for any $f:\mI\to \mJ$, 
 \begin{equation}\label{eq:dp}
 \sum_{j\in \mJ} \Big\| \sum_{i\in f^{-1}(j)} (P_i-Q_i) \Big\|_2^2 \,\leq\, \sum_{i\in \mI} \big\| P_i-Q_i\big\|_2^2\;.
@@ -640,7 +653,7 @@ A necessary condition for a code to be quantum sound is that any $0$-local quant
 		
 \subsection{Example: the Hadamard code}
 
-We give an example of a family of quantum sound codes, the \emph{Hadamard codes}. This code can be defined for any  $k\geq 1$ and it is an $[K,k,K/2]_2$ linear code, for $K=2^k$. For simplicity we write  $\code_\had$ for it, omitting $k$. As a linear map, for $i\in\{1,\ldots,k\}$, $\code_\had(e_i) = (x_i)_{x\in \field^k} \in \field^K$, where we identify the index set $\{1,\ldots,K\}$ with the set $\field^k$ in an arbitrary way.  
+We give an example of a family of quantum sound codes, the \emph{Hadamard codes}. This code can be defined for any  $k\geq 1$ and it is an $[K,k,K/2]_2$ linear code, where $K=2^k$. For simplicity we write  $\code_\had$ for it, omitting $k$. As a linear map, for $i\in\{1,\ldots,k\}$, $\code_\had(e_i) = (x_i)_{x\in \field^k} \in \field^K$, where we identify the index set $\{1,\ldots,K\}$ with the set $\field^k$ in an arbitrary way.  
 
 It is shown in~\cite{blum1990self} that the following randomized oracle machine $M_\had$ is a $3$-local $\delta$-tester for $\code_\had$, where $\delta(\eps)=6\eps$. $M$ first uses its random tape to select $x,y\in\field^k$uniformly at random and returns the set $S=\{x,y,x+y\}$. For $\pi\in \field^K$, $M(S,\pi_S)$ accepts if and only if $\pi_x + \pi_y  = \pi_{x+y}$. 
 
@@ -656,6 +669,8 @@ Using~\cite[Theorem 10]{natarajan2016robust} it follows that $M$ has quantum sou
 
 \section{Nonlocal games}
 
+\subsection{Preliminaries}
+
 \begin{definition}[Game]
 A game is a tuple $(\mX,\mu,\mA,D)$ where $\mX$ is a finite set, $\mu$ a distribution on $\mX\times \mX$, $\mA=(\mA(x))_{x\in\mX}$ a collection of finite sets, and 
 \[ D: \big\{ (x,y,a,b) : (x,y)\in\text{supp}(\mu),a\in\mA(x),b\in\mA(y)\big\} \;\to\;\{0,1\}\]
@@ -669,19 +684,12 @@ If $G=(\mX,\mu,\mA,D)$ is a game and $(\mM,\tau)$ a tracial von Neumann algebra,
 We say that $\strategy$ is \emph{perfect} if $\omega(G;\strategy)=1$.
 \end{definition}
 
-\begin{definition}[Robust game]
-Given a game $G$ and a function $\delta:[0,1]\to[0,1]$ we say that $G$ is \emph{$\delta$-robust} if any synchronous strategy for $G$ that succeeds with probability at least $1-\eps$ in $G$, for some $\eps\geq 0$, is $(\delta(\eps),\mu)$-close to a perfect strategy.
-\end{definition}
-
-Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. Consider the following game $G_{\code,M}$. We set 
-\[\mX = \{ S\subseteq \{1,\ldots,n\},|S|\leq r\} \sqcup\{1,\ldots,n\}\quad\text{and}\quad \mu(S,i)=\frac{1_{i\in S}}{|S|}\Pr_\rand\big(M(\rand)=S\big)\;,\]
-and for any $S,i\in\mX$, $\mA(S)=\field^S$ and $\mA(i)=\field$, and $D(S,i,a,b)=M(S,a)1_{a_i=b}$. 
 
 The next lemma shows that close strategies have close value. 
 
 \begin{lemma}\label{lem:close-value}
 Let $G=(\mX,\mu,\mA,D)$ be a game and $\strategy=\{P^x_a\}$ and $\strategy'=\{Q^x_a\}$ strategies on $\mM$ and $\mN$ respectively such that $\{P^x_a\}$ and $\{Q^x_a\}$ are $(\eps,\mu)$-close. Then 
-\[ \big|\omega(G;\strategy) - \omega(G;\strategy')\big|\,\leq\, O\big(\sqrt{\eps}\big)\]
+\[ \big|\omega(G;\strategy) - \omega(G;\strategy')\big|\,\leq\, O\big(\sqrt{\eps}\big)\;.\]
 \end{lemma}
 
 \begin{proof}
@@ -692,26 +700,38 @@ By definition,
 &\quad+  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)
 + \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( Q^x_a  Q^y_b (P-ww^*)\big)
 \end{align*}
-The second and third term on the right-hand side can be bonded as
+The second and third term on the right-hand side can be bounded as
 \begin{align*}
 \Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|
 &=\Big| \tau\Big(  (P - w\, w^* )\Big( \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big)\Big)\Big|\\
 &\leq \tau(P-ww^*) \Big\|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big\|\\
 &\leq \eps\;,
 \end{align*}
-where the first inequality is by H\"older's inequality and the last inequality uses the definition of closeness and $\|A\circ B\| \leq \max_{i,j} |A_{i,j}|\|B\|$, with $A = \sum_{a,b} D(a,b) P_{a,b}$, with $P_{a,b} = \sum_{i,j} \bra{u_{i,a}} \ket{v_{j,b}}$ with $\ket{u_{i,a}}$ a basis for the range of $Q^x_a$ and $\ket{v_{j,b}}$ for the range of $Q^y_b$, and $B=\sum_{a,b} Q^y_b ww^* Q^x_a = ww^*$. 
+where the first inequality is by H\"older's inequality and the last inequality uses the definition of closeness to bound the first term. To bound the second term on the right-hand side, we write it as $\|A\circ B\|$, with $\circ$ the Hadamard product, and use  $\|A\circ B\| \leq \max_{i,j} |A_{i,j}|\|B\|$. Here $A = \sum_{a,b} D(a,b) P_{a,b}$, with $P_{a,b} = \sum_{i,j} \ket{u_{i,a}} \bra{v_{j,b}}$ with $\ket{u_{i,a}}$ a basis for the range of $Q^x_a$ and $\ket{v_{j,b}}$ for the range of $Q^y_b$, and $B=\sum_{a,b} Q^y_b ww^* Q^x_a = ww^*$. 
 
-For $x\in \mX$ such that $\mu(x)\neq 0$, denote by $\mu_x$ the (symmetrized) conditional distribution $\mu_x(y)=\frac{1}{2}(\mu(x,y)+\mu(y,x))/\mu(x)$. Then
+For $x\in \mX$ such that $\mu(x)\neq 0$, denote by $\mu_x$ the (symmetrized) conditional distribution $\mu_x(y)=\frac{1}{2}(\mu(x,y)+\mu(y,x))/\mu(x)$. Then using the above
 \begin{align*}
 \big|\omega(G;\strategy) - \omega(G;\strategy')\big|
- &\leq \eps+ \Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) \big( \tau\big( P^x_a \, P^y_b \big)-\tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\big)\Big|\\
-&\leq  \eps+ \Big|\Es{x\sim\mu} \sum_{a}  \tau\Big( \big(P^x_a-w^* Q^x_aw\big) \, \Big( \Es{y\sim \mu_x} \sum_b D(a,b,x,y) P^y_b \Big)\Big)\Big|\\
+ &\leq 2\eps+ \Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) \big( \tau\big( P^x_a \, P^y_b \big)-\tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\big)\Big|\\
+&\leq  2\eps+ \Big|\Es{x\sim\mu} \sum_{a}  \tau\Big( \big(P^x_a-w^* Q^x_aw\big) \, \Big( \Es{y\sim \mu_x} \sum_b D(a,b,x,y) P^y_b \Big)\Big)\Big|\\
 &\qquad+ \Big|\Es{y\sim\mu} \sum_{b}  \tau\Big(\Big( \Es{x\sim \mu_y} \sum_a D(a,b,x,y) w^* Q^x_a w\Big) \big(P^y_b-w^*Q^y_bw\big) \, \Big)\Big|\\
-&\leq \eps+2\Es{x\sim\mu} \sum_{a}  \tau\big(\big| P^x_a-w^*Q^x_aw\big|\big) \\
-&\leq \eps+4\sqrt{\eps}\;,
+&\leq 2\eps+2\Es{x\sim\mu} \sum_{a}  \tau\big(\big| P^x_a-w^*Q^x_aw\big|\big) \\
+&\leq 4\eps+4\sqrt{\eps}\;,
 \end{align*}
 where the third line uses $\tau(AB)\leq\tau(|A|)\|B\|$ and the last inequality is by~\eqref{eq:l1-l2} and Jensen's inequality.
 \end{proof}
+
+\subsection{Robutness}
+
+
+\begin{definition}[Robust game]
+Given a game $G$ and a function $\delta:[0,1]\to[0,1]$ we say that $G$ is \emph{$\delta$-robust} if any synchronous strategy for $G$ that succeeds with probability at least $1-\eps$ in $G$, for some $\eps\geq 0$, is $(\delta(\eps),\mu)$-close to a perfect strategy.
+\end{definition}
+
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. Consider the following game $G_{\code,M}$. We set 
+\[\mX = \{ S\subseteq \{1,\ldots,n\},|S|\leq r\} \sqcup\{1,\ldots,n\}\quad\text{and}\quad \mu(S,i)=\frac{1_{i\in S}}{|S|}\Pr_\rand\big(M(\rand)=S\big)\;,\]
+and for any $S,i\in\mX$, $\mA(S)=\field^S$ and $\mA(i)=\field$, and finally $D(S,i,a,b)=M(S,a)1_{a_i=b}$. 
+
 
 \tnote{The next proposition sounds like a special case of some other lemma about LCS games, which is probably written somewhere}
 
@@ -723,8 +743,8 @@ Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$.
 \end{enumerate}
 \end{proposition}
 
-\begin{proof}[Proof sketch]
-We start with the second assertion. Suppose then that $G_{\code,M}$ is $\delta'$-robust, for some function $\delta'$. Let $(\mM,A)$ be be an $r$-local $\eps$-presentation of $\code$, and for each $S\subseteq\{1,\ldots,n\}$ such that $|S|=r$, $\{B^{S,i}\}_{i\in S}$ the commuting family of projective measurements promised by the definition. Then for every $S$ then there is a projection $P^S$ in $\mM_\infty$ and an isometry $w^S\in P^S \mM_\infty 1_\mM$ such that 
+\begin{proof}
+We start with the second assertion. Suppose that $G_{\code,M}$ is $\delta'$-robust, for some function $\delta'$. Let $(\mM,A)$ be be an $r$-local $\eps$-presentation of $\code$, and for each $S\subseteq\{1,\ldots,n\}$ such that $|S|=r$, $\{B^{S,i}\}_{i\in S}$ the commuting family of projective measurements promised by the definition. Then for every $S$ there is a projection $P^S$ in $\mM_\infty$ and an isometry $w^S\in P^S \mM_\infty 1_\mM$ such that 
 \[ \Es{i\in S} \sum_a \big\| A^i_a - (w^S)^* B^{S,i}_{a}w^S \big\|_2^2 \,\leq\,\eps_S\;,\]
 for some $(\eps_S)$ such that $\Es{S\leftarrow M(\cdot)} \eps_S \leq \eps$. 
  For any $a\in\field^S$ let $\tilde{P}^S_a = \prod_{i\in S} B^{S,i}_{a_i}$. Then $\{\tilde{P}^S_a\}_{a\in\field^S}$ is a projective measurement such that
@@ -734,7 +754,7 @@ for some $(\eps_S)$ such that $\Es{S\leftarrow M(\cdot)} \eps_S \leq \eps$.
 &= \Es{S\leftarrow M(\cdot)} \Es{i\in S} \frac{1}{2}\Big(\tau\big((w^S)^*w^S\big) + \tau(1) - \sum_{b\in \field} \big\|  (w^S)^* B^{S,i}_b w^S - A^i_{b}\big\|_2^2\Big) \notag\\
 &\geq \,\frac{1}{2}(1-\eps+1-\eps)\;.\label{eq:s-g-1}
 \end{align}
-Let $\{P^S_a\}$ be the family of projective measurements on $\mM$ that is promised by Lemma~\ref{lem:pull-back}, so that by a simple averaging argument,
+Starting from the $\{\tilde{P}^S_a\}$, let $\{P^S_a\}$ be the family of projective measurements on $\mM$ that is promised by Lemma~\ref{lem:pull-back}. By a simple averaging argument,
 \begin{equation}\label{eq:s-g-1b}
 \Es{S\leftarrow M(\cdot)}\sum_a \big\| P^S_a - (w^S)^* \tilde{P}^S_a (w^S)\big\|_2^2 \,=\, O(\eps)\;. 
 \end{equation}
@@ -743,7 +763,7 @@ We can write
 \Big|\Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_a \tau\big( P^S_a A^i_{a_i}\big)
 &- \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_a \tau\big( (w^S)^* \tilde{P}^S_a (w^S)A^i_{a_i}\big)\Big|\notag\\
 &= \Big| \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_a \tau\big(\big((w^S)^* \tilde{P}^S_a (w^S)-P^S_a\big)A^i_{a_i}\big)\Big|\notag\\
-&\leq \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_a \tau\big(\big|(w^S)^* \tilde{P}^S_a (w^S)-P^S_a\big|\big)\\
+&\leq \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_a \tau\big(\big|(w^S)^* \tilde{P}^S_a (w^S)-P^S_a\big|\big)\notag\\
 &= O(\sqrt{\eps})\;,\label{eq:s-g-2}
 \end{align}
 where the second line uses $\|A^i_a\|\leq 1$ and the last is by Lemma~\ref{lem:l1-l2} and~\eqref{eq:s-g-1b}.
@@ -751,14 +771,14 @@ Together with~\eqref{eq:s-g-1} and using the definition of $G_{\code,M}$, we hav
 \begin{equation}
  \sum_{(S,i)} \mu(S,i) \sum_{a\in \field^s}\sum_{b\in\field} D(S,i,a,b) \tau\big(  P^S_a  A^i_{b}\big) \,\geq \,1-O(\sqrt{\eps})\;.\label{eq:s-g-2}
 \end{equation}
-In other words $\omega(G_{\code,M};\strategy)\geq 1-\eps'$ for $\strategy$ the strategy with measurements $\{A^i_b\}$ and $\{P^{S}_a\}$ and some $\eps'=O(\sqrt{\eps})$. Using the definition of robustness we deduce that $(\mM,A,P)$ is $(\delta'(\eps'),\mu)$-close to a perfect strategy $(\mN,C,Q)$ for $G$. Specializing to the $A$ measurements, using the definition of closeness there exists a projection $P\in \mM_\infty$ and $\{C^i\}_a \subseteq P\mM_\infty P$ such that $\Es{i}\sum_a \|A^i_a-w^* C^i_a w \|_2^2 \leq 2\delta'$, and moreover $\{C^i_a\}$ satisfy that for any $S$ in the support of $\mu$, $\{C^i_a\}$ pairwise commute for $i\in S$. Using the assumption that $(\code,M)$ is Abelian, all the $\{C^i_a\}$ commute and form a representation of $\code$.
+In other words $\omega(G_{\code,M};\strategy)\geq 1-\eps'$ for $\strategy$ the strategy with measurements $\{A^i_b\}$ and $\{P^{S}_a\}$ and some $\eps'=O(\sqrt{\eps})$. Using the definition of robustness we deduce that $(\mM,A,P)$ is $(\delta'(\eps'),\mu)$-close to a perfect strategy $(\mN,C,Q)$ for $G$. Specializing to the $A$ measurements, using the definition of closeness there exists a projection $P\in \mM_\infty$ such that $\{C^i\}_a \subseteq P\mM_\infty P$ and $\Es{i}\sum_a \|A^i_a-w^* C^i_a w \|_2^2 \leq 2\delta'$, and moreover $\{C^i_a\}$ satisfy that for any $S$ in the support of $\mu$, $\{C^i_a\}$ pairwise commute for $i\in S$. Using the assumption that $(\code,M)$ is Abelian, all the $\{C^i_a\}$ commute and form a representation of $\code$.
 
 Now we show the first assertion. Suppose that $M$ has quantum soundness $\delta$.
 Let $\strategy=(\mM,A,P)$ be a strategy for $G_{\code,M}$ on $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. This can be reformulated as 
 \begin{equation}
- \sum_{(S,i)} \mu(S,i) \sum_{a\in \field^s}\sum_{b\in\field} D(S,i,a,b) \tau\big(  P^S_a  A^i_{b}\big) \,\geq \,1-\eps\;.\label{eq:s-g-3}
+ \sum_{(S,i)} \mu(S,i) \sum_{a\in \field^s}\sum_{b\in\field} D(S,i,a,b) \tau\big(  P^S_a  A^i_{b}\big) \,\geq \,1-\eps\;.\label{eq:s-g-3a}
 \end{equation}
-For each $S$ and $i\in S$, let $B^{S,i}_b = \sum_{a:a_i=b} P^S_a$. Then using the definition of $\mu$ and $D$, rewriting~\eqref{eq:s-g-3} immediately gives
+For each $S$ and $i\in S$, let $B^{S,i}_b = \sum_{a:a_i=b} P^S_a$. Then using the definition of $\mu$ and $D$, rewriting~\eqref{eq:s-g-3a} immediately gives
 \begin{equation}
  \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{b\in\field} \big\| A^i_{b} - B^{S,i}_b\big\|_2^2 \,\leq \,2\eps\;.\label{eq:s-g-3}
 \end{equation}
@@ -767,9 +787,9 @@ Thus $(\mM,A)$ is an $\eps'$-local presentation of code, for $\eps'=2\eps$. Usin
 For every $S$, let $Q^S_a = \prod_{i\in S} C^i_{a_i}$, which is a projective measurement on $\mN$. It is easy to verify that $(\mN,C,Q)$ is a perfect strategy in $G_{\code,M}$. Moreover,
 \begin{align}
 \Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \big\| P^S_a - w^* Q^S_a w\big\|_2^2
-&=2 - 2\Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i} w^* \prod_i C^{i}_{a_i}w\big)\label{eq:s-g-4}
+&=2 - 2\Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i} w^* \prod_i C^{i}_{a_i}w\big)\;.\label{eq:s-g-4}
 \end{align}
-Applying a simple inductive argument, using Lemma~\ref{lem:l1-l2} we get that
+Applying a simple inductive argument, using Lemma~\ref{lem:l1-l2} we get that \tnote{This needs a little more detail}
 \begin{align*}
 \Big|\Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i} w^* \prod_i C^{i}_{a_i}w\big) - \Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i}  \prod_i B^{S,i}_{a_i}\big)\Big| &= O\big(r\sqrt{\delta'}\big)\;.
 \end{align*}
@@ -779,18 +799,18 @@ Since the second term on the left-hand side above equals $1$, plugging back into
 
 \subsection{Commutation game}
 
-See~\cite[Section 3.1]{de2022spectral}. We denote $x_{X,0}, x_{Z,0} \in \mX_{com}$ the two special questions, $x_{com,1}$ and $x_{com,2}$ respectively. 
+We use the same game as in~\cite[Section 3.1]{de2022spectral}. For convenience we change the notation slightly and denote $x_{X,0}, x_{Z,0} \in \mX_{com}$ the two special questions, $x_{com,1}$ and $x_{com,2}$ respectively. 
 
 \subsection{Anti-commutation game}
 
-See~\cite[Section 3.2]{de2022spectral}. We denote $x_{X,1}, x_{Z,1} \in \mX_{anticom}$ the two special questions, $x_{anticom,1}$ and $x_{anticom,2}$ respectively. 
+We use the same game as in~\cite[Section 3.2]{de2022spectral}. For convenience we change the notation slightly and  denote $x_{X,1}, x_{Z,1} \in \mX_{anticom}$ the two special questions, $x_{anticom,1}$ and $x_{anticom,2}$ respectively. 
 
 \subsection{Combined game}
 
 Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. 
 We use $G_{\dlS}$ to denote the game introduced in~\cite[Section 3.4]{de2022spectral}, specialized to the following choices. The group is $H=\field^k$. Let
-\[ S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k\,\]
-let $\mu_{\dlS}$ be the uniform distribution over $S_X\times S_Z$. Let $\Omega$ be the support of $\mu_{\dlS}$ and $\alpha,\beta$ the coordinate projections. Then $G_{\dlS}=(\mX,\mu_{\dlS},\mA,D)$ has question set $\mX = \{PX,PZ\} \cup (\mX_{com}\times \Omega_+) \cup (\mX_{anticom} \times \Omega_-)$. 
+\[ S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k\;,\]
+and let $\mu_{\dlS}$ be the uniform distribution over $S_X\times S_Z$. Let $\Omega$ be the support of $\mu_{\dlS}$ and $\alpha,\beta$ the coordinate projections. Then $G_{\dlS}=(\mX,\mu_{\dlS},\mA,D)$ has question set $\mX = \{PX,PZ\} \cup (\mX_{com}\times \Omega_+) \cup (\mX_{anticom} \times \Omega_-)$ and is as described in~\cite[Section 3.4]{de2022spectral}. 
 
 
 \section{Main result}
@@ -801,7 +821,7 @@ Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$.
 \begin{figure}[!htbp]
   \centering
   \begin{gamespec}
-Let $M$ be an $r$-local tester for the $[n,k,d]_q$ code $\code$. 
+Let $M$ be an $r$-local tester for the $[n,k,d]$ code $\code$. 
     \begin{enumerate}
       \setlength\itemsep{1pt}
     \item (\textbf{Code test}) Select $W\in \{X,Z\}$ uniformly at random, and $\rand$ a setting for $M$'s random tape at random. Let $S=M(\rand)\subseteq\{1,\ldots,n\}$. Sample $i\in S$ uniformly at random. Send $(W,S)$ to $\alice$ and $(W,i)$ to $\bob$. Receive $a\in \field^S$ from $\alice$ and $b\in \field$ from $\bob$. Accept if and only if $M(S,a)=1$ and $a_i = b$.  
@@ -833,11 +853,11 @@ The definition allows ``trivial'' settings for the sets $S_X,S_Z$, e.g.\ $S_X=S_
 \end{remark}
 
 \begin{theorem}
-Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test, where $S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$, $\phi(W,G_\code e_i)=(W,i)$ and $\delta' = O(\sqrt{r}\delta^{1/4}(12\eps))$.\footnote{Assume $G_\code$ has no repeated columns.} 
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test, where $S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$, $\phi(W,G_\code e_i)=(W,i)$ and $\delta' = O(\sqrt{r}\delta^{1/4}(6\eps))$.\footnote{Assume $G_\code$ has no repeated columns.} 
 \end{theorem}
 
 \begin{proof}
-\underline{Completeness:} We first verify completeness. For $W\in\{X,Z\}$ and $i\in\{1,\ldots,n\}$ let $P^{(W,i)}_a = (\tau^W(G_\code e_i))_a$ and $P^{(W,S)}_a = \prod_{i\in S} P^{(W,i)}_{a_i}$. For $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ let $\omega=(G_\code e_{i_X}, G_\code e_{i_Z})$ and $\gamma =(G_\code i_X) \cdot(G_\code {i_Z}) $ we let $P^{x_{W,\gamma},\omega} = P^{(W,i_W)}$. 
+\underline{Completeness:} We first verify completeness. For $W\in\{X,Z\}$ and $i\in\{1,\ldots,n\}$ let $P^{(W,i)}_a = (\tau^W(G_\code e_i))_a$ and $P^{(W,S)}_a = \prod_{i\in S} P^{(W,i)}_{a_i}$. For $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ let $\omega=(G_\code e_{i_X}, G_\code e_{i_Z})$ and $\gamma =(G_\code e_{i_X}) \cdot(G_\code e_{i_Z}) $ we let $P^{x_{W,\gamma},\omega} = P^{(W,i_W)}$. 
 
 These choices already ensure that the strategy succeeds with probability $1$ in the consistency test. We verify that it succeeds in the code test. Let $S\subseteq\{1,\ldots,n\}$ and $h\in \F_2^S$ any valid parity check for $\code$ with support in $S$. Then $\sum_{i\in S} h_i G_\code e_i = 0$, so $\prod_{i\in S}(\tau^W(G_\code e_i))^{h_i}=\Id$. This means that for any $a\in\field^S$ such that $P^{W,S}_a\neq 0$, we have that $h\cdot a =0$, i.e.\ $a$ satisfies the parity check. Using the completeness property of $M$ it follows that $M$ must accept any $a$ in the support of $P^{W,S}$, which shows that the strategy succeeds in the code test with probability $1$. 
 
@@ -849,19 +869,20 @@ commute in case $\gamma=0$ and anti-commute in case $\gamma=1$. This is because 
 
 \bigskip 
 
-\underline{Soundness:} Next we show soundness. Let $\strategy$ be a synchronous strategy for $G$  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. For $W\in\{X,Z\}$ let $\strategy^W$ be the strategy in $G_{\code,M}$ that is obtained by restricting $\strategy$ to the relevant measurements, i.e.\ the $P^{W,S}$ and $P^{W,i}$.  Then $\strategy^W$ succeeds with probability at least $1-6\eps$ in $G_{\code,M}$. Using the assumption that $M$ is $\delta(\cdot)$-quantum sound and the first item from Proposition~\ref{prop:sound-game} it follows that there is a $\delta_1 = O(r\sqrt{\delta(12\eps)})$ such that for each $W\in\{X,Z\}$, $\strategy^W$ is $(\delta_1,\mu)$ close to a perfect strategy $\tilde{\strategy}^W$ on $(\mN^W,\tau^W)$. This strategy in particular has measurement operators $\{ \tilde{P}^{W,S}_a\}$ and $\{\tilde{P}^{W,i}_b\}$ associated with questions of the form $S$ and $i$ in $G_{\code,M}$. Since $(\code,M)$ is Abelian, there is a  POVM $\{\tilde{P}^W_u\}_{u\in \field^n}$ such that $\sum_{u\in \code}\tilde{P}^W_u = \Id$ and for each $i\in \{1,\ldots,n\}$, $\tilde{P}^{W,i}_b = \sum_{a:a\cdot u_i=b} \tilde{P}^W_a$ where  $u_i = G_\code e_i$.
+\underline{Soundness:} Next we show soundness. Let $\strategy$ be a synchronous strategy for $G$  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. For $W\in\{X,Z\}$ let $\strategy^W$ be the strategy in $G_{\code,M}$ that is obtained by restricting $\strategy$ to the relevant measurements, i.e.\ the $P^{W,S}$ and $P^{W,i}$.  Then $\strategy^W$ succeeds with probability at least $1-3\eps$ in $G_{\code,M}$. Using the assumption that $M$ is $\delta(\cdot)$-quantum sound and the first item from Proposition~\ref{prop:sound-game} it follows that there is a $\delta_1 = O(r\sqrt{\delta(6\eps)})$ such that for each $W\in\{X,Z\}$, $\strategy^W$ is $(\delta_1,\mu)$ close to a perfect strategy $\tilde{\strategy}^W$ on $(\mN^W,\tau^W)$. This strategy in particular has measurement operators $\{ \tilde{P}^{W,S}_a\}$ and $\{\tilde{P}^{W,i}_b\}$ associated with questions of the form $S$ and $i$ in $G_{\code,M}$. Since $(\code,M)$ is Abelian, there is a  POVM $\{\tilde{P}^W_u\}_{u\in \field^n}$ such that $\sum_{u\in \code}\tilde{P}^W_u = \Id$ and for each $i\in \{1,\ldots,n\}$, $\tilde{P}^{W,i}_b = \sum_{a:a_i=b} \tilde{P}^W_a$.% where  $u_i = G_\code e_i$.
  
 Applying Lemma~\ref{lem:pull-back}, we obtain projective measurements $\{Q^W_u\}$ on $\mM$ such that 
 \begin{equation*}
 \sum_u \big\|Q^W_u - (w^W)^* \tilde{P}_u^W w^W \big\|^2_2 \,=\, O(\delta_1)\;.
 \end{equation*}
-For any $i\in\{1,\ldots,n\}$ let $Q^{W,i}_b = \sum_{a:\,a\cdot u_i=b}  Q^W_a$. Then by Lemma~\ref{lem:dp},
+For any $i\in\{1,\ldots,n\}$ let $Q^{W,i}_b = \sum_{a:\,a_i=b}  Q^W_a$. Then by Lemma~\ref{lem:dp},
 \begin{align*}
 \Es{i}\sum_b \tau\big( Q^{W,i}_b (w^W)^*\tilde{P}^{W,i}_b(w^W) \big)
 &\geq \Es{i}\sum_a \tau\big( Q^{W}_a (w^W)^*\tilde{P}^{W}_a(w^W) \big)\\
 &\geq 1-O(\delta_1)\;.
 \end{align*}
-Applying Lemma~\ref{lem:close-value} we deduce that the strategy that consists of $Q^X$, $Q^Z$, $P^{x_c,\omega}$ for $(x_c,\omega) \in \mX_{com}\times \Omega_+$ and $P^{x_{ac},\omega}$ for $(x_{ac},\omega)\in \mX_{anticom} \times \Omega_-$ succeeds in the game $G_{\dlS}$ with probability $1-O(\sqrt{\delta_1})$. Applying~\cite[Corollary 3.9]{de2022spectral}, the conclusion follows. 
+For $W\in\{X,Z\}$ and $b\in \F^k$ let $R^W_b = Q^W_{G_\mC^T b}$, where by definition $G_\mC^T b\in \mC$. 
+Applying Lemma~\ref{lem:close-value} we deduce that the strategy that consists of $R^X$, $R^Z$, $P^{x_c,\omega}$ for $(x_c,\omega) \in \mX_{com}\times \Omega_+$ and $P^{x_{ac},\omega}$ for $(x_{ac},\omega)\in \mX_{anticom} \times \Omega_-$ succeeds in the game $G_{\dlS}$ with probability $1-O(\sqrt{\delta_1})$\tnote{should justify this with more detail?}. Applying~\cite[Corollary 3.9]{de2022spectral}, the conclusion follows. 
 \end{proof}
 
 

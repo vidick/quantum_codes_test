@@ -810,8 +810,26 @@ We use the same game as in~\cite[Section 3.2]{de2022spectral}. For convenience w
 Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. 
 We use $G_{\dlS}$ to denote the game introduced in~\cite[Section 3.4]{de2022spectral}, specialized to the following choices. The group is $H=\field^k$. Let
 \[ S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k\;,\]
-and let $\mu_{\dlS}$ be the uniform distribution over $S_X\times S_Z$. Let $\Omega$ be the support of $\mu_{\dlS}$ and $\alpha,\beta$ the coordinate projections. Then $G_{\dlS}=(\mX,\mu_{\dlS},\mA,D)$ has question set $\mX = \{PX,PZ\} \cup (\mX_{com}\times \Omega_+) \cup (\mX_{anticom} \times \Omega_-)$ and is as described in~\cite[Section 3.4]{de2022spectral}. 
+and let $\mu_{\dlS}$ be the uniform distribution over $S_X\times S_Z$. Let $\Omega$ be the support of $\mu_{\dlS}$ and $\alpha,\beta$ the coordinate projections. Then $G_{\dlS}=(\mX,\mu_{\dlS},\mA,D)$ has question set $\mX = \{PX,PZ\} \cup (\mX_{com}\times \Omega_+) \cup (\mX_{anticom} \times \Omega_-)$ and is as described in~\cite[Section 3.4]{de2022spectral}. For clarity we recall the game, using our notation, in Figure~\ref{fig:dlS}. 
 
+\begin{figure}[!htbp]
+  \centering
+  \begin{gamespec}
+Let $S_X,S_Z\subseteq \field^k$.  Select $\omega = (\omega_X,\omega_Z)\in S_X \times S_Z $ uniformly at random. Let $\gamma = \omega_X \cdot \omega_Z \in \field$. Execute either of the following tests with probability $1/3$ each. 
+    \begin{enumerate}
+      \setlength\itemsep{1pt}
+    \item (\textbf{Anti-commutation test}) 
+		\begin{enumerate}
+		\item If $\gamma=0$ then select a pair of questions $(x_c,y_c)$ as in the commutation game. Send $(x_c,\omega)$ to $\alice$ and $(y_c,\omega)$ to Bob. Accept if and only if their answers are accepted in the commutation game. 
+		\item If $\gamma\neq 0$ then do the same but for the anti-commutation game. 
+		\end{enumerate} 
+		 \item (\textbf{$Z$-Consistency test}) Send $Z$ to $\alice$ and $(x_{Z,\gamma},\omega)$ to $\bob$. Receive $a\in \field^k$ and $b\in \field$ respectively. Accept if and only if $a\cdot \omega_Z=b$. 
+		 \item (\textbf{$X$-Consistency test}) Send $X$ to $\alice$ and $(x_{X,\gamma},\omega)$ to $\bob$. Receive $a\in \field^k$ and $b\in \field$ respectively. Accept if and only if $a\cdot \omega_X=b$. 
+    \end{enumerate}
+  \end{gamespec}
+  \caption{The game $G_{\dlS}$ checks (anti)commutation relations between two collections of observables.}
+  \label{fig:dlS}
+\end{figure}
 
 \section{Main result}
 
@@ -821,7 +839,7 @@ Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$.
 \begin{figure}[!htbp]
   \centering
   \begin{gamespec}
-Let $M$ be an $r$-local tester for the $[n,k,d]$ code $\code$. 
+Let $M$ be an $r$-local tester for the $[n,k,d]$ code $\code$.  Execute either of the following tests with probability $1/3$ each. 
     \begin{enumerate}
       \setlength\itemsep{1pt}
     \item (\textbf{Code test}) Select $W\in \{X,Z\}$ uniformly at random, and $\rand$ a setting for $M$'s random tape at random. Let $S=M(\rand)\subseteq\{1,\ldots,n\}$. Sample $i\in S$ uniformly at random. Send $(W,S)$ to $\alice$ and $(W,i)$ to $\bob$. Receive $a\in \field^S$ from $\alice$ and $b\in \field$ from $\bob$. Accept if and only if $M(S,a)=1$ and $a_i = b$.  
@@ -869,12 +887,16 @@ commute in case $\gamma=0$ and anti-commute in case $\gamma=1$. This is because 
 
 \bigskip 
 
-\underline{Soundness:} Next we show soundness. Let $\strategy$ be a synchronous strategy for $G$  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. For $W\in\{X,Z\}$ let $\strategy^W$ be the strategy in $G_{\code,M}$ that is obtained by restricting $\strategy$ to the relevant measurements, i.e.\ the $P^{W,S}$ and $P^{W,i}$.  Then $\strategy^W$ succeeds with probability at least $1-3\eps$ in $G_{\code,M}$. Using the assumption that $M$ is $\delta(\cdot)$-quantum sound and the first item from Proposition~\ref{prop:sound-game} it follows that there is a $\delta_1 = O(r\sqrt{\delta(6\eps)})$ such that for each $W\in\{X,Z\}$, $\strategy^W$ is $(\delta_1,\mu)$ close to a perfect strategy $\tilde{\strategy}^W$ on $(\mN^W,\tau^W)$. This strategy in particular has measurement operators $\{ \tilde{P}^{W,S}_a\}$ and $\{\tilde{P}^{W,i}_b\}$ associated with questions of the form $S$ and $i$ in $G_{\code,M}$. Since $(\code,M)$ is Abelian, there is a  POVM $\{\tilde{P}^W_u\}_{u\in \field^n}$ such that $\sum_{u\in \code}\tilde{P}^W_u = \Id$ and for each $i\in \{1,\ldots,n\}$, $\tilde{P}^{W,i}_b = \sum_{a:a_i=b} \tilde{P}^W_a$.% where  $u_i = G_\code e_i$.
+\underline{Soundness:} Next we show soundness. Let $\strategy$ be a synchronous strategy for $G$  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. For $W\in\{X,Z\}$ let $\strategy^W$ be the strategy in $G_{\code,M}$ that is obtained by restricting $\strategy$ to the relevant measurements, i.e.\ the $P^{W,S}$ and $P^{W,i}$.  Then $\strategy^W$ succeeds with probability at least $1-3\eps$ in $G_{\code,M}$. Using the assumption that $M$ is $\delta(\cdot)$-quantum sound and the first item from Proposition~\ref{prop:sound-game} it follows that there is a $\delta_1 = O(r\sqrt{\delta(6\eps)})$ such that for each $W\in\{X,Z\}$, $\strategy^W$ is $(\delta_1,\mu)$ close to a perfect strategy $\tilde{\strategy}^W$ on $(\mN^W,\tau^W)$. This strategy in particular has measurement operators $\{ \tilde{P}^{W,S}_a\}$ and $\{\tilde{P}^{W,i}_b\}$ associated with questions of the form $S$ and $i$ in $G_{\code,M}$. These satisfy in particular that 
+\begin{equation}\label{eq:main-0}
+\Es{i\in\{1,\ldots,n\}}\sum_b \big\|P^{W,i}_b - (w^W)^* \tilde{P}_i^W w^W \big\|^2_2 \,=\, O(\delta_1)\;.
+\end{equation}
+Furthermore, since $(\code,M)$ is Abelian, there is a  POVM $\{\tilde{P}^W_u\}_{u\in \field^n}$ such that $\sum_{u\in \code}\tilde{P}^W_u = \Id$ and for each $i\in \{1,\ldots,n\}$, $\tilde{P}^{W,i}_b = \sum_{a:a_i=b} \tilde{P}^W_a$.% where  $u_i = G_\code e_i$.
  
 Applying Lemma~\ref{lem:pull-back}, we obtain projective measurements $\{Q^W_u\}$ on $\mM$ such that 
-\begin{equation*}
+\begin{equation}\label{eq:main-1}
 \sum_u \big\|Q^W_u - (w^W)^* \tilde{P}_u^W w^W \big\|^2_2 \,=\, O(\delta_1)\;.
-\end{equation*}
+\end{equation}
 For any $i\in\{1,\ldots,n\}$ let $Q^{W,i}_b = \sum_{a:\,a_i=b}  Q^W_a$. Then by Lemma~\ref{lem:dp},
 \begin{align*}
 \Es{i}\sum_b \tau\big( Q^{W,i}_b (w^W)^*\tilde{P}^{W,i}_b(w^W) \big)
@@ -882,7 +904,37 @@ For any $i\in\{1,\ldots,n\}$ let $Q^{W,i}_b = \sum_{a:\,a_i=b}  Q^W_a$. Then by 
 &\geq 1-O(\delta_1)\;.
 \end{align*}
 For $W\in\{X,Z\}$ and $b\in \F^k$ let $R^W_b = Q^W_{G_\mC^T b}$, where by definition $G_\mC^T b\in \mC$. 
-Applying Lemma~\ref{lem:close-value} we deduce that the strategy that consists of $R^X$, $R^Z$, $P^{x_c,\omega}$ for $(x_c,\omega) \in \mX_{com}\times \Omega_+$ and $P^{x_{ac},\omega}$ for $(x_{ac},\omega)\in \mX_{anticom} \times \Omega_-$ succeeds in the game $G_{\dlS}$ with probability $1-O(\sqrt{\delta_1})$\tnote{should justify this with more detail?}. Applying~\cite[Corollary 3.9]{de2022spectral}, the conclusion follows. 
+
+We now define a strategy $\strategy'$ for the game $G_{\dlS}$. On question $W\in \{X,Z\}$ the projective measurement is $\{R^W_b\}$. On question of the form $(x_c,\omega)$ for $x_c$ a question in the commutation game, the projective measurement is $\{P^{x_c,\omega}\}$, i.e.\ the same projective measurement as used in $\strategy$. Similarly, on a question of the form $(x_{ac},\omega)$ for $x_{ac}$ a question in the anti-commutation game, the projective measurement is $\{P^{x_{ac},\omega}\}$.
+
+To conclude we show that this strategy succeeds in the game $G_{\dlS}$ with probability $1-O(\sqrt{\delta_1})$. Assuming that this has been shown, by~\cite[Corollary 3.9]{de2022spectral} the strategy $\strategy'$ is $O(\sqrt{\delta_1})$-close to a strategy $\strategy''$ on an algebra of the form $(M_{2^{k}}(\C)\otimes \mN,\tr\otimes \tau')$ such that $P^W_b = \tau^W_b\otimes 1_\mN$. By definition of $R$, 
+\begin{equation}\label{eq:main-3}
+ Q^{W,i}_b \,=\,  \sum_{a:\,a_i=b}  Q^W_a \,=\, \sum_{c: (G_\mC^T c)_i=b}  R^W_c \;,
+\end{equation}
+hence
+\begin{equation*}
+ \widehat{Q^{W,i}}\,=\, \sum_c (-1)^{c\cdot (G_\mC e_i)} R^W_c \,=\, \widehat{R^W}(G_\mC e_i)\;.
+\end{equation*}
+Using the definition of the game distribution, closeness of $\strategy'$ and $\strategy''$ thus implies that
+\begin{equation*}
+\Es{i\in\{1,\ldots,n\}} \big\|\widehat{Q^{W,i}} - (w'')^* {\tau^W}(G_\mC e_i) (w'') \big\|_2^2 \,=\,O(\sqrt{\delta_1})\;.
+\end{equation*}
+Combining with~\eqref{eq:main-0} and~\eqref{eq:main-1}, this shows the theorem. 
+
+It remains to verify that $\strategy'$ succeeds in the game $G_{\dlS}$ with probability $1-O(\sqrt{\delta_1})$. By definition $\strategy'$ succeeds in the (anti)-commutation test with probability $1-O(\eps)$. It remains to check the $W$-consistency test, for $W\in\{X,Z\}$. Because $\strategy$ succeeds with probability $1-O(\eps)$ in the consistency test, 
+\begin{equation*}
+\Es{i_X,i_Z\in\{1,\ldots,n\}} \sum_b \tau\big( P^{W,i}_b P^{x_{W,\gamma},\omega}_b\big) \,\geq\, 1-O(\eps)\;,\
+\end{equation*}
+where $\omega$ and $\gamma$ are defined as in Figure~\ref{fig:braiding-test}. Using~\eqref{eq:main-0},~\eqref{eq:main-1}
+and Lemma~\ref{lem:close-value} it follows that 
+\begin{equation*}
+\Es{i_X,i_Z\in\{1,\ldots,n\}} \sum_b \tau\big( Q^{W,i}_b P^{x_{W,\gamma},\omega}_b\big) \,\geq\, 1-O(\sqrt{\delta_1})\;,\
+\end{equation*}
+Using~\eqref{eq:main-3}, this can be rewritten as 
+\begin{equation}\label{eq:main-4}
+\Es{i_X,i_Z\in\{1,\ldots,n\}} \sum_{b,c: (G_\mC^T c)_i=b} \tau\big( R^{W}_c P^{x_{W,\gamma},\omega}_b\big) \,\geq\, 1-O(\sqrt{\delta_1})\;.
+\end{equation}
+Since $\omega_W = G_\mC e_i$, $(G_\mC^T c)_i = c\cdot \omega_W$. Thus~\eqref{eq:main-4} shows that $\strategy'$ succeeds with probability $1-O(\sqrt{\delta_1})$ in the $W$-consistency test, as desired. 
 \end{proof}
 
 

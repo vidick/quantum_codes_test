@@ -721,12 +721,15 @@ For $x\in \mX$ such that $\mu(x)\neq 0$, denote by $\mu_x$ the (symmetrized) con
 where the third line uses $\tau(AB)\leq\tau(|A|)\|B\|$ and the last inequality is by~\eqref{eq:l1-l2} and Jensen's inequality.
 \end{proof}
 
-\subsection{Robutness}
+\subsection{Robustness}
 
 
 \begin{definition}[Robust game]
-Given a game $G$ and a function $\delta:[0,1]\to[0,1]$ we say that $G$ is \emph{$\delta$-robust} if any synchronous strategy for $G$ that succeeds with probability at least $1-\eps$ in $G$, for some $\eps\geq 0$, is $(\delta(\eps),\mu)$-close to a perfect strategy.
+Given a game $G$, a function $\delta:[0,1]\to[0,1]$, and a distribution $\nu$ on $\mX$ we say that $G$ is \emph{$(\delta,\nu)$-robust} if any synchronous strategy for $G$ that succeeds with probability at least $1-\eps$ in $G$, for some $\eps\geq 0$, is
+ $(\delta(\eps),\nu)$-close to a perfect strategy.
 \end{definition}
+
+Note that in the definition $\nu$ need not be the marginal of the game distribution $\mu$. In particular, we will often consider $\nu$ that is supported on a strict subset of the support of $\mu$. 
 
 Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. Consider the following game $G_{\code,M}$. We set 
 \[\mX = \{ S\subseteq \{1,\ldots,n\},|S|\leq r\} \sqcup\{1,\ldots,n\}\quad\text{and}\quad \mu(S,i)=\frac{1_{i\in S}}{|S|}\Pr_\rand\big(M(\rand)=S\big)\;,\]
@@ -738,8 +741,8 @@ and for any $S,i\in\mX$, $\mA(S)=\field^S$ and $\mA(i)=\field$, and finally $D(S
 \begin{proposition}\label{prop:sound-game}
 Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. Let $\delta,\delta':[0,1]\to[0,1]$. Then the following hold:
 \begin{enumerate}
-\item If $M$ has quantum soundness $\delta$ then $G_{\code,M}$ is $\delta''$-robust, for some $\delta''(\eps)=O(r\sqrt{\delta(2\eps)})$. 
-\item If $G_{\code,M}$ is $\delta'$-robust and $(\mC,M)$ is Abelian then $M$ has quantum soundness $\delta''$, for some $\delta''(\eps) = O(\delta'(\sqrt{\eps}))$. 
+\item If $M$ has quantum soundness $\delta$ then $G_{\code,M}$ is $(\delta'',\nu)$-robust, for some $\delta''(\eps)=O({\delta(2\eps)})$ and $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$. 
+\item If $G_{\code,M}$ is $(\delta',\nu)$-robust for $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$, and $(\mC,M)$ is Abelian, then $M$ has quantum soundness $\delta''$, for some $\delta''(\eps) = O(\delta'(\sqrt{\eps}))$. 
 \end{enumerate}
 \end{proposition}
 
@@ -771,7 +774,7 @@ Together with~\eqref{eq:s-g-1} and using the definition of $G_{\code,M}$, we hav
 \begin{equation}
  \sum_{(S,i)} \mu(S,i) \sum_{a\in \field^s}\sum_{b\in\field} D(S,i,a,b) \tau\big(  P^S_a  A^i_{b}\big) \,\geq \,1-O(\sqrt{\eps})\;.\label{eq:s-g-2}
 \end{equation}
-In other words $\omega(G_{\code,M};\strategy)\geq 1-\eps'$ for $\strategy$ the strategy with measurements $\{A^i_b\}$ and $\{P^{S}_a\}$ and some $\eps'=O(\sqrt{\eps})$. Using the definition of robustness we deduce that $(\mM,A,P)$ is $(\delta'(\eps'),\mu)$-close to a perfect strategy $(\mN,C,Q)$ for $G$. Specializing to the $A$ measurements, using the definition of closeness there exists a projection $P\in \mM_\infty$ such that $\{C^i\}_a \subseteq P\mM_\infty P$ and $\Es{i}\sum_a \|A^i_a-w^* C^i_a w \|_2^2 \leq 2\delta'$, and moreover $\{C^i_a\}$ satisfy that for any $S$ in the support of $\mu$, $\{C^i_a\}$ pairwise commute for $i\in S$. Using the assumption that $(\code,M)$ is Abelian, all the $\{C^i_a\}$ commute and form a representation of $\code$.
+In other words $\omega(G_{\code,M};\strategy)\geq 1-\eps'$ for $\strategy$ the strategy with measurements $\{A^i_b\}$ and $\{P^{S}_a\}$ and some $\eps'=O(\sqrt{\eps})$. Using the definition of robustness we deduce that $(\mM,A,P)$ is $(\delta'(\eps'),\nu)$-close to a perfect strategy $(\mN,C,Q)$ for $G$. Since $\nu$ is uniform on $\{1,\ldots,n\}$ we may specialize to the $A$ measurements; using the definition of closeness there exists a projection $P\in \mM_\infty$ such that $\{C^i\}_a \subseteq P\mM_\infty P$ and $\Es{i}\sum_a \|A^i_a-w^* C^i_a w \|_2^2 \leq 2\delta'$, and moreover $\{C^i_a\}$ satisfy that for any $S$ in the support of $\mu$, $\{C^i_a\}$ pairwise commute for $i\in S$. Using the assumption that $(\code,M)$ is Abelian, all the $\{C^i_a\}$ commute and form a representation of $\code$.
 
 Now we show the first assertion. Suppose that $M$ has quantum soundness $\delta$.
 Let $\strategy=(\mM,A,P)$ be a strategy for $G_{\code,M}$ on $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. This can be reformulated as 
@@ -784,16 +787,18 @@ For each $S$ and $i\in S$, let $B^{S,i}_b = \sum_{a:a_i=b} P^S_a$. Then using th
 \end{equation}
 Thus $(\mM,A)$ is an $\eps'$-local presentation of code, for $\eps'=2\eps$. Using quantum soundness, there is a representation $(\mN,C)$ of $\code$ that is $\delta'$-close to $(\mM,A)$, for $\delta'=\delta(\eps')$. 
 
-For every $S$, let $Q^S_a = \prod_{i\in S} C^i_{a_i}$, which is a projective measurement on $\mN$. It is easy to verify that $(\mN,C,Q)$ is a perfect strategy in $G_{\code,M}$. Moreover,
-\begin{align}
-\Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \big\| P^S_a - w^* Q^S_a w\big\|_2^2
-&=2 - 2\Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i} w^* \prod_i C^{i}_{a_i}w\big)\;.\label{eq:s-g-4}
-\end{align}
-Applying a simple inductive argument, using Lemma~\ref{lem:l1-l2} we get that \tnote{This needs a little more detail}
-\begin{align*}
-\Big|\Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i} w^* \prod_i C^{i}_{a_i}w\big) - \Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i}  \prod_i B^{S,i}_{a_i}\big)\Big| &= O\big(r\sqrt{\delta'}\big)\;.
-\end{align*}
-Since the second term on the left-hand side above equals $1$, plugging back into~\eqref{eq:s-g-4} it follows that   $(\mN,B,Q)$ is $O(r\sqrt{\delta'})$-close to $(\mM,A,P)$.
+For every $S$, let $Q^S_a = \prod_{i\in S} C^i_{a_i}$, which is a projective measurement on $\mN$. It is easy to verify that $(\mN,C,Q)$ is a perfect strategy in $G_{\code,M}$. Using the definition of $\nu$, it follows that   $(\mN,B,Q)$ is $O({\delta'})$-close to $(\mM,A,P)$.
+
+%Moreover,
+%\begin{align}
+%\Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \big\| P^S_a - w^* Q^S_a w\big\|_2^2
+%&=2 - 2\Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i} w^* \prod_i C^{i}_{a_i}w\big)\;.\label{eq:s-g-4}
+%\end{align}
+%Applying a simple inductive argument, using Lemma~\ref{lem:l1-l2} we get that \tnote{This needs a little more detail}
+%\begin{align*}
+%\Big|\Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i} w^* \prod_i C^{i}_{a_i}w\big) - \Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i}  \prod_i B^{S,i}_{a_i}\big)\Big| &= O\big(r\sqrt{\delta'}\big)\;.
+%\end{align*}
+%Since the second term on the left-hand side above equals $1$, plugging back into~\eqref{eq:s-g-4} it follows that   $(\mN,B,Q)$ is $O(r\sqrt{\delta'})$-close to $(\mM,A,P)$.
 \end{proof}
 
 
@@ -871,7 +876,7 @@ The definition allows ``trivial'' settings for the sets $S_X,S_Z$, e.g.\ $S_X=S_
 \end{remark}
 
 \begin{theorem}
-Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test, where $S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$, $\phi(W,G_\code e_i)=(W,i)$ and $\delta' = O(\sqrt{r}\delta^{1/4}(6\eps))$.\footnote{Assume $G_\code$ has no repeated columns.} 
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test, where $S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$, $\phi(W,G_\code e_i)=(W,i)$ and $\delta' = O(\delta^{1/2}(6\eps))$.\footnote{Assume $G_\code$ has no repeated columns.} 
 \end{theorem}
 
 \begin{proof}
@@ -887,7 +892,7 @@ commute in case $\gamma=0$ and anti-commute in case $\gamma=1$. This is because 
 
 \bigskip 
 
-\underline{Soundness:} Next we show soundness. Let $\strategy$ be a synchronous strategy for $G$  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. For $W\in\{X,Z\}$ let $\strategy^W$ be the strategy in $G_{\code,M}$ that is obtained by restricting $\strategy$ to the relevant measurements, i.e.\ the $P^{W,S}$ and $P^{W,i}$.  Then $\strategy^W$ succeeds with probability at least $1-3\eps$ in $G_{\code,M}$. Using the assumption that $M$ is $\delta(\cdot)$-quantum sound and the first item from Proposition~\ref{prop:sound-game} it follows that there is a $\delta_1 = O(r\sqrt{\delta(6\eps)})$ such that for each $W\in\{X,Z\}$, $\strategy^W$ is $(\delta_1,\mu)$ close to a perfect strategy $\tilde{\strategy}^W$ on $(\mN^W,\tau^W)$. This strategy in particular has measurement operators $\{ \tilde{P}^{W,S}_a\}$ and $\{\tilde{P}^{W,i}_b\}$ associated with questions of the form $S$ and $i$ in $G_{\code,M}$. These satisfy in particular that 
+\underline{Soundness:} Next we show soundness. Let $\strategy$ be a synchronous strategy for $G$  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. For $W\in\{X,Z\}$ let $\strategy^W$ be the strategy in $G_{\code,M}$ that is obtained by restricting $\strategy$ to the relevant measurements, i.e.\ the $P^{W,S}$ and $P^{W,i}$.  Then $\strategy^W$ succeeds with probability at least $1-3\eps$ in $G_{\code,M}$. Using the assumption that $M$ is $\delta(\cdot)$-quantum sound and the first item from Proposition~\ref{prop:sound-game} it follows that there is a $\delta_1 = O({\delta(6\eps)})$ such that for each $W\in\{X,Z\}$, $\strategy^W$ is $(\delta_1,\nu)$ close to a perfect strategy $\tilde{\strategy}^W$ on $(\mN^W,\tau^W)$, where $\nu$ is uniform on $\{1,\ldots,n\}$. This strategy has measurement operators $\{ \tilde{P}^{W,S}_a\}$ and $\{\tilde{P}^{W,i}_b\}$ associated with questions of the form $S$ and $i$ in $G_{\code,M}$. Using the definition of $\nu$, these satisfy that 
 \begin{equation}\label{eq:main-0}
 \Es{i\in\{1,\ldots,n\}}\sum_b \big\|P^{W,i}_b - (w^W)^* \tilde{P}_i^W w^W \big\|^2_2 \,=\, O(\delta_1)\;.
 \end{equation}

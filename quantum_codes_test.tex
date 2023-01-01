@@ -110,6 +110,7 @@
 \newcommand{\mI}{\ensuremath{\mathcal{I}}}
 \newcommand{\mJ}{\ensuremath{\mathcal{J}}}
 \newcommand{\cM}{\ensuremath{\mathcal{M}}}
+\newcommand{\mP}{\ensuremath{\mathcal{P}}}
 \newcommand{\mQ}{\ensuremath{\mathcal{Q}}}
 \newcommand{\mR}{\ensuremath{\mathcal{R}}}
 \newcommand{\mS}{\ensuremath{\mathcal{S}}}
@@ -121,6 +122,7 @@
 \newcommand{\GEN}{\ensuremath{\textsc{GEN}}}
 \newcommand{\SAMP}{\ensuremath{\textsc{SAMP}}}
 \newcommand{\epr}{\ensuremath{\textsc{epr}}}
+\newcommand{\RM}{\ensuremath{\textsc{RM}}}
 
 \newcommand{\Alg}{\mathcal{A}}
 \newcommand{\ind}{\ensuremath{\mathrm{ind}}}
@@ -478,11 +480,11 @@
 
 \subsection{Algebra}
 
-  A \emph{tracial von Neumann algebra} is a pair $(\mM,\tau)$ of a von Neumann algebra $\mM$ together with a normal faithful tracial state $\tau$ on $\mM$, which we often refer to as the \emph{trace}. The main example of interest is $\mM=M_n(\C)$, the algebra $n\times n$ complex matrices, with $\tau$ the dimension-normalized trace, which we denote $\tr(M)=\frac{1}{n}\Tr(M)$ \hnote{was $\frac{1}{d}$}. 	We write $\|x\|_2=\tau(x^*x)^{1/2}$ for the $2$-norm on $\mM$.
+  A \emph{tracial von Neumann algebra} is a pair $(\mM,\tau)$ of a von Neumann algebra $\mM$ together with a normal faithful tracial state $\tau$ on $\mM$, which we often refer to as the \emph{trace}. The main example of interest is $\mM=M_n(\C)$, the algebra $n\times n$ complex matrices, with $\tau$ the dimension-normalized trace, which we denote $\tr(M)=\frac{1}{n}\Tr(M)$. 	We write $\|x\|_2=\tau(x^*x)^{1/2}$ for the $2$-norm on $\mM$.
 	
 	We denote $\mM_\infty = \mM \overline{\otimes} B(\ell_2)$ \hnote{what do $\overline{\otimes}$ and $B(\ell_2)$ mean?} with (infinite) trace $\tau_\infty = \tau \otimes \Tr$ \hnote{what does infinite trace mean? also, should it be $\Tr$ or $\tr$?}. We identify $\mM$ with $\mM\otimes e_{1,1}\subset \mM_\infty$. 
 
-	We let $\field$ denote the field with two elements. For $u\in \F^n$ for some $n$, we write $|u|$ for the Hamming weight of $u$, i.e.\ the number of nonzero coordinates. \hnote{added:} For $a,b \in \field^k$, we write $a \cdot b$ to denote the inner product $\sum_{i=1}^k a_i b_i$. 
+	We let $\field$ denote the field with two elements. For $u\in \F^n$ for some $n$, we write $|u|$ for the Hamming weight of $u$, i.e.\ the number of nonzero coordinates. For $a,b \in \field^k$, we write $a \cdot b$ to denote the inner product $\sum_{i=1}^k a_i b_i$. 
 	
 	
 	\subsection{Measurements}
@@ -525,9 +527,9 @@ where the fourth line uses that $P_iPP_i=P_i$, $\sum_i P_i = \Id_\mN$ and the de
 \tau_\infty\big( P- w w^*\big) \,\leq\, \eps\, \tau_\infty(P)\,\leq \frac{\eps}{1-\eps}\;.
 \end{align*}
 where the last inequality is because by definition, $\tau^N(P)=1$, thus
-\[1-\eps \,\leq\, \tau^\mN(ww^*) \,=\, \frac{\tau_\infty(ww^*)}{\tau_\infty(P)}\,=\, \frac{\tau^\mM(ww^*)}{\tau_\infty(P)}  \,\leq\, \frac{1}{\tau_\infty(P)}\]
-\hnote{why is $ww^* \leq 1_\mM$? The input to $w^*$ is from $P$, which belongs to ${\mM}_{\infty}$}
-since $\tau^\mM$ is normalized and $ww^*\leq 1_\mM$. Overall, 
+\[1-\eps \,\leq\, \tau^\mN(ww^*) \,=\, \frac{\tau_\infty(ww^*)}{\tau_\infty(P)}\,=\, \frac{\tau_\infty(w^*w)}{\tau_\infty(P)}  \,\leq\, \frac{1}{\tau_\infty(P)}\]
+\hnote{why is $ww^* \leq 1_\mM$? The input to $w^*$ is from $P$, which belongs to ${\mM}_{\infty}$}\tnote{I had forgotten to use cyclicity once; better?}
+since $\tau^\mM$ is normalized and $w^*w\leq 1_\mM$. Overall, 
 \[ \sum_{i} \tau\big( (\tilde{Q}_i)^2 \big) \,\geq\, 1-\eps-\frac{\eps}{1-\eps}\,\geq\, 1-3\eps\;.\]
 To conclude we apply~\cite[Theorem 1.2]{de2021orthogonalization} to obtain a projective measurement $\{Q_i\}$ on $\mM$ such that 
 \begin{equation*}
@@ -589,7 +591,7 @@ This follows by expending the left-hand side and using $\tau(P_iQ_j)\geq 0$ for 
 \subsection{Classical definitions}
 
 \begin{definition}[Code]
-A $[n,k,d]$ linear code \hnote{need to specify $\field$?} is a $k$-dimensional subspace $\code\subseteq \field^n$ such that for every $u\in \code$ such that $u\neq 0$, $|u|\geq d$. Equivalently, we think of $\code$ as a linear map $\code:\field^k\to \field^n$. We write $G_\code \in \field^{k\times n}$ for the generator matrix defined by $ G_\code^T e_i =\code(e_i)$ for all $i\in\{1,\ldots,k\}$, where $\{e_1,\ldots,e_k\}$ is the standard basis of $\field^k$. 
+A $[n,k,d]$ linear code \hnote{need to specify $\field$?}\tnote{I haven't fixed that completely yet, it depends on how the conversion to $\F_q$ works out. For now I used the macro $\field$ and I mean everything to be over $\F_2$. We can clarify once everything is fixed} is a $k$-dimensional subspace $\code\subseteq \field^n$ such that for every $u\in \code$ such that $u\neq 0$, $|u|\geq d$. Equivalently, we think of $\code$ as a linear map $\code:\field^k\to \field^n$. We write $G_\code \in \field^{k\times n}$ for the generator matrix defined by $ G_\code^T e_i =\code(e_i)$ for all $i\in\{1,\ldots,k\}$, where $\{e_1,\ldots,e_k\}$ is the standard basis of $\field^k$. 
 \end{definition}
 
 %\begin{definition}
@@ -681,7 +683,7 @@ such that $D$ is symmetric, i.e. $D(x,y,a,b)=D(y,x,b,a)$ whenever both terms are
 		
 \begin{definition}[Synchronous strategy]
 If $G=(\mX,\mu,\mA,D)$ is a game and $(\mM,\tau)$ a tracial von Neumann algebra, a \emph{synchronous strategy $\strategy$ for $G$ on $(\mM,\tau)$} is, for every $x\in \mX$, a projective measurement $(P^x_a)_{a\in \mA(x)}$ on $\mM$. The value of a strategy $\strategy$ in $G$ is 
-\[ \omega(G;\strategy)\,=\, \sum_{(x,y)\in\mX\times\mX}\frac{1}{2}\big(\mu(x,y)+\mu(y,x)\big) \sum_{(a,b)\in\mA(x)\times\mA(y)} D(x,y,a,b)\, \tau\big(P^x_a \,P^y_b\big) \;.\footnote{Note the symmetrization of $\mu$. This is to avoid explicitly requiring $\mu$ to be permutation-invariant in the definition of a game. \hnote{Didn't quite understand... what would go wrong without this symmetrization?}}\]
+\[ \omega(G;\strategy)\,=\, \sum_{(x,y)\in\mX\times\mX}\frac{1}{2}\big(\mu(x,y)+\mu(y,x)\big) \sum_{(a,b)\in\mA(x)\times\mA(y)} D(x,y,a,b)\, \tau\big(P^x_a \,P^y_b\big) \;.\footnote{Note the symmetrization of $\mu$. This is to avoid explicitly requiring $\mu$ to be permutation-invariant in the definition of a game. \hnote{Didn't quite understand... what would go wrong without this symmetrization?}\tnote{It's so that at some point we can claim that studying synchronous strategies is wlog. Maybe that point happens only outside this note though; so then we can say it's to keep with the formalism of synchronous games}}\]
 We say that $\strategy$ is \emph{perfect} if $\omega(G;\strategy)=1$.
 \end{definition}
 
@@ -742,7 +744,7 @@ and for any $S,i\in\mX$, $\mA(S)=\field^S$ and $\mA(i)=\field$, and finally $D(S
 \begin{proposition}\label{prop:sound-game}
 Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. Let $\delta,\delta':[0,1]\to[0,1]$. Then the following hold:
 \begin{enumerate}
-\item If $M$ has quantum soundness $\delta$ then $G_{\code,M}$ \hnote{was this object defined yet?} is $(\delta'',\nu)$-robust, for some $\delta''(\eps)=O({\delta(2\eps)})$ and $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$. 
+\item If $M$ has quantum soundness $\delta$ then $G_{\code,M}$ \hnote{was this object defined yet?}\tnote{Yes it's just above, we could make it into a definition if you think it's too hidden} is $(\delta'',\nu)$-robust, for some $\delta''(\eps)=O({\delta(2\eps)})$ and $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$. 
 \item If $G_{\code,M}$ is $(\delta',\nu)$-robust for $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$, and $(\mC,M)$ is Abelian, then $M$ has quantum soundness $\delta''$, for some $\delta''(\eps) = O(\delta'(\sqrt{\eps}))$. 
 \end{enumerate}
 \end{proposition}
@@ -866,7 +868,7 @@ Let $M$ be an $r$-local tester for the $[n,k,d]$ code $\code$.  Execute either o
 Let $k\in \N$ and $\delta:[0,1]\to\R_+$. 
 A $(k,\delta(\eps))$-qubit test is a synchronous game $G=(\mX,\mu,\mA,D)$ such there are two sets $S_X,S_Z\subseteq \field^k$ and an injection $\phi:(\{X\}\times S_Z) \cup (\{Z\}\times S_Z) \to \mX$ such that $\mA(\phi({X},a))=\mA(\phi({Z},b))=\field$ for all $a\in S_X$, $b\in S_Z$ and such that the following holds:
 \begin{itemize}
-\item (Completeness:) There is a synchronous strategy for $G$ on $\mM=M_{2^{k}}(\C)$ that succeeds with probability $1$ in $G$ and is such that $\widehat{P^{\phi({W},a)}} = \tau^W(a)$ \hnote{overloading $\tau$} for every $W\in\{X,Z\}$ and $a\in S_W$.
+\item (Completeness:) There is a synchronous strategy for $G$ on $\mM=M_{2^{k}}(\C)$ that succeeds with probability $1$ in $G$ and is such that $\widehat{P^{\phi({W},a)}} = \tau^W(a)$ \hnote{overloading $\tau$}\tnote{Since the Paulis are binary we can just use $\sigma$ everywhere} for every $W\in\{X,Z\}$ and $a\in S_W$.
 \item (Soundness:) Any synchronous strategy in $(\mM,\tau)$ for $G$ that succeeds with probability $1-\eps$ for some $\eps\geq 0$ is $\delta(\eps)$-close to a strategy on an algebra of the form $(M_{2^{k}}(\C)\otimes \mN,\tr\otimes \tau')$ and such that
 \[\widehat{P^{\phi({W},a)}} = \tau^W(a)\otimes \Id_\mN\;.\]
 \end{itemize}
@@ -877,7 +879,7 @@ The definition allows ``trivial'' settings for the sets $S_X,S_Z$, e.g.\ $S_X=S_
 \end{remark}
 
 \begin{theorem}
-Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test, where $S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$, $\phi(W,G_\code e_i)=(W,i)$ and $\delta' = O(\delta^{1/2}(6\eps))$.\footnote{Assume $G_\code$ has no repeated columns.} 
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound and such that $\code,M)$ is Abelian. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test, where $S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$, $\phi(W,G_\code e_i)=(W,i)$ and $\delta' = O(\delta^{1/2}(6\eps))$.\footnote{Assume $G_\code$ has no repeated columns.} 
 \end{theorem}
 
 \begin{proof}
@@ -895,9 +897,9 @@ commute in case $\gamma=0$ and anti-commute in case $\gamma=1$. This is because 
 
 \underline{Soundness:} Next we show soundness. Let $\strategy$ be a synchronous strategy for $G$  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. For $W\in\{X,Z\}$ let $\strategy^W$ be the strategy in $G_{\code,M}$ that is obtained by restricting $\strategy$ to the relevant measurements, i.e.\ the $P^{W,S}$ and $P^{W,i}$.  Then $\strategy^W$ succeeds with probability at least $1-3\eps$ in $G_{\code,M}$. Using the assumption that $M$ is $\delta(\cdot)$-quantum sound and the first item from Proposition~\ref{prop:sound-game} it follows that there is a $\delta_1 = O({\delta(6\eps)})$ such that for each $W\in\{X,Z\}$, $\strategy^W$ is $(\delta_1,\nu)$ close to a perfect strategy $\tilde{\strategy}^W$ on $(\mN^W,\tau^W)$, where $\nu$ is uniform on $\{1,\ldots,n\}$. This strategy has measurement operators $\{ \tilde{P}^{W,S}_a\}$ and $\{\tilde{P}^{W,i}_b\}$ associated with questions of the form $S$ and $i$ in $G_{\code,M}$. Using the definition of $\nu$, these satisfy that 
 \begin{equation}\label{eq:main-0}
-\Es{i\in\{1,\ldots,n\}}\sum_b \big\|P^{W,i}_b - (w^W)^* \tilde{P}_i^W w^W \big\|^2_2 \,=\, O(\delta_1)\;.
+\Es{i\in\{1,\ldots,n\}}\sum_b \big\|P^{W,i}_b - (w^W)^* \tilde{P}_b^{W,i} w^W \big\|^2_2 \,=\, O(\delta_1)\;.
 \end{equation}
-\hnote{What is $\tilde{P}^W_i$, where did that come from?}
+\hnote{What is $\tilde{P}^W_i$, where did that come from?}\tnote{Sorry I put the $i$ at the wrong place, fixed}
 Furthermore, since $(\code,M)$ is Abelian, there is a  POVM $\{\tilde{P}^W_u\}_{u\in \field^n}$ such that $\sum_{u\in \code}\tilde{P}^W_u = \Id$ and for each $i\in \{1,\ldots,n\}$, $\tilde{P}^{W,i}_b = \sum_{a:a_i=b} \tilde{P}^W_a$.% where  $u_i = G_\code e_i$.
  
 Applying Lemma~\ref{lem:pull-back}, we obtain projective measurements $\{Q^W_u\}$ on $\mM$ such that 
@@ -952,7 +954,51 @@ Since $\omega_W = G_\mC e_i$, $(G_\mC^T c)_i = c\cdot \omega_W$. Thus~\eqref{eq:
 For $q=2^t$ and $a\in \field$ we let $\kappa(a)$ denote the binary representation of $a$, where the representation is taken in a self-dual normal basis of $\field$ over $\F_2$. We extend $\kappa$ to vectors over $\field$ coordinate-wise.
 	
 	We use $\tau^W(a)$, $a\in F_q^k$, to denote the tensor product of $k$ Pauli $W$ observables over $\field$. We use $\tau^W_a$ to denote the associated projective measurement. 
-	
+
+
+\subsection{The Reed-Muller code over $\F_q$}
+
+Fix integers $m,t \in \N$ and let $q=2^t$ and $M = 2^m$. Let $\mP(q,m,d)$ be the vector space over $\F_q$ that consists of all $m$-variate polynomial $f$ over $\F_q$ of individual degree at most $d$, that is all functions of the form
+\[
+	f(x_1,\ldots,x_m) = \sum_{\alpha \in \{0,1,\ldots,d\}^m} c_\alpha
+  x_1^{\alpha_1} \cdots x_m^{\alpha_m}
+\]
+where $\{c_\alpha\}$ is a collection of coefficients in $\F_q$. It is easy to verify that $\mP(q,m,d)$ has dimension $D = (d+1)^m$ over $\F_q$. It follows that the map $\mC_\RM: c_\alpha \mapsto f$ defines a $[q^m,(d+1)^m,D]_q$ linear code over $\F_q$, where $D\geq 1-md/q$ follows from the Schwartz-Zippel lemma: 
+
+\begin{lemma}[Schwartz-Zippel lemma~\cite{Sch80,Zip79}]
+  \label{lem:schwartz-zippel}
+  Let $f, g: \F_q^m \to \F_q$ be two unequal polynomials with total degree at most $d$. Then
+  \begin{equation*}
+    \Pr_{x \sim \F_q^m}[f(x) = g(x)] \leq d/q\;.
+  \end{equation*}
+\end{lemma}
+
+\subsection{A binary code and tester}
+
+Let $\mC_\RM^\kappa$ be the $[tq^m,t(d+1)^m,D]_q$ linear code over $\field$ defined by $a \mapsto \kappa(\mC_\RM(\kappa^{-1}(a))$, where for $a\in \F_2^t$, $\kappa^{-1}(a)=\sum a_i e_i$. This is linear because multiplication by a fixed element over $\F_q$ is linear.  
+
+We define the following tester $M$. 
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{gamespec}
+Perform one of the following tests with probability~$\tfrac{1}{2}$ each. 
+\begin{enumerate}
+	\item \textbf{Axis-parallel lines test:}
+		Let $u \sim \F_q^m$ be a uniformly random point, 
+		and let $\ell = \{ (u_1,\ldots,u_{j-1},s,u_{j+1},\ldots,u_m) \in \F_q^m : s \in \F_q \}$
+		be the axis-parallel line passing through $u$ in the $j$-th direction. Read the entries on $\ell$ and accept if and only if they match a degree-$d$ polynomial. 
+	\item \textbf{Subcube commutation test:}
+	Select $j \sim \{1,\ldots,m\}$ uniformly at random, and select $x_{m-j+2},\ldots,x_{m} \sim \F_q$ uniformly at random. Select $u,v$ independently and uniformly at random from the subcube $H_{x_{m-j+2},\ldots,x_{m}}$. Read the entries $u,v$ and accept. 	
+    \end{enumerate}
+  \end{gamespec}
+  \caption{A local test for the RM code.}
+  \label{fig:RM-tester}
+\end{figure}
+
+The second test may seem superfluous. However, it is important to show that the code is robust. Note that including the test does impose a non-trivial constraint of pairwise approximate commutation. 
+
+In~\cite{tensor-codes}, quantum soundness of the game $G_{\code,M}$ is shown. 
 
 \bibliography{qld}
 

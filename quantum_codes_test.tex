@@ -680,7 +680,7 @@ It is shown in~\cite{blum1990self} that the following randomized oracle machine 
 
 The following appears as~\cite[Theorem 10]{natarajan2016robust}.\footnote{While~\cite{natarajan2016robust} only show the result for finite-dimensional $\mM$, the same proof works for any $(\mM,\tau)$.}
  
-\begin{theorem}
+\begin{theorem}\label{thm:had-qsound}
 $M_\had$ has quantum soundness $O(\eps)$.
 \end{theorem}
 
@@ -756,15 +756,15 @@ Given a game $G$, a function $\delta:[0,1]\to[0,1]$, and a distribution $\nu$ on
 
 Note that in the definition $\nu$ need not be the marginal of the game distribution $\mu$. In particular, we will often consider $\nu$ that is supported on a strict subset of the support of $\mu$. 
 
-Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. Consider the following game $G_{\code,M}$. We set 
-\[\mX = \{ S\subseteq \{1,\ldots,n\},|S|\leq r\} \sqcup\{1,\ldots,n\}\quad\text{and}\quad \mu(S,i)=\frac{1_{i\in S}}{|S|}\Pr_\rand\big(M(\rand)=S\big)\;,\]
-and for any $S,i\in\mX$, $\mA(S)=\field^S$ and $\mA(i)=\field$, and finally $D(S,i,a,b)=M(S,a)1_{a_i=b}$. 
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$. Consider the following game $G_{\code,M}$. We set 
+\[\mX = \{ S\subseteq \{1,\ldots,n\},|S|\leq r\} \sqcup\{1,\ldots,n\}\quad\text{and}\quad \mu(S,i)=\frac{1_{i\in S}}{|S|}\nu(S)\;,\]
+and for any $S,i\in\mX$, $\mA(S)=\F_q^S$ and $\mA(i)=\F_q$, and finally $D(S,i,a,b)=M(S,a)1_{a_i=b}$. 
 
 
 \tnote{The next proposition sounds like a special case of some other lemma about LCS games, which is probably written somewhere}
 
 \begin{proposition}\label{prop:sound-game}
-Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. Let $\delta,\delta':[0,1]\to[0,1]$. Then the following hold:
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$. Let $\delta,\delta':[0,1]\to[0,1]$. Then the following hold:
 \begin{enumerate}
 \item If $M$ has quantum soundness $\delta$ then $G_{\code,M}$ \hnote{was this object defined yet?}\tnote{Yes it's just above, we could make it into a definition if you think it's too hidden} is $(\delta'',\nu)$-robust, for some $\delta''(\eps)=O({\delta(2\eps)})$ and $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$. 
 \item If $G_{\code,M}$ is $(\delta',\nu)$-robust for $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$, and $(\mC,M)$ is Abelian, then $M$ has quantum soundness $\delta''$, for some $\delta''(\eps) = O(\delta'(\sqrt{\eps}))$. 
@@ -775,11 +775,11 @@ Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$.
 We start with the second assertion. Suppose that $G_{\code,M}$ is $\delta'$-robust, for some function $\delta'$. Let $(\mM,A)$ be be an $r$-local $\eps$-presentation of $\code$, and for each $S\subseteq\{1,\ldots,n\}$ such that $|S|=r$, $\{B^{S,i}\}_{i\in S}$ the commuting family of projective measurements promised by the definition. Then for every $S$ there is a projection $P^S$ in $\mM_\infty$ and an isometry $w^S\in P^S \mM_\infty 1_\mM$ such that 
 \[ \Es{i\in S} \sum_a \big\| A^i_a - (w^S)^* B^{S,i}_{a}w^S \big\|_2^2 \,\leq\,\eps_S\;,\]
 for some $(\eps_S)$ such that $\Es{S\leftarrow M(\cdot)} \eps_S \leq \eps$. 
- For any $a\in\field^S$ let $\tilde{P}^S_a = \prod_{i\in S} B^{S,i}_{a_i}$. Then $\{\tilde{P}^S_a\}_{a\in\field^S}$ is a projective measurement such that
+ For any $a\in\field^S$ let $\tilde{P}^S_a = \prod_{i\in S} B^{S,i}_{a_i}$. Then $\{\tilde{P}^S_a\}_{a\in\F_q^S}$ is a projective measurement such that
 \begin{align}
-\Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{a\in \field^S} \tau\big(  (w^S)^* \tilde{P}^S_a w^S \, A^i_{a_i}\big) 
-&= \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{b\in \field}\tau\big(  (w^S)^* B^{S,i}_b w^S\, A^i_{b}\big)\notag \\
-&= \Es{S\leftarrow M(\cdot)} \Es{i\in S} \frac{1}{2}\Big(\tau\big((w^S)^*w^S\big) + \tau(1) - \sum_{b\in \field} \big\|  (w^S)^* B^{S,i}_b w^S - A^i_{b}\big\|_2^2\Big) \notag\\
+\Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{a\in \F_q^S} \tau\big(  (w^S)^* \tilde{P}^S_a w^S \, A^i_{a_i}\big) 
+&= \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{b\in \F_q}\tau\big(  (w^S)^* B^{S,i}_b w^S\, A^i_{b}\big)\notag \\
+&= \Es{S\leftarrow M(\cdot)} \Es{i\in S} \frac{1}{2}\Big(\tau\big((w^S)^*w^S\big) + \tau(1) - \sum_{b\in \F_q} \big\|  (w^S)^* B^{S,i}_b w^S - A^i_{b}\big\|_2^2\Big) \notag\\
 &\geq \,\frac{1}{2}(1-\eps+1-\eps)\;.\label{eq:s-g-1}
 \end{align}
 Starting from the $\{\tilde{P}^S_a\}$, let $\{P^S_a\}$ be the family of projective measurements on $\mM$ that is promised by Lemma~\ref{lem:pull-back}. By a simple averaging argument,
@@ -797,18 +797,18 @@ We can write
 where the second line uses $\|A^i_a\|\leq 1$ and the last is by Lemma~\ref{lem:l1-l2} and~\eqref{eq:s-g-1b}.
 Together with~\eqref{eq:s-g-1} and using the definition of $G_{\code,M}$, we have shown that
 \begin{equation}
- \sum_{(S,i)} \mu(S,i) \sum_{a\in \field^s}\sum_{b\in\field} D(S,i,a,b) \tau\big(  P^S_a  A^i_{b}\big) \,\geq \,1-O(\sqrt{\eps})\;.\label{eq:s-g-2}
+ \sum_{(S,i)} \mu(S,i) \sum_{a\in \field^s}\sum_{b\in\field} D(S,i,a,b) \tau\big(  P^S_a  A^i_{b}\big) \,\geq \,1-O(\sqrt{\eps})\;.\label{eq:s-g-4}
 \end{equation}
 In other words $\omega(G_{\code,M};\strategy)\geq 1-\eps'$ for $\strategy$ the strategy with measurements $\{A^i_b\}$ and $\{P^{S}_a\}$ and some $\eps'=O(\sqrt{\eps})$. Using the definition of robustness we deduce that $(\mM,A,P)$ is $(\delta'(\eps'),\nu)$-close to a perfect strategy $(\mN,C,Q)$ for $G$. Since $\nu$ is uniform on $\{1,\ldots,n\}$ we may specialize to the $A$ measurements; using the definition of closeness there exists a projection $P\in \mM_\infty$ such that $\{C^i\}_a \subseteq P\mM_\infty P$ and $\Es{i}\sum_a \|A^i_a-w^* C^i_a w \|_2^2 \leq 2\delta'$, and moreover $\{C^i_a\}$ satisfy that for any $S$ in the support of $\mu$, $\{C^i_a\}$ pairwise commute for $i\in S$. Using the assumption that $(\code,M)$ is Abelian, all the $\{C^i_a\}$ commute and form a representation of $\code$.
 
 Now we show the first assertion. Suppose that $M$ has quantum soundness $\delta$.
 Let $\strategy=(\mM,A,P)$ be a strategy for $G_{\code,M}$ on $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. This can be reformulated as 
 \begin{equation}
- \sum_{(S,i)} \mu(S,i) \sum_{a\in \field^s}\sum_{b\in\field} D(S,i,a,b) \tau\big(  P^S_a  A^i_{b}\big) \,\geq \,1-\eps\;.\label{eq:s-g-3a}
+ \sum_{(S,i)} \mu(S,i) \sum_{a\in \F_q^s}\sum_{b\in\F_q} D(S,i,a,b) \tau\big(  P^S_a  A^i_{b}\big) \,\geq \,1-\eps\;.\label{eq:s-g-3a}
 \end{equation}
 For each $S$ and $i\in S$, let $B^{S,i}_b = \sum_{a:a_i=b} P^S_a$. Then using the definition of $\mu$ and $D$, rewriting~\eqref{eq:s-g-3a} immediately gives
 \begin{equation}
- \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{b\in\field} \big\| A^i_{b} - B^{S,i}_b\big\|_2^2 \,\leq \,2\eps\;.\label{eq:s-g-3}
+ \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{b\in\F_q} \big\| A^i_{b} - B^{S,i}_b\big\|_2^2 \,\leq \,2\eps\;.\label{eq:s-g-3}
 \end{equation}
 Thus $(\mM,A)$ is an $\eps'$-local presentation of code, for $\eps'=2\eps$. Using quantum soundness, there is a representation $(\mN,C)$ of $\code$ that is $\delta'$-close to $(\mM,A)$, for $\delta'=\delta(\eps')$. 
 
@@ -837,7 +837,7 @@ We use the same game as in~\cite[Section 3.2]{de2022spectral}. For convenience w
 
 \subsection{Combined game}
 
-Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. 
+Let $\code$ be an $[n,k,d]_2$ linear code and $M$ an $r$-local tester for $\code$. 
 We use $G_{\dlS}$ to denote the game introduced in~\cite[Section 3.4]{de2022spectral}, specialized to the following choices. The group is $H=\field^k$. Let
 \[ S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k\;,\]
 and let $\mu_{\dlS}$ be the uniform distribution over $S_X\times S_Z$. Let $\Omega$ be the support of $\mu_{\dlS}$ and $\alpha,\beta$ the coordinate projections. Then $G_{\dlS}=(\mX,\mu_{\dlS},\mA,D)$ has question set $\mX = \{PX,PZ\} \cup (\mX_{com}\times \Omega_+) \cup (\mX_{anticom} \times \Omega_-)$ and is as described in~\cite[Section 3.4]{de2022spectral}. For clarity we recall the game, using our notation, in Figure~\ref{fig:dlS}. 
@@ -863,7 +863,7 @@ Let $S_X,S_Z\subseteq \field^k$.  Select $\omega = (\omega_X,\omega_Z)\in S_X \t
 
 \section{Main result}
 
-Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. 
+In this section we focus on binary codes only, see Section~\ref{sec:pbt} for the case of fields over $\F_q$ for $q$ a power of $2$. Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. 
 
 
 \begin{figure}[!htbp]
@@ -970,9 +970,10 @@ Since $\omega_W = G_\mC e_i$, $(G_\mC^T c)_i = c\cdot \omega_W$. Thus~\eqref{eq:
 
 
 \section{Application: the Pauli braiding test}
+\label{sec:pbt}
 
 
-For $q=2^t$ and $a\in \field$ we let $\kappa(a)\in\F_2^t$ denote the binary representation of $a$, taken in a fixed but usually implicit self-dual basis of $\F_2^t$ over $\F_2$. We extend $\kappa$ to vectors over $\field$ coordinate-wise. We let $\tr(\cdot):\F_q\to\F_2$ denote the trace over $\F_2$. Because we chose a self-dual basis for the binary representation, the trace satisfies $\tr(ab)=\kappa(a)\cdot\kappa(b)$. 
+For $q=2^t$ and $a\in \field$ we let $\kappa(a)\in\F_2^t$ denote the binary representation of $a$, taken in a fixed but usually left implicit self-dual basis of $\F_2^t$ over $\F_2$. We extend $\kappa$ to vectors over $\field$ coordinate-wise. We let $\tr(\cdot):\F_q\to\F_2$ denote the trace over $\F_2$. Because we chose a self-dual basis for the binary representation, the trace satisfies $\tr(ab)=\kappa(a)\cdot\kappa(b)$. 
 	
 %	We use $\sigma^W(a)$, for $a\in F_q^k$, to denote the tensor product of $k$ Pauli $W$ observables over $\field$. We use $\{\sigma^W_a\}$ to denote the associated projective measurement. 
 
@@ -996,44 +997,52 @@ For $q=2^t$ and $a\in \field$ we let $\kappa(a)\in\F_2^t$ denote the binary repr
 \label{sec:code-comp}
 
 Let $q=2^t$ and $\code$ an $[n,k,d]_q$ linear code. Let $\code_{\Had}$ be the Hadamard code over $\F_2^t$ (see Section~\ref{sec:had}). Let $T=2^t$.
-Let $\mC'$ be the $[Tn,tk,d']$ linear code over $\F_2$ defined as follows. Given $a\in (\F_2^t)^{k}$, first map $a\mapsto a'=\kappa^{-1}(a) \in \F_q^{k}$. Then encode $a'$ to $b'=\code_\RM(a')\in \F_q^n$. Finally, return $b=\code_\Had(b')\in(\F_2^T)^n$, where $\code_\Had$ is applied entrywise. Using that $\code_\Had$ has relative distance $\frac{1}{2}$, it is easy to verify that this code has relative distance $d'\geq d/2$.
+Let $\mC'$ be the $[Tn,tk,d']$ linear code over $\F_2$ defined as follows. Given $a\in (\F_2^t)^{k}$, first map $a\mapsto a'=\kappa^{-1}(a) \in \F_q^{k}$. Then encode $a'$ to $b'=\code_\RM(a')\in \F_q^n$. Finally, return $b=\code_\Had(\kappa(b'))\in(\F_2^T)^n$, where $\code_\Had$ is applied component-wise. Using that $\code_\Had$ has relative distance $\frac{1}{2}$, it is easy to verify that this code has distance $d'\geq dT/2$.
 
-Given an $r$-local $\delta$-tester $M$ for $\code$, there is a natural $rq$-local tester $M'$ for $\code'$ which can be described as follows. Index coordinates of $\code'$ by pairs $(i,\alpha)\in [n]\times\F_2^t$, fixing a bijection between $[Tn]$ and $[n]\times \F_2^t$. Then $\nu'$ is the uniform mixtures of two distributions, $\nu'_1$ and $\nu'_2$. To sample from $\nu'_1$, sample $S\sim\nu$ and return the set $S\times\F_2^t$. To sample from $\nu'_2$, select $i\sim[n]$ uniformly at random and $x,y\in\F_2^t$ uniformly at random, and return $\{i\}\times\{x,y,x+y\}$. The decision predicate $M'$ executes $M$ for all sets of the form $S\times \F_2^t$, and the tester for the Hadamard code (Section~\ref{sec:had}) in the other cases.
+Given an $r$-local $\delta$-tester $M$ for $\code$, there is a natural $rq$-local tester $M'$ for $\code'$ which can be described as follows. Index coordinates of $\code'$ by pairs $(i,\alpha)\in [n]\times\F_2^t$, fixing a bijection between $[Tn]$ and $[n]\times \F_2^t$. Then $\nu'$ is the uniform mixtures of two distributions, $\nu'_1$ and $\nu'_2$. To sample from $\nu'_1$, sample $S\sim\nu$ and return the set $S\times\F_2^t$. To sample from $\nu'_2$, select $i\sim[n]$ uniformly at random and $x,y\in\F_2^t$ uniformly at random, and return $\{i\}\times\{x,y,x+y\}$. The decision predicate $M'$ executes $M$ for all sets of the form $S\times \F_2^t$, and the tester for the Hadamard code (Section~\ref{sec:had}) for sets of the form $\{i\}\times\{x,y,x+y\}$.
 
 
 \begin{proposition}\label{prop:q-to-2}
-Suppose that $M$ is an $r$-local tester for $\code$ with quantum soundness $\delta$. Then $M'$ is an $rq$-local tester for $\code'$ with quantum soundness $\delta'$ such that $\delta'(\eps)=\delta(O(\eps)))$. 
+Suppose that $M$ is an $r$-local tester for $\code$ with quantum soundness $\delta$. Then $M'$ is an $rq$-local tester for $\code'$ with quantum soundness $\delta'$ such that $\delta'(\eps)=\delta(O(\eps))$. 
 \end{proposition}
 
 \begin{proof}
-Let $\{A^{(i,\alpha)}\}$ and $\{B^{S,(i,\alpha)}\}$ be an $\eps$-local presentation of $\code'$. By definition of the measure $\nu'$, there are $\{\eps_i\}$ such that $\Es{i} \eps_i \leq 2\eps$ and for every $i$, the collection $\{A^{(i,\alpha)}\}$ and $\{B^{\{i\}\times \{x,y,x+y\},(i,x)}\}$ is an $\eps_i$-local presentation of $\code_\Had$. By quantum soundness of $\code_\Had$, for each $i$ there exists commuting $\{\hat{A}^{i,\alpha}\}$ that are $O(\eps_i)$-close to the $\{A^{i,\alpha}\}$ and moreover are a representation of $\code_{\Had}$. Let $w^{(i)}$ be the implied isometry.
-Define $\hat{A}^{i}_{a}=\Es{\alpha}(-1)^{a\cdot \alpha} \hat{A}^{i,\alpha}$. Then by linearity this is a projective measurement:
+Let $\{A^{(i,\alpha)}\}$ and $\{B^{S,(i,\alpha)}\}$ be an $\eps$-local presentation of $\code'$. By definition of the measure $\nu'$, there are $\{\eps_i\}$ such that $\Es{i} \eps_i \leq 2\eps$ and for every $i$, the collections $\{A^{(i,\alpha)}\}$, for $\alpha \in \F_2^t$, and $\{B^{\{i\}\times \{x,y,x+y\},(i,x)}\}$, for $x,y\in\F_2^t$, form an $\eps_i$-local presentation of $\code_\Had$. By quantum soundness of $\code_\Had$ (Theorem~\ref{thm:had-qsound}) $\{i\}\times\{x,y,x+y\}$), for each $i$ there exists commuting $\{\hat{A}^{(i,\alpha)}\}$ that are $O(\eps_i)$-close to the $\{A^{(i,\alpha)}\}$ and moreover are a representation of $\code_{\Had}$. Let $w^{(i)}$ be the implied isometry. For every $a\in \F_2^t$, define $\hat{A}^{i}_{a}=\Es{\alpha}(-1)^{a\cdot \alpha} \hat{A}^{(i,\alpha)}$. Then by linearity this is a projective measurement:
 \begin{align*}
-\big(\hat{A}^{i}_{a}\big)^2 &=\Big(\Es{\alpha}(-1)^{a\cdot \alpha} \hat{A}^{i,\alpha}\Big)^2\\
-&= \Es{\alpha,\alpha' }(-1)^{a\cdot (\alpha+\alpha')} \hat{A}^{i,\alpha}\hat{A}^{i,\alpha'}\\
-&=\Es{\alpha,\alpha' }(-1)^{a\cdot (\alpha+\alpha')} \hat{A}^{i,\alpha+\alpha'}\\
+\big(\hat{A}^{i}_{a}\big)^2 &=\Big(\Es{\alpha}(-1)^{a\cdot \alpha} \hat{A}^{(i,\alpha)}\Big)^2\\
+&= \Es{\alpha,\alpha' }(-1)^{a\cdot (\alpha+\alpha')} \hat{A}^{(i,\alpha)}\hat{A}^{(i,\alpha')}\\
+&=\Es{\alpha,\alpha' }(-1)^{a\cdot (\alpha+\alpha')} \hat{A}^{(i,\alpha+\alpha')}\\
 &=\hat{A}^{i}_{a}\;,
 \end{align*}
-and moreover $\sum_a \hat{A}^{i}_{a} = \hat{A}^{i}_{0}=\Id$. Moreover,
-\begin{equation}\label{eq:qto2-1}
-\Es{i} \Es{\alpha}  \Big\| A^{(i,\alpha)} - \sum_a (-1)^{a\cdot\alpha}\hat{A}^{i,a}\Big\|^2
-\,=\, \Es{i} \Es{\alpha}  \big\| A^{(i,\alpha)} - \hat{A}^{i,\alpha}\big\|^2 \,=\, O(\eps)\;.
+where the third line uses that  $\{A^{(i,\alpha)}\}$ are a representation of $\code_{\Had}$. Moreover, $\sum_a \hat{A}^{i}_{a} = \hat{A}^{(i,0)}=\Id$. Hence using Lemma~\ref{lem:pull-back}, for every $i$ we obtain a projective measurement $\{\tilde{A}^{i}_{a}\}$ on $\cM$ such that
+\begin{equation}\label{eq:qto2-1a}
+ \sum_a \big\| \tilde{A}^i_a - (w^{(i)})^* \hat{A}^i_a (w^{(i)}) \big\|_2^2 \,=\, O(\eps_i)\;.
 \end{equation}
-Furthermore, using Lemma~\ref{lem:pull-back} we obtain the existence of a projective measurement $\{\tilde{A}^{i}_{a}\}$ on $\cM$ such that
-\[ \sum_a \big\| \tilde{A}^i_a - (w^{(i)})^* \hat{A}^i_a (w^{(i)}) \big\|_2^2 \,=\, O(\eps_i)\;,\]
-which together with~\eqref{eq:qto2-1} and the triangle inequality gives
-\begin{equation}\label{eq:qto2-2}
- \Es{i} \sum_a \Big\| \Es{\alpha} (-1)^{a\cdot \alpha} A^{(i,\alpha)} -  \tilde{A}^i_a \Big\|_2^2 \,=\, O(\eps)\;.
-\end{equation}
-Now for $b\in \F_q$ define $\tilde{B}^{S,i}_b= \Es{\alpha} (-1)^{b\cdot \alpha} B^{S\times \F_2^t,(i,\alpha)}$, which for the same reasons as earlier is a POVM. 
+%Moreover,
+%\begin{equation}\label{eq:qto2-1}
+%\Es{i} \Es{\alpha}  \Big\| A^{(i,\alpha)} - \sum_a (-1)^{a\cdot\alpha}(w^{(i)})^* \hat{A}^i_a (w^{(i)})\Big\|^2
+%\,=\, \Es{i} \Es{\alpha}  \big\| A^{(i,\alpha)} - (w^{(i)})^* \hat{A}^{i,\alpha} (w^{(i)})\big\|^2 \,=\, O(\eps)\;,
+%\end{equation}
+%by closeness. Combining~\eqref{eq:qto2-1a} with~\eqref{eq:qto2-1} through the triangle inequality gives
+We then get
+\begin{align}
+ \Es{i} \sum_a \Big\| \Es{\alpha} (-1)^{a\cdot \alpha} A^{(i,\alpha)} -  \tilde{A}^i_a \Big\|_2^2 
+&\leq  2\Es{i} \sum_a \Big\| \Es{\alpha} (-1)^{a\cdot \alpha} A^{(i,\alpha)} -  (w^{(i)})^* \hat{A}^i_a (w^{(i)}) \Big\|_2^2 + O(\eps)\notag\\
+&=  2\Es{i} \sum_a \Big\| \Es{\alpha} (-1)^{a\cdot \alpha} A^{(i,\alpha)} -   \Es{\alpha} (-1)^{a\cdot \alpha} (w^{(i)})^* \hat{A}^{i,\alpha} (w^{(i)}) \Big\|_2^2+ O(\eps) \notag\\
+&= 2\Es{i} \Es{\alpha} \big\| A^{(i,\alpha)} -    (w^{(i)})^* \hat{A}^{i,\alpha} (w^{(i)}) \big\|_2^2+ O(\eps)\notag\\
+&= O(\eps)\;, \label{eq:qto2-2}
+\end{align}
+where the first line uses the triangle inequality and~\eqref{eq:qto2-1a}, the second line uses the definition of $\hat{A}^i_a$, the third line is Parseval's identity and the last is by closeness. 
+
+Now for $b\in \F_q$ define $\tilde{B}^{S,i}_b= \Es{\alpha} (-1)^{b\cdot \alpha} B^{S\times \F_2^t,(i,\alpha)}$, which for the same reasons as earlier is a projective measurement. 
 To conclude we show that $\{\tilde{A}^{i}\}$ and $\{\tilde{B}^{S,i}\}$ form an $O(\eps)$-presentation of $\code$. The fact that the $\{\tilde{B}^{S,i}\}$ satisfy the constraints imposed by $M$ is clear, because $\{B^{S,(i,\alpha)}\}$ satisfy those of $M'$. For the closeness condition, we have
 \begin{align*}
 \Es{S}\Es{i} \sum_b \big\| \tilde{A}^i_b - \tilde{B}^{S,i}_b \big\|_2^2
-&\leq \Es{S}\Es{i} \sum_b \Big\| \Es{\alpha} (-1)^{b\cdot \alpha} {A}^{(i,\alpha)} - \Es{\alpha} (-1)^{b\cdot \alpha} B^{S\times \F_2^t,(i,\alpha)}\Big\|_2^2 + O(\eps)\\
-&= \Es{S}\Es{i} \Es{\alpha}\big\|  {A}^{(i,\alpha)} -  B^{S\times \F_2^t,(i,\alpha)}\big\|_2^2 + O(\eps)\\
-&\leq 2\eps + O(\eps)\;,
+&\leq 2\Es{S}\Es{i} \sum_b \Big\| \Es{\alpha} (-1)^{b\cdot \alpha} {A}^{(i,\alpha)} - \Es{\alpha} (-1)^{b\cdot \alpha} B^{S\times \F_2^t,(i,\alpha)}\Big\|_2^2 + O(\eps)\\
+&= 2\Es{S}\Es{i} \Es{\alpha}\big\|  {A}^{(i,\alpha)} -  B^{S\times \F_2^t,(i,\alpha)}\big\|_2^2 + O(\eps)\\
+&\leq 4\eps + O(\eps)\;,
 \end{align*}
-where the first inequality is by~\eqref{eq:qto2-2}, the second line by Parseval's formula and the last is by assumption. Thus quantum soundness of $\code'$ follows from quantum soundness of $\code$. 
+where the first inequality is by~\eqref{eq:qto2-2} and the triangle inequality, the second line by Parseval's formula and the last is by assumption. Thus quantum soundness of $\code'$ follows from quantum soundness of $\code$. 
 \end{proof}
 
 
@@ -1059,7 +1068,8 @@ where $\{c_\alpha\}$ is a collection of coefficients in $\F_q$. It is easy to ve
 \end{lemma}
 
 
-We define the following tester $M_{\RM}$ for the code $\mC_\RM$ over $\F_q$, see Figure~\ref{fig:RM-tester}. 
+We define a tester $M_{\RM}$ for the code $\mC_\RM$ over $\F_q$, see Figure~\ref{fig:RM-tester}. The second test applied by the tester, the subcube commutation test, may seem superfluous, because it always accepts. However, the test is important to show that the code is robust. Note that including the test imposes a non-trivial constraint of pairwise approximate commutation on representations of $\mC_\RM$, and hence also on $\eps$-local presentations. In particular, due to the presence of this test the pair $(\code_\RM,M_\RM)$ is trivially Abelian. 
+
 
 \begin{figure}[!htbp]
   \centering
@@ -1078,7 +1088,6 @@ Perform one of the following tests with probability~$\tfrac{1}{2}$ each.
   \label{fig:RM-tester}
 \end{figure}
 
-The second test may seem superfluous. However, it is important to show that the code is robust. Note that including the test imposes a non-trivial constraint of pairwise approximate commutation. In particular, the pair $(\code_\RM,M_\RM)$ is trivially Abelian. 
 
 
 \begin{theorem}\label{thm:mrm-sound}

@@ -630,10 +630,10 @@ When the subscript $q$ is omitted, it is implicitly taken as $q=2$, i.e.\ the co
 
 \begin{definition}[Local tester]\label{def:code-test}
 Let $\code$ be an $[n,k,d]_q$ linear code, $\delta:[0,1]\to[0,1]$, and $r\in \N$.
-\hnote{edited slightly} An \emph{$r$-local $\delta$-tester for $\code$} is a pair $(M,\nu)$ where $\nu$ is a distribution over subsets $S\subseteq [n]$ of size at most $r$, and $M$ is a collection of predicates $M(S,\cdot):\F_q^S\to\{0,1\}$ for each subset $S$ such that the following hold:
+\hnote{edited slightly} An \emph{$r$-local $\delta$-tester for $\code$} is a pair $M = ((M_S)_{S \subseteq [n]},\nu)$ where $\nu$ is a distribution over subsets $S\subseteq [n]$ of size at most $r$, and for each such subset $M_S:\F_q^S\to\{0,1\}$ is a predicate such that the following hold:
 \begin{itemize} 
-\item (Completeness:) For any $u\in \code$, $\Pr_{S\sim \nu}( M(S,u_S)=1)=1$.
-\item (Soundness:) For any $\eps\geq 0$ and any $u\in \F_q^n$ that is within (Hamming) distance at least  $\eps$ from $\code$, $\Pr_{S\sim\nu}(M(S,u_{|S})=0)\geq \delta(\eps)$.  \hnote{should it be $u_S$ or $u|_S$?}
+\item (Completeness:) For any $u\in \code$, $\Pr_{S\sim \nu}( M_S(u_S)=1)=1$.
+\item (Soundness:) For any $\eps\geq 0$ and any $u\in \F_q^n$ that is within (Hamming) distance at least  $\eps$ from $\code$, $\Pr_{S\sim\nu}(M_S(u_{|S})=0)\geq \delta(\eps)$.  \hnote{should it be $u_S$ or $u|_S$?}
 \end{itemize}
 \end{definition}
 
@@ -656,7 +656,7 @@ Let $\code$ be an $[n,k,d]$ linear code. A \emph{representation} of $\code$ is a
 
 
 \begin{definition}[$\eps$-local presentation]
-Let $\code$ be an $[n,k,d]_q$ linear code and $(M,\nu)$ \hnote{was: $M$ but it also depends on distribution $\nu$} be an $r$-local tester for $\code$. An \emph{$\eps$-local presentation of $(\code,M)$} \hnote{should this be $(\code,M,\nu)$?} is a pair $(\mM,A)$ of a tracial von Neumann algebra $\mM$ and a collection of projective measurements $A = \{A^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that for any $S\subseteq\{1,\ldots,n\}$ of size $|S|\leq r$ there are $|S|$ pairwise commuting projective measurements $\{B^{S,i}_b\}_{b\in \F_q}$, for $i\in S$, such that 
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ be an $r$-local tester for $\code$. An \emph{$\eps$-local presentation of $(\code,M)$} is a pair $(\mM,A)$ of a tracial von Neumann algebra $\mM$ and a collection of projective measurements $A = \{A^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that for any $S\subseteq\{1,\ldots,n\}$ of size $|S|\leq r$ there are $|S|$ pairwise commuting projective measurements $\{B^{S,i}_b\}_{b\in \F_q}$, for $i\in S$, such that 
 \begin{itemize}
 \item $\sum_{a\in \F^S} M(S,a) \, \prod_{i\in S} B^{S,i}_{a_i}= \Id$ \hnote{was $1_{M(S,a)=1}$ but can be simplified}
 \item The two measurement families $\{A^i\}_{S, i\in S}$ \hnote{Don't quite understand the subscripting, since $A^i$ only depends on $i$} and $\{B^{S,i}\}_{S, i\in S}$ are $(\eps,\nu')$-close, where $\nu'((S,i))=\nu(S)1_{i\in S}\frac{1}{|S|}$.
@@ -666,7 +666,7 @@ Let $\code$ be an $[n,k,d]_q$ linear code and $(M,\nu)$ \hnote{was: $M$ but it a
 
 
 \begin{definition}[Quantum soundness]\label{def:q-sound}
-Let $\code$ be an $[n,k,d]_q$ linear code and $(M,\nu)$ a $r$-local tester for $\code$. Let $\delta:[0,1]\to[0,1]$ be such that $\delta(0)=0$. We say that $(M,\nu)$ has \emph{quantum soundness $\delta(\eps)$} if the following holds. For any $\eps$-local presentation $(\mM,A)$ of $(\code,M)$
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ a $r$-local tester for $\code$. Let $\delta:[0,1]\to[0,1]$ be such that $\delta(0)=0$. We say that $(\code,M)$ has \emph{quantum soundness $\delta(\eps)$} if the following holds. For any $\eps$-local presentation $(\mM,A)$ of $(\code,M)$
 % such that 
 %\[ \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{a\in \field^s} \big[ \tau\big(  P^S_a  A^i_{a_i}\big) \big] \,\geq \,1-\eps\;,\] 
 there is a representation $(\mN,B)$ of $\code$ such that the measurement families $A$ and $B$ are $\delta(\eps)$-close. 
@@ -686,7 +686,7 @@ A necessary condition for a code to be quantum sound is that any $0$-local quant
 
 We give an example of a family of quantum sound codes, the \emph{Hadamard codes}. This code can be defined for any  $t\geq 1$ and it is an $[T,t,T/2]_2$ linear code, where $T=2^t$. For simplicity we write  $\code_\had$ to denote this code, omitting $t$. As a linear map, for $i\in\{1,\ldots,t\}$, $\code_\had(e_i) = (x_i)_{x\in \field^t} \in \field^T$, where we identify the index set $\{1,\ldots,T\}$ with the set $\field^t$ in an arbitrary way.  
 
-\hnote{edited slightly:} It is shown in~\cite{blum1990self} that there is a $3$-local $\delta$-tester $(M_\had,\nu_\had)$ for $\code_\had$, where $\delta(\eps)=6\eps$. The distribution $\nu_\had$ is uniform over subsets $\{ x, y, x+y \} \subset \field^t$ where $x,y\in \field^t$ are uniformly and independently chosen. For all $u \in \field^T$, the predicate $M_\had(S,u|_S) = 1$ if and only if $u_x + u_y = u_{x+y}$ (where we think of the coordinates of $u$ as being indexed by elements of $\field^t$). 
+\hnote{edited slightly:} It is shown in~\cite{blum1990self} that there is a $3$-local $\delta$-tester $M_\had$ for $\code_\had$, where $\delta(\eps)=6\eps$. The distribution $\nu_\had$ is uniform over subsets $\{ x, y, x+y \} \subset \field^t$ where $x,y\in \field^t$ are uniformly and independently chosen. For all $u \in \field^T$, the predicate $M_{\had,S}(u|_S) = 1$ if and only if $u_x + u_y = u_{x+y}$ (where we think of the coordinates of $u$ as being indexed by elements of $\field^t$). 
 
 %$M$ first uses its random tape to select $x,y\in\field^k$uniformly at random and returns the set $S=\{x,y,x+y\}$. For $\pi\in \field^T$, $M(S,\pi_S)$ accepts if and only if $\pi_x + \pi_y  = \pi_{x+y}$. 
 
@@ -796,7 +796,7 @@ and for any $S,i\in\mX$, $\mA(S)=\F_q^S$ and $\mA(i)=\F_q$, and finally $D(S,i,a
 \begin{proposition}\label{prop:sound-game}
 Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$. Let $\delta,\delta':[0,1]\to[0,1]$. Then the following hold:
 \begin{enumerate}
-\item If $M$ has quantum soundness $\delta$ then $G_{\code,M}$ \hnote{was this object defined yet?}\tnote{Yes it's just above, we could make it into a definition if you think it's too hidden} is $(\delta'',\nu)$-robust, for some $\delta''(\eps)=O({\delta(2\eps)})$ and $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$. 
+\item If $M$ has quantum soundness $\delta$ then $G_{\code,M}$ is $(\delta'',\nu)$-robust, for some $\delta''(\eps)=O({\delta(2\eps)})$ and $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$. 
 \item If $G_{\code,M}$ is $(\delta',\nu)$-robust for $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$, and $(\mC,M)$ is Abelian, then $M$ has quantum soundness $\delta''$, for some $\delta''(\eps) = O(\delta'(\sqrt{\eps}))$. 
 \end{enumerate}
 \end{proposition}
@@ -1169,6 +1169,7 @@ Follows from Theorem~\ref{thm:main} and Theorem~\ref{thm:mrm-sound}.
 
 As a corollary we obtain quantum soundness for the variant of the Pauli braiding test which is described in~\cite[Section 7.3]{ji2020mip}. This is because any (synchronous) strategy for the latter can be mapped into a strategy for the former. The only difference is that in the variant from~\cite{ji2020mip}, some of the answers, specifically the ones from the Code test associated with $\code_\RM$, are specified over $\F_q$. Of course this is equivalent to returning the binary representation of all $\F_q$ elements, which is what is required in the Code test here, for the cases where the set $T=\F_q$. \tnote{This part is loose; I didn't check things formally and I'm not sure we want to either}
 
+\input{dim_test.tex}
 
 \bibliography{qld}
 

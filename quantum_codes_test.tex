@@ -615,7 +615,7 @@ This follows by expending the left-hand side and using $\tau(P_aQ_{a'})\geq 0$ f
 
 \begin{definition}[Code]
 For $q$ a prime power and $n,k,d$ integer
-a $[n,k,d]_q$ linear code is a $k$-dimensional subspace $\code\subseteq \F_q^n$ such that for every $u\in \code$ such that $u\neq 0$, $|u|\geq d$. Equivalently, we think of $\code$ as a linear map $\code:\F_q^k\to \F_q^n$. We write $G_\code \in \F_q^{k\times n}$ for the generator matrix defined by $ G_\code^T e_i =\code(e_i)$ for all $i\in\{1,\ldots,k\}$, where $\{e_1,\ldots,e_k\}$ is the standard basis of $\F_q^k$. 
+a $[n,k,d]_q$ linear code is a $k$-dimensional subspace $\code\subseteq \F_q^n$ such that for every $u\in \code$ such that $u\neq 0$, $|u|\geq d$. Equivalently, we think of $\code$ as a linear map $\code:\F_q^k\to \F_q^n$. We write $G_\code \in \F_q^{k\times n}$ \hnote{this notation might be confusing, especially since we use $G$ and $G_{\code,M}$ for games... maybe call it $E_\code$?} for the generator matrix defined by $ G_\code^T e_i =\code(e_i)$ for all $i\in\{1,\ldots,k\}$, where $\{e_1,\ldots,e_k\}$ is the standard basis of $\F_q^k$. 
 \end{definition}
 
 When the subscript $q$ is omitted, it is implicitly taken as $q=2$, i.e.\ the code is assumed to be binary. 

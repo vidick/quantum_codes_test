@@ -668,7 +668,7 @@ Let $\code$ be an $[n,k,d]_q$ linear code and $M$ be an $r$-local tester for $\c
 \begin{definition}[Quantum soundness]\label{def:q-sound}
 Let $\code$ be an $[n,k,d]_q$ linear code and $M$ a $r$-local tester for $\code$. Let $\delta:[0,1]\to[0,1]$ be such that $\delta(0)=0$. We say that $(\code,M)$ has \emph{quantum soundness $\delta(\eps)$} if the following holds. For any $\eps$-local presentation $(\mM,A)$ of $(\code,M)$
 % such that 
-%\[ \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{a\in \field^s} \big[ \tau\big(  P^S_a  A^i_{a_i}\big) \big] \,\geq \,1-\eps\;,\] 
+%\[ \Es{S\sim \nu} \Es{i\in S} \sum_{a\in \field^s} \big[ \tau\big(  P^S_a  A^i_{a_i}\big) \big] \,\geq \,1-\eps\;,\] 
 there is a representation $(\mN,B)$ of $\code$ such that the measurement families $A$ and $B$ are $\delta(\eps)$-close. 
 \end{definition}
 
@@ -794,7 +794,7 @@ and for any $S,i\in\mX$, $\mA(S)=\F_q^S$ and $\mA(i)=\F_q$, and finally $D(S,i,a
 \tnote{The next proposition sounds like a special case of some other lemma about LCS games, which is probably written somewhere}
 
 \begin{proposition}\label{prop:sound-game}
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$. Let $\delta,\delta':[0,1]\to[0,1]$. Then the following hold:
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$ with distribution $\nu$. Let $\delta,\delta':[0,1]\to[0,1]$. Then the following hold:
 \begin{enumerate}
 \item If $M$ has quantum soundness $\delta$ then $G_{\code,M}$ is $(\delta'',\nu)$-robust, for some $\delta''(\eps)=O({\delta(2\eps)})$ and $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$. 
 \item If $G_{\code,M}$ is $(\delta',\nu)$-robust for $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$, and $(\mC,M)$ is Abelian, then $M$ has quantum soundness $\delta''$, for some $\delta''(\eps) = O(\delta'(\sqrt{\eps}))$. 
@@ -802,26 +802,26 @@ Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code
 \end{proposition}
 
 \begin{proof}
-We start with the second assertion. Suppose that $G_{\code,M}$ is $\delta'$-robust, for some function $\delta'$. Let $(\mM,A)$ be be an $r$-local $\eps$-presentation of $\code$, and for each $S\subseteq\{1,\ldots,n\}$ such that $|S|=r$, $\{B^{S,i}\}_{i\in S}$ the commuting family of projective measurements promised by the definition. Then for every $S$ there is a projection $P^S$ in $\mM_\infty$ and an isometry $w^S\in P^S \mM_\infty I_\mM$ such that 
-\[ \Es{i\in S} \sum_a \big\| A^i_a - (w^S)^* B^{S,i}_{a}w^S \big\|_2^2 \,\leq\,\eps_S\;,\]
-for some $(\eps_S)$ such that $\Es{S\leftarrow M(\cdot)} \eps_S \leq \eps$. 
+We start with the second assertion. Suppose that $G_{\code,M}$ is $\delta'$-robust, for some function $\delta'$. Let $(\mM,A)$ be be an $r$-local $\eps$-presentation of $(\code,M)$ \hnote{nomenclature: should just be $\eps$-local presentation?}, and for each $S\subseteq\{1,\ldots,n\}$ such that $|S| \leq r$, $\{B^{S,i}\}_{i\in S}$ the commuting family of projective measurements promised by the definition. Then for every $S$ there is a projection $P^S \in \mM_\infty$ and an isometry $w^S\in P^S \mM_\infty I_\mM$ such that 
+\[ \Es{S \sim \nu} \Es{i\in S} \sum_a \big\| A^i_a - (w^S)^* B^{S,i}_{a}w^S \big\|_2^2 \,\leq\,\eps\;.\]
+\hnote{was: ``for some $(\eps_S)$ such that $\Es{S\sim \nu} \eps_S \leq \eps$.'', but this notation is never used again, so just directly added the expectation over $S$ above.}
  For any $a\in\field^S$ let $\tilde{P}^S_a = \prod_{i\in S} B^{S,i}_{a_i}$. Then $\{\tilde{P}^S_a\}_{a\in\F_q^S}$ is a projective measurement such that
 \begin{align}
-\Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{a\in \F_q^S} \tau\big(  (w^S)^* \tilde{P}^S_a w^S \, A^i_{a_i}\big) 
-&= \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{b\in \F_q}\tau\big(  (w^S)^* B^{S,i}_b w^S\, A^i_{b}\big)\notag \\
-&= \Es{S\leftarrow M(\cdot)} \Es{i\in S} \frac{1}{2}\Big(\tau\big((w^S)^*w^S\big) + \tau(1) - \sum_{b\in \F_q} \big\|  (w^S)^* B^{S,i}_b w^S - A^i_{b}\big\|_2^2\Big) \notag\\
+\Es{S\sim \nu} \Es{i\in S} \sum_{a\in \F_q^S} \tau\big(  (w^S)^* \tilde{P}^S_a w^S \, A^i_{a_i}\big) 
+&= \Es{S\sim \nu} \Es{i\in S} \sum_{b\in \F_q}\tau\big(  (w^S)^* B^{S,i}_b w^S\, A^i_{b}\big)\notag \\
+&= \Es{S\sim \nu} \Es{i\in S} \frac{1}{2}\Big(\tau\big((w^S)^*w^S\big) + \tau(1) - \sum_{b\in \F_q} \big\|  (w^S)^* B^{S,i}_b w^S - A^i_{b}\big\|_2^2\Big) \notag\\
 &\geq \,\frac{1}{2}(1-\eps+1-\eps)\;.\label{eq:s-g-1}
 \end{align}
 Starting from the $\{\tilde{P}^S_a\}$, let $\{P^S_a\}$ be the family of projective measurements on $\mM$ that is promised by Lemma~\ref{lem:pull-back}. By a simple averaging argument,
 \begin{equation}\label{eq:s-g-1b}
-\Es{S\leftarrow M(\cdot)}\sum_a \big\| P^S_a - (w^S)^* \tilde{P}^S_a (w^S)\big\|_2^2 \,=\, O(\eps)\;. 
+\Es{S\sim \nu}\sum_a \big\| P^S_a - (w^S)^* \tilde{P}^S_a (w^S)\big\|_2^2 \,=\, O(\eps)\;. 
 \end{equation}
 We can write
 \begin{align}
-\Big|\Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_a \tau\big( P^S_a A^i_{a_i}\big)
-&- \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_a \tau\big( (w^S)^* \tilde{P}^S_a (w^S)A^i_{a_i}\big)\Big|\notag\\
-&= \Big| \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_a \tau\big(\big((w^S)^* \tilde{P}^S_a (w^S)-P^S_a\big)A^i_{a_i}\big)\Big|\notag\\
-&\leq \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_a \tau\big(\big|(w^S)^* \tilde{P}^S_a (w^S)-P^S_a\big|\big)\notag\\
+\Big|\Es{S\sim \nu} \Es{i\in S} \sum_a \tau\big( P^S_a A^i_{a_i}\big)
+&- \Es{S\sim \nu} \Es{i\in S} \sum_a \tau\big( (w^S)^* \tilde{P}^S_a (w^S)A^i_{a_i}\big)\Big|\notag\\
+&= \Big| \Es{S\sim \nu} \Es{i\in S} \sum_a \tau\big(\big((w^S)^* \tilde{P}^S_a (w^S)-P^S_a\big)A^i_{a_i}\big)\Big|\notag\\
+&\leq \Es{S\sim \nu} \Es{i\in S} \sum_a \tau\big(\big|(w^S)^* \tilde{P}^S_a (w^S)-P^S_a\big|\big)\notag\\
 &= O(\sqrt{\eps})\;,\label{eq:s-g-2}
 \end{align}
 where the second line uses $\|A^i_a\|\leq 1$ and the last is by Lemma~\ref{lem:l1-l2} and~\eqref{eq:s-g-1b}.
@@ -838,7 +838,7 @@ Let $\strategy=(\mM,A,P)$ be a strategy for $G_{\code,M}$ on $(\mM,\tau)$ that s
 \end{equation}
 For each $S$ and $i\in S$, let $B^{S,i}_b = \sum_{a:a_i=b} P^S_a$. Then using the definition of $\mu$ and $D$, rewriting~\eqref{eq:s-g-3a} immediately gives
 \begin{equation}
- \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{b\in\F_q} \big\| A^i_{b} - B^{S,i}_b\big\|_2^2 \,\leq \,2\eps\;.\label{eq:s-g-3}
+ \Es{S\sim \nu} \Es{i\in S} \sum_{b\in\F_q} \big\| A^i_{b} - B^{S,i}_b\big\|_2^2 \,\leq \,2\eps\;.\label{eq:s-g-3}
 \end{equation}
 Thus $(\mM,A)$ is an $\eps'$-local presentation of code, for $\eps'=2\eps$. Using quantum soundness, there is a representation $(\mN,C)$ of $\code$ that is $\delta'$-close to $(\mM,A)$, for $\delta'=\delta(\eps')$. 
 
@@ -846,12 +846,12 @@ For every $S$, let $Q^S_a = \prod_{i\in S} C^i_{a_i}$, which is a projective mea
 
 %Moreover,
 %\begin{align}
-%\Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \big\| P^S_a - w^* Q^S_a w\big\|_2^2
-%&=2 - 2\Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i} w^* \prod_i C^{i}_{a_i}w\big)\;.\label{eq:s-g-4}
+%\Es{S\sim \nu} \sum_{a\in\field^k} \big\| P^S_a - w^* Q^S_a w\big\|_2^2
+%&=2 - 2\Es{S\sim \nu} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i} w^* \prod_i C^{i}_{a_i}w\big)\;.\label{eq:s-g-4}
 %\end{align}
 %Applying a simple inductive argument, using Lemma~\ref{lem:l1-l2} we get that \tnote{This needs a little more detail}
 %\begin{align*}
-%\Big|\Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i} w^* \prod_i C^{i}_{a_i}w\big) - \Es{S\leftarrow M(\cdot)} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i}  \prod_i B^{S,i}_{a_i}\big)\Big| &= O\big(r\sqrt{\delta'}\big)\;.
+%\Big|\Es{S\sim \nu} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i} w^* \prod_i C^{i}_{a_i}w\big) - \Es{S\sim \nu} \sum_{a\in\field^k} \tau\Big( \prod_i B^{S,i}_{a_i}  \prod_i B^{S,i}_{a_i}\big)\Big| &= O\big(r\sqrt{\delta'}\big)\;.
 %\end{align*}
 %Since the second term on the left-hand side above equals $1$, plugging back into~\eqref{eq:s-g-4} it follows that   $(\mN,B,Q)$ is $O(r\sqrt{\delta'})$-close to $(\mM,A,P)$.
 \end{proof}

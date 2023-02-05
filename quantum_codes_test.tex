@@ -489,21 +489,23 @@ When we write $\Es{i\in \mX}$ where $\mX$ is a finite set, we mean the expectati
 
   A \emph{tracial von Neumann algebra} is a pair $(\mM,\tau)$ of a von Neumann algebra $\mM$ together with a normal faithful tracial state $\tau$ on $\mM$, which we often refer to as the \emph{trace}. The main example of interest is $\mM=M_n(\C)$, the algebra $n\times n$ complex matrices, with $\tau$ the dimension-normalized trace, which we denote $\tr(M)=\frac{1}{n}\Tr(M)$. 	We write $\|x\|_2=\tau(x^*x)^{1/2}$ for the $2$-norm on $\mM$.
 	
-	Let $B(\ell_2)$ be the von Neumann algebra of bounded operators on $\ell_2$, the Hilbert space of convergent sequences in $\C^\Z$ equipped with the usual Euclidean norm. We denote $\mM_\infty = \mM \overline{\otimes} B(\ell_2)$, where the overline denotes closure for the operator topology. $\mM_\infty$ is a von Neumann algebra equipped with the (infinite) trace $\tau_\infty = \tau \otimes \Tr$, with $\Tr(x)=\sum_{i\in \Z} e_i^T X e_i$ the trace on $B(\ell_2)$. We generally identify $\mM$ with the ``corner'' $\mM\otimes e_{1,1}\subset \mM_\infty$. 
+	Let $B(\ell_2)$ be the von Neumann algebra of bounded operators on $\ell_2$, the Hilbert space of convergent sequences in $\C^\Z$ equipped with the usual Euclidean norm (for which we let $(e_i)_{i \in \Z}$ denote the standard basis). We denote $\mM_\infty = \mM \overline{\otimes} B(\ell_2)$, where the overline denotes closure for the operator topology. $\mM_\infty$ is a von Neumann algebra equipped with the (infinite) trace $\tau_\infty = \tau \otimes \Tr$, with $\Tr(x)=\sum_{i\in \Z} e_i^T X e_i$ the trace on $B(\ell_2)$. We generally identify $\mM$ with the ``corner'' $\mM\otimes e_{1,1}\subset \mM_\infty$. 
 
 	We let $\F$ denote a finite field, and $\field$ the field with two elements. For $u\in \F^n$ for some $n$, we write $|u|$ for the Hamming weight of $u$, i.e.\ the number of nonzero coordinates. For $a,b \in \F^k$, we write $a \cdot b$ to denote the inner product $\sum_{i=1}^k a_i b_i$. 
 	
 	
 	\subsection{Measurements}
 	
-	A POVM on $\mM$ is a finite collection of positive semidefinite operators $\{P_i\}_{i\in \mI}$ such that $\sum_i P_i = \Id_\mM$. A POVM is \emph{projective} if for all $i$, $P_i$ is a projection. 
-	Given a projective measurement $\{P_a\}_{a\in \field^k}$ and $b\in \field^k$ we let $\widehat{P}(b) = \sum_a (-1)^{a\cdot b} P_a$ be the associated observable. If $k=1$, we often use the shorthand $\widehat{P}$ for $\widehat{P}(1) = P_0-P_1$.
+	\hnote{was: $\mI$ to denote outcome sets, but later it's used to denote question sets, and seems like throughout $\mA$ is used as outcome set. (see e.g. closeness def)} A POVM on $\mM$ with outcome set $\mA$ is a finite collection of positive semidefinite operators $\{P_a\}_{a\in \mA}$ such that $\sum_a P_a = \Id_\mM$. A POVM is \emph{projective} if for all $a$, $P_a$ is a projection. 
+	Given a projective measurement $\{P_a\}_{a\in \field^k}$ and $b\in \field^k$ we define the corresponding \emph{observable} operator $\widehat{P}(b) = \sum_a (-1)^{a\cdot b} P_a$, which is self-adjoint and unitary\hnote{clarified a bit; the math folks may not know what observable is}. If $k=1$, we often use the shorthand $\widehat{P}$ for $\widehat{P}(1) = P_0-P_1$.
 	
-	A specific family of measurements on $M_{2^k}(\C)$ is derived from the \emph{Pauli observables}. Define 
+	We define a specific family of projective measurements on $M_{2^k}(\C)$ which are derived from the \emph{Pauli observables}. Define
 	\[ \sigma^X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\;,\qquad \sigma^Z = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}\;,\]
-	and more generally for $a,b\in \F_2^k$ let $\sigma^X(a) = \otimes_{i=1}^t (\sigma^X)^{a_i}$ and $\sigma^Z(b) = \otimes_{i=1}^t (\sigma^Z)^{b_i}$. We slightly abuse notation and write 
-	\[ \sigma^X_a = \Es{\alpha\in\F_2^t} (-1)^{a\cdot \alpha} \sigma^X(\alpha)\qquad\text{and}\qquad\sigma^Z_b = \Es{\beta\in\F_2^t} (-1)^{b\cdot\beta} \sigma^Z(\beta)\]
-	for the associated POVM elements. 
+	and more generally for $a,b\in \F_2^k$ let $\sigma^X(a) = \bigotimes_{i=1}^t (\sigma^X)^{a_i}$ and $\sigma^Z(b) = \bigotimes_{i=1}^t (\sigma^Z)^{b_i}$. These are self-adjoint unitary operators called Pauli observables. Each observable $\sigma^X(a)$ (resp. $\sigma^Z(b)$) corresponds to the \emph{Pauli measurement} $\{ \sigma^X_a \}_{a \in \F_2^k}$ (resp. $\{ \sigma^Z_b \}_{b \in \F_2^k}$) where (in a slight abuse of notation)  \hnote{added some more explanation.} 
+	%	We slightly abuse notation and write 
+	\[ \sigma^X_a = \Es{\alpha\in\F_2^k} (-1)^{a\cdot \alpha} \sigma^X(\alpha)\qquad\text{and}\qquad\sigma^Z_b = \Es{\beta\in\F_2^k} (-1)^{b\cdot\beta} \sigma^Z(\beta).\]
+	It is easy to verify that $\{\sigma^X_a\}_a$ an $\{\sigma^Z_b\}$ are projections summing to identity.
+	
 	
 	
 	\begin{definition}[Closeness]\label{def:close}
@@ -518,85 +520,93 @@ The following uses orthonormalization.
 	
 \begin{lemma}\label{lem:pull-back}
 Let  $(\mM,\tau^\mM)$ be a tracial von Neumann algebra, $P\in\mM_\infty$ a projection of finite trace, $\mN=P\mM_\infty P$ and $\tau^\mN=\tau_\infty/\tau_\infty(P)$, and $w\in P \mM_\infty \Id_\mM$ a partial isometry. Let 
-\[ \eps = 1-\min\big\{ \tau^\mM\big(\Id_\mM - w^* w\big)\,,\;\tau^\mN\big( P- w w^*\big)\big\}\;.\]
- Then for any projective measurement $\{P_i\}$ on $\mN$, there is a projective measurement $\{Q_i\}$ on $\mM$ such that 
-\[ \sum_i \big\| Q_i - w^* P_i w\big\|_2^2 \,=\, O(\eps)\;.\] 
+\[ \eps = 1-\min\big\{ \tau^\mM\big(\Id_\mM - w^* w\big)\,,\;\tau^\mN\big( P- w w^*\big)\big\}\;.\] \hnote{the $1 -$ in front is not needed, right? Imagine that $w = \Id_\mM$ and $\mN = \mM$. Then $\eps$ should be $0$. Then $\min$ should be $\max$.}
+ Then for any projective measurement $\{P_a\}_{a \in \mA}$ on $\mN$, there is a projective measurement $\{Q_a\}_{a \in \mA}$ on $\mM$ such that 
+\begin{equation}
+\label{eq:pull-back} \sum_{a \in \mA} \big\| Q_a - w^* P_a w\big\|_2^2 \,\leq \ 56\eps\;.
+\end{equation}
 \end{lemma}	
 
 \begin{proof}
-If $\eps\geq \frac{1}{2}$ the conclusion is trivial (for a suitably large implicit constant), so assume $\eps<\frac{1}{2}$. 
+If $\eps\geq \frac{1}{2}$ the conclusion is trivial (for a suitably large implicit constant in the $O(\cdot)$ notation in \eqref{eq:pull-back}), so assume $\eps<\frac{1}{2}$. 
 Define 
-\[\tilde{Q}_i = w^* P_i w  + \frac{1}{|\mI|}\big(\Id_\mM - w^* w\big) \in \mM\;.\]
-Then $\{\tilde{Q}_i\}$ is a POVM on $\mM$. Moreover, 
+\[\tilde{Q}_a = w^* P_a w  + \frac{1}{|\mA|}\big(\Id_\mM - w^* w\big) \in \mM\;.\]
+Then $\{\tilde{Q}_a\}$ is a POVM on $\mM$. Moreover, \hnote{added superscripts everywhere to indicate which algebra}
 \begin{align*}
-\sum_{i} \tau\big( (\tilde{Q}_i)^2 \big) &\geq \sum_{i} \tau\big( \big(w^* P_i w \big)^2 \big) \\
-&= \sum_{i} \tau\big(  w^* P_i w w^*P_i w \big)\\
-&= \sum_i \tau\big(  w^* P_i  P P_i w \big) - \sum_i \tau\big( w^* P_i  ( P - w w^*) P_i w \big)\\
-&\geq 1 - \eps -  \tau_\infty\Big(\big( P - w w^*\big)\Big(\sum_i  P_i w w^* P_i\Big)\Big)\\ 
+\sum_a \tau^\mM \big( \tilde{Q}_a^2 \big) &\geq \sum_a \tau^\mM \big( \big(w^* P_a w \big)^2 \big) \\
+&= \sum_a \tau^\mM \big(  w^* P_a w w^*P_a w \big)\\
+&= \sum_a \tau^\mM \big(  w^* P_a  P P_a w \big) - \sum_a \tau^\mM \big( w^* P_a  ( P - w w^*) P_a w \big)\\
+\intertext{
+\hnote{I don't get this next line... how did $\tau_\infty$ show up?}
+}
+&\geq 1 - \eps -  \tau_\infty\Big(\big( P - w w^*\big)\Big(\sum_a  P_a w w^* P_a\Big)\Big)\\ 
 &\geq 1- \eps- \tau_\infty\big( P- w w^*\big)\;,
 \end{align*}
-where the fourth line uses that $P_iPP_i=P_i$, $\sum_i P_i = \Id_\mN$ and the definition of $\eps$ for the first term, and cyclicity of the trace for the second, and the last uses $\|ww^*\|,\|\sum_i P_i\|_\infty\leq 1$. By assumption, 
+where the fourth line uses that $P_aPP_a=P_a$, $\sum_a P_a = \Id_\mN$ and the definition of $\eps$ for the first term, and cyclicity of the trace for the second, and the last uses $\|ww^*\|,\|\sum_a P_a\|_\infty\leq 1$. By assumption, 
 \begin{align*}
 \tau_\infty\big( P- w w^*\big) \,\leq\, \eps\, \tau_\infty(P)\,\leq \frac{\eps}{1-\eps}\;.
 \end{align*}
 where the last inequality is because by definition, $\tau^N(P)=1$, thus
 \[1-\eps \,\leq\, \tau^\mN(ww^*) \,=\, \frac{\tau_\infty(ww^*)}{\tau_\infty(P)}\,=\, \frac{\tau_\infty(w^*w)}{\tau_\infty(P)}  \,\leq\, \frac{1}{\tau_\infty(P)}\]
-\hnote{why is $ww^* \leq 1_\mM$? The input to $w^*$ is from $P$, which belongs to ${\mM}_{\infty}$}\tnote{I had forgotten to use cyclicity once; better?}
-since $\tau^\mM$ is normalized and $w^*w\leq 1_\mM$. Overall, 
-\[ \sum_{i} \tau\big( (\tilde{Q}_i)^2 \big) \,\geq\, 1-\eps-\frac{\eps}{1-\eps}\,\geq\, 1-3\eps\;.\]
-To conclude we apply~\cite[Theorem 1.2]{de2021orthogonalization} to obtain a projective measurement $\{Q_i\}$ on $\mM$ such that 
+since $\tau_\infty(w^* w) = \tau^\mM(w^* w)$ and $w^*w\leq I_\mM$. Overall, 
+\[ \sum_a \tau^\mM \big( \tilde{Q}_a^2 \big) \,\geq\, 1-\eps-\frac{\eps}{1-\eps}\,\geq\, 1-3\eps\;.\]
+To conclude we apply~\cite[Theorem 1.2]{de2021orthogonalization} to obtain a projective measurement $\{Q_a\}$ on $\mM$ such that \hnote{was $O(\cdot)$ but Mikael has an explicit constant so might as well carry it over when convenient...}
 \begin{equation*}
-\sum_i \big\|{Q}_i - \tilde{Q}_i \big\|^2_2 \,=\, O(\eps)\;.
+\sum_a \big\|{Q}_a - \tilde{Q}_a \big\|^2_2 \,=\, 27\eps\;.
 \end{equation*}
 Finally,
 \begin{align*}
-\sum_i \big\|{Q}_i - w^*{P}_i w\big\|^2_2 &= \sum_i \Big\|{Q}_i - \tilde{Q}_i  + \frac{1}{|\mI|}\big(1_\mM - w^* w\big) \Big\|^2_2\\
-&\leq  \sum_i 2\big\|{Q}_i - \tilde{Q}_i\big\|_2^2  + 2\frac{1}{|I|}\big\|1_\mM - w^* w\big\|_2^2 \\
-&=  O(\eps)\;,
+\sum_a \big\|{Q}_a - w^*{P}_a w\big\|^2_2 &= \sum_a \Big\|{Q}_a - \tilde{Q}_a  + \frac{1}{|\mA|}\big(I_\mM - w^* w\big) \Big\|^2_2\\
+&\leq  \sum_a 2\big\|{Q}_a - \tilde{Q}_a\big\|_2^2  + 2\frac{1}{|\mA|}\big\|I_\mM - w^* w\big\|_2^2 \\
+&\leq 54 \eps + 2 \tau^\mM( (I_\mM - w^* w)^2 ) \\
+&\leq 54 \eps + 2 \tau^\mM(I_\mM - w^* w ) \\
+&\leq 56 \eps\;,
 \end{align*}
-where the second line is by the triangle inequality. 
+where the second line is by the triangle inequality, the fourth line is due to the fact that $I_\mM - w^* w$ is positive and has operator norm at most $1$, and the last line is by $\tau^\mM(I_\mM - w^* w ) \leq \eps$.
 \end{proof}
 
 We end with a couple lemma that will prove useful. 
+\hnote{there are two algebras $\mM$ and $\mN$ but the trace and identities don't specify which. we should probably write a sentence saying that it's implicit but determined by context...(if we do this, then the superscripts in the previous lemma are not needed)}
 
 \begin{lemma}\label{lem:l1-l2}
-Let $\{P_i\}$ and $\{Q_i\}$ be two projective measurements that are $(\eps,\mu)$-close. Then 
+Let $\{P_a\}$ and $\{Q_a\}$ be two projective measurements that are $(\eps,\mu)$-close. Then 
 \begin{equation}\label{eq:l1-l2}
-\sum_i \tau\big(|P_i-w^*Q_iw|\big) \,\leq\, \eps+ 2 \sqrt{\eps}\;.
+\sum_a \tau\big(|P_a-w^*Q_aw|\big) \,\leq\, \eps+ 2 \sqrt{\eps}\;.
 \end{equation}
 \end{lemma}
 
 \begin{proof}
 Using the triangle inequality, 
-\begin{align*}
- \sum_i \tau\big(|P_i - w^* Q_i w|\big) &\leq\, \sum_i \Big(\tau\big(|(P_i-P_i^2)|\big) + \tau\big(|P_i(P_i-w^*Q_iw)|\big) + \tau\big(|(P_i-w^*Q_iw)w^*Q_iw|\big) \\
-&\qquad +\tau\big(| (w^*Q_iw^*wQ_iw-w^*Q_iw)|\big)\Big)\;.
-\end{align*}
+\begin{align}
+ \sum_a \tau\big(|P_a - w^* Q_a w|\big) &\leq\, \sum_a \Big(\tau\big(|(P_a-P_a^2)|\big) + \tau\big(|P_a(P_a-w^*Q_aw)|\big) + \tau\big(|(P_a-w^*Q_aw)w^*Q_aw|\big) \notag \\
+ \label{eq:lem:l1-l2}
+&\qquad +\tau\big(| (w^*Q_aw^*wQ_aw-w^*Q_aw)|\big)\Big)\;.
+\end{align}
 The first term on the right-hand side is zero, because $P$ is assumed projective. The terms in the middle are bounded using H\"older's inequality:
 \begin{align*}
-\sum_i  \tau\big(|P_i(P_i-w^*Q_iw)|\big) &\leq  \|P_i\|_2 \|P_i-w^*Q_iw\|_2\\
-&\leq \Big(\sum_i \|P_i\|^2_2\Big)^{1/2}\Big( \sum_i  \|P_i-w^*Q_iw\|_2^2 \Big)^{1/2}\\
+\sum_a  \tau\big(|P_a(P_a-w^*Q_aw)|\big) &\leq  \sum_a \|P_a\|_2 \, \, \|P_a-w^*Q_aw\|_2\\
+&\leq \Big(\sum_a \|P_a\|^2_2\Big)^{1/2}\Big( \sum_a  \|P_a-w^*Q_aw\|_2^2 \Big)^{1/2}\\
 &\leq \sqrt{\eps}
 \end{align*}
-by closeness, and similarly for the second term. 
-Finally the last term can be bounded as 
+by closeness. The second term of~\eqref{eq:lem:l1-l2} is bounded in a similar fashion.
+Finally the last term of~\eqref{eq:lem:l1-l2} can be bounded as 
 \begin{align*}
-\sum_i \tau\big(| (w^*Q_iw^*wQ_iw-w^*Q_iw)|\big) &= \sum_i \tau\big( (w^*Q_i(1-w^*w)Q_iw)\big)\\
-&=  \tau\Big( (1-w^*w)\Big(\sum_i Q_iww^* Q_i\Big)\Big)\\
-&\leq \tau(1-w^*w) \Big\|\sum_i Q_iww^* Q_i\Big\|\\
+\sum_a \tau\big(| w^*Q_aw^*wQ_aw-w^*Q_aw|\big) &= \sum_a \tau\big( (w^*Q_a(I - w^*w)Q_aw)\big)\\
+&=  \tau\Big( (I-w^*w)\Big(\sum_a Q_aww^* Q_a\Big)\Big)\\
+&\leq \tau(I-w^*w) \,\, \Big\|\sum_a Q_aww^* Q_a\Big\|\\
 &\leq \eps\;.
 \end{align*}
 \end{proof}
 
 \begin{lemma}[Data-processing]\label{lem:dp}
-Let $\{P_i\}$ and $\{Q_i\}$ be two POVM on $(\mM,\tau)$ with the same index set. Then for any $f:\mI\to \mJ$, 
+Let $\{P_a\}$ and $\{Q_a\}$ be two POVMs on $(\mM,\tau)$ with the same outcome set $\mA$. Then for any function $f:\mA\to \mB$ for some finite set $\mB$, 
 \begin{equation}\label{eq:dp}
-\sum_{j\in \mJ} \Big\| \sum_{i\in f^{-1}(j)} (P_i-Q_i) \Big\|_2^2 \,\leq\, \sum_{i\in \mI} \big\| P_i-Q_i\big\|_2^2\;.
+\sum_{b\in \mB} \Big\| \sum_{a\in f^{-1}(b)} (P_a-Q_a) \Big\|_2^2 \,\leq\, \sum_{a\in \mA} \big\| P_a-Q_a\big\|_2^2\;.
 \end{equation}
 \end{lemma}
 
 \begin{proof}
-This follows by expending the left-hand side and using $\tau(P_iQ_j)\geq 0$ for all $i\neq j$. 
+This follows by expending the left-hand side and using $\tau(P_aQ_{a'})\geq 0$ for all $a\neq a'$. 
 \end{proof}
 	
 \section{Quantum soundness of linear codes}
@@ -618,12 +628,12 @@ When the subscript $q$ is omitted, it is implicitly taken as $q=2$, i.e.\ the co
 %A (non-adaptive) \emph{randomized oracle machine} $M$ is a Turing machine that has read access to two special tapes, the randomness tape and the proof tape. $M$ operates in two stages. In the first stage, $M$ accesses the randomness tape in state $\rand$ and returns a set $S=M(\rand)\subseteq\{1,\ldots,n\}$ of  indices of the proof tape. In the second stage $M$ reads the corresponding entries from the state $\pi$ of the proof tape and returns a value in $\{0,1\}$, which only depends on $S$ and $\pi_S$, not on $\rand$. We write $M(\rand,\pi)$ for the decisions taken by $M$ when the randomness tape is $\rand$ and the proof tape is $\pi$. We also write $M(S,\pi_S)\in\{0,1\}$ for the decision taken by $M$ when the chosen entries are $S$ and their values is $\pi_S$.   
 %\end{definition}
 
-\begin{definition}[Codeword test]\label{def:code-test}
+\begin{definition}[Local tester]\label{def:code-test}
 Let $\code$ be an $[n,k,d]_q$ linear code, $\delta:[0,1]\to[0,1]$, and $r\in \N$.
-An $r$-local $\delta$-tester for $\code$ is a distribution $\nu$ over subsets $S\subseteq [n]$ of size at most $r$, and for each $S$ in the support of $\nu$ a predicate $M(S,\cdot):\F_q^S\to\{0,1\}$, such that the following hold:
+\hnote{edited slightly} An \emph{$r$-local $\delta$-tester for $\code$} is a pair $(M,\nu)$ where $\nu$ is a distribution over subsets $S\subseteq [n]$ of size at most $r$, and $M$ is a collection of predicates $M(S,\cdot):\F_q^S\to\{0,1\}$ for each subset $S$ such that the following hold:
 \begin{itemize} 
 \item (Completeness:) For any $u\in \code$, $\Pr_{S\sim \nu}( M(S,u_S)=1)=1$.
-\item (Soundness:) For any $\eps\geq 0$ and any $u\in \F_q^n$ that is within (Hamming) distance at least  $\eps$ from $\code$, $\Pr_{S\sim\nu}(M(S,u_{|S})=0)\geq \delta(\eps)$. 
+\item (Soundness:) For any $\eps\geq 0$ and any $u\in \F_q^n$ that is within (Hamming) distance at least  $\eps$ from $\code$, $\Pr_{S\sim\nu}(M(S,u_{|S})=0)\geq \delta(\eps)$.  \hnote{should it be $u_S$ or $u|_S$?}
 \end{itemize}
 \end{definition}
 
@@ -640,26 +650,26 @@ An $r$-local $\delta$-tester for $\code$ is a distribution $\nu$ over subsets $S
 \label{sec:q-soundness}
 
 \begin{definition}[Code representation]
-Let $\code$ be an $[n,k,d]$ linear code. A \emph{representation} of $\code$ is a collection of projective measurements $\{A^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that the $\{A^i_a\}$ pairwise commute and $\sum_{c\in\code} \prod_{i=1}^n A^i_{c_i}=\Id$.\footnote{This implies that whenever $u\notin \code$, $\prod_i A^i_{u_i}=0$.} 
+Let $\code$ be an $[n,k,d]$ linear code. A \emph{representation} of $\code$ is a pair $(\mM,A)$ of a tracial von Neumann algebra $\mM$ and a collection of projective measurements $A = \{A^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that the $\{A^i_a\}$ pairwise commute and $\sum_{c\in\code} \prod_{i=1}^n A^i_{c_i}=\Id$.\footnote{This implies that whenever $u\notin \code$, $\prod_i A^i_{u_i}=0$.} 
 \end{definition}
 
 
 
 \begin{definition}[$\eps$-local presentation]
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$ with distribution $\nu$. An \emph{$\eps$-local presentation of $(\code,M)$} is a collection of projective measurements $\{A^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that for any $S\subseteq\{1,\ldots,n\}$ of size $|S|\leq r$ there are $|S|$ pairwise commuting projective measurements $\{B^{S,i}_b\}_{b\in \F_q}$, for $i\in S$, such that 
+Let $\code$ be an $[n,k,d]_q$ linear code and $(M,\nu)$ \hnote{was: $M$ but it also depends on distribution $\nu$} be an $r$-local tester for $\code$. An \emph{$\eps$-local presentation of $(\code,M)$} \hnote{should this be $(\code,M,\nu)$?} is a pair $(\mM,A)$ of a tracial von Neumann algebra $\mM$ and a collection of projective measurements $A = \{A^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that for any $S\subseteq\{1,\ldots,n\}$ of size $|S|\leq r$ there are $|S|$ pairwise commuting projective measurements $\{B^{S,i}_b\}_{b\in \F_q}$, for $i\in S$, such that 
 \begin{itemize}
-\item $\sum_{a\in \F^S} 1_{M(S,a)=1} \prod_{i\in S} B^{S,i}_{a_i}= \Id$
-\item The two families $\{A^i\}_{S, i\in S}$ and $\{B^{S,i}\}_{S, i\in S}$ are $(\eps,\nu')$-close, where $\nu'((S,i))=\nu(S)1_{i\in S}\frac{1}{|S|}$.
+\item $\sum_{a\in \F^S} M(S,a) \, \prod_{i\in S} B^{S,i}_{a_i}= \Id$ \hnote{was $1_{M(S,a)=1}$ but can be simplified}
+\item The two measurement families $\{A^i\}_{S, i\in S}$ \hnote{Don't quite understand the subscripting, since $A^i$ only depends on $i$} and $\{B^{S,i}\}_{S, i\in S}$ are $(\eps,\nu')$-close, where $\nu'((S,i))=\nu(S)1_{i\in S}\frac{1}{|S|}$.
 \end{itemize} 
-\hnote{The $1_{M(S,a)=1}$ notation conflicts with the $1_{\mM}$ notation above. Also sometimes $I$ is used, othertimes $1$ is used.}\tnote{fixed, now always using $\Id$ for the identity}
+\hnote{question about the name: why ``presentation''? the object here is a pair $(\mM,A)$ which looks syntactically the same as a code representation... should it be ``representation''?}
 \end{definition}
 
 
 \begin{definition}[Quantum soundness]\label{def:q-sound}
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ a $r$-local tester for $\code$. Let $\delta:[0,1]\to[0,1]$ be such that $\delta(0)=0$. We say that $M$ has \emph{quantum soundness $\delta(\eps)$} if the following holds. For any $\eps$-local presentation $(\mM,A)$ of $(\code,M)$
+Let $\code$ be an $[n,k,d]_q$ linear code and $(M,\nu)$ a $r$-local tester for $\code$. Let $\delta:[0,1]\to[0,1]$ be such that $\delta(0)=0$. We say that $(M,\nu)$ has \emph{quantum soundness $\delta(\eps)$} if the following holds. For any $\eps$-local presentation $(\mM,A)$ of $(\code,M)$
 % such that 
 %\[ \Es{S\leftarrow M(\cdot)} \Es{i\in S} \sum_{a\in \field^s} \big[ \tau\big(  P^S_a  A^i_{a_i}\big) \big] \,\geq \,1-\eps\;,\] 
-there is a representation $(\mN,B)$ of $\code$ such that $(\mM,A)$ and $(\mN,B)$ are $\delta(\eps)$-close. 
+there is a representation $(\mN,B)$ of $\code$ such that the measurement families $A$ and $B$ are $\delta(\eps)$-close. 
 \end{definition}
 
 Definition~\ref{def:q-sound} can be reformulated in the language of nonlocal games, see Proposition~\ref{prop:sound-game}. 
@@ -674,11 +684,13 @@ A necessary condition for a code to be quantum sound is that any $0$-local quant
 \subsection{Example: the Hadamard code}
 \label{sec:had}
 
-We give an example of a family of quantum sound codes, the \emph{Hadamard codes}. This code can be defined for any  $t\geq 1$ and it is an $[T,t,T/2]_2$ linear code, where $T=2^t$. For simplicity we write  $\code_\had$ for it, omitting $t$. As a linear map, for $i\in\{1,\ldots,t\}$, $\code_\had(e_i) = (x_i)_{x\in \field^t} \in \field^T$, where we identify the index set $\{1,\ldots,T\}$ with the set $\field^t$ in an arbitrary way.  
+We give an example of a family of quantum sound codes, the \emph{Hadamard codes}. This code can be defined for any  $t\geq 1$ and it is an $[T,t,T/2]_2$ linear code, where $T=2^t$. For simplicity we write  $\code_\had$ to denote this code, omitting $t$. As a linear map, for $i\in\{1,\ldots,t\}$, $\code_\had(e_i) = (x_i)_{x\in \field^t} \in \field^T$, where we identify the index set $\{1,\ldots,T\}$ with the set $\field^t$ in an arbitrary way.  
 
-It is shown in~\cite{blum1990self} that the following randomized oracle machine $M_\had$ is a $3$-local $\delta$-tester for $\code_\had$, where $\delta(\eps)=6\eps$. $M$ first uses its random tape to select $x,y\in\field^k$uniformly at random and returns the set $S=\{x,y,x+y\}$. For $\pi\in \field^T$, $M(S,\pi_S)$ accepts if and only if $\pi_x + \pi_y  = \pi_{x+y}$. 
+\hnote{edited slightly:} It is shown in~\cite{blum1990self} that there is a $3$-local $\delta$-tester $(M_\had,\nu_\had)$ for $\code_\had$, where $\delta(\eps)=6\eps$. The distribution $\nu_\had$ is uniform over subsets $\{ x, y, x+y \} \subset \field^t$ where $x,y\in \field^t$ are uniformly and independently chosen. For all $u \in \field^T$, the predicate $M_\had(S,u|_S) = 1$ if and only if $u_x + u_y = u_{x+y}$ (where we think of the coordinates of $u$ as being indexed by elements of $\field^t$). 
 
-The following appears as~\cite[Theorem 10]{natarajan2016robust}.\footnote{While~\cite{natarajan2016robust} only show the result for finite-dimensional $\mM$, the same proof works for any $(\mM,\tau)$.}
+%$M$ first uses its random tape to select $x,y\in\field^k$uniformly at random and returns the set $S=\{x,y,x+y\}$. For $\pi\in \field^T$, $M(S,\pi_S)$ accepts if and only if $\pi_x + \pi_y  = \pi_{x+y}$. 
+
+The following appears as~\cite[Theorem 10]{natarajan2016robust}.\footnote{While~\cite{natarajan2016robust} only show the result for finite-dimensional $\mM$, the same proof works for any tracial von Neumann algebra $(\mM,\tau)$.}
  
 \begin{theorem}\label{thm:had-qsound}
 $M_\had$ has quantum soundness $O(\eps)$.
@@ -705,7 +717,7 @@ such that $D$ is symmetric, i.e. $D(x,y,a,b)=D(y,x,b,a)$ whenever both terms are
 		
 \begin{definition}[Synchronous strategy]
 If $G=(\mX,\mu,\mA,D)$ is a game and $(\mM,\tau)$ a tracial von Neumann algebra, a \emph{synchronous strategy $\strategy$ for $G$ on $(\mM,\tau)$} is, for every $x\in \mX$, a projective measurement $(P^x_a)_{a\in \mA(x)}$ on $\mM$. The value of a strategy $\strategy$ in $G$ is 
-\[ \omega(G;\strategy)\,=\, \sum_{(x,y)\in\mX\times\mX}\frac{1}{2}\big(\mu(x,y)+\mu(y,x)\big) \sum_{(a,b)\in\mA(x)\times\mA(y)} D(x,y,a,b)\, \tau\big(P^x_a \,P^y_b\big) \;.\footnote{Note the symmetrization of $\mu$. This is to avoid explicitly requiring $\mu$ to be permutation-invariant in the definition of a game. \hnote{Didn't quite understand... what would go wrong without this symmetrization?}\tnote{It's so that at some point we can claim that studying synchronous strategies is wlog. Maybe that point happens only outside this note though; so then we can say it's to keep with the formalism of synchronous games}}\]
+\[ \omega(G;\strategy)\,=\, \sum_{(x,y)\in\mX\times\mX}\frac{1}{2}\big(\mu(x,y)+\mu(y,x)\big) \sum_{(a,b)\in\mA(x)\times\mA(y)} D(x,y,a,b)\, \tau\big(P^x_a \,P^y_b\big) \;.\footnote{Note the symmetrization of $\mu$. This is to avoid explicitly requiring $\mu$ to be permutation-invariant in the definition of a game. \hnote{Didn't quite understand... what would go wrong without this symmetrization?}\tnote{It's so that at some point we can claim that studying synchronous strategies is wlog. Maybe that point happens only outside this note though; so then we can say it's to keep with the formalism of synchronous games} \hnote{sorry, still don't understand... I thought synchronous games just require that $D(x,x,a,b) = 0$ if $a \neq b$. That doesn't have anything to do with whether the distribution is symmetrized, right?} }\]
 We say that $\strategy$ is \emph{perfect} if $\omega(G;\strategy)=1$.
 \end{definition}
 
@@ -714,17 +726,18 @@ The next lemma shows that close strategies have close value.
 
 \begin{lemma}\label{lem:close-value}
 Let $G=(\mX,\mu,\mA,D)$ be a game and $\strategy=\{P^x_a\}$ and $\strategy'=\{Q^x_a\}$ strategies on $\mM$ and $\mN$ respectively such that $\{P^x_a\}$ and $\{Q^x_a\}$ are $(\eps,\mu)$-close. Then 
-\[ \big|\omega(G;\strategy) - \omega(G;\strategy')\big|\,\leq\, O\big(\sqrt{\eps}\big)\;.\]
+\[ \big|\omega(G;\strategy) - \omega(G;\strategy')\big|\,\leq\, 8\sqrt{\eps} \;.\]
 \end{lemma}
 
 \begin{proof}
-By definition,
+By definition, \hnote{added:} there exists a projection $P \in \mM_\infty$ and a partial isometry $w \in P \mM_\infty I_\mM$ such that $\mN = P \mM_\infty P$ and
 \begin{align*}
 \omega(G;\strategy') &= \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( Q^x_a \, Q^y_b \big)\\
 &=  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\\
 &\quad+  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)
-+ \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( Q^x_a  Q^y_b (P-ww^*)\big)
++ \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big(Q^x_a  Q^y_b (P-ww^*)\big)~.
 \end{align*}
+Here we used the fact that $Q^x_a \in \mN$ so therefore $P Q^x_a P = Q^x_a$ for all $x,a$. 
 The second and third term on the right-hand side can be bounded as
 \begin{align*}
 \Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|
@@ -732,18 +745,35 @@ The second and third term on the right-hand side can be bounded as
 &\leq \tau(P-ww^*) \Big\|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big\|\\
 &\leq \eps\;,
 \end{align*}
-where the first inequality is by H\"older's inequality and the last inequality uses the definition of closeness to bound the first term. To bound the second term on the right-hand side, we write it as $\|A\circ B\|$, with $\circ$ the Hadamard product, and use  $\|A\circ B\| \leq \max_{i,j} |A_{i,j}|\|B\|$. Here $A = \sum_{a,b} D(a,b) P_{a,b}$, with $P_{a,b} = \sum_{i,j} \ket{u_{i,a}} \bra{v_{j,b}}$ with $\ket{u_{i,a}}$ a basis for the range of $Q^x_a$ and $\ket{v_{j,b}}$ for the range of $Q^y_b$, and $B=\sum_{a,b} Q^y_b ww^* Q^x_a = ww^*$. 
+where the first inequality is by H\"older's inequality and the last inequality uses the definition of closeness to bound the first term. To bound the second term on the right-hand side, we write it as $\|A\circ B\|$, with $\circ$ the Hadamard product, and use  $\|A\circ B\| \leq \max_{i,j} |A_{i,j}|\|B\|$. Here $A = \sum_{a,b} D(a,b) P_{a,b}$, with $P_{a,b} = \sum_{i,j} \ket{u_{i,a}} \bra{v_{j,b}}$ with $\ket{u_{i,a}}$ a basis for the range of $Q^x_a$ and $\ket{v_{j,b}}$ for the range of $Q^y_b$, and $B=\sum_{a,b} Q^y_b ww^* Q^x_a = ww^*$.  \hnote{not quite sure about this proof... is the Hadamard product well defined in infinite dimensions? What is $D(a,b)$? A bit confused...}
+
+\hnote{here's an alternate proof:}
+\begin{align*}
+&\Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|\\
+&\leq \Es{(x,y)\sim\mu} \Big | \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b w w^* Q^x_a (P - w\, w^* ) \big) \Big | \\
+&\leq \sqrt{ \tau((P - ww^*)^2) \cdot \Es{(x,y)\sim\mu} \tau\big( \big( \sum_{a,b} D(a,b,x,y)   Q^y_b w w^* Q^x_a \big) \big( \sum_{a,b} D(a,b,x,y)   Q^x_a w w^* Q^y_b \big) \big) } \\
+&= \sqrt{ \tau((P - ww^*)^2) \cdot \Es{(x,y)\sim\mu} \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b ww^* Q^x_a w w^* Q^y_b \big) } \\
+&\leq \sqrt{\tau((P - ww^*)^2) \cdot \Es{(x,y)\sim\mu}  \sum_{a,b}  \tau\big(Q^y_b ww^* Q^x_a w w^* Q^y_b \big) }  \\
+&= \sqrt{\tau((P - ww^*)^2)} \cdot \sqrt{ \Es{(x,y)\sim\mu}  \sum_{b}  \tau\big(Q^y_b ww^* \big) } \\
+&\leq \sqrt{\tau(P - ww^*)} \\
+&\leq \sqrt{\eps}~.
+%&=\Big| \tau\Big(  (P - w\, w^* )\Big( \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big)\Big)\Big|\\
+%&\leq \tau(P-ww^*) \Big\|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big\|\\
+%&\leq \eps\;,
+\end{align*}
+The third line is due to Cauchy-Schwarz and Jensen's inequality. The fourth line is due to the fact that for fixed $x,y$, the measurements $\{ Q^x_a \}_a$ and $\{Q^y_b\}_b$ are projective. The fifth line is due to $D(x,y,a,b) \in \{0,1\}$. The sixth line is due to $\sum_a Q^x_a = I_\mN$. The seventh line is due to $\sum_a Q^y_b = I_\mN$ and the fact that $P - ww^*$ is a positive operator with operator norm at most $1$.
+\hnote{end proof}
 
 For $x\in \mX$ such that $\mu(x)\neq 0$, denote by $\mu_x$ the (symmetrized) conditional distribution $\mu_x(y)=\frac{1}{2}(\mu(x,y)+\mu(y,x))/\mu(x)$. Then using the above
 \begin{align*}
 \big|\omega(G;\strategy) - \omega(G;\strategy')\big|
- &\leq 2\eps+ \Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) \big( \tau\big( P^x_a \, P^y_b \big)-\tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\big)\Big|\\
-&\leq  2\eps+ \Big|\Es{x\sim\mu} \sum_{a}  \tau\Big( \big(P^x_a-w^* Q^x_aw\big) \, \Big( \Es{y\sim \mu_x} \sum_b D(a,b,x,y) P^y_b \Big)\Big)\Big|\\
+ &\leq 2\sqrt{\eps}+ \Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) \big( \tau\big( P^x_a \, P^y_b \big)-\tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\big)\Big|\\
+&\leq  2\sqrt{\eps}+ \Big|\Es{x\sim\mu} \sum_{a}  \tau\Big( \big(P^x_a-w^* Q^x_aw\big) \, \Big( \Es{y\sim \mu_x} \sum_b D(a,b,x,y) P^y_b \Big)\Big)\Big|\\
 &\qquad+ \Big|\Es{y\sim\mu} \sum_{b}  \tau\Big(\Big( \Es{x\sim \mu_y} \sum_a D(a,b,x,y) w^* Q^x_a w\Big) \big(P^y_b-w^*Q^y_bw\big) \, \Big)\Big|\\
-&\leq 2\eps+2\Es{x\sim\mu} \sum_{a}  \tau\big(\big| P^x_a-w^*Q^x_aw\big|\big) \\
-&\leq 4\eps+4\sqrt{\eps}\;,
+&\leq 2\sqrt{\eps}+2\Es{x\sim\mu} \sum_{a}  \tau\big(\big| P^x_a-w^*Q^x_aw\big|\big) \\
+&\leq 2\sqrt{\eps}+2(\eps + 2\sqrt{\eps}) \leq 8\sqrt{\eps}\;,
 \end{align*}
-where the third line uses $\tau(AB)\leq\tau(|A|)\|B\|$ and the last inequality is by~\eqref{eq:l1-l2} and Jensen's inequality.
+where the third line uses $\tau(AB)\leq\tau(|A|)\|B\|$ and the last line is by~\eqref{eq:l1-l2}.% and Jensen's inequality.
 \end{proof}
 
 \subsection{Robustness}
@@ -772,7 +802,7 @@ Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code
 \end{proposition}
 
 \begin{proof}
-We start with the second assertion. Suppose that $G_{\code,M}$ is $\delta'$-robust, for some function $\delta'$. Let $(\mM,A)$ be be an $r$-local $\eps$-presentation of $\code$, and for each $S\subseteq\{1,\ldots,n\}$ such that $|S|=r$, $\{B^{S,i}\}_{i\in S}$ the commuting family of projective measurements promised by the definition. Then for every $S$ there is a projection $P^S$ in $\mM_\infty$ and an isometry $w^S\in P^S \mM_\infty 1_\mM$ such that 
+We start with the second assertion. Suppose that $G_{\code,M}$ is $\delta'$-robust, for some function $\delta'$. Let $(\mM,A)$ be be an $r$-local $\eps$-presentation of $\code$, and for each $S\subseteq\{1,\ldots,n\}$ such that $|S|=r$, $\{B^{S,i}\}_{i\in S}$ the commuting family of projective measurements promised by the definition. Then for every $S$ there is a projection $P^S$ in $\mM_\infty$ and an isometry $w^S\in P^S \mM_\infty I_\mM$ such that 
 \[ \Es{i\in S} \sum_a \big\| A^i_a - (w^S)^* B^{S,i}_{a}w^S \big\|_2^2 \,\leq\,\eps_S\;,\]
 for some $(\eps_S)$ such that $\Es{S\leftarrow M(\cdot)} \eps_S \leq \eps$. 
  For any $a\in\field^S$ let $\tilde{P}^S_a = \prod_{i\in S} B^{S,i}_{a_i}$. Then $\{\tilde{P}^S_a\}_{a\in\F_q^S}$ is a projective measurement such that

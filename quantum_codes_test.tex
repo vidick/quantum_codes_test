@@ -656,7 +656,7 @@ Let $\code$ be an $[n,k,d]$ linear code. A \emph{representation} of $\code$ is a
 
 
 \begin{definition}[$\eps$-local presentation]
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ be an $r$-local tester for $\code$. An \emph{$\eps$-local presentation of $(\code,M)$} is a pair $(\mM,A)$ of a tracial von Neumann algebra $\mM$ and a collection of projective measurements $A = \{A^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that for any $S\subseteq\{1,\ldots,n\}$ of size $|S|\leq r$ there are $|S|$ pairwise commuting projective measurements $\{B^{S,i}_b\}_{b\in \F_q}$, for $i\in S$, such that 
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ be an $r$-local tester for $\code$. An \emph{$\eps$-local presentation of $(\code,M)$} is a pair $(\mM,A)$ of a tracial von Neumann algebra $\mM$ and a collection of projective measurements $A = \{A^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that for any $S\subseteq\{1,\ldots,n\}$ of size $|S|\leq r$ there are $|S|$ pairwise commuting projective measurements $\{B^{S,i}\}_{i \in S }$ with $B^{S_i} = \{B^{S,i}_b\}_{b\in \F_q}$ \hnote{what algebra do the $B^{S,i}$ live in? $\mM$ or $\mM_\infty$?} such that 
 \begin{itemize}
 \item $\sum_{a\in \F^S} M(S,a) \, \prod_{i\in S} B^{S,i}_{a_i}= \Id$ \hnote{was $1_{M(S,a)=1}$ but can be simplified}
 \item The two measurement families $\{A^i\}_{S, i\in S}$ \hnote{Don't quite understand the subscripting, since $A^i$ only depends on $i$} and $\{B^{S,i}\}_{S, i\in S}$ are $(\eps,\nu')$-close, where $\nu'((S,i))=\nu(S)1_{i\in S}\frac{1}{|S|}$.
@@ -803,9 +803,9 @@ Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code
 
 \begin{proof}
 We start with the second assertion. Suppose that $G_{\code,M}$ is $\delta'$-robust, for some function $\delta'$. Let $(\mM,A)$ be be an $r$-local $\eps$-presentation of $(\code,M)$ \hnote{nomenclature: should just be $\eps$-local presentation?}, and for each $S\subseteq\{1,\ldots,n\}$ such that $|S| \leq r$, $\{B^{S,i}\}_{i\in S}$ the commuting family of projective measurements promised by the definition. Then for every $S$ there is a projection $P^S \in \mM_\infty$ and an isometry $w^S\in P^S \mM_\infty I_\mM$ such that 
-\[ \Es{S \sim \nu} \Es{i\in S} \sum_a \big\| A^i_a - (w^S)^* B^{S,i}_{a}w^S \big\|_2^2 \,\leq\,\eps\;.\]
+\[ \Es{S \sim \nu} \Es{i\in S} \sum_{a \in \F_q} \big\| A^i_a - (w^S)^* B^{S,i}_{a}w^S \big\|_2^2 \,\leq\,\eps\;.\]
 \hnote{was: ``for some $(\eps_S)$ such that $\Es{S\sim \nu} \eps_S \leq \eps$.'', but this notation is never used again, so just directly added the expectation over $S$ above.}
- For any $a\in\field^S$ let $\tilde{P}^S_a = \prod_{i\in S} B^{S,i}_{a_i}$. Then $\{\tilde{P}^S_a\}_{a\in\F_q^S}$ is a projective measurement such that
+ For any $a\in\F^S_q$ let $\tilde{P}^S_a = \prod_{i\in S} B^{S,i}_{a_i}$; \hnote{added:} since the measurements $\{B^{S,i}\}_i$ are pairwise commuting, the order of the product does not matter. Then $\{\tilde{P}^S_a\}_{a\in\F_q^S}$ is a projective measurement such that \hnote{I don't get what's happening in these next few lines... what happened to the product over $B^{S,i}_{a_i}$ in the first line?}
 \begin{align}
 \Es{S\sim \nu} \Es{i\in S} \sum_{a\in \F_q^S} \tau\big(  (w^S)^* \tilde{P}^S_a w^S \, A^i_{a_i}\big) 
 &= \Es{S\sim \nu} \Es{i\in S} \sum_{b\in \F_q}\tau\big(  (w^S)^* B^{S,i}_b w^S\, A^i_{b}\big)\notag \\

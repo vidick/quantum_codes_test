@@ -476,14 +476,24 @@
 
 
 \begin{abstract}
+We introduce a notion of \emph{quantum presentation} for a classical linear error-correcting code over $\F_q$ that informally allows each character of the code to be replaced by a unitary of order $q$. We further introduce a notion of \emph{quantum soundness} for the code that parallels the notion of local testability for linear codes. 
 
+The notions we introduce are motivated by the use of error-correcting codes to design efficient tests, in the form of non-local games, that single out high-dimensional quantum strategies. Such a test plays an important role in the recent proof of $\MIP^* = \RE$~\cite{ji2020mip}. 
+
+We suggest a general approach to designing such tests by combining a quantum sound linear code with commutation and anti-commutation tests. This approach is inspired from a similar approach introduced in~\cite{natarajan2016robust}, developed in~\cite{ji2020mip} and recently generalized in~\cite{de2022spectral}. As an application we recover an arguably streamlined and simplified proof of the quantum low-degree test used in~\cite{ji2020mip}, assuming the quantum soundness of the classical low-degree test shown in~\cite{ji2022quantum}
 \end{abstract}
+
+
+\section{Introduction}
+
+\tnote{Make the connection with LCS}
+
 
 	\section{Preliminaries}
 
 \subsection{Notation}
 
-When we write $\Es{i\in \mX}$ where $\mX$ is a finite set, we mean the expectation over $i$ chosen uniformly at random from $\mX$, i.e.\ $\frac{1}{|\mX|} \sum_{i\in \mX}$. \hnote{added:} For a vector $u \in \mX^n$ and a subset $S \subseteq [n]$, we write $u_S$ to denote the vector in $\mX^S$ which is the restriction of $u$ to $S$.
+When we write $\Es{i\in \mX}$ where $\mX$ is a finite set, we mean the expectation over $i$ chosen uniformly at random from $\mX$, i.e.\ $\frac{1}{|\mX|} \sum_{i\in \mX}$. For a vector $u \in \mX^n$ and a subset $S \subseteq [n]$, we write $u_S$ to denote the vector in $\mX^S$ which is the restriction of $u$ to $S$.
 
 \subsection{Algebra}
 
@@ -509,10 +519,6 @@ When we write $\Es{i\in \mX}$ where $\mX$ is a finite set, we mean the expectati
 	\[ \sigma^X_a = \Es{\alpha\in\F_2^k} (-1)^{a\cdot \alpha} \sigma^X(\alpha)\qquad\text{and}\qquad\sigma^Z_b = \Es{\beta\in\F_2^k} (-1)^{b\cdot\beta} \sigma^Z(\beta).\]
 	It is easy to verify that $\{\sigma^X_a\}_a$ and $\{\sigma^Z_b\}_b$ are projections summing to identity.	
 	
-
-	
-
-\hnote{remove this?} We end with a couple lemma that will prove useful. 
 	
 \subsection{Nonlocal games}
 
@@ -561,7 +567,7 @@ Let $\code$ be an $[n,k,d]_q$ linear code, $\delta:[0,1]\to[0,1]$, and $r\in \N$
 An \emph{$r$-local $\delta$-tester for $\code$} is a pair $M = ((M_S)_{S \subseteq [n]},\nu)$ where $\nu$ is a distribution over subsets $S\subseteq [n]$ of size at most $r$, and for each such subset $M_S:\F_q^S\to\{0,1\}$ is a predicate such that the following hold:
 \begin{itemize} 
 \item (Completeness:) For any $u\in \code$, $\Pr_{S\sim \nu}( M_S(u_S)=1)=1$.
-\item (Soundness:) For any $\eps\geq 0$ and any $u\in \F_q^n$ that is within (Hamming) distance at least  $\eps$ from $\code$, $\Pr_{S\sim\nu}(M_S(u_{|S})=0)\geq \delta(\eps)$.  \hnote{should it be $u_S$ or $u|_S$?}\tnote{What difference do you make between the two? We don't define either, so I'm fine using the one you find most intuitive/correct}\hnote{$u_S$ is fine by me (and we should say what this means in the preliminaries), I just saw both and thought we should be consistent.}
+\item (Soundness:) For any $\eps\geq 0$ and any $u\in \F_q^n$ that is within (Hamming) distance at least  $\eps$ from $\code$, $\Pr_{S\sim\nu}(M_S(u_{|S})=0)\geq \delta(\eps)$.
 \end{itemize}
 \end{definition}
 
@@ -795,13 +801,14 @@ Then $\{\tilde{Q}_a\}$ is a POVM on $\mM$. Moreover,
 \sum_a \tau^\mM \big( \tilde{Q}_a^2 \big) &\geq \sum_a \tau^\mM \big( \big(w^* P_a w \big)^2 \big) \\
 &= \sum_a \tau^\mM \big(  w^* P_a w w^*P_a w \big)\\
 &= \sum_a \tau^\mM \big(  w^* P_a  P P_a w \big) - \sum_a \tau^\mM \big( w^* P_a  ( P - w w^*) P_a w \big)\\
+&\geq 1 - \eps -  \sum_a \tau_\infty \big( w^* P_a  ( P - w w^*) P_a w \big)\\
 \intertext{
-\hnote{I don't get this next line... how did $\tau_\infty$ show up?}\tnote{By definition, $\mM$ is seen as a sub-algebra of $\mM_\infty$, and $\tau_\infty$ restricted to that sub-algebra is $\tau^\cM$. So, whenever $M\in \mM$, $\tau^\mM(M)=\tau_\infty(\mM)$ is a legal ``shortcut'' in the writing. It's this sentence about the ``corner'' in the prelims...should we add something more explicit? Or explain this line here more, since it's the first time we make the manipulation? }\hnote{I think it would be good to add at least one line of explanation...}
+\hnote{I don't get this next line... how did $\tau_\infty$ show up?}\tnote{By definition, $\mM$ is seen as a sub-algebra of $\mM_\infty$, and $\tau_\infty$ restricted to that sub-algebra is $\tau^\cM$. So, whenever $M\in \mM$, $\tau^\mM(M)=\tau_\infty(\mM)$ is a legal ``shortcut'' in the writing. It's this sentence about the ``corner'' in the prelims...should we add something more explicit? Or explain this line here more, since it's the first time we make the manipulation? }\hnote{I think it would be good to add at least one line of explanation...}\tnote{added (extra line above and justification below)}
 }
 &\geq 1 - \eps -  \tau_\infty\Big(\big( P - w w^*\big)\Big(\sum_a  P_a w w^* P_a\Big)\Big)\\ 
 &\geq 1- \eps- \tau_\infty\big( P- w w^*\big)\;,
 \end{align*}
-where the fourth line uses that $P_aPP_a=P_a$, $\sum_a P_a = \Id_\mN$ and the definition of $\eps$ for the first term, and cyclicity of the trace for the second, and the last uses $\|ww^*\|,\|\sum_a P_a\|_\infty\leq 1$. By assumption, 
+where the third line uses that $P_aPP_a=P_a$, $\sum_a P_a = \Id_\mN$ and the definition of $\eps$ for the first term, and for the second the fact that for $A\in\mM$, $\tau^\mM(A)=\tau_\infty(A)$ by definition of $\tau_\infty$ and the identification of $\mM$ with a ``corner'' in $\mM_\infty$, the fourth line uses cyclicity of the trace for the second, and the last uses $\|ww^*\|,\|\sum_a P_a\|_\infty\leq 1$. By assumption, 
 \begin{align*}
 \tau_\infty\big( P- w w^*\big) \,\leq\, \eps\, \tau_\infty(P)\,\leq \frac{\eps}{1-\eps}\;.
 \end{align*}
@@ -878,7 +885,7 @@ Using the definition of $G_{\code,M}$, we have shown that
 where the first line uses the definition of $\mu(\cdot,\cdot)$, the second line uses~\eqref{eq:s-g-2} and the last uses~\eqref{eq:s-g-1}. 
 \end{proof}
 
-Claim~\ref{claim:sound-game-1} shows that $\omega(G_{\code,M};\strategy)\geq 1-\eps'$ for $\strategy$ the strategy with measurements $\{A^i_b\}$ and $\{P^{S}_a\}$ and some $\eps'=O(\sqrt{\eps})$. Using the definition of robustness we deduce that $(\mM,A,P)$ \hnote{what is this triple?}\tnote{$A$ and $P$ are defined just above. $C$ and $Q$ are any other measurements. You think we should introduce specific notation?} \hnote{it's just that the ``triple'' notation for strategies hasn't been introduced... technically the def'n of strategy is an assignment of PVMs to every question. maybe write $\strategy$ instead of $(\mM,A,P)$ and $\strategy'$ instead of $(\mN,C,Q)$?} is $(\delta'(\eps'),\nu)$-close to a perfect strategy $(\mN,C,Q)$ for $G_{\code,M}$. Since $\nu$ is uniform on $\{1,\ldots,n\}$ we specialize to the $A$ measurements; using the definition of closeness there exists a projection $P\in \mM_\infty$ such that $\{C^i\}_a \subseteq P\mM_\infty P$ and $\Es{i}\sum_a \|A^i_a-w^* C^i_a w \|_2^2 \leq 2\delta'$, and moreover $\{C^i_a\}$ satisfy that for any $S$ in the support of $\mu$, $\{C^i_a\}$ pairwise commute for $i\in S$. Using the assumption that $(\code,M)$ is Abelian, all the $\{C^i_a\}$ commute and form a representation of $\code$.
+Claim~\ref{claim:sound-game-1} shows that $\omega(G_{\code,M};\strategy)\geq 1-\eps'$ for $\strategy$ the strategy with measurements $\{A^i_b\}$ and $\{P^{S}_a\}$ and some $\eps'=O(\sqrt{\eps})$. Using the definition of robustness we deduce that $\strategy$ is $(\delta'(\eps'),\nu)$-close to a perfect strategy $\strategy'$ for $G_{\code,M}$. Since $\nu$ is uniform on $\{1,\ldots,n\}$ we specialize to the $A$ measurements; using the definition of closeness there exists a projection $P\in \mM_\infty$ such that $\{C^i\}_a \subseteq P\mM_\infty P$ and $\Es{i}\sum_a \|A^i_a-w^* C^i_a w \|_2^2 \leq 2\delta'$, and moreover $\{C^i_a\}$ satisfy that for any $S$ in the support of $\mu$, $\{C^i_a\}$ pairwise commute for $i\in S$. Using the assumption that $(\code,M)$ is Abelian, all the $\{C^i_a\}$ commute and form a representation of $\code$.
 
 Now we show the second assertion. Suppose that $M$ has quantum soundness $\delta$.
 Let $\strategy=(\mM,A,P)$ be a strategy for $G_{\code,M}$ on $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. This can be reformulated as 

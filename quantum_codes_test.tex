@@ -497,18 +497,101 @@ When we write $\Es{i\in \mX}$ where $\mX$ is a finite set, we mean the expectati
 	\subsection{Measurements}
 	\label{sec:measurements}
 	
-	A POVM on $\mM$ with outcome set $\mA$ is a finite collection of positive semidefinite operators $\{P_a\}_{a\in \mA}$ such that $\sum_a P_a = \Id_\mM$. A POVM is \emph{projective} if for all $a$, $P_a$ is a projection. 
-	Given a projective measurement $\{P_a\}_{a\in \field^k}$ and $b\in \field^k$ we define the corresponding \emph{observable} operator $\widehat{P}(b) = \sum_a (-1)^{a\cdot b} P_a$, which is self-adjoint and unitary. If $k=1$, we often use the shorthand $\widehat{P}$ for $\widehat{P}(1) = P_0-P_1$.
+	A POVM in\tnote{was ``on'' but actually usually we say ``on'' for the Hilbert space, not the algebra, so I think here it should be ``in''} $\mM$ with outcome set $\mA$ is a finite collection of positive semidefinite operators $\{P_a\}_{a\in \mA}$ such that $\sum_a P_a = \Id_\mM$. A POVM is \emph{projective} if for all $a$, $P_a$ is a projection. 
+	Given a projective measurement $\{P_a\}_{a\in \field^k}$ and $b\in \field^k$ we define the corresponding \emph{observable} 
+	\[ \widehat{P}(b) = \sum_a (-1)^{a\cdot b} P_a\;,\]
+	which is self-adjoint and unitary. If $k=1$, we often use the shorthand $\widehat{P}$ for $\widehat{P}(1) = P_0-P_1$.
 	
 	We define a specific family of projective measurements on $M_{2^k}(\C)$ which are derived from the \emph{Pauli observables}. Define
 	\[ \sigma^X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\;,\qquad \sigma^Z = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}\;,\]
-	and more generally for $a,b\in \F_2^k$ let $\sigma^X(a) = \bigotimes_{i=1}^t (\sigma^X)^{a_i}$ and $\sigma^Z(b) = \bigotimes_{i=1}^t (\sigma^Z)^{b_i}$. These are self-adjoint unitary operators called Pauli observables. Each observable $\sigma^X(a)$ (resp. $\sigma^Z(b)$) corresponds to the \emph{Pauli measurement} $\{ \sigma^X_a \}_{a \in \F_2^k}$ (resp. $\{ \sigma^Z_b \}_{b \in \F_2^k}$) where (in a slight abuse of notation)  
+	and more generally for $a,b\in \F_2^k$ let $\sigma^X(a) = \bigotimes_{i=1}^t (\sigma^X)^{a_i}$ and $\sigma^Z(b) = \bigotimes_{i=1}^t (\sigma^Z)^{b_i}$, which are observables in $M_{2^k}(\C)$. These are self-adjoint unitary operators called Pauli observables. Each observable $\sigma^X(a)$ (resp. $\sigma^Z(b)$) corresponds to the \emph{Pauli measurement} $\{ \sigma^X_a \}_{a \in \F_2^k}$ (resp. $\{ \sigma^Z_b \}_{b \in \F_2^k}$) where (in a slight abuse of notation)  
 	%	We slightly abuse notation and write 
 	\[ \sigma^X_a = \Es{\alpha\in\F_2^k} (-1)^{a\cdot \alpha} \sigma^X(\alpha)\qquad\text{and}\qquad\sigma^Z_b = \Es{\beta\in\F_2^k} (-1)^{b\cdot\beta} \sigma^Z(\beta).\]
-	It is easy to verify that $\{\sigma^X_a\}_a$ an $\{\sigma^Z_b\}$ are projections summing to identity.
+	It is easy to verify that $\{\sigma^X_a\}_a$ and $\{\sigma^Z_b\}_b$ are projections summing to identity.	
 	
+
 	
+
+We end with a couple lemma that will prove useful. 
+\hnote{there are two algebras $\mM$ and $\mN$ but the trace and identities don't specify which. we should probably write a sentence saying that it's implicit but determined by context...(if we do this, then the superscripts in the previous lemma are not needed)}
+
 	
+\subsection{Nonlocal games}
+
+We give standard definitions on nonlocal games. 
+
+\begin{definition}[Game]
+A game is a tuple $(\mX,\mu,\mA,D)$ where $\mX$ is a finite set, $\mu$ a distribution on $\mX\times \mX$, $\mA=(\mA(x))_{x\in\mX}$ a collection of finite sets, and 
+\[ D: \big\{ (x,y,a,b) : (x,y)\in\text{supp}(\mu),a\in\mA(x),b\in\mA(y)\big\} \;\to\;\{0,1\}\]
+such that $D$ is symmetric, i.e. $D(x,y,a,b)=D(y,x,b,a)$ whenever both terms are defined. We often abuse notation and write $\mu$ for the symmetrized marginal of $\mu$, i.e.\ 
+\[\mu(x) := \sum_{x'\in \mX} \frac{1}{2}\big(\mu(x,x')+\mu(x',x')\big)\;.\]
+\end{definition}
+
+The interpretation of $G=(\mX,\mu,\mA,D)$ as a nonlocal game is the following. In the ``game'', a referee is imagined to sample a pair of ``questions'' $(x,y)\sim \mu$. The question $x$ is sent to a first player, ``Alice,'' and the question $y$ is sent to a second player, ``Bob.'' Each player is tasked with responding with an answer $a\in \mA(x)$ for Alice, and $b\in \mA(y)$ for Bob. The referee accepts the players' answers if and only if $D(x,y,a,b)=1$. 
+
+Nonlocal games provide a framework to study different kinds of bipartite correlations: depending on the level of coordination allowed between Alice and Bob, they may have varying chances of success in the game. 
+
+In quantum mechanics, a local strategy for the players (meaning that each player is required to determine their answer locally, without exchanging information with the other player) is specified by the following. 
+
+\begin{definition}[Synchronous strategy]
+If $G=(\mX,\mu,\mA,D)$ is a game and $(\mM,\tau)$ a tracial von Neumann algebra, a \emph{synchronous strategy $\strategy$ for $G$ on $(\mM,\tau)$} is, for every $x\in \mX$, a projective measurement $(P^x_a)_{a\in \mA(x)}$ on $\mM$. The value of a strategy $\strategy$ in $G$ is 
+\[ \omega(G;\strategy)\,=\, \sum_{(x,y)\in\mX\times\mX}\frac{1}{2}\big(\mu(x,y)+\mu(y,x)\big) \sum_{(a,b)\in\mA(x)\times\mA(y)} D(x,y,a,b)\, \tau\big(P^x_a \,P^y_b\big) \;.\footnote{Note the symmetrization of $\mu$. This is to avoid explicitly requiring $\mu$ to be permutation-invariant in the definition of a game. \hnote{Didn't quite understand... what would go wrong without this symmetrization?}\tnote{It's so that at some point we can claim that studying synchronous strategies is wlog. Maybe that point happens only outside this note though; so then we can say it's to keep with the formalism of synchronous games} \hnote{sorry, still don't understand... I thought synchronous games just require that $D(x,x,a,b) = 0$ if $a \neq b$. That doesn't have anything to do with whether the distribution is symmetrized, right?}\tnote{You're right, usually they don't have a distribution because it's all about the exact case. It's still convenient though, to define games without explicitly flipping the ``symmetry'' coin. Can we keep it and simply write ``Note the symmetrization of $\mu$, which is for convenience.'' }}\]
+We say that $\strategy$ is \emph{perfect} if $\omega(G;\strategy)=1$.
+\end{definition}
+	
+The name \emph{synchronous} stems from the fact that whenever an identical pair $(x,x)$ is chosen, $\tau(P^x_a P^x_b)=0$ for $a\neq b$ due to the requirement that $\{P^x_a\}_a$ is a projective measurement. Thus a synchronous strategy always returns the same answer to the same question. More general strategies, which allow different operators $\{P^x_a\}$ and $\{Q^y_b\}$, do not automatically enforce the synchronicity condition, but we do not consider such strategies here. 
+	
+\section{Quantum soundness of linear codes}
+
+\tnote{added wrapper text throughout this section}
+In this section we introduce a notion of ``quantum soundness'' for a linear error-correcting code. We start with classical definitions around codes, then define quantum soundness and finally we provide an example. 
+
+\subsection{Classical definitions}
+
+\begin{definition}[Linear code]
+For $q$ a prime power and $n,k,d$ integer
+a $[n,k,d]_q$ linear code is a $k$-dimensional subspace $\code\subseteq \F_q^n$ such that for every $u\in \code$ such that $u\neq 0$, $|u|\geq d$. Equivalently, we think of $\code$ as a linear map $\code:\F_q^k\to \F_q^n$. We write $E_\code \in \F_q^{k\times n}$ \hnote{this notation might be confusing, especially since we use $G$ and $G_{\code,M}$ for games... maybe call it $E_\code$?}\tnote{ok} for the generator matrix defined by $ E_\code^T e_i =\code(e_i)$ \hnote{what is $\code(e_i)$? I think we should just say that the range of $G_\code^T$ is $\code$}\tnote{It's defined a bit above, ``we think of $\code$ as a linear map...''} for all $i\in\{1,\ldots,k\}$, where $\{e_1,\ldots,e_k\}$ is the standard basis of $\F_q^k$. 
+\end{definition}
+
+When the subscript $q$ is omitted, it is implicitly taken as $q=2$, i.e.\ the code is assumed to be binary. 
+
+Some codes have the useful property that they can be \emph{locally tested}. Informally, this means that it is possible to distinguish codewords from strings that are far from the code by examining only a randomly chosen constant-size subset of coordinates. We give one possible way to formalize this; for more on the topic see e.g.\ the book chapter by Goldreich~\cite{goldreich_2017}. 
+
+
+\begin{definition}[Local tester]\label{def:code-test}
+Let $\code$ be an $[n,k,d]_q$ linear code, $\delta:[0,1]\to[0,1]$, and $r\in \N$.
+An \emph{$r$-local $\delta$-tester for $\code$} is a pair $M = ((M_S)_{S \subseteq [n]},\nu)$ where $\nu$ is a distribution over subsets $S\subseteq [n]$ of size at most $r$, and for each such subset $M_S:\F_q^S\to\{0,1\}$ is a predicate such that the following hold:
+\begin{itemize} 
+\item (Completeness:) For any $u\in \code$, $\Pr_{S\sim \nu}( M_S(u_S)=1)=1$.
+\item (Soundness:) For any $\eps\geq 0$ and any $u\in \F_q^n$ that is within (Hamming) distance at least  $\eps$ from $\code$, $\Pr_{S\sim\nu}(M_S(u_{|S})=0)\geq \delta(\eps)$.  \hnote{should it be $u_S$ or $u|_S$?}\tnote{What difference do you make between the two? We don't define either, so I'm fine using the one you find most intuitive/correct}
+\end{itemize}
+\end{definition}
+
+%\begin{definition}[Local quantum presentation]
+%Let $\code$ be an $[n,k,d]_q$ linear code and $r\in \N$. An \emph{$r$-local quantum presentation of $\code$} is specified by
+%\begin{itemize}
+%\item A tracial von Neumann algebra $(\mM,\tau)$;
+%\item For each $i\in\{1,\ldots,n\}$, a $q$-outcome projective measurement $\{A^i_a\}_{a\in \field} \subseteq \mM$;
+%\item For each $S\subseteq \{1,\ldots,n\}$ such that $|S|\leq r$, a projective measurement $\{P^S_a\}_{a\in \field^S}\subseteq \mM$.
+%\end{itemize}
+%\end{definition}
+
+\subsection{Quantum soundness}
+\label{sec:q-soundness}
+
+We now introduce our notion of quantum soundness. Informally, a code is quantum sound, with respect to a specific tester for it, if whenever a family of measurements locally satisfies the constraints imposed by the tester, then it globally it returns a codeword. 
+
+To be more precise, we first introduce the notion of \emph{code presentation}, which is the ``global object'' that we aim to test for. 
+
+\begin{definition}[Code representation]
+Let $\code$ be an $[n,k,d]$ linear code. A \emph{presentation} of $\code$ is a pair $(\mM,A)$ of a tracial von Neumann algebra $\mM$ and a collection of projective measurements $A = \{A^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that the $\{A^i_a\}$ pairwise commute and $\sum_{c\in\code} \prod_{i=1}^n A^i_{c_i}=\Id$.\footnote{This implies that whenever $u\notin \code$, $\prod_i A^i_{u_i}=0$.} 
+\end{definition}
+
+Since the $\{A^i\}$ that form a code presentation mutually commute, as quantum mechanical measurements they can be performed sequentially in any order; this will lead to the same distribution on outcomes $u=(u_1,\ldots,u_n)$. The last condition in the definition implies that for any outcome $u$ that has nonzero probability, $u\in \code$. In finite dimensions, a code presentation is equivalently specified by an orthonormal basis $\{f_1,\ldots,f_D\}$ and an assignment of a codeword $u_j\in \code$ to each $f_j$. 
+
+To define the ``local object'' that the code tester will effectively test for, we first introduce a notion of distance on measurements. At first read it may be helpful to consider the case $\mM=\mN$ and $w=P=1_\mM$, in which case it simplifies significantly. \tnote{moved the defn here; since it's quite important for the paper I prefer that it's not dumped in the preliminaries}
+
+
 	\begin{definition}[Closeness]\label{def:close}
 Let $\{A^i_a\}\subseteq \mM$ and $\{B^i_a\}\subseteq \mN$ be two families of projective measurements on  tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$ respectively, indexed by the same set $i\in \mI$ and with the same set of outcomes $a,b\in\mA$. For $\delta\geq0$ and $\mu$ a measure on $\mI$ we say that $\{A^i\}$ and $\{B^i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau_\infty/\tau_\infty(P)$, and a partial isometry $w\in P \mM_\infty \Id_\mM$ such that 
 \[ \Es{i\sim\mu} \sum_{a\in\mA} \big\| A^i_a - w^* B^i_a w \big\|_2^2 \,\leq\,\delta\]
@@ -516,8 +599,186 @@ and
 \[\max\big\{ \tau^\mM(\Id_\mM-w^*w)\,,\; \tau^\mN(P-ww^*)\big\} \,\leq\, \delta\;.\]
 If the measure $\mu$ is omitted then it is understood to be the uniform measure on $\mI$.
 \end{definition}
-	
-The following uses orthonormalization. 
+
+We now define the ``local object.'' This local object depends on a local tester $M$ for the code $\code$. Informally, a \emph{local presentation} of a code $\code$ (with respect to $M$) specifies a family of measurements $\{A^i\}$, just like the global presentation, except that these measurements are not required to commute globally. Instead, it is only required that for every ``local'' set $S\subseteq\{1,\ldots,n\}$ of size $|S|\leq r$ the $\{A^i\}$ for $i\in S$ are close, according to the preceding definition, to a family of commuting measurements $\{B^i\}$ for ${i\in S}$ such that furthermore measuring all $B_i$ lead to an outcome $a\in \field^S$ that would be accepted by the local tester $M$, i.e.\ $M(S,a)=1$. 
+
+
+\begin{definition}[$\eps$-local presentation]
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ be an $r$-local tester for $\code$. An \emph{$\eps$-local presentation of $(\code,M)$} is a pair $(\mM,A)$ of a tracial von Neumann algebra $\mM$ and a collection of projective measurements $A = \{A^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that for any $S\subseteq\{1,\ldots,n\}$ of size $|S|\leq r$ there are $|S|$ pairwise commuting projective measurements $\{B^{S,i}\}_{i \in S }\subset \mM_\infty$, with $B^{S,i} = \{B^{S,i}_b\}_{b\in \F_q}$, such that 
+\begin{itemize}
+\item $\sum_{a\in \F^S} M(S,a) \, \prod_{i\in S} B^{S,i}_{a_i}= \Id$ 
+\item For any $S$ such that $|S|\leq r$ and $i\in S$, let $A^{S,i}=S^i$. Then the two measurement families $\{A^{S,i}\}_{S, i\in S}$ \hnote{Don't quite understand the subscripting, since $A^i$ only depends on $i$}\tnote{I meant to say that we use the same $A_i$ for all $S$ that contain $i$. I rewrote it more explicitly} and $\{B^{S,i}\}_{S, i\in S}$ are $(\eps,\nu')$-close, where $\nu'((S,i))=\nu(S)1_{i\in S}\frac{1}{|S|}$.
+\end{itemize} 
+\hnote{question about the name: why ``presentation''? the object here is a pair $(\mM,A)$ which looks syntactically the same as a code representation... should it be ``representation''?}\tnote{Yeah...should we use ``presentation'' for both? This avoids confusion with language from representation theory. I did this above, what do you think?}
+\end{definition}
+
+Now we define \emph{quantum soundness}, which requires any ``local object'' to be close to a ``global object.''
+
+
+\begin{definition}[Quantum soundness]\label{def:q-sound}
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ a $r$-local tester for $\code$. Let $\delta:[0,1]\to[0,1]$ be such that $\delta(0)=0$. We say that $(\code,M)$ has \emph{quantum soundness $\delta(\eps)$} if the following holds. For any $\eps$-local presentation $(\mM,A)$ of $(\code,M)$
+% such that 
+%\[ \Es{S\sim \nu} \Es{i\in S} \sum_{a\in \field^s} \big[ \tau\big(  P^S_a  A^i_{a_i}\big) \big] \,\geq \,1-\eps\;,\] 
+there is a presentation $(\mN,B)$ of $\code$ such that the measurement families $A$ and $B$ are $\delta(\eps)$-close. 
+\end{definition}
+
+\begin{remark}
+Definition~\ref{def:q-sound} can be reformulated in the language of nonlocal games, see Proposition~\ref{prop:sound-game}. 
+\end{remark}
+
+\begin{remark}
+A necessary condition for a code to be quantum sound is that any $0$-local quantum presentation $(\mM,A)$ is  a presentation of $\mC$. Not all codes satisfy this condition, see e.g.~\cite[Example 2.16]{paddock2022arkhipov}. If $(\mC,M)$ satisfies this condition, then we say that it is \emph{Abelian}. Thus, Abelian codes have, by definition, quantum soundness $\overline{\delta}$ where $\overline{\delta}(0)=0$ and $\overline{\delta}(x)=1$ for $x\in(0,1]$. 
+\end{remark}
+
+
+		
+		
+\subsection{Example: the Hadamard code}
+\label{sec:had}
+
+We give an example of a family of quantum sound codes, the \emph{Hadamard code}. This code can be defined for any  $t\geq 1$ and it is an $[T,t,T/2]_2$ linear code, where $T=2^t$. For simplicity we write  $\code_\had$ to denote this code, omitting $t$. As a linear map, for $i\in\{1,\ldots,t\}$, $\code_\had(e_i) = (x_i)_{x\in \field^t} \in \field^T$, where we identify the index set $\{1,\ldots,T\}$ with the set $\field^t$ in an arbitrary way.  
+
+It is shown in~\cite{blum1990self} that there is a $3$-local $\delta$-tester $M_\had$ for $\code_\had$, where $\delta(\eps)=6\eps$. The distribution $\nu_\had$ is uniform over subsets $\{ x, y, x+y \} \subset \field^t$ where $x,y\in \field^t$ are uniformly and independently chosen. For all $u \in \field^T$, the predicate $M_{\had,S}(u|_S) = 1$ if and only if $u_x + u_y = u_{x+y}$ (where we think of the coordinates of $u$ as being indexed by elements of $\field^t$). 
+
+%$M$ first uses its random tape to select $x,y\in\field^k$uniformly at random and returns the set $S=\{x,y,x+y\}$. For $\pi\in \field^T$, $M(S,\pi_S)$ accepts if and only if $\pi_x + \pi_y  = \pi_{x+y}$. 
+
+In~\cite{natarajan2016robust} show that the Hadamard code is quantum sound. They show this using the language of nonlocal games, but it is straightforward to adapt the argument to the definitions introduced here\tnote{should we do it ``for completeness''?}.\footnote{While~\cite{natarajan2016robust} only show the result for finite-dimensional $\mM$, the same proof works for any tracial von Neumann algebra $(\mM,\tau)$.}
+ 
+\begin{theorem}[Theorem 10 in~\cite{natarajan2016robust}]\label{thm:had-qsound}
+There is a universal constant $c>0$ such that for any $t\geq 1$, the pair $(\code_\Had,M_\had)$ has quantum soundness $\delta(\eps)=c\,\eps$.
+\end{theorem}
+
+
+\section{A formulation of quantum soundness in terms of nonlocal games}
+
+In this section we give an equivalent (up to a mild slack in parameters) definition of quantum soundness of a linear code in terms of \emph{robustness} of a nonlocal game associated with the code. This formulation will be important for the statement of our main result. 
+
+\subsection{The code game}
+
+Informally, the game $G_{\code,M}$ associated to a code $\code$ and a local tester $M$ for $\code$ is the ``oracularized'' version of the test executed by $M$. That is, one player in the game is asked to provide an assignment to all variables in the set $S$ queried by the tester, that will satisfy its test, while the other player is asked to provide an assignment to a single $i\in S$ and checked for consistency---this will ensure that the first players' answers are consistent across different sets $S$. The formal definition follows.  
+
+\begin{definition}
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$. The game $G_{\code,M}$ is defined as follows. We set 
+\[\mX = \{ S\subseteq \{1,\ldots,n\},|S|\leq r\} \sqcup\{1,\ldots,n\}\quad\text{and}\quad \mu(S,i)=\frac{1_{i\in S}}{|S|}\nu(S)\;,\]
+and for any $S,i\in\mX$, $\mA(S)=\F_q^S$ and $\mA(i)=\F_q$, and finally $D(S,i,a,b)=M(S,a)1_{a_i=b}$. 
+\end{definition}
+
+To state the sense in which this nonlocal game is equivalent to quantum soundness of $\code$ we need to introduce a notion of \emph{robustness} of a nonlocal game. This definition is standard in the literature on self-testing\tnote{is it; give a ref?}.
+
+
+\begin{definition}[Robust game]
+Given a game $G$, a function $\delta:[0,1]\to[0,1]$, and a distribution $\nu$ on $\mX$ we say that $G$ is \emph{$(\delta,\nu)$-robust} if any synchronous strategy for $G$ that succeeds with probability at least $1-\eps$ in $G$, for some $\eps\geq 0$, is
+ $(\delta(\eps),\nu)$-close to a perfect strategy.
+\end{definition}
+
+Note that in the definition $\nu$ need not be the marginal of the game distribution $\mu$. In particular, we will often consider $\nu$ that is supported on a strict subset of the support of $\mu$. 
+
+We now state the main result of the section. 
+
+\begin{proposition}\label{prop:sound-game}
+Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$ with distribution $\nu$. Let $\delta,\delta':[0,1]\to[0,1]$. Then the following hold:
+\begin{enumerate}
+\item If $G_{\code,M}$ is $(\delta',\nu)$-robust for $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$, and $(\mC,M)$ is Abelian, then $M$ has quantum soundness $\delta''$, for some $\delta''(\eps) = O(\delta'(\sqrt{\eps}))$. 
+\item If $M$ has quantum soundness $\delta$ then $G_{\code,M}$ is $(\delta'',\nu)$-robust, for some $\delta''(\eps)=O({\delta(2\eps)})$ and $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$. 
+\end{enumerate}
+\end{proposition}
+
+We prove the proposition in Section~\ref{sec:game-proof}. Before doing so, we introduce some simple tools. 
+
+\subsection{Preliminary lemmas}
+
+We give some lemma that will be used in the proof of Proposition~\ref{prop:sound-game}. The lemma are well-known; we include proofs for the specific statements that we use. 
+
+In Definition~\ref{def:close} closeness is measured in the $L_2$ sense. The first lemma gives a consequence for distance measured in an $L_1$ sense. 
+
+
+\begin{lemma}\label{lem:l1-l2}
+\hnote{$(\eps,\mu)$-closeness needs the measurements to be superscripted by questions}\tnote{fixed}
+Let $\{P_a^i\}$ and $\{Q_a^i\}$ be two families of projective measurements that are $(\eps,\mu)$-close. Then 
+\begin{equation}\label{eq:l1-l2}
+\Es{i\in\mI} \sum_{a\in \mA(i)} \tau\big(|P_a-w^*Q_aw|\big) \,\leq\, \eps+ 2 \sqrt{\eps}\;.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Using the triangle inequality, 
+\begin{align}
+\Es{i} \sum_a \tau\big(|P^i_a - w^* Q^i_a w|\big) &\leq\, \Es{i}\sum_a \Big(\tau\big(|(P^i_a-(P^i_a)^2)|\big) + \tau\big(|P_a(P^i_a-w^*Q^i_aw)|\big) \notag\\
+&\qquad\qquad+ \tau\big(|(P^i_a-w^*Q^i_aw)w^*Q^i_aw|\big) \notag \\
+ \label{eq:lem:l1-l2}
+&\qquad +\tau\big(| (w^*Q^i_aw^*wQ^i_aw-w^*Q^i_aw)|\big)\Big)\;.
+\end{align}
+The first term on the right-hand side is zero, because $P^i$ is assumed projective. The terms in the middle are bounded using H\"older's inequality:
+\begin{align*}
+\Es{i}\sum_a  \tau\big(|P^i_a(P^i_a-w^*Q^i_aw)|\big) &\leq \Es{i} \sum_a \|P^i_a\|_2 \, \, \|P^i_a-w^*Q^i_aw\|_2\\
+&\leq \Big(\Es{i}\sum_a \|P^i_a\|^2_2\Big)^{1/2}\Big( \Es{i}\sum_a  \|P^i_a-w^*Q^i_aw\|_2^2 \Big)^{1/2}\\
+&\leq \sqrt{\eps}
+\end{align*}
+by closeness. The second term of~\eqref{eq:lem:l1-l2} is bounded in a similar fashion.
+Finally the last term of~\eqref{eq:lem:l1-l2} can be bounded as 
+\begin{align*}
+\Es{i}\sum_a \tau\big(| w^*Q^i_aw^*wQ^i_aw-w^*Q^i_aw|\big) &= \Es{i}\sum_a \tau\big( (w^*Q^i_a(I - w^*w)Q^i_aw)\big)\\
+&=  \tau\Big( (I-w^*w)\Big(\Es{i}\sum_a Q^i_aww^* Q^i_a\Big)\Big)\\
+&\leq \tau(I-w^*w) \,\, \Big\|\Es{i}\sum_a Q^i_aww^* Q^i_a\Big\|\\
+&\leq \eps\;.
+\end{align*}
+\end{proof}
+
+
+
+
+The next lemma shows that two strategies for the same game $G$ that are close according to Definition~\ref{def:close} have a close value. 
+
+\begin{lemma}\label{lem:close-value}
+Let $G=(\mX,\mu,\mA,D)$ be a game and $\strategy=\{P^x_a\}$ and $\strategy'=\{Q^x_a\}$ strategies on $\mM$ and $\mN$ respectively such that $\{P^x_a\}$ and $\{Q^x_a\}$ are $(\eps,\mu)$-close. Then 
+\[ \big|\omega(G;\strategy) - \omega(G;\strategy')\big|\,\leq\, 8\sqrt{\eps} \;.\]
+\end{lemma}
+
+\begin{proof}
+By definition, there exists a projection $P \in \mM_\infty$ and a partial isometry $w \in P \mM_\infty I_\mM$ such that $\mN = P \mM_\infty P$ and
+\begin{align*}
+\omega(G;\strategy') &= \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( Q^x_a \, Q^y_b \big)\\
+&=  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\\
+&\qquad\qquad+  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big) \\
+&\qquad\qquad+ \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big(Q^x_a  Q^y_b (P-ww^*)\big)~.
+\end{align*}
+Here we used the fact that $Q^x_a \in \mN$ so $P Q^x_a P = Q^x_a$ for all $x,a$. 
+The second and third term on the right-hand side can be bounded as
+%\begin{align*}
+%\Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|
+%&=\Big| \tau\Big(  (P - w\, w^* )\Big( \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big)\Big)\Big|\\
+%&\leq \tau(P-ww^*) \Big\|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big\|\\
+%&\leq \eps\;,
+%\end{align*}
+%where the first inequality is by H\"older's inequality and the last inequality uses the definition of closeness to bound the first term. To bound the second term on the right-hand side, we write it as $\|A\circ B\|$, with $\circ$ the Hadamard product, and use  $\|A\circ B\| \leq \max_{i,j} |A_{i,j}|\|B\|$. Here $A = \sum_{a,b} D(a,b) P_{a,b}$, with $P_{a,b} = \sum_{i,j} \ket{u_{i,a}} \bra{v_{j,b}}$ with $\ket{u_{i,a}}$ a basis for the range of $Q^x_a$ and $\ket{v_{j,b}}$ for the range of $Q^y_b$, and $B=\sum_{a,b} Q^y_b ww^* Q^x_a = ww^*$.  \hnote{not quite sure about this proof... is the Hadamard product well defined in infinite dimensions? What is $D(a,b)$? A bit confused...}
+%\hnote{here's an alternate proof:}
+\begin{align*}
+\Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) & \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|\\
+&\leq \Es{(x,y)\sim\mu} \Big | \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b w w^* Q^x_a (P - w\, w^* ) \big) \Big | \\
+&\leq \sqrt{ \tau((P - ww^*)^2)} \cdot \sqrt{\Es{(x,y)\sim\mu} \tau\big( \big| \sum_{a,b} D(a,b,x,y)   Q^x_a w w^* Q^y_b \big|^2 \big) } \\
+&\leq \sqrt{\eps}\sqrt{ \Es{(x,y)\sim\mu} \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b ww^* Q^x_a w w^* Q^y_b \big) } \\
+&\leq \sqrt{\eps}\sqrt{ \Es{(x,y)\sim\mu}  \sum_{a,b}  \tau\big(Q^y_b ww^* Q^x_a w w^* Q^y_b \big) }  \\
+&=\sqrt{\eps}\sqrt{ \Es{(x,y)\sim\mu}  \sum_{b}  \tau\big(Q^y_b ww^* \big) } \\
+&\leq \sqrt{\eps}\;.
+%&=\Big| \tau\Big(  (P - w\, w^* )\Big( \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big)\Big)\Big|\\
+%&\leq \tau(P-ww^*) \Big\|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big\|\\
+%&\leq \eps\;,
+\end{align*}
+The third line is due to Cauchy-Schwarz and Jensen's inequality, where $|A|^2=A^*A$. The fourth line uses that $P - ww^*$ is a positive operator with operator norm at most $1$ for the first term, and that for fixed $x,y$, the measurements $\{ Q^x_a \}_a$ and $\{Q^y_b\}_b$ are projective. The fifth line is due to $D(x,y,a,b) \in \{0,1\}$. The sixth line is due to $\sum_a Q^x_a = I_\mN$. The seventh line is due to $\sum_a Q^y_b = I_\mN$.
+
+For $x\in \mX$ such that $\mu(x)\neq 0$, denote by $\mu_x$ the (symmetrized) conditional distribution $\mu_x(y)=\frac{1}{2}(\mu(x,y)+\mu(y,x))/\mu(x)$. Then using the above
+\begin{align*}
+\big|\omega(G;\strategy) - \omega(G;\strategy')\big|
+ &\leq 2\sqrt{\eps}+ \Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) \big( \tau\big( P^x_a \, P^y_b \big)-\tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\big)\Big|\\
+&\leq  2\sqrt{\eps}+ \Big|\Es{x\sim\mu} \sum_{a}  \tau\Big( \big(P^x_a-w^* Q^x_aw\big) \, \Big( \Es{y\sim \mu_x} \sum_b D(a,b,x,y) P^y_b \Big)\Big)\Big|\\
+&\qquad+ \Big|\Es{y\sim\mu} \sum_{b}  \tau\Big(\Big( \Es{x\sim \mu_y} \sum_a D(a,b,x,y) w^* Q^x_a w\Big) \big(P^y_b-w^*Q^y_bw\big) \, \Big)\Big|\\
+&\leq 2\sqrt{\eps}+2\Es{x\sim\mu} \sum_{a}  \tau\big(\big| P^x_a-w^*Q^x_aw\big|\big) \\
+&\leq 2\sqrt{\eps}+2(\eps + 2\sqrt{\eps}) \leq 8\sqrt{\eps}\;,
+\end{align*}
+where the third line uses $\tau(AB)\leq\tau(|A|)\|B\|$ and the last line is by~\eqref{eq:l1-l2}.% and Jensen's inequality.
+\end{proof}
+
+Our final lemma is an application of \emph{orthonormalization}, which transforms a nearly-orthogonal measurement to a nearby orthogonal measurement. See e.g.~\cite{kempe2011parallel,ji2020quantum} or~\cite[Theorem 1.2]{de2021orthogonalization} for the version that we use here. 
 	
 \begin{lemma}\label{lem:pull-back}
 Let  $(\mM,\tau^\mM)$ be a tracial von Neumann algebra, $P\in\mM_\infty$ a projection of finite trace, $\mN=P\mM_\infty P$ and $\tau^\mN=\tau_\infty/\tau_\infty(P)$, and $w\in P \mM_\infty \Id_\mM$ a partial isometry. Let 
@@ -566,243 +827,15 @@ Finally,
 where the second line is by the triangle inequality, the fourth line is due to the fact that $I_\mM - w^* w$ is positive and has operator norm at most $1$, and the last line is by $\tau^\mM(I_\mM - w^* w ) \leq \eps$.
 \end{proof}
 
-We end with a couple lemma that will prove useful. 
-\hnote{there are two algebras $\mM$ and $\mN$ but the trace and identities don't specify which. we should probably write a sentence saying that it's implicit but determined by context...(if we do this, then the superscripts in the previous lemma are not needed)}
-
-\begin{lemma}\label{lem:l1-l2}
-\hnote{$(\eps,\mu)$-closeness needs the measurements to be superscripted by questions}\tnote{fixed}
-Let $\{P_a^i\}$ and $\{Q_a^i\}$ be two families of projective measurements that are $(\eps,\mu)$-close. Then 
-\begin{equation}\label{eq:l1-l2}
-\Es{i\in\mI} \sum_{a\in \mA(i)} \tau\big(|P_a-w^*Q_aw|\big) \,\leq\, \eps+ 2 \sqrt{\eps}\;.
-\end{equation}
-\end{lemma}
-
-\begin{proof}
-Using the triangle inequality, 
-\begin{align}
-\Es{i} \sum_a \tau\big(|P^i_a - w^* Q^i_a w|\big) &\leq\, \Es{i}\sum_a \Big(\tau\big(|(P^i_a-(P^i_a)^2)|\big) + \tau\big(|P_a(P^i_a-w^*Q^i_aw)|\big) \notag\\
-&\qquad\qquad+ \tau\big(|(P^i_a-w^*Q^i_aw)w^*Q^i_aw|\big) \notag \\
- \label{eq:lem:l1-l2}
-&\qquad +\tau\big(| (w^*Q^i_aw^*wQ^i_aw-w^*Q^i_aw)|\big)\Big)\;.
-\end{align}
-The first term on the right-hand side is zero, because $P^i$ is assumed projective. The terms in the middle are bounded using H\"older's inequality:
-\begin{align*}
-\Es{i}\sum_a  \tau\big(|P^i_a(P^i_a-w^*Q^i_aw)|\big) &\leq \Es{i} \sum_a \|P^i_a\|_2 \, \, \|P^i_a-w^*Q^i_aw\|_2\\
-&\leq \Big(\Es{i}\sum_a \|P^i_a\|^2_2\Big)^{1/2}\Big( \Es{i}\sum_a  \|P^i_a-w^*Q^i_aw\|_2^2 \Big)^{1/2}\\
-&\leq \sqrt{\eps}
-\end{align*}
-by closeness. The second term of~\eqref{eq:lem:l1-l2} is bounded in a similar fashion.
-Finally the last term of~\eqref{eq:lem:l1-l2} can be bounded as 
-\begin{align*}
-\Es{i}\sum_a \tau\big(| w^*Q^i_aw^*wQ^i_aw-w^*Q^i_aw|\big) &= \Es{i}\sum_a \tau\big( (w^*Q^i_a(I - w^*w)Q^i_aw)\big)\\
-&=  \tau\Big( (I-w^*w)\Big(\Es{i}\sum_a Q^i_aww^* Q^i_a\Big)\Big)\\
-&\leq \tau(I-w^*w) \,\, \Big\|\Es{i}\sum_a Q^i_aww^* Q^i_a\Big\|\\
-&\leq \eps\;.
-\end{align*}
-\end{proof}
-
-\begin{lemma}[Data-processing]\label{lem:dp}
-Let $\{P_a\}$ and $\{Q_a\}$ be two POVMs on $(\mM,\tau)$ with the same outcome set $\mA$. Then for any function $f:\mA\to \mB$ for some finite set $\mB$, 
-\begin{equation}\label{eq:dp}
-\sum_{b\in \mB} \Big\| \sum_{a\in f^{-1}(b)} (P_a-Q_a) \Big\|_2^2 \,\leq\, \sum_{a\in \mA} \big\| P_a-Q_a\big\|_2^2\;.
-\end{equation}
-\end{lemma}
-
-\begin{proof}
-This follows by expending the left-hand side and using $\tau(P_aQ_{a'})\geq 0$ for all $a\neq a'$. 
-\end{proof}
-	
-\section{Quantum soundness of linear codes}
-
-\subsection{Classical definitions}
-
-\begin{definition}[Code]
-For $q$ a prime power and $n,k,d$ integer
-a $[n,k,d]_q$ linear code is a $k$-dimensional subspace $\code\subseteq \F_q^n$ such that for every $u\in \code$ such that $u\neq 0$, $|u|\geq d$. Equivalently, we think of $\code$ as a linear map $\code:\F_q^k\to \F_q^n$. We write $E_\code \in \F_q^{k\times n}$ \hnote{this notation might be confusing, especially since we use $G$ and $G_{\code,M}$ for games... maybe call it $E_\code$?}\tnote{ok} for the generator matrix defined by $ E_\code^T e_i =\code(e_i)$ \hnote{what is $\code(e_i)$? I think we should just say that the range of $G_\code^T$ is $\code$}\tnote{It's defined a bit above, ``we think of $\code$ as a linear map...''} for all $i\in\{1,\ldots,k\}$, where $\{e_1,\ldots,e_k\}$ is the standard basis of $\F_q^k$. 
-\end{definition}
-
-When the subscript $q$ is omitted, it is implicitly taken as $q=2$, i.e.\ the code is assumed to be binary. 
-
-%\begin{definition}
-%Let $\code$ be an $[n,k,d]_q$ linear code. Define $\ind:\{1,\ldots,n\}\to \field^k$ such that for every $a\in \field^k$ and $i\in\{1,\ldots,n\}$, $a\cdot \ind(i) = \code(a)_i$.
-%\end{definition}
-
-%\begin{definition}[Oracle machine]
-%A (non-adaptive) \emph{randomized oracle machine} $M$ is a Turing machine that has read access to two special tapes, the randomness tape and the proof tape. $M$ operates in two stages. In the first stage, $M$ accesses the randomness tape in state $\rand$ and returns a set $S=M(\rand)\subseteq\{1,\ldots,n\}$ of  indices of the proof tape. In the second stage $M$ reads the corresponding entries from the state $\pi$ of the proof tape and returns a value in $\{0,1\}$, which only depends on $S$ and $\pi_S$, not on $\rand$. We write $M(\rand,\pi)$ for the decisions taken by $M$ when the randomness tape is $\rand$ and the proof tape is $\pi$. We also write $M(S,\pi_S)\in\{0,1\}$ for the decision taken by $M$ when the chosen entries are $S$ and their values is $\pi_S$.   
-%\end{definition}
-
-\begin{definition}[Local tester]\label{def:code-test}
-Let $\code$ be an $[n,k,d]_q$ linear code, $\delta:[0,1]\to[0,1]$, and $r\in \N$.
-An \emph{$r$-local $\delta$-tester for $\code$} is a pair $M = ((M_S)_{S \subseteq [n]},\nu)$ where $\nu$ is a distribution over subsets $S\subseteq [n]$ of size at most $r$, and for each such subset $M_S:\F_q^S\to\{0,1\}$ is a predicate such that the following hold:
-\begin{itemize} 
-\item (Completeness:) For any $u\in \code$, $\Pr_{S\sim \nu}( M_S(u_S)=1)=1$.
-\item (Soundness:) For any $\eps\geq 0$ and any $u\in \F_q^n$ that is within (Hamming) distance at least  $\eps$ from $\code$, $\Pr_{S\sim\nu}(M_S(u_{|S})=0)\geq \delta(\eps)$.  \hnote{should it be $u_S$ or $u|_S$?}\tnote{What difference do you make between the two? We don't define either, so I'm fine using the one you find most intuitive/correct}
-\end{itemize}
-\end{definition}
-
-%\begin{definition}[Local quantum presentation]
-%Let $\code$ be an $[n,k,d]_q$ linear code and $r\in \N$. An \emph{$r$-local quantum presentation of $\code$} is specified by
-%\begin{itemize}
-%\item A tracial von Neumann algebra $(\mM,\tau)$;
-%\item For each $i\in\{1,\ldots,n\}$, a $q$-outcome projective measurement $\{A^i_a\}_{a\in \field} \subseteq \mM$;
-%\item For each $S\subseteq \{1,\ldots,n\}$ such that $|S|\leq r$, a projective measurement $\{P^S_a\}_{a\in \field^S}\subseteq \mM$.
-%\end{itemize}
-%\end{definition}
-
-\subsection{Quantum soundness}
-\label{sec:q-soundness}
-
-\begin{definition}[Code representation]
-Let $\code$ be an $[n,k,d]$ linear code. A \emph{representation} of $\code$ is a pair $(\mM,A)$ of a tracial von Neumann algebra $\mM$ and a collection of projective measurements $A = \{A^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that the $\{A^i_a\}$ pairwise commute and $\sum_{c\in\code} \prod_{i=1}^n A^i_{c_i}=\Id$.\footnote{This implies that whenever $u\notin \code$, $\prod_i A^i_{u_i}=0$.} 
-\end{definition}
 
 
 
-\begin{definition}[$\eps$-local presentation]
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ be an $r$-local tester for $\code$. An \emph{$\eps$-local presentation of $(\code,M)$} is a pair $(\mM,A)$ of a tracial von Neumann algebra $\mM$ and a collection of projective measurements $A = \{A^i_a\}_{a\in\F_q} \subseteq\mM$ for $i\in\{1,\ldots,n\}$ such that for any $S\subseteq\{1,\ldots,n\}$ of size $|S|\leq r$ there are $|S|$ pairwise commuting projective measurements $\{B^{S,i}\}_{i \in S }\subset \mM_\infty$, with $B^{S,i} = \{B^{S,i}_b\}_{b\in \F_q}$, such that 
-\begin{itemize}
-\item $\sum_{a\in \F^S} M(S,a) \, \prod_{i\in S} B^{S,i}_{a_i}= \Id$ 
-\item For any $S$ such that $|S|\leq r$ and $i\in S$, let $A^{S,i}=S^i$. Then the two measurement families $\{A^{S,i}\}_{S, i\in S}$ \hnote{Don't quite understand the subscripting, since $A^i$ only depends on $i$}\tnote{I meant to say that we use the same $A_i$ for all $S$ that contain $i$. I rewrote it more explicitly} and $\{B^{S,i}\}_{S, i\in S}$ are $(\eps,\nu')$-close, where $\nu'((S,i))=\nu(S)1_{i\in S}\frac{1}{|S|}$.
-\end{itemize} 
-\hnote{question about the name: why ``presentation''? the object here is a pair $(\mM,A)$ which looks syntactically the same as a code representation... should it be ``representation''?}\tnote{Yeah...should we use ``presentation'' for both? This avoids confusion with language from representation theory. What do you think?}
-\end{definition}
+\subsection{Proof of Proposition~\ref{prop:sound-game}}
+\label{sec:game-proof}
 
+We prove the proposition. 
 
-\begin{definition}[Quantum soundness]\label{def:q-sound}
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ a $r$-local tester for $\code$. Let $\delta:[0,1]\to[0,1]$ be such that $\delta(0)=0$. We say that $(\code,M)$ has \emph{quantum soundness $\delta(\eps)$} if the following holds. For any $\eps$-local presentation $(\mM,A)$ of $(\code,M)$
-% such that 
-%\[ \Es{S\sim \nu} \Es{i\in S} \sum_{a\in \field^s} \big[ \tau\big(  P^S_a  A^i_{a_i}\big) \big] \,\geq \,1-\eps\;,\] 
-there is a representation $(\mN,B)$ of $\code$ such that the measurement families $A$ and $B$ are $\delta(\eps)$-close. 
-\end{definition}
-
-Definition~\ref{def:q-sound} can be reformulated in the language of nonlocal games, see Proposition~\ref{prop:sound-game}. 
-
-\begin{remark}
-A necessary condition for a code to be quantum sound is that any $0$-local quantum presentation $(\mM,A)$ is  a representation of $\mC$. Not all codes satisfy this condition, see e.g.~\cite[Example 2.16]{paddock2022arkhipov}. If $(\mC,M)$ satisfies this condition, then we say that it is \emph{Abelian}. Thus, Abelian codes have, by definition, quantum soundness $\overline{\delta}$ where $\overline{\delta}(0)=0$ and $\overline{\delta}(x)=1$ for $x\in(0,1]$. 
-\end{remark}
-
-
-		
-		
-\subsection{Example: the Hadamard code}
-\label{sec:had}
-
-We give an example of a family of quantum sound codes, the \emph{Hadamard codes}. This code can be defined for any  $t\geq 1$ and it is an $[T,t,T/2]_2$ linear code, where $T=2^t$. For simplicity we write  $\code_\had$ to denote this code, omitting $t$. As a linear map, for $i\in\{1,\ldots,t\}$, $\code_\had(e_i) = (x_i)_{x\in \field^t} \in \field^T$, where we identify the index set $\{1,\ldots,T\}$ with the set $\field^t$ in an arbitrary way.  
-
-It is shown in~\cite{blum1990self} that there is a $3$-local $\delta$-tester $M_\had$ for $\code_\had$, where $\delta(\eps)=6\eps$. The distribution $\nu_\had$ is uniform over subsets $\{ x, y, x+y \} \subset \field^t$ where $x,y\in \field^t$ are uniformly and independently chosen. For all $u \in \field^T$, the predicate $M_{\had,S}(u|_S) = 1$ if and only if $u_x + u_y = u_{x+y}$ (where we think of the coordinates of $u$ as being indexed by elements of $\field^t$). 
-
-%$M$ first uses its random tape to select $x,y\in\field^k$uniformly at random and returns the set $S=\{x,y,x+y\}$. For $\pi\in \field^T$, $M(S,\pi_S)$ accepts if and only if $\pi_x + \pi_y  = \pi_{x+y}$. 
-
-The following appears as~\cite[Theorem 10]{natarajan2016robust}.\footnote{While~\cite{natarajan2016robust} only show the result for finite-dimensional $\mM$, the same proof works for any tracial von Neumann algebra $(\mM,\tau)$.}
- 
-\begin{theorem}\label{thm:had-qsound}
-$M_\had$ has quantum soundness $O(\eps)$.
-\end{theorem}
-
-%\subsection{Tensor codes}
-%
-%Fix a $t_0$-interpolable $[n_0,k_0,d_0]_q$ code $\code_0$, and $m\in \N$. Let $\code = \code_0^{\otimes m}$. Then $\code$ is an $[n,k,d]_q$ code where $n=n_0^m$, $k=k_0^m$ and $d=d_0^m$. 
-%
-%
-%If $\code_0$ is a Reed-Solomon code with degree $s_0=t_0-1$, then $n_0=q$ and $d_0=n_0-s_0=n_0-t_0+1$.
-
-
-\section{Nonlocal games}
-
-\subsection{Preliminaries}
-
-\begin{definition}[Game]
-A game is a tuple $(\mX,\mu,\mA,D)$ where $\mX$ is a finite set, $\mu$ a distribution on $\mX\times \mX$, $\mA=(\mA(x))_{x\in\mX}$ a collection of finite sets, and 
-\[ D: \big\{ (x,y,a,b) : (x,y)\in\text{supp}(\mu),a\in\mA(x),b\in\mA(y)\big\} \;\to\;\{0,1\}\]
-such that $D$ is symmetric, i.e. $D(x,y,a,b)=D(y,x,b,a)$ whenever both terms are defined. We often abuse notation and write $\mu$ for the symmetrized marginal of $\mu$, i.e.\ 
-\[\mu(x) := \sum_{x'\in \mX} \frac{1}{2}\big(\mu(x,x')+\mu(x',x')\big)\;.\]
-\end{definition}
-		
-\begin{definition}[Synchronous strategy]
-If $G=(\mX,\mu,\mA,D)$ is a game and $(\mM,\tau)$ a tracial von Neumann algebra, a \emph{synchronous strategy $\strategy$ for $G$ on $(\mM,\tau)$} is, for every $x\in \mX$, a projective measurement $(P^x_a)_{a\in \mA(x)}$ on $\mM$. The value of a strategy $\strategy$ in $G$ is 
-\[ \omega(G;\strategy)\,=\, \sum_{(x,y)\in\mX\times\mX}\frac{1}{2}\big(\mu(x,y)+\mu(y,x)\big) \sum_{(a,b)\in\mA(x)\times\mA(y)} D(x,y,a,b)\, \tau\big(P^x_a \,P^y_b\big) \;.\footnote{Note the symmetrization of $\mu$. This is to avoid explicitly requiring $\mu$ to be permutation-invariant in the definition of a game. \hnote{Didn't quite understand... what would go wrong without this symmetrization?}\tnote{It's so that at some point we can claim that studying synchronous strategies is wlog. Maybe that point happens only outside this note though; so then we can say it's to keep with the formalism of synchronous games} \hnote{sorry, still don't understand... I thought synchronous games just require that $D(x,x,a,b) = 0$ if $a \neq b$. That doesn't have anything to do with whether the distribution is symmetrized, right?}\tnote{You're right, usually they don't have a distribution because it's all about the exact case. It's still convenient though, to define games without explicitly flipping the ``symmetry'' coin. Can we keep it and simply write ``Note the symmetrization of $\mu$, which is for convenience.'' }}\]
-We say that $\strategy$ is \emph{perfect} if $\omega(G;\strategy)=1$.
-\end{definition}
-
-
-The next lemma shows that close strategies have close value. 
-
-\begin{lemma}\label{lem:close-value}
-Let $G=(\mX,\mu,\mA,D)$ be a game and $\strategy=\{P^x_a\}$ and $\strategy'=\{Q^x_a\}$ strategies on $\mM$ and $\mN$ respectively such that $\{P^x_a\}$ and $\{Q^x_a\}$ are $(\eps,\mu)$-close. Then 
-\[ \big|\omega(G;\strategy) - \omega(G;\strategy')\big|\,\leq\, 8\sqrt{\eps} \;.\]
-\end{lemma}
-
-\begin{proof}
-By definition, there exists a projection $P \in \mM_\infty$ and a partial isometry $w \in P \mM_\infty I_\mM$ such that $\mN = P \mM_\infty P$ and
-\begin{align*}
-\omega(G;\strategy') &= \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( Q^x_a \, Q^y_b \big)\\
-&=  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\\
-&\quad+  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)
-+ \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big(Q^x_a  Q^y_b (P-ww^*)\big)~.
-\end{align*}
-Here we used the fact that $Q^x_a \in \mN$ so therefore $P Q^x_a P = Q^x_a$ for all $x,a$. 
-The second and third term on the right-hand side can be bounded as
-%\begin{align*}
-%\Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|
-%&=\Big| \tau\Big(  (P - w\, w^* )\Big( \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big)\Big)\Big|\\
-%&\leq \tau(P-ww^*) \Big\|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big\|\\
-%&\leq \eps\;,
-%\end{align*}
-%where the first inequality is by H\"older's inequality and the last inequality uses the definition of closeness to bound the first term. To bound the second term on the right-hand side, we write it as $\|A\circ B\|$, with $\circ$ the Hadamard product, and use  $\|A\circ B\| \leq \max_{i,j} |A_{i,j}|\|B\|$. Here $A = \sum_{a,b} D(a,b) P_{a,b}$, with $P_{a,b} = \sum_{i,j} \ket{u_{i,a}} \bra{v_{j,b}}$ with $\ket{u_{i,a}}$ a basis for the range of $Q^x_a$ and $\ket{v_{j,b}}$ for the range of $Q^y_b$, and $B=\sum_{a,b} Q^y_b ww^* Q^x_a = ww^*$.  \hnote{not quite sure about this proof... is the Hadamard product well defined in infinite dimensions? What is $D(a,b)$? A bit confused...}
-%\hnote{here's an alternate proof:}
-\begin{align*}
-&\Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|\\
-&\leq \Es{(x,y)\sim\mu} \Big | \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b w w^* Q^x_a (P - w\, w^* ) \big) \Big | \\
-&\leq \sqrt{ \tau((P - ww^*)^2) \cdot \Es{(x,y)\sim\mu} \tau\big( \big( \sum_{a,b} D(a,b,x,y)   Q^y_b w w^* Q^x_a \big) \big( \sum_{a,b} D(a,b,x,y)   Q^x_a w w^* Q^y_b \big) \big) } \\
-&= \sqrt{ \tau((P - ww^*)^2) \cdot \Es{(x,y)\sim\mu} \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b ww^* Q^x_a w w^* Q^y_b \big) } \\
-&\leq \sqrt{\tau((P - ww^*)^2) \cdot \Es{(x,y)\sim\mu}  \sum_{a,b}  \tau\big(Q^y_b ww^* Q^x_a w w^* Q^y_b \big) }  \\
-&= \sqrt{\tau((P - ww^*)^2)} \cdot \sqrt{ \Es{(x,y)\sim\mu}  \sum_{b}  \tau\big(Q^y_b ww^* \big) } \\
-&\leq \sqrt{\tau(P - ww^*)} \\
-&\leq \sqrt{\eps}~.
-%&=\Big| \tau\Big(  (P - w\, w^* )\Big( \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big)\Big)\Big|\\
-%&\leq \tau(P-ww^*) \Big\|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big\|\\
-%&\leq \eps\;,
-\end{align*}
-The third line is due to Cauchy-Schwarz and Jensen's inequality. The fourth line is due to the fact that for fixed $x,y$, the measurements $\{ Q^x_a \}_a$ and $\{Q^y_b\}_b$ are projective. The fifth line is due to $D(x,y,a,b) \in \{0,1\}$. The sixth line is due to $\sum_a Q^x_a = I_\mN$. The seventh line is due to $\sum_a Q^y_b = I_\mN$ and the fact that $P - ww^*$ is a positive operator with operator norm at most $1$.
-
-For $x\in \mX$ such that $\mu(x)\neq 0$, denote by $\mu_x$ the (symmetrized) conditional distribution $\mu_x(y)=\frac{1}{2}(\mu(x,y)+\mu(y,x))/\mu(x)$. Then using the above
-\begin{align*}
-\big|\omega(G;\strategy) - \omega(G;\strategy')\big|
- &\leq 2\sqrt{\eps}+ \Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) \big( \tau\big( P^x_a \, P^y_b \big)-\tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\big)\Big|\\
-&\leq  2\sqrt{\eps}+ \Big|\Es{x\sim\mu} \sum_{a}  \tau\Big( \big(P^x_a-w^* Q^x_aw\big) \, \Big( \Es{y\sim \mu_x} \sum_b D(a,b,x,y) P^y_b \Big)\Big)\Big|\\
-&\qquad+ \Big|\Es{y\sim\mu} \sum_{b}  \tau\Big(\Big( \Es{x\sim \mu_y} \sum_a D(a,b,x,y) w^* Q^x_a w\Big) \big(P^y_b-w^*Q^y_bw\big) \, \Big)\Big|\\
-&\leq 2\sqrt{\eps}+2\Es{x\sim\mu} \sum_{a}  \tau\big(\big| P^x_a-w^*Q^x_aw\big|\big) \\
-&\leq 2\sqrt{\eps}+2(\eps + 2\sqrt{\eps}) \leq 8\sqrt{\eps}\;,
-\end{align*}
-where the third line uses $\tau(AB)\leq\tau(|A|)\|B\|$ and the last line is by~\eqref{eq:l1-l2}.% and Jensen's inequality.
-\end{proof}
-
-\subsection{Robustness}
-
-
-\begin{definition}[Robust game]
-Given a game $G$, a function $\delta:[0,1]\to[0,1]$, and a distribution $\nu$ on $\mX$ we say that $G$ is \emph{$(\delta,\nu)$-robust} if any synchronous strategy for $G$ that succeeds with probability at least $1-\eps$ in $G$, for some $\eps\geq 0$, is
- $(\delta(\eps),\nu)$-close to a perfect strategy.
-\end{definition}
-
-Note that in the definition $\nu$ need not be the marginal of the game distribution $\mu$. In particular, we will often consider $\nu$ that is supported on a strict subset of the support of $\mu$. 
-
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$. Consider the following game $G_{\code,M}$. We set 
-\[\mX = \{ S\subseteq \{1,\ldots,n\},|S|\leq r\} \sqcup\{1,\ldots,n\}\quad\text{and}\quad \mu(S,i)=\frac{1_{i\in S}}{|S|}\nu(S)\;,\]
-and for any $S,i\in\mX$, $\mA(S)=\F_q^S$ and $\mA(i)=\F_q$, and finally $D(S,i,a,b)=M(S,a)1_{a_i=b}$. 
-
-
-\tnote{The next proposition sounds like a special case of some other lemma about LCS games, which is probably written somewhere}
-
-\begin{proposition}\label{prop:sound-game}
-Let $\code$ be an $[n,k,d]_q$ linear code and $M$ an $r$-local tester for $\code$ with distribution $\nu$. Let $\delta,\delta':[0,1]\to[0,1]$. Then the following hold:
-\begin{enumerate}
-\item If $G_{\code,M}$ is $(\delta',\nu)$-robust for $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$, and $(\mC,M)$ is Abelian, then $M$ has quantum soundness $\delta''$, for some $\delta''(\eps) = O(\delta'(\sqrt{\eps}))$. 
-\item If $M$ has quantum soundness $\delta$ then $G_{\code,M}$ is $(\delta'',\nu)$-robust, for some $\delta''(\eps)=O({\delta(2\eps)})$ and $\nu$ the uniform distribution on $\{1,\ldots,n\}\subseteq \mX$. 
-\end{enumerate}
-\end{proposition}
-
-\begin{proof}
+\begin{proof}[Proof of Proposition~\ref{prop:sound-game}]
 We start with the first assertion. Suppose that $G_{\code,M}$ is $\delta'$-robust, for some function $\delta'$. Let $(\mM,A)$ be be an $\eps$-local presentation of $(\code,M)$, and for each $S\subseteq\{1,\ldots,n\}$ such that $|S| \leq r$, $\{B^{S,i}\}_{i\in S}$ the commuting family of projective measurements promised by the definition. Then for every $S$ there is a projection $P^S \in \mM_\infty$ and an isometry $w^S\in P^S \mM_\infty I_\mM$ such that 
 \[ \Es{S \sim \nu} \Es{i\in S} \sum_{a \in \F_q} \big\| A^i_a - (w^S)^* B^{S,i}_{a}w^S \big\|_2^2 \,\leq\,\eps\;.\]
 \tnote{adding this to break up the proof a little:}The key step consists in proving the following claim. 
@@ -876,68 +909,17 @@ For every $S$, let $Q^S_a = \prod_{i\in S} C^i_{a_i}$, which is a projective mea
 \end{proof}
 
 
-\subsection{Commutation game}
-\label{sec:commutation}
 
-We use the same game as in~\cite[Section 3.1]{de2022spectral}. For convenience we change the notation slightly and denote $x_{X,0}, x_{Z,0} \in \mX_{com}$ the two special questions, $x_{com,1}$ and $x_{com,2}$ respectively. 
-
-\subsection{Anti-commutation game}
-\label{sec:anticommutation}
-
-We use the same game as in~\cite[Section 3.2]{de2022spectral}. For convenience we change the notation slightly and  denote $x_{X,1}, x_{Z,1} \in \mX_{anticom}$ the two special questions, $x_{anticom,1}$ and $x_{anticom,2}$ respectively. 
-
-\subsection{Combined game}
-
-Let $\code$ be an $[n,k,d]_2$ linear code and $M$ an $r$-local tester for $\code$. 
-We use $G_{\dlS}$ to denote the game introduced in~\cite[Section 3.4]{de2022spectral}, specialized to the following choices. The group is $H=\field^k$. Let
-\[ S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k\;,\]
-and let $\mu_{\dlS}$ be the uniform distribution over $S_X\times S_Z$. Let $\Omega$ be the support of $\mu_{\dlS}$ and $\alpha,\beta$ the coordinate projections. Then $G_{\dlS}=(\mX,\mu_{\dlS},\mA,D)$ has question set $\mX = \{PX,PZ\} \cup (\mX_{com}\times \Omega_+) \cup (\mX_{anticom} \times \Omega_-)$ and is as described in~\cite[Section 3.4]{de2022spectral}. For clarity we recall the game, using our notation, in Figure~\ref{fig:dlS}. 
-
-\begin{figure}[!htbp]
-  \centering
-  \begin{gamespec}
-Let $S_X,S_Z\subseteq \field^k$.  Sample $\omega = (\omega_X,\omega_Z)\in S_X \times S_Z $ uniformly at random. Let $\gamma = \omega_X \cdot \omega_Z \in \field$. Execute either of the following tests with probability $1/3$ each. 
-    \begin{enumerate}
-      \setlength\itemsep{1pt}
-    \item (\textbf{Anti-commutation test}) 
-		\begin{enumerate}
-		\item If $\gamma=0$ then sample a pair of questions $(x_c,y_c)$ as in the commutation game. Send $(x_c,\omega)$ to $\alice$ and $(y_c,\omega)$ to Bob. Accept if and only if their answers are accepted in the commutation game. 
-		\item If $\gamma\neq 0$ then do the same but for the anti-commutation game. 
-		\end{enumerate} 
-		 \item (\textbf{$Z$-Consistency test}) Send $Z$ to $\alice$ and $(x_{Z,\gamma},\omega)$ to $\bob$. Receive $a\in \field^k$ and $b\in \field$ respectively. Accept if and only if $a\cdot \omega_Z=b$. 
-		 \item (\textbf{$X$-Consistency test}) Send $X$ to $\alice$ and $(x_{X,\gamma},\omega)$ to $\bob$. Receive $a\in \field^k$ and $b\in \field$ respectively. Accept if and only if $a\cdot \omega_X=b$. 
-    \end{enumerate}
-  \end{gamespec}
-  \caption{The game $G_{\dlS}$ checks (anti)commutation relations between two collections of observables.}
-  \label{fig:dlS}
-\end{figure}
 
 \section{Main result}
 
-In this section we focus on binary codes only, see Section~\ref{sec:pbt} for the case of fields over $\F_q$ for $q$ a power of $2$. Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. Recall that for a projective measurement $P = \{P_a\}_{a \in \F_2^k}$, we use $\widehat{P}(b)$ to denote the corresponding observable (see \Cref{sec:measurements}). For binary outcome measurements $P = \{ P_0, P_1\}$, we write $\widehat{P}$ to denote $P_0 - P_1$. 
+In this section we focus on binary codes only, see Section~\ref{sec:pbt} for the case of fields over $\F_q$ for $q$ a power of $2$. 
 
+We start by defining a notion of ``qubit test,'' and state an interesting consequence of the definition in terms of dimension tests. In Section~\ref{sec:braiding} we describe a test, the \emph{braiding test}, that can be constructed from any linear code and in Section~\ref{sec:main} we state and prove our main result, which is that whenever the braiding test is based on a quantum sound code then it is a qubit test. 
 
-\begin{figure}[!htbp]
-  \centering
-  \begin{gamespec}
-Let $M$ be an $r$-local tester with distribution $\nu$ for the $[n,k,d]$ code $\code$.  Execute either of the following tests with probability $1/3$ each. 
-    \begin{enumerate}
-      \setlength\itemsep{1pt}
-    \item (\textbf{Code test}) Sample $W\in \{X,Z\}$ uniformly at random, a set $S \subseteq \{1,\ldots,n\}$ from the distribution $\nu$, and an index $i \in S$ uniformly at random. 
-    %and $\rand$ a setting for $M$'s random tape at random. Let $S=M(\rand)\subseteq\{1,\ldots,n\}$. Sample $i\in S$ uniformly at random. 
-    Send $(W,S)$ to $\alice$ and $(W,i)$ to $\bob$. Receive $a\in \field^S$ from $\alice$ and $b\in \field$ from $\bob$. Accept if and only if $M(S,a)=1$ and $a_i = b$.  
-    \item (\textbf{Anti-commutation test}) Sample $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ uniformly at random. Let $\omega = (E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma =  (E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) \in \field$. 
-		\begin{enumerate} 
-		\item If $\gamma=0$ then sample a pair of questions $(x_c,y_c)$ as in the commutation game. Send $(x_c,\omega)$ to $\alice$ and $(y_c,\omega)$ to Bob. Accept if and only if their answers are accepted in the commutation game. 
-		\item If $\gamma\neq 0$ then do the same but for the anti-commutation game. 
-		\end{enumerate} 
-		 \item (\textbf{Consistency test}) Sample $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ and $W\in \{X,Z\}$ uniformly at random. Let $\omega=(E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma = (E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) \in \field$. Send $(W,i_W)$ to $\alice$ and $(x_{W,\gamma},\omega)$ to $\bob$, where $x_{W,\gamma}$ is a question from the anti-commutation game (see \Cref{sec:anticommutation}). Receive $a\in \field$ and $b\in \field$ respectively. Accept if and only if $a=b$. 
-    \end{enumerate}
-  \end{gamespec}
-  \caption{The braiding test over $\code$ verifies that the players respond consistently with a uniformly random codeword from $\code$.}
-  \label{fig:braiding-test}
-\end{figure}
+\subsection{Qubit tests}
 
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. Recall that for a projective measurement $P = \{P_a\}_{a \in \F_2^k}$, we use $\widehat{P}(b)$ to denote the corresponding observable (see \Cref{sec:measurements}). For binary outcome measurements $P = \{ P_0, P_1\}$, we write $\widehat{P}$ to denote $P_0 - P_1$. 
 
 \begin{definition}
 Let $k\in \N$ and $\delta:[0,1]\to\R_+$. 
@@ -955,6 +937,8 @@ Any synchronous strategy in $(\mM,\tau)$ for $G$ that succeeds with probability 
 %\begin{remark}
 %The definition allows ``trivial'' settings for the sets $S_X,S_Z$, e.g.\ $S_X=S_Z=\emptyset$. In this case, a strategy for $G$ may not give direct access (through specific questions) \hnote{should have some prior text explaining what ``direct access to a Pauli observable'' means} to any Pauli observable and the soundness condition is trivial. As soon as e.g. $S_X,S_Z$ both contain the basis elements $e_1,\ldots,e_k \in \field^k$ then the definition is non-trivial. Moreover, the notion of closeness provided by the soundness statement is averaged over the marginal of the game distribution $\mu$. Therefore, the measurements associated with questions in the range of $\phi$ are close to the ideal measurements only inasmuch the corresponding questions have non-trivial probability of being asked in $G$. 
 %\end{remark}
+
+The next proposition states a simple consequence of a qubit test, which is that strategies with a high enough success probability must have a large dimension. This consequence is used in~\cite{ji2020mip}. 
 
 \begin{proposition}
 \label{prop:dim-test}
@@ -1011,11 +995,89 @@ Rearranging, this implies that $d$, the dimension of $\mM$, satisfies
 as desired.
 \end{proof}
 
+
+
+\subsection{The braiding test}
+
+We introduce our main test, the \emph{braiding test}, which can be based on any linear code $\code$ and tester $M$ for it. Before we state the test, we recall the classic \emph{commutation} and \emph{anticommutation} games. 
+
+\paragraph{Commutation game.}
+We call \emph{commutation game} the game defined in~\cite[Section 3.1]{de2022spectral}. For convenience we change the notation slightly and denote $x_{X,0}, x_{Z,0} \in \mX_{com}$ the two special questions, $x_{com,1}$ and $x_{com,2}$ respectively. 
+
+\paragraph{Anti-commutation game.}
+We call \emph{anti-commutation game} the game defined in~\cite[Section 3.2]{de2022spectral}. For convenience we change the notation slightly and  denote $x_{X,1}, x_{Z,1} \in \mX_{anticom}$ the two special questions, $x_{anticom,1}$ and $x_{anticom,2}$ respectively. 
+
+\paragraph{The braiding test.}
+Let $\code$ be an $[n,k,d]_2$ linear code and $M$ an $r$-local tester for $\code$. The braiding test constructed from $\code$ and $M$ is described in Figure~\ref{fig:braiding-test}. Informally, the test combines two independent copies of the code test from Section~\ref{} with appropriate commutation and anti-commutation games that will force any successful strategy in the game to be close, in some sense, to a representation of the Pauli group generated by observables $\sigma^X(a)$ and $\sigma^Z(b)$, $a,b\in \F_2^k$. 
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{gamespec}
+Let $M$ be an $r$-local tester with distribution $\nu$ for the $[n,k,d]$ code $\code$.  Execute either of the following tests with probability $1/3$ each. 
+    \begin{enumerate}
+      \setlength\itemsep{1pt}
+    \item (\textbf{Code test}) Sample $W\in \{X,Z\}$ uniformly at random, a set $S \subseteq \{1,\ldots,n\}$ from the distribution $\nu$, and an index $i \in S$ uniformly at random. 
+    %and $\rand$ a setting for $M$'s random tape at random. Let $S=M(\rand)\subseteq\{1,\ldots,n\}$. Sample $i\in S$ uniformly at random. 
+    Send $(W,S)$ to $\alice$ and $(W,i)$ to $\bob$. Receive $a\in \field^S$ from $\alice$ and $b\in \field$ from $\bob$. Accept if and only if $M(S,a)=1$ and $a_i = b$.  
+    \item (\textbf{Anti-commutation test}) Sample $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ uniformly at random. Let $\omega = (E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma =  (E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) \in \field$. 
+		\begin{enumerate} 
+		\item If $\gamma=0$ then sample a pair of questions $(x_c,y_c)$ as in the commutation game. Send $(x_c,\omega)$ to $\alice$ and $(y_c,\omega)$ to Bob. Accept if and only if their answers are accepted in the commutation game. 
+		\item If $\gamma\neq 0$ then do the same but for the anti-commutation game. 
+		\end{enumerate} 
+		 \item (\textbf{Consistency test}) Sample $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ and $W\in \{X,Z\}$ uniformly at random. Let $\omega=(E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma = (E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) \in \field$. Send $(W,i_W)$ to $\alice$ and $(x_{W,\gamma},\omega)$ to $\bob$, where $x_{W,\gamma}$ is a question from the anti-commutation game. Receive $a\in \field$ and $b\in \field$ respectively. Accept if and only if $a=b$. 
+    \end{enumerate}
+  \end{gamespec}
+  \caption{The braiding test over $\code$ verifies that the players respond consistently with a uniformly random codeword from $\code$.}
+  \label{fig:braiding-test}
+\end{figure}
+
+\subsection{A qubit test from any quantum-sound code}
+
+Our main theorem shows that the braiding test is a qubit test, whenever it is instantiated with a pair $(\code,M)$ that is quantum sound. 
+
 \begin{theorem}\label{thm:main}
 Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound and such that $(\code,M)$ is Abelian. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test with sets $S_X=S_Z=\{E_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$, map $\phi(W,E_\code e_i)=(W,i)$ and error function $\delta' = O(\delta^{1/2}(6\eps))$.\footnote{Assume $E_\code$ has no repeated columns.} 
 \end{theorem}
 
+Before we give the proof of the theorem we introduce a game, which we denote $G_{\dlS}$, that is a specific instantiation of a more general class of games analyzed in~\cite[Section 3.4]{de2022spectral}. The proof of soundness of the qubit test will be a reductio to the results from~\cite{de2022spectral}. Using notation from~\cite{de2022spectral}, the game $G_{\dlS}$ is obtained by making the following choices. The group is $H=\field^k$. Let
+\[ S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k\;,\]
+and let $\mu_{\dlS}$ be the uniform distribution over $S_X\times S_Z$. Let $\Omega$ be the support of $\mu_{\dlS}$ and $\alpha,\beta$ the coordinate projections. Then $G_{\dlS}=(\mX,\mu_{\dlS},\mA,D)$ has question set $\mX = \{PX,PZ\} \cup (\mX_{com}\times \Omega_+) \cup (\mX_{anticom} \times \Omega_-)$ and is as described in~\cite[Section 3.4]{de2022spectral}. For clarity we recall the game, using our notation, in Figure~\ref{fig:dlS}. 
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{gamespec}
+Let $S_X,S_Z\subseteq \field^k$.  Sample $\omega = (\omega_X,\omega_Z)\in S_X \times S_Z $ uniformly at random. Let $\gamma = \omega_X \cdot \omega_Z \in \field$. Execute either of the following tests with probability $1/3$ each. 
+    \begin{enumerate}
+      \setlength\itemsep{1pt}
+    \item (\textbf{Anti-commutation test}) 
+		\begin{enumerate}
+		\item If $\gamma=0$ then sample a pair of questions $(x_c,y_c)$ as in the commutation game. Send $(x_c,\omega)$ to $\alice$ and $(y_c,\omega)$ to Bob. Accept if and only if their answers are accepted in the commutation game. 
+		\item If $\gamma\neq 0$ then do the same but for the anti-commutation game. 
+		\end{enumerate} 
+		 \item (\textbf{$Z$-Consistency test}) Send $Z$ to $\alice$ and $(x_{Z,\gamma},\omega)$ to $\bob$. Receive $a\in \field^k$ and $b\in \field$ respectively. Accept if and only if $a\cdot \omega_Z=b$. 
+		 \item (\textbf{$X$-Consistency test}) Send $X$ to $\alice$ and $(x_{X,\gamma},\omega)$ to $\bob$. Receive $a\in \field^k$ and $b\in \field$ respectively. Accept if and only if $a\cdot \omega_X=b$. 
+    \end{enumerate}
+  \end{gamespec}
+  \caption{The game $G_{\dlS}$ checks (anti)commutation relations between two collections of observables.}
+  \label{fig:dlS}
+\end{figure}
+
+We will also make use of the following simple fact. 
+
+
+\begin{lemma}[Data-processing]\label{lem:dp}
+Let $\{P_a\}$ and $\{Q_a\}$ be two POVMs on $(\mM,\tau)$ with the same outcome set $\mA$. Then for any function $f:\mA\to \mB$ for some finite set $\mB$, 
+\begin{equation}\label{eq:dp}
+\sum_{b\in \mB} \Big\| \sum_{a\in f^{-1}(b)} (P_a-Q_a) \Big\|_2^2 \,\leq\, \sum_{a\in \mA} \big\| P_a-Q_a\big\|_2^2\;.
+\end{equation}
+\end{lemma}
+
 \begin{proof}
+This follows by expending the left-hand side and using $\tau(P_aQ_{a'})\geq 0$ for all $a\neq a'$. 
+\end{proof}
+
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
 \underline{Completeness:} We first verify completeness. For $W\in\{X,Z\}$, $i\in\{1,\ldots,n\}$ and $b\in \F_2$ let $P^{(W,i)}_b = \frac{1}{2}(\Id + (-1)^b\sigma^W(E_\code e_i))$, and for $a\in \F_2^S$ let $P^{(W,S)}_a = \prod_{i\in S} P^{(W,i)}_{a_i}$. Writing $(f_0,f_1)$ for the canonical basis of $\C^2$, $P^{(W,S)}_a$ is the projection on the span of all $\otimes_{i=1}^k f_{u_i}$ where $u=(u_1,\ldots,u_k)$ is such that $u^T E_\code=a$.   
 
 For $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ let $\omega=(E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma =(E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) $ we let $P^{x_{W,\gamma},\omega} = P^{(W,i_W)}$. 

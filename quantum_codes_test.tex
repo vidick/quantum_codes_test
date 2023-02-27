@@ -921,7 +921,7 @@ Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$.
 
 \begin{definition}
 Let $k\in \N$ and $\delta:[0,1]\to\R_+$. 
-A \emph{$(k,\delta(\eps))$-qubit test} is a synchronous game $G=(\mX,\mu,\mA,D)$ such there are two sets $S_X,S_Z\subseteq \field^k$ \tnote{adding:}that are both generating sets and an injection $\phi:(\{X\}\times S_X) \cup (\{Z\}\times S_Z) \to \mX$ such that $\mA(\phi({X},a))=\mA(\phi({Z},b))=\field$ for all $a\in S_X$, $b\in S_Z$ and such that the following holds:
+A \emph{$(k,\delta(\eps))$-qubit test} is a synchronous game $G=(\mX,\mu,\mA,D)$ such there are two sets $S_X,S_Z\subseteq \field^k$ that span $\field^k$ and an injection $\phi:(\{X\}\times S_X) \cup (\{Z\}\times S_Z) \to \mX$ such that $\mA(\phi({X},a))=\mA(\phi({Z},b))=\field$ for all $a\in S_X$, $b\in S_Z$ and such that the following holds:
 \begin{itemize}
 \item (Completeness:) There is a synchronous strategy $(\mM,P)$ for $G$ on $\mM=M_{2^{k}}(\C)$ that succeeds with probability $1$ in $G$ and is such that $\widehat{P}^{\phi({W},a)} = \sigma^W(a)$ for every $W\in\{X,Z\}$ and $a\in S_W$. 
 \item (Soundness:) \tnote{added:}Let $\mu'$ denote the (renormalized) restriction of (the marginal of) $\mu$ to the image of $\phi$ in $\mX$.

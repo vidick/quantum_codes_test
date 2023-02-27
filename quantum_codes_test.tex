@@ -912,6 +912,7 @@ For every $S$, let $Q^S_a = \prod_{i\in S} C^i_{a_i}$, which is a projective mea
 
 
 \section{Main result}
+\label{sec:main}
 
 In this section we focus on binary codes only, see Section~\ref{sec:pbt} for the case of fields over $\F_q$ for $q$ a power of $2$. 
 
@@ -1150,29 +1151,15 @@ Since $\omega_W = G_\mC e_i$, $(G_\mC^T c)_i = c\cdot \omega_W$. Thus~\eqref{eq:
 \section{Application: the Pauli braiding test}
 \label{sec:pbt}
 
+In this section we give apply the general construction from Section~\ref{sec:main} to a specific quantum-sound code with particularly good parameters, the Reed-Muller code. This was shown sound in~\cite{ji2022quantum} as part of a slightly more general class of ``tensor codes'' shown quantum sound. The resulting qubit test is an important ingredient in the work~\cite{ji2020mip}.
 
-For $q=2^t$ and $a\in \field$ we let $\kappa(a)\in\F_2^t$ denote the binary representation of $a$, taken in a fixed but usually left implicit self-dual basis of $\F_2^t$ over $\F_2$. We extend $\kappa$ to vectors over $\field$ coordinate-wise. We let $\tr(\cdot):\F_q\to\F_2$ denote the trace over $\F_2$. Because we chose a self-dual basis for the binary representation, the trace satisfies $\tr(ab)=\kappa(a)\cdot\kappa(b)$. 
-	
-%	We use $\sigma^W(a)$, for $a\in F_q^k$, to denote the tensor product of $k$ Pauli $W$ observables over $\field$. We use $\{\sigma^W_a\}$ to denote the associated projective measurement. 
-
-
-%\subsection{Codeword tests over $\F_q$}
-%
-%We broaden Definition~\ref{def:code-test} to allow tests defined over any finite field $\F_q$.
-%
-%\begin{definition}[Codeword test over $\F_q$]
-%Let $\code$ be an $[n,k,d]_q$ linear code, $\delta:[0,1]\to[0,1]$, and $r\in \N$.
-%An $r$-local $\delta$-tester for $\code$ is a distribution $\nu$ over subsets $S\subseteq [n]$ of size at most $r$, and for each $S$ in the support of $\nu$ a predicate $M(S,\cdot):\F_q^S\to\{0,1\}$, such that the following hold:
-%\begin{itemize} 
-%\item (Completeness:) For any $u\in \code$, $\Pr_{S\sim \nu}( M(S,u_S)=1)=1$.
-%\item (Soundness:) For any $\eps\geq 0$ and any $u\in \F_q^n$ that is within (Hamming) distance at least  $\eps$ from $\code$, $\Pr_{S\sim\nu}(M(S,u_{|S})=0)\geq \delta(\eps)$. 
-%\end{itemize}
-%\end{definition}
-%
-%The notion of code representation, $\eps$-local presentation and quantum soundness from Section~\ref{sec:q-soundness} are extended to codes over $\F_q$ in the natural way. 
 
 \subsection{Code composition}
 \label{sec:code-comp}
+
+Theorem~\ref{thm:main} requires a quantum-sound code defined over the binary field.  The Reed-Muller code is defined over $\F_q$, for $q$ a large prime power. We can transform any $q$-ary code, for $q=2^t$, into a binary code using the idea of \emph{code composition} which we now describe. 
+
+For $q=2^t$ and $a\in \field$ we let $\kappa(a)\in\F_2^t$ denote the binary representation of $a$, taken in a fixed but usually left implicit self-dual basis of $\F_2^t$ over $\F_2$. We extend $\kappa$ to vectors over $\field$ coordinate-wise. We let $\tr(\cdot):\F_q\to\F_2$ denote the trace over $\F_2$. Because we chose a self-dual basis for the binary representation, the trace satisfies $\tr(ab)=\kappa(a)\cdot\kappa(b)$. 
 
 Let $q=2^t$ and $\code$ an $[n,k,d]_q$ linear code. Let $\code_{\Had}$ be the Hadamard code over $\F_2^t$ (see Section~\ref{sec:had}). Let $T=2^t$.
 Let $\mC'$ be the $[Tn,tk,d']$ linear code over $\F_2$ defined as follows. Given $a\in (\F_2^t)^{k}$, first map $a\mapsto a'=\kappa^{-1}(a) \in \F_q^{k}$. Then encode $a'$ to $b'=\code_\RM(a')\in \F_q^n$. Finally, return $b=\code_\Had(\kappa(b'))\in(\F_2^T)^n$, where $\code_\Had$ is applied component-wise. Using that $\code_\Had$ has relative distance $\frac{1}{2}$, it is easy to verify that this code has distance $d'\geq dT/2$.
@@ -1278,8 +1265,10 @@ In~\cite{ji2022quantum} it is shown that the game $G_{\code_\RM,M_\RM}$ (played 
 
 
 \subsection{The Pauli braiding test}
-\hnote{is this the ``right'' name? I thought Pauli braiding test was the large question version.}
-By applying Proposition~\ref{prop:q-to-2} to the tester $M_\RM$, which is quantum sound by Theorem~\ref{thm:mrm-sound}, we deduce that $M'_\RM$, defined from $M_\RM$ as in Section~\ref{sec:code-comp}, is an $O(\delta)$-sound $rq$-local tester for the binary code $\code'_{\RM}$, where $\delta$ is as in Theorem~\ref{thm:mrm-sound}. This allows us to apply Theorem~\ref{thm:main} to obtain a concrete instantiation of the braiding test. We call it the Pauli braiding test. For completeness, we give a description of the test in its entirety in Figure~\ref{fig:pauli-braiding}. To formulate the test, we make explicit the sets $S_X$ and $S_Y$. For the rows of the generating matrix $E_{\code_\RM}$ we take an arbitrary basis of all individual degree-$d$ polynomials, e.g.\ for $\alpha \in \{0,\ldots,d\}^m$, 
+
+\hnote{is this the ``right'' name? I thought Pauli braiding test was the large question version.}\tnote{Well actually it's ``Pauli basis test'' which is the version from NW. Here, it's closer to the ``quantum low-degree test,'' but it's more general. Technically ``Pauli braiding'' is introduced in the paper by Anand and I on the quantum linearity test, which at least has the merit of falling in the class of tests considered here. So we could say that and explain why we now use the name ``Pauli braiding'' for a more general class. Would that be ok?} 
+
+By applying Proposition~\ref{prop:q-to-2} to the tester $M_\RM$, which is quantum sound by Theorem~\ref{thm:mrm-sound}, we deduce that $M'_\RM$, defined from $M_\RM$ as in Section~\ref{sec:code-comp}, is an $O(\delta)$-sound $rq$-local tester for the binary code $\code'_{\RM}$, where $\delta$ is as in Theorem~\ref{thm:mrm-sound}. This allows us to apply Theorem~\ref{thm:main} to obtain a concrete instantiation of the braiding test.\footnote{\tnote{``History'' of PBT could be described here}} We call it the Pauli braiding test. For completeness, we give a description of the test in its entirety in Figure~\ref{fig:pauli-braiding}. To formulate the test, we make explicit the sets $S_X$ and $S_Y$. For the rows of the generating matrix $E_{\code_\RM}$ we take an arbitrary basis of all individual degree-$d$ polynomials, e.g.\ for $\alpha \in \{0,\ldots,d\}^m$, 
 \[ \ind_{\alpha}(x) = \prod_{i} x_i^{\alpha_i} (1-x_i)^{d-\alpha_i}\;.\]
 Then the $x$-th column of $E_{\code_\RM}$, $E_{\code_{\RM}}e_x$ for $x\in \F_q^m$, has entries $\ind(x)=(\ind_{\alpha}(x))_{\alpha\in\{0,\ldots,d\}^m}$.
 
@@ -1315,7 +1304,7 @@ The braiding test is a $(t(d+1)^m,\delta')$-qubit test, for some $\delta'(\eps)=
 Follows from Theorem~\ref{thm:main} and Theorem~\ref{thm:mrm-sound}.
 \end{proof}
 
-As a corollary we obtain quantum soundness for the variant of the Pauli braiding test which is described in~\cite[Section 7.3]{ji2020mip}. This is because any (synchronous) strategy for the latter can be mapped into a strategy for the former. The only difference is that in the variant from~\cite{ji2020mip}, some of the answers, specifically the ones from the Code test associated with $\code_\RM$, are specified over $\F_q$. Of course this is equivalent to returning the binary representation of all $\F_q$ elements, which is what is required in the Code test here, for the cases where the set $T=\F_q$. \tnote{This part is loose; I didn't check things formally and I'm not sure we want to either}
+As a corollary we obtain quantum soundness for the variant of the Pauli braiding test which is described in~\cite[Section 7.3]{ji2020mip}. This is because any (synchronous) strategy for the latter can be mapped into a strategy for the former. The only difference is that in the variant from~\cite{ji2020mip}, some of the answers, specifically the ones from the ``Code test'' associated with $\code_\RM$, are specified over $\F_q$. Of course this is equivalent to returning the binary representation of all $\F_q$ elements, which is what is required in the ``Code test'' here, for the cases where the set $T=\F_q$. \tnote{This part is loose; I didn't check things formally and I'm not sure we want to either}
 
 %\input{dim_test.tex}
 

@@ -1,0 +1,689 @@
+\documentclass[11pt]{article}
+\usepackage{booktabs}
+\usepackage{fullpage}
+\usepackage{titlesec}
+%\newcommand{\sectionbreak}{\clearpage}
+\usepackage{amsmath,amsfonts,amsthm,mathrsfs,xspace,graphicx}
+\usepackage[backref,colorlinks,citecolor=blue,bookmarks=true]{hyperref}
+\usepackage{mathpazo}
+\usepackage{endnotes}
+\usepackage{color}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{bbm}
+\usepackage{suffix} % for *-version commands
+\usepackage{times}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{amssymb,latexsym}
+%\usepackage{IEEEtrantools}
+\usepackage[capitalize]{cleveref}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage[affil-it]{authblk}
+
+
+\mdfdefinestyle{figstyle}{ %
+  linecolor=black!7, %
+  backgroundcolor=black!7, %
+  innertopmargin=10pt, %
+  innerleftmargin=25pt, %
+  innerrightmargin=25pt, %
+  innerbottommargin=10pt %
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newtheorem{remark}[theorem]{Remark}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\beq}{\begin{eqnarray}}
+\newcommand{\eeq}{\end{eqnarray}}
+
+\newcommand{\code}{\mathcal{C}}
+\newcommand{\strategy}{\mathscr{S}}
+\newcommand{\algebra}{\mathscr{A}}
+
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\ketbra}[2]{\ket{#1}\!\bra{#2}}
+\newcommand{\ip}[2]{\langle #1 \! | #2 \rangle}
+\newcommand{\proj}[1]{\ket{#1}\!\bra{#1}}
+\newcommand{\Tr}{\mbox{\rm Tr}}
+\newcommand{\Id}{\ensuremath{I}}
+\DeclareMathOperator*{\Expectation}{\mathbb{E}}
+\newcommand{\Es}[1]{\Expectation_{#1}}
+
+\newcommand{\reg}[1]{{\textsf{#1}}}
+\newcommand{\ol}[1]{\overline{#1}}
+
+\newcommand{\field}{\mathbb{F}_2}
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\bbN}{\ensuremath{\mathbb{N}}}
+\newcommand{\complex}{\ensuremath{\mathbb{C}}}
+\newcommand{\real}{\ensuremath{\mathbb{R}}}
+%\newcommand{\natural}{\ensuremath{\mathbb{N}}}
+
+\newcommand{\bij}{\pi}
+\newcommand{\qp}{\tau}
+\newcommand{\dlS}{\ensuremath{\rm dlS}}
+
+\newcommand{\F}{\ensuremath{\mathbb{F}}}
+\newcommand{\M}{\ensuremath{\mathbb{M}}}
+\newcommand{\ot}{\otimes}
+\newcommand{\Fp}{\F_p}
+\newcommand{\Fq}{\field}
+\newcommand{\BH}{\textsc{BH}}
+\newcommand{\ld}{\textsc{ld}}
+\newcommand{\downsize}{\kappa}
+\newcommand{\tobin}{\flat}
+\newcommand{\downsizem}{\chi}
+
+\newcommand{\K}{\ensuremath{\mathbb{K}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+
+\newcommand{\mA}{\ensuremath{\mathcal{A}}}
+\newcommand{\mB}{\ensuremath{\mathcal{B}}}
+\newcommand{\mC}{\ensuremath{\mathcal{C}}}
+\newcommand{\mE}{\ensuremath{\mathcal{E}}}
+\newcommand{\mD}{\ensuremath{\mathcal{D}}}
+\newcommand{\mF}{\ensuremath{\mathcal{F}}}
+\newcommand{\mG}{\ensuremath{\mathcal{G}}}
+\newcommand{\mH}{\ensuremath{\mathcal{H}}}
+\newcommand{\mK}{\ensuremath{\mathcal{K}}}
+\newcommand{\mM}{\ensuremath{\mathcal{M}}}
+\newcommand{\mI}{\ensuremath{\mathcal{I}}}
+\newcommand{\mJ}{\ensuremath{\mathcal{J}}}
+\newcommand{\cM}{\ensuremath{\mathcal{M}}}
+\newcommand{\mP}{\ensuremath{\mathcal{P}}}
+\newcommand{\mQ}{\ensuremath{\mathcal{Q}}}
+\newcommand{\mR}{\ensuremath{\mathcal{R}}}
+\newcommand{\mS}{\ensuremath{\mathcal{S}}}
+\newcommand{\mT}{\ensuremath{\mathcal{T}}}
+\newcommand{\mU}{\ensuremath{\mathcal{U}}}
+\newcommand{\mX}{\ensuremath{\mathcal{X}}}
+\newcommand{\mY}{\ensuremath{\mathcal{Y}}}
+
+\newcommand{\Inv}{\ensuremath{\textsc{Inv}}}
+\newcommand{\GEN}{\ensuremath{\textsc{GEN}}}
+\newcommand{\SAMP}{\ensuremath{\textsc{SAMP}}}
+\newcommand{\epr}{\ensuremath{\textsc{epr}}}
+\newcommand{\RM}{\ensuremath{\textsc{RM}}}
+\newcommand{\Had}{\ensuremath{\textsc{Had}}}
+\newcommand{\HRM}{\ensuremath{\textsc{HRM}}}
+
+
+\newcommand{\Alg}{\mathcal{A}}
+\newcommand{\ind}{\ensuremath{\mathrm{ind}}}
+
+
+\newcommand{\setft}[1]{\mathrm{#1}}
+\newcommand{\Density}{\setft{D}}
+\newcommand{\Pos}{\setft{Pos}}
+\newcommand{\Proj}{\setft{Proj}}
+\newcommand{\Channel}{\setft{C}}
+\newcommand{\Unitary}{\setft{U}}
+\newcommand{\Herm}{\setft{Herm}}
+\newcommand{\Obs}{\setft{Obs}}
+\newcommand{\Lin}{\setft{L}}
+\newcommand{\Trans}{\setft{T}}
+\DeclareMathOperator{\poly}{poly}
+\DeclareMathOperator{\negl}{negl}
+\newcommand{\dset}{G}
+
+\newcommand{\val}{\ensuremath{\mathrm{val}}}
+\newcommand{\valco}{\ensuremath{\mathrm{val}^{\mathrm{co}}}}
+\newcommand{\ia}{\Id_\alice}
+\newcommand{\ib}{\Id_\bob}
+
+\newcommand{\desc}[1]{\overline{\cal{#1}}}
+\newcommand{\supp}{\textsc{Supp}}
+\newcommand{\Gen}{\textsc{Gen}}
+\newcommand{\Enc}{\textsc{Enc}}
+\newcommand{\Dec}{\textsc{Dec}}
+
+\newcommand{\GenTrap}{\textsc{GenTrap}}
+\newcommand{\Invert}{\textsc{Invert}}
+\newcommand{\lossy}{\textsc{lossy}}
+
+\newcommand{\rand}{\textrm{rand}}
+\newcommand{\had}{\textsc{Had}}
+
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ph}{\ensuremath{\varphi}}
+
+
+\newcommand{\ac}{\textsc{ac}}
+\newcommand{\GX}{\textsc{Gap-Maxcut}}
+\newcommand{\GNI}{\textsc{Graph Non-Isomorphism}}
+
+
+\newcommand{\Acc}{\textsc{Acc}}
+\newcommand{\Samp}{\textsc{Samp}}
+\newcommand{\Ext}{\ensuremath{\text{Ext}}}
+
+\newcommand{\BD}{\mathbb{QB}}
+\newcommand{\DD}{\mathbb{D}}
+\newcommand{\DDb}{\mathbb{D'}}
+\newcommand{\Pot}{\Phi}
+\newcommand{\inj}{J}
+\newcommand{\mZ}{\mathcal{Z}}
+\newcommand{\mN}{\mathcal{N}}
+\newcommand{\vs}{\vspace{2mm}~\newline\noindent}
+\newcommand{\vb}{\vspace{3mm}\noindent}
+\newcommand{\sX}{\mathcal{X}}
+\newcommand{\sA}{\mathcal{A}}
+\newcommand{\sB}{\mathcal{B}}
+\newcommand{\sY}{\mathcal{Y}}
+\newcommand{\sR}{\mathcal{R}}
+
+
+\newcommand{\trnq}[1]{\left[ {#1} \right]_q}
+
+\DeclareMathOperator{\polylog}{polylog}
+\newcommand{\mx}[1]{\mathbf{{#1}}}
+\newcommand{\vc}[1]{\mathbf{{#1}}}
+\newcommand{\abs}[1]{\left\vert {#1} \right\vert}
+\newcommand{\norm}[1]{\left\| {#1} \right\|}
+\newcommand{\for}{\text{for }}
+
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\tr}{tr}
+
+\newcommand{\E}{\mathop{\mathbb{E}}\displaylimits} % Expectation
+
+\newcommand{\unif}{\mathcal{U}}
+\newcommand{\pt}{\textrm{pt}}
+\newcommand{\sample}{\textrm{sample}}
+\newcommand{\test}{\textrm{test}}
+\newcommand{\free}{\mathcal{F}}
+\newcommand{\plane}{\mathcal{P}}
+\newcommand{\lines}{\mathcal{L}}
+\newcommand{\clines}{\mathcal{CL}}
+\newcommand{\pl}{\mathbf{p}}
+\newcommand{\individual}{\textrm{individual}}
+\newcommand{\blocks}{\textrm{blocks}}
+\newcommand{\liness}{\textrm{lines}}
+\newcommand{\lp}{\mathcal{LP}}
+\newcommand{\Pl}{\ensuremath{\mathrm{Pl}}}
+\newcommand{\Ln}{\ensuremath{\mathrm{Lines}}}
+\newcommand{\mode}{\mathfrak{m}}
+\newcommand{\ECC}{\ensuremath{\textsc{ECC}}}
+\newcommand{\EC}{\ensuremath{\textsc{EC}}}
+\newcommand{\ENC}{\ensuremath{\textsc{ENC}}}
+\newcommand{\cktval}{\ensuremath{\textsc{CKTVAL}}}
+
+
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\Matrix}{\mathrm{M}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Aut}{\mathrm{Aut}}
+
+\newcommand{\game}{\mathfrak{G}}
+\newcommand{\sampler}{\mathcal{S}}
+\newcommand{\decider}{\mathcal{D}}
+\newcommand{\verifier}{\mathcal{V}}
+
+
+\newcommand{\type}{\mathcal{T}}
+\newcommand{\lt}{\mathcal{L}}
+\newcommand{\rt}{\mathcal{R}}
+\newcommand{\checker}{\mathcal{C}}
+
+
+\newcommand{\gamestyle}[1]{\ensuremath{\textsc{#1}}\xspace}
+\newcommand{\qld}{\gamestyle{QLD}}
+\newcommand{\ms}{\gamestyle{MS}}
+\newcommand{\pauli}{\gamestyle{P}}
+%\newcommand{\bp}{\gamestyle{BP}}
+\newcommand{\ora}{\gamestyle{Orac}}
+\newcommand{\pcp}{\gamestyle{PCP}}
+\newcommand{\ar}{\gamestyle{AR}}
+\newcommand{\intro}{\gamestyle{Intro}}
+
+\newcommand{\labelstyle}[1]{\ensuremath{\textsc{#1}}\xspace}
+\newcommand{\EPR}{\labelstyle{EPR}}
+\newcommand{\aux}{\labelstyle{aux}}
+\newcommand{\ancilla}{\labelstyle{anc}}
+\newcommand{\msc}{\labelstyle{MC}}
+\newcommand{\msv}{\labelstyle{MV}}
+\newcommand{\vertex}[1]{\labelstyle{V#1}}
+\newcommand{\edge}[1]{\labelstyle{N#1}}
+\newcommand{\basis}{\labelstyle{W}}
+\newcommand{\xpt}{\labelstyle{X}}
+\newcommand{\zpt}{\labelstyle{Z}}
+\newcommand{\rxpt}{\labelstyle{R}_\xpt}
+\newcommand{\rzpt}{\labelstyle{R}_\zpt}
+\newcommand{\dir}[1]{\labelstyle{V#1}}
+\newcommand{\coord}{\labelstyle{I}}
+\newcommand{\intercept}{\labelstyle{U}}
+\newcommand{\plf}{\labelstyle{Pl}}
+\newcommand{\lnf}{\labelstyle{Ln}}
+\newcommand{\ptf}{\labelstyle{Pt}}
+\newcommand{\full}{\labelstyle{full}}
+\newcommand{\opt}{\labelstyle{opt}}
+\newcommand{\partition}{\mathcal{B}}
+
+\newcommand{\tvarstyle}[1]{\mathsf{#1}}
+\newcommand{\tvar}{\ensuremath{\tvarstyle{t}}}
+\newcommand{\lvar}{\ensuremath{\tvarstyle{u}}}
+\newcommand{\rvar}{\ensuremath{\tvarstyle{v}}}
+\newcommand{\pvar}{\ensuremath{\tvarstyle{p}}}
+\newcommand{\ovar}{\ensuremath{\tvarstyle{o}}}
+\newcommand{\trole}{\ensuremath{v}} % used in intro types
+
+\newcommand{\types}{\labelstyle{T}}
+
+\newcommand{\decode}{\labelstyle{Decode}}
+
+%\newcommand{\alice}{\labelstyle{Alice}}
+%\newcommand{\bob}{\labelstyle{Bob}}
+\newcommand{\alice}{\labelstyle{A}}
+\newcommand{\bob}{\labelstyle{B}}
+
+\newcommand{\oracle}{\labelstyle{Oracle}}
+\newcommand{\ab}{\{\alice, \bob\}}
+
+\newcommand{\typestyle}[1]{\ensuremath{\textsc{#1}}\xspace}
+\newcommand{\Type}{\typestyle{Type}}
+\newcommand{\Plane}{\typestyle{Plane}}
+\renewcommand{\line}{\mathbf{\ell}}
+\newcommand{\Llane}{\typestyle{Line}}
+\newcommand{\Point}{\typestyle{Point}}
+\newcommand{\HPoint}{\typestyle{HPoint}}
+\newcommand{\Line}{\typestyle{Line}}
+\newcommand{\ALine}{\typestyle{ALine}}
+\newcommand{\DLine}{\typestyle{DLine}}
+\newcommand{\Pair}{\typestyle{Pair}}
+\newcommand{\Constraint}{\typestyle{Constraint}}
+\newcommand{\Variable}{\typestyle{Variable}}
+\newcommand{\Pauli}{\typestyle{Pauli}}
+\newcommand{\Sample}{\typestyle{Sample}}
+\newcommand{\Read}{\typestyle{Read}}
+\newcommand{\MeasureX}{\typestyle{MeasureX}}
+\newcommand{\Hide}[1]{\typestyle{Hide}_{#1}}
+\newcommand{\HideX}[1]{\typestyle{HideX}_{#1}}
+\newcommand{\Target}[1]{\typestyle{Target}_{#1}}
+\newcommand{\Oracle}{\typestyle{Oracle}}
+\newcommand{\Introspect}{\typestyle{Intro}}
+\newcommand{\Intro}{\typestyle{Intro}}
+\newcommand{\Simple}{\typestyle{Simple}}
+\newcommand{\Eval}{\typestyle{Eval}}
+\newcommand{\Agg}{\typestyle{Agg}}
+\newcommand{\Input}{\typestyle{Input}}
+\newcommand{\Skip}{\typestyle{Skip}}
+\newcommand{\Alice}{\typestyle{Alice}}
+\newcommand{\Bob}{\typestyle{Bob}}
+\newcommand{\Edge}{\typestyle{Alice}}
+\newcommand{\Vertex}{\typestyle{Bob}}
+\newcommand{\Anchor}{\typestyle{Anchor}}
+\renewcommand{\Game}{\typestyle{Game}}
+\newcommand{\AB}{\{\alice, \bob\}}
+\newcommand{\ctrl}{\labelstyle{c}}
+\newcommand{\target}{\labelstyle{t}}
+
+\newcommand{\abc}[1][\delta]{\otimes I_\bob \simeq_{#1} I_\alice \otimes}
+
+\newcommand{\ldc}{k} % number of copies of classical ld tests
+
+\newcommand{\class}[1]{\ensuremath{\mathsf{#1}}\xspace}
+\newcommand{\NP}{\class{NP}} %
+\newcommand{\IP}{\class{IP}} %
+\newcommand{\EXP}{\class{EXP}} %
+\newcommand{\NEXP}{\class{NEXP}} %
+\newcommand{\QMA}{\class{QMA}} %
+\newcommand{\QMIP}{\class{QMIP}} %
+\WithSuffix\newcommand\QMIP*{\ensuremath{\class{QMIP}^*}} %
+\newcommand{\PSPACE}{\class{PSPACE}} %
+\newcommand{\PCP}{\class{PCP}} %
+\newcommand{\MIP}{\class{MIP}} %
+\newcommand{\MIPco}{\class{MIP}^{\mathrm{co}}} %
+\newcommand{\RE}{\class{RE}} %
+\newcommand{\coRE}{\class{coRE}}
+\newcommand{\NEEXP}{\class{NEEXP}} %
+\newcommand{\NEEEXP}{\class{NEEEXP}}
+\WithSuffix\newcommand\MIP*{\ensuremath{\class{MIP}^*}} %
+\newcommand{\QIP}{\class{QIP}} %
+
+
+\newcommand{\Ent}{\mathscr{E}}
+\newcommand{\compr}{\textsc{Compr}}
+\newcommand{\halt}{\textsc{Halt}}
+\newcommand{\machine}{\cal{M}}
+\renewcommand{\cal}[1]{\mathcal{#1}}
+\newcommand{\Kleene}{\cal{K}}
+\newcommand{\qldparams}{\mathsf{qldparams}}
+\mathchardef\mhyphen="2D
+\newcommand{\Fqldparams}{\F_2\mhyphen\mathsf{qldparams}}
+\newcommand{\introparams}{\mathsf{introparams}}
+\newcommand{\ldparams}{\mathsf{ldparams}}
+\newcommand{\tmldparams}{\mathsf{tmldparams}}
+\newcommand{\pcpparams}{\mathsf{pcpparams}}
+
+\newcommand{\TMtoSAT}{\mathrm{TMtoSAT}}
+\newcommand{\TMtoLD}{\mathrm{TMtoLD}}
+\newcommand{\BoundedHalting}{\mathrm{BH}}
+\newcommand{\timecomplexity}{\mathsf{TIME}}
+\newcommand{\TIME}{\mathsf{TIME}}
+\newcommand{\answer}{\mathsf{ANS}}
+\newcommand{\MS}{\mathrm{MS}}
+
+\newcommand{\accept}{\typestyle{Accept}}
+\newcommand{\reject}{\typestyle{Reject}}
+
+\newcommand{\anch}{\gamestyle{Anch}}
+\newcommand{\ans}{\gamestyle{ANS}}
+%%%%%%%self testing macros%%%%%%%%%%
+
+\newcommand{\local}{\mathrm{local}}
+%\newcommand{\aux}{\mathrm{aux}}
+
+
+\newcommand{\G}{\mG}
+\newcommand{\XZ}{\mathcal{B}}
+\newcommand{\hilb}{\mathcal{H}}
+
+
+%\newcommand{\tmstyle}[1]{\ensuremath{\textsf{#1}}}
+\newcommand{\tmstyle}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\Compress}{\tmstyle{Compress}}
+\newcommand{\ComputeRepetitions}{\tmstyle{ComputeRepetitions}}
+\newcommand{\ComputeSampler}{\tmstyle{ComputeSampler}}
+\newcommand{\RawIntroSampler}{\tmstyle{RawIntroSampler}}
+\newcommand{\ComputeIntroSampler}{\tmstyle{IntroSampler}}
+\newcommand{\RawIntroDecider}{\tmstyle{RawIntroDecider}}
+\newcommand{\ComputeIntroDecider}{\tmstyle{IntroDecider}}
+\newcommand{\ComputeIntroVerifier}{\tmstyle{IntroVerifier}}
+\newcommand{\ComputeOracleVerifier}{\tmstyle{OracleVerifier}}
+\newcommand{\ComputeAnsVerifier}{\tmstyle{AnsRedVerifier}}
+\newcommand{\ComputeParrepVerifier}{\tmstyle{RepeatedVerifier}}
+\newcommand{\ComputePCPVerifier}{\tmstyle{PCPVerifier}}
+\newcommand{\ComputeFixedPoint}{\tmstyle{ComputeFixedPoint}}
+\newcommand{\detype}{\tmstyle{Detype}}
+
+\newenvironment{gamespec}{
+  \begin{mdframed}[style=figstyle]}{
+  \end{mdframed}}
+
+\newcommand{\zero}{\mathrm{zero}}
+
+%%%%%%%From NW19:%%%%%%%%%%
+\newcommand{\polymeas}[3]{\mathrm{PolyMeas}(#1,#2,#3)}
+\newcommand{\simulpolymeas}[4]{\mathrm{PolyMeas}(#1,#2,#3, #4)}
+
+\newcommand{\eval}{\mathrm{eval}}
+
+%\newcommand{\coin}{o}
+\newcommand{\succinctdecider}{\ensuremath{\mathsf{SuccinctDecider}}}
+\newcommand{\circuit}{\mathcal{C}}
+\newcommand{\formula}{\mathcal{F}}
+\newcommand{\bin}{\mathrm{binary}}
+\newcommand{\pcpeval}{\Xi}
+\newcommand{\pcpverifier}{\mathcal{M}_\ar}
+\newcommand{\qlen}{Q}
+\DeclareMathOperator{\ev}{eval}
+
+\newcommand{\coded}{\mathrm{Dec}}
+\newcommand{\hx}{\hat{x}}
+\newcommand{\hz}{\hat{z}}
+\newcommand{\htvar}{\hat{\tvar}}
+\newcommand{\soundness}{\mathrm{sound}}
+
+\newcommand{\rep}{\gamestyle{Rep}}
+\newcommand{\sep}{\gamestyle{Sep}}
+
+\newcommand{\binary}[1]{\mathrm{binary}_{#1}}
+\newcommand{\num}[1]{\mathrm{number}_{#1}}
+\newcommand{\canbasis}[1]{\mathrm{basis}(#1)}
+\newcommand{\canH}[3]{H_{\mathrm{canon}, #1, #2, #3}}
+\newcommand{\canlilh}[3]{h_{\mathrm{canon}, #1, #2, #3}}
+\newcommand{\canin}[3]{\pi_{\mathrm{canon},#1,#2,#3}}
+\newcommand{\canenc}[4]{g_{\mathrm{canon},#1,#2,#3,#4}}
+
+
+% \usepackage{showlabels}
+% \renewcommand{\showlabelfont}{\tiny\ttfamily\color{red}}
+
+\bibliographystyle{alpha}
+
+\newif\ifnotes\notestrue
+%\newif\ifnotes\notesfalse
+
+\input{marginnotes}
+\begin{document}
+
+\title{Efficient stability for the Pauli group}
+
+\author{Thomas Vidick and Henry Yuen}
+\date{\today}
+\maketitle
+
+\noteswarning
+
+
+\begin{abstract}
+
+\end{abstract}
+
+
+\section{Introduction}
+
+\tnote{Make the connection with LCS}
+
+
+	\section{Preliminaries}
+
+\subsection{Notation}
+
+When we write $\Es{i\in \mX}$ where $\mX$ is a finite set, we mean the expectation over $i$ chosen uniformly at random from $\mX$, i.e.\ $\frac{1}{|\mX|} \sum_{i\in \mX}$. For a vector $u \in \mX^n$ and a subset $S \subseteq [n]$, we write $u_S$ to denote the vector in $\mX^S$ which is the restriction of $u$ to $S$.
+
+\subsection{Algebra}
+
+  A \emph{tracial von Neumann algebra} is a pair $(\mM,\tau)$ of a von Neumann algebra $\mM$ together with a normal faithful tracial state $\tau$ on $\mM$, which we often refer to as the \emph{trace}. The main example of interest is $\mM=M_n(\C)$, the algebra $n\times n$ complex matrices, with $\tau$ the dimension-normalized trace, which we denote $\tr(M)=\frac{1}{n}\Tr(M)$. 	We write $\|x\|_2=\tau(x^*x)^{1/2}$ for the $2$-norm on $\mM$.
+	
+	Let $B(\ell_2)$ be the von Neumann algebra of bounded operators on $\ell_2$, the Hilbert space of convergent sequences in $\C^\Z$ equipped with the usual Euclidean norm (for which we let $(e_i)_{i \in \Z}$ denote the standard basis). We denote $\mM_\infty = \mM \overline{\otimes} B(\ell_2)$, where the overline denotes closure for the operator topology. $\mM_\infty$ is a von Neumann algebra equipped with the (infinite) trace $\tau_\infty = \tau \otimes \Tr$, with $\Tr(x)=\sum_{i\in \Z} e_i^T X e_i$ the trace on $B(\ell_2)$. We generally identify $\mM$ with the ``corner'' $\mM\otimes e_{1,1}\subset \mM_\infty$. 
+
+	We let $\F$ denote a finite field, and $\field$ the field with two elements. For $u\in \F^n$ for some $n$, we write $|u|$ for the Hamming weight of $u$, i.e.\ the number of nonzero coordinates. For $a,b \in \F^k$, we write $a \cdot b$ to denote the inner product $\sum_{i=1}^k a_i b_i$. 
+	
+	
+	\subsection{Measurements}
+	\label{sec:measurements}
+	
+	A POVM in $\mM$ with outcome set $\mA$ is a finite collection of positive semidefinite operators $\{P_a\}_{a\in \mA}$ such that $\sum_a P_a = \Id_\mM$. A POVM is \emph{projective} if for all $a$, $P_a$ is a projection. 
+	Given a projective measurement $\{P_a\}_{a\in \field^k}$ and $b\in \field^k$ we define the corresponding \emph{observable} 
+	\[ \widehat{P}(b) = \sum_a (-1)^{a\cdot b} P_a\;,\]
+	which is self-adjoint and unitary. If $k=1$, we often use the shorthand $\widehat{P}$ for $\widehat{P}(1) = P_0-P_1$.
+	
+	We define a specific family of projective measurements on $M_{2^k}(\C)$ which are derived from the \emph{Pauli observables}. Define
+	\[ \sigma^X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\;,\qquad \sigma^Z = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}\;,\]
+	and more generally for $a,b\in \F_2^k$ let $\sigma^X(a) = \bigotimes_{i=1}^t (\sigma^X)^{a_i}$ and $\sigma^Z(b) = \bigotimes_{i=1}^t (\sigma^Z)^{b_i}$, which are observables in $M_{2^k}(\C)$. These are self-adjoint unitary operators called Pauli observables. Each observable $\sigma^X(a)$ (resp. $\sigma^Z(b)$) corresponds to the \emph{Pauli measurement} $\{ \sigma^X_a \}_{a \in \F_2^k}$ (resp. $\{ \sigma^Z_b \}_{b \in \F_2^k}$) where (in a slight abuse of notation)  
+	%	We slightly abuse notation and write 
+	\[ \sigma^X_a = \Es{\alpha\in\F_2^k} (-1)^{a\cdot \alpha} \sigma^X(\alpha)\qquad\text{and}\qquad\sigma^Z_b = \Es{\beta\in\F_2^k} (-1)^{b\cdot\beta} \sigma^Z(\beta).\]
+	It is easy to verify that $\{\sigma^X_a\}_a$ and $\{\sigma^Z_b\}_b$ are projections summing to identity.	
+	
+	
+\subsection{Nonlocal games}
+
+We give standard definitions on nonlocal games. 
+
+\begin{definition}[Game]
+A game is a tuple $(\mX,\mu,\mA,D)$ where $\mX$ is a finite set, $\mu$ a distribution on $\mX\times \mX$, $\mA=(\mA(x))_{x\in\mX}$ a collection of finite sets, and 
+\[ D: \big\{ (x,y,a,b) : (x,y)\in\text{supp}(\mu),a\in\mA(x),b\in\mA(y)\big\} \;\to\;\{0,1\}\]
+such that $D$ is symmetric, i.e. $D(x,y,a,b)=D(y,x,b,a)$ whenever both terms are defined. We often abuse notation and write $\mu$ for the symmetrized marginal of $\mu$, i.e.\ 
+\[\mu(x) := \sum_{x'\in \mX} \frac{1}{2}\big(\mu(x,x')+\mu(x',x')\big)\;.\]
+\end{definition}
+
+The interpretation of $G=(\mX,\mu,\mA,D)$ as a nonlocal game is the following. In the ``game'', a referee is imagined to sample a pair of ``questions'' $(x,y)\sim \mu$. The question $x$ is sent to a first player, ``Alice,'' and the question $y$ is sent to a second player, ``Bob.'' Each player is tasked with responding with an answer $a\in \mA(x)$ for Alice, and $b\in \mA(y)$ for Bob. The referee accepts the players' answers if and only if $D(x,y,a,b)=1$. 
+
+Nonlocal games provide a framework to study different kinds of bipartite correlations: depending on the level of coordination allowed between Alice and Bob, they may have varying chances of success in the game. 
+
+In quantum mechanics, a local strategy for the players (meaning that each player is required to determine their answer locally, without exchanging information with the other player) is specified by the following. 
+
+\begin{definition}[Synchronous strategy]
+If $G=(\mX,\mu,\mA,D)$ is a game and $(\mM,\tau)$ a tracial von Neumann algebra, a \emph{synchronous strategy $\strategy$ for $G$ on $(\mM,\tau)$} is, for every $x\in \mX$, a projective measurement $(P^x_a)_{a\in \mA(x)}$ on $\mM$. The value of a strategy $\strategy$ in $G$ is 
+\[ \omega(G;\strategy)\,=\, \sum_{(x,y)\in\mX\times\mX}\frac{1}{2}\big(\mu(x,y)+\mu(y,x)\big) \sum_{(a,b)\in\mA(x)\times\mA(y)} D(x,y,a,b)\, \tau\big(P^x_a \,P^y_b\big) \;.\footnote{Note the symmetrization of $\mu$. This is to avoid explicitly requiring $\mu$ to be permutation-invariant in the definition of a game.}\]
+We say that $\strategy$ is \emph{perfect} if $\omega(G;\strategy)=1$.
+\end{definition}
+	
+The name \emph{synchronous} stems from the fact that whenever an identical pair $(x,x)$ is chosen, $\tau(P^x_a P^x_b)=0$ for $a\neq b$ due to the requirement that $\{P^x_a\}_a$ is a projective measurement. Thus a synchronous strategy always returns the same answer to the same question. More general strategies, which allow different operators $\{P^x_a\}$ and $\{Q^y_b\}$, do not automatically enforce the synchronicity condition, but we do not consider such strategies here. 
+	
+		
+\section{Efficient stability}
+
+\subsection{Approximate homomorphisms}
+
+Given a set $S$, we let $\mF(S)$ denote the free group generated by $S$. We freely identify functions from $S$ $H$, where $H$ is any group, with homomorphisms from $\mF(S)$ to $H$. If $R$ is a subset of $\mF(S)$ then the quotient of $\mF(S)$ by the normal subgroup generated by $R$ is denoted $\langle S:R\rangle$. 
+
+For convenience we adopt the following notation from~\cite{}. A \emph{group over $\Z_2$} is a pair $(G,J)$ of a finitely presented group $G$ and a central element $J$ of $G$ of order $2$. Any such group has a presentation $G=\langle S:R\rangle$ where $J\in S$ and $R$ includes the relations $J^2=e$ and $[J,s]=e$ for every $e\in S\backslash\{J\}$. We use the notation 
+\[ \langle S:R\rangle_{\Z_2} \,=\, \langle S\cup\{J\} : R\cup\{[J,s]=e:s\in S\}\cup\{J^2=e\}\rangle\;.\]
+In~\cite[Section 2]{hadwin2018stability} a notion of $eps$-\emph{almost homomorphism} from a finite group to a unital tracial $C^*$-algebra is introduced. Informally, an $\eps$-almost homomorphism of a finitely presented group $G=\langle S:R\rangle$ is a map from $S$ to $\mU(\mA)$ that approximately respects all relations in $R$. We give a variant of their definition that quantifies the error in an average sense. 
+
+\begin{definition}
+Let $G = \langle S:R\rangle $ be a finitely presented group, $\mu$ a distribution on $R$, and $(\mM,\tau)$ a tracial von Neumann algebra. An $(\eps,\mu)$-almost homomorphism of $G$ on $(\mM,\tau)$ is a homomorphism $\phi:\mF(S)\to\mU(\mN)$ such that
+\[ \Es{r\sim \mu} \big\|  \phi(r) - \Id \|_\tau^2 \,\leq\, \eps\;.\]
+\end{definition}
+
+We note that this notion depends on the presentation of $G$, not only on the group itself. 
+When the distribution $\mu$ is uniform over the set $R$, we simply write $\eps$-homomorphism. 
+
+A stability result states that $\eps$-homomorphisms are close to exact hommorphisms. To measure the distance between homomorphisms into different algebras we make the following definition. 
+
+
+\begin{definition}[Closeness]\label{def:close}
+Let $\{U_i\}\subseteq \mM$ and $\{V_i\}\subseteq \mN$ be two families of unitaries on  tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$ respectively, indexed by the same set $i\in \mI$. For $\delta\geq0$ and $\mu$ a measure on $\mI$ we say that $\{U_i\}$ and $\{V_i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau_\infty/\tau_\infty(P)$, and a partial isometry $w\in P \mM_\infty \Id_\mM$ such that 
+\[ \Es{i\sim\mu} \big\| U_i - w^* V_i w \big\|_2^2 \,\leq\,\delta\]
+and 
+\[\max\big\{ \tau^\mM(\Id_\mM-w^*w)\,,\; \tau^\mN(P-ww^*)\big\} \,\leq\, \delta\;.\]
+If the measure $\mu$ is omitted then it is understood to be the uniform measure on $\mI$.
+\end{definition}
+
+We now give our definition of stability. 
+
+\begin{definition} 
+Let $G = \langle S:R\rangle $ be a finitely presented group. Let $\mC$ be a class of tracial von Neumann algebras. Let $\mu_R$ be a distribution on $R$ and $\mu_S$ a distribution on $S$. For $\delta:[0,1]\to[0,1]$ such that $\lim_{t\to 0}\delta(t)=0$ we say that $(G,\mu_S,\mu_R)$ is $(\delta,\mC)$-stable if for every $(\cM,\tau)$ in $\mC$, every $(\eps,\mu_R)$-almost homomorphism of $G$ is $(\delta(\eps),\mu_S)$-close to a representation of $G$ on some $(\mN,\tau^\mN)\in \mC$. 
+\end{definition}
+
+
+\subsection{Examples}
+
+For a finite group $G$ we can always write $G=\langle S:R\rangle$ where $S = G$ and $R=\{ g\cdot h \cdot (gh)^{-1} =e \}$. If we let $\mu_R$ and $\mu_S$ be the uniform distribution on $R$ and on $S$ respectively then we recover a widely used notion of \emph{flexible (Hilbert-Schmidt) stability}. In particular, for finite groups the following result is known~\cite{gh,thom}.
+
+\begin{theorem}\label{thm:gh}[Theorem~1.4 in~\cite{de2022spectral}]
+Let $G$ be a finite group and $\mC$ the class of all tracial von Neumann algebras. Let $U_R$ and $U_S$ be the uniform distribution on $R=\{ g\cdot h \cdot (gh)^{-1}=e \}$ and $S=G$ respectively. Then $(G,U_S,U_R)$ is $(O(\eps),\mC)$-stable. 
+\end{theorem}
+
+We spell out the application of this theorem to the case of $G=\Z_2^k$.
+
+\begin{corollary}\label{cor:lin-test}
+Let $\phi:\Z_2^k \to \Obs(\C^d)$ be such that 
+\[ \Es{x,y\in \Z_2^k} \big\| \phi(x)\phi(y)-\phi(x+y) \big\|_F^2 \,\leq\,\eps\;.\]
+Then there is a $d'=(1+O(\eps))d$, an isometry $w:\C^d \to \C^{d'}$ and a projective measurement $\{P_u\}_{u\in \Z_2^k}$ on $\C^{d'}$ such that 
+\[ \Es{x\in \Z_2^k} \Big\| \phi(x) - w^* \Big(\sum_u (-1)^{u\cdot x} P_u\Big) w \Big\|_2^2 \,=\, O(\eps)\;.\]
+\end{corollary} 
+
+\begin{proof}
+Any $\phi$ as in the corollary statement is an $(\eps,U_R)$-almost homomorphism of $\Z_2^k$ into $(M_d(\C),\frac{1}{d}\tr)$ for the exhaustive presentation. Applying Theorem~\ref{thm:gh}, $\phi$ is $O(\eps)$-close to a homomorphism into $M_{d'}(\C)$. Such a homomorphism is given by commuting Hermitian unitaries $(U_x)_{x\in\Z_2^k}$ on $\C^{d'}$. Then it is easy to verify that for $u\in \Z_2^k$, $P_u = \Es{x} (-1)^{u\cdot x} U_x$ is a projection such that the $\sum_u P_u=\Id$ and the $\{P_u\}$ satisfy the conclusion of the corollary. 
+\end{proof}
+
+
+
+\begin{lemma}[Lemma 3.8 in~\cite{slofstra2019set}]
+For every $k$, there is a $\delta_k = O_k(\eps)$ such that the presentation~\eqref{eq:z2-efficient} is $\delta_k$-stable.
+\end{lemma}
+
+The dependence of $\delta_k$ on $k$ that comes out of the proof from~\cite{slofstra2019set} is exponential, i.e. $\delta_k(\eps)\leq C^k \eps$ for some $C>1$. In Section~\ref{} we give a presentation that has an intermediate trade-off. 
+
+We end with the Pauli group. For an integer $k\geq 1$,  the Pauli group $\pauli_k$ can be defined in many ways. Let $\gamma: \Z_2^k\times \Z_2^k \to \{-1,1\}$ be given by $\gamma(a,b)=(-1)^{a\cdot b}$. Then $\pauli_k$ is the central extension of $\Z_2^k\times \Z_2^k$ by $\{-1,1\}$ given by $\gamma$. Alternatively, this is the group generated by the Pauli matrices 
+\[ \sigma_X(a) = , \sigma_Z(b) =\]
+for $a,b\in \Z_2^k$. It is also the same as the Heisenberg group $H_{2k+1} = \{\begin{pmatrix} 1 & a & c \\ 0 & 1_k & b \\ 0 & 0 & 1 \end{pmatrix} \subseteq GL_{k+2}(\F_2)$. Concretely, we label elements of the Pauli group as triples $(J,a,b)$ and let 
+\[ \pauli_k \,=\, \langle (a,b), a,b\in \Z_2^k : (a,b)(a',b') = J^{a\cdot b'} (a',b')(a,b) \rangle_{\Z_2}\;.\] 
+Applying Theorem~\ref{thm:gh} we obtain the following. 
+
+\begin{corollary}[Pauli braiding test]
+Let $\phi_X,\phi_Z:\Z_2^k \to \Obs(\C^d)$ be such that for all $W\in \{X,Z\}$,
+\[ \Es{a,b\in \Z_2^k} \big\| \phi_W(a)\phi_W(b)-\phi_W(a+b) \big\|_F^2 \,\leq\,\eps\;,\]
+and
+\[ \Es{a,b\in \Z_2^k} \big\| \phi_X(a)\phi_Z(b)- (-1)^{a\cdot b} \phi_Z(b)\phi_X(a) \big\|_F^2 \,\leq\,\eps\;.\]
+Then there is a $d'=(1+O(\eps))d2^{-k}$, an isometry $w:\C^d \to (\C^2)^{\otimes k} \otimes \C^{d'}$ such that for all $W\in \{X,Z\}$, 
+\[ \Es{W\in \Z_2^k} \Big\| \phi_W(a) - w^* \big(\sigma_W(a)\otimes \Id\big) w \Big\|_2^2 \,=\, O(\eps)\;.\]
+\end{corollary}
+
+In the statement of the corollary, we implicitly defined $\phi$ as an $\eps$-almost homomorphism for the following presentation of $\pauli_k$:
+\[ \pauli_k = \langle \cdots\rangle\]
+This presentation is slightly simpler than the exhaustive presentation. We chose to use it for ``historical'' reasons, \tnote{...} 
+
+\begin{proof}
+\tnote{todo}
+\end{proof}
+
+
+\section{Efficient stability}
+
+
+
+There is a more efficient presentation of $\Z_2^k$, given as
+
+\begin{equation}\label{eq:z2-efficient}
+ \Z_2^k = \langle x_1,\ldots,x_k : [x_i,x_j]=e, x_i^2=e \; \forall i\neq j \rangle_{\Z_2}\;.
+\end{equation}
+
+
+
+By adapting~\cite[Corollary 2.6]{dlS} we obtain the following. 
+
+
+\begin{theorem}
+For $i\in \{1,2\}$ let $\Z_2^k = \langle S_i:R_i\rangle$ be $\delta_i$-stable. Suppose further that the uniform measure on $S_i\subseteq \Z_2^k$ has spectral gap $\mu_i$. Then 
+\[ P_k = \langle (a,b), a\in S_1,b\in S_2 :  J^{ab'+ab} (a,b)(a',b')(a,b)(a',b') \rangle\]
+is $O(\delta_1+\delta_2)$-stable.
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}
+
+
+
+\section{Nonlocal games}
+	
+For the relation to games, see~\cite[Proposition 4.4]{slofstra2018entanglement}. However, this is only for finite-dimensional reps.
+
+Application of stability as robustness.
+
+
+\section{Applications}
+
+\subsection{The Pauli braiding test}
+
+\subsection{Qubit tests}
+
+\subsection{Dimension bounds}
+
+
+Formulate the PBT as an LCS. Get soundness as a corollary. 
+
+
+
+
+
+\bibliography{qld}
+
+\notesendofpaper
+
+\end{document}

@@ -124,7 +124,6 @@
 \newcommand{\SAMP}{\ensuremath{\textsc{SAMP}}}
 \newcommand{\epr}{\ensuremath{\textsc{epr}}}
 \newcommand{\RM}{\ensuremath{\textsc{RM}}}
-\newcommand{\bRM}{\ensuremath{\textsc{RM2}}}
 \newcommand{\Had}{\ensuremath{\textsc{Had}}}
 \newcommand{\HRM}{\ensuremath{\textsc{HRM}}}
 
@@ -471,13 +470,7 @@
 
 \title{Efficient stability for the Pauli group}
 
-\author[1]{Michael Chapman}
-\author[2]{Thomas Vidick}
-\author[3]{Henry Yuen}
-\affil[1]{}
-\affil[2]{}
-\affil[3]{}
-
+\author{Thomas Vidick and Henry Yuen}
 \date{\today}
 \maketitle
 
@@ -525,57 +518,6 @@ When we write $\Es{i\in \mX}$ where $\mX$ is a finite set, we mean the expectati
 	It is easy to verify that $\{\sigma^X_a\}_a$ and $\{\sigma^Z_b\}_b$ are projections summing to identity.	
 	
 	
-	We will make use of the following. It is an application of \emph{orthonormalization}, which transforms a nearly-orthogonal measurement to a nearby orthogonal measurement. See e.g.~\cite{kempe2011parallel,ji2020quantum} or~\cite[Theorem 1.2]{de2021orthogonalization} for the version that we use here. 
-	
-\begin{lemma}\label{lem:pull-back}
-Let  $(\mM,\tau^\mM)$ be a tracial von Neumann algebra, $P\in\mM_\infty$ a projection of finite trace, $\mN=P\mM_\infty P$ and $\tau^\mN=\tau_\infty/\tau_\infty(P)$, and $w\in P \mM_\infty \Id_\mM$ a partial isometry. Let 
-\[ \eps = \max\big\{ \tau^\mM\big(\Id_\mM - w^* w\big)\,,\;\tau^\mN\big( P- w w^*\big)\big\}\;.\] 
- Then for any projective measurement $\{P_a\}_{a \in \mA}$ on $\mN$, there is a projective measurement $\{Q_a\}_{a \in \mA}$ on $\mM$ such that 
-\begin{equation}
-\label{eq:pull-back} \sum_{a \in \mA} \big\| Q_a - w^* P_a w\big\|_2^2 \,\leq \ 56\eps\;.
-\end{equation}
-\end{lemma}	
-
-\begin{proof}
-If $\eps\geq \frac{1}{2}$ the conclusion is trivial (for a suitably large implicit constant in the $O(\cdot)$ notation in \eqref{eq:pull-back}), so assume $\eps<\frac{1}{2}$. 
-Define 
-\[\tilde{Q}_a = w^* P_a w  + \frac{1}{|\mA|}\big(\Id_\mM - w^* w\big) \in \mM\;.\]
-Then $\{\tilde{Q}_a\}$ is a POVM on $\mM$. Moreover, 
-\begin{align*}
-\sum_a \tau^\mM \big( \tilde{Q}_a^2 \big) &\geq \sum_a \tau^\mM \big( \big(w^* P_a w \big)^2 \big) \\
-&= \sum_a \tau^\mM \big(  w^* P_a w w^*P_a w \big)\\
-&= \sum_a \tau^\mM \big(  w^* P_a  P P_a w \big) - \sum_a \tau^\mM \big( w^* P_a  ( P - w w^*) P_a w \big)\\
-&\geq 1 - \eps -  \sum_a \tau_\infty \big( w^* P_a  ( P - w w^*) P_a w \big)\\
-\intertext{
-\hnote{I don't get this next line... how did $\tau_\infty$ show up?}\tnote{By definition, $\mM$ is seen as a sub-algebra of $\mM_\infty$, and $\tau_\infty$ restricted to that sub-algebra is $\tau^\cM$. So, whenever $M\in \mM$, $\tau^\mM(M)=\tau_\infty(\mM)$ is a legal ``shortcut'' in the writing. It's this sentence about the ``corner'' in the prelims...should we add something more explicit? Or explain this line here more, since it's the first time we make the manipulation? }\hnote{I think it would be good to add at least one line of explanation...}\tnote{added (extra line above and justification below)}
-}
-&\geq 1 - \eps -  \tau_\infty\Big(\big( P - w w^*\big)\Big(\sum_a  P_a w w^* P_a\Big)\Big)\\ 
-&\geq 1- \eps- \tau_\infty\big( P- w w^*\big)\;,
-\end{align*}
-where the third line uses that $P_aPP_a=P_a$, $\sum_a P_a = \Id_\mN$ and the definition of $\eps$ for the first term, and for the second the fact that for $A\in\mM$, $\tau^\mM(A)=\tau_\infty(A)$ by definition of $\tau_\infty$ and the identification of $\mM$ with a ``corner'' in $\mM_\infty$, the fourth line uses cyclicity of the trace for the second, and the last uses $\|ww^*\|,\|\sum_a P_a\|_\infty\leq 1$. By assumption, 
-\begin{align*}
-\tau_\infty\big( P- w w^*\big) \,\leq\, \eps\, \tau_\infty(P)\,\leq \frac{\eps}{1-\eps}\;.
-\end{align*}
-where the last inequality is because by definition, $\tau^N(P)=1$, thus
-\[1-\eps \,\leq\, \tau^\mN(ww^*) \,=\, \frac{\tau_\infty(ww^*)}{\tau_\infty(P)}\,=\, \frac{\tau_\infty(w^*w)}{\tau_\infty(P)}  \,\leq\, \frac{1}{\tau_\infty(P)}\]
-since $\tau_\infty(w^* w) = \tau^\mM(w^* w)$ and $w^*w\leq I_\mM$. Overall, 
-\[ \sum_a \tau^\mM \big( \tilde{Q}_a^2 \big) \,\geq\, 1-\eps-\frac{\eps}{1-\eps}\,\geq\, 1-3\eps\;.\]
-To conclude we apply~\cite[Theorem 1.2]{de2021orthogonalization} to obtain a projective measurement $\{Q_a\}$ on $\mM$ such that 
-\begin{equation*}
-\sum_a \big\|{Q}_a - \tilde{Q}_a \big\|^2_2 \,=\, 27\eps\;.
-\end{equation*}
-Finally,
-\begin{align*}
-\sum_a \big\|{Q}_a - w^*{P}_a w\big\|^2_2 &= \sum_a \Big\|{Q}_a - \tilde{Q}_a  + \frac{1}{|\mA|}\big(I_\mM - w^* w\big) \Big\|^2_2\\
-&\leq  \sum_a 2\big\|{Q}_a - \tilde{Q}_a\big\|_2^2  + 2\frac{1}{|\mA|}\big\|I_\mM - w^* w\big\|_2^2 \\
-&\leq 54 \eps + 2 \tau^\mM( (I_\mM - w^* w)^2 ) \\
-&\leq 54 \eps + 2 \tau^\mM(I_\mM - w^* w ) \\
-&\leq 56 \eps\;,
-\end{align*}
-where the second line is by the triangle inequality, the fourth line is due to the fact that $I_\mM - w^* w$ is positive and has operator norm at most $1$, and the last line is by $\tau^\mM(I_\mM - w^* w ) \leq \eps$.
-\end{proof}
-
-	
 \subsection{Nonlocal games}
 
 We give standard definitions on nonlocal games. 
@@ -602,16 +544,15 @@ We say that $\strategy$ is \emph{perfect} if $\omega(G;\strategy)=1$.
 The name \emph{synchronous} stems from the fact that whenever an identical pair $(x,x)$ is chosen, $\tau(P^x_a P^x_b)=0$ for $a\neq b$ due to the requirement that $\{P^x_a\}_a$ is a projective measurement. Thus a synchronous strategy always returns the same answer to the same question. More general strategies, which allow different operators $\{P^x_a\}$ and $\{Q^y_b\}$, do not automatically enforce the synchronicity condition, but we do not consider such strategies here. 
 	
 		
-\section{Stability}
+\section{Efficient stability}
 
 \subsection{Approximate homomorphisms}
 
 Given a set $S$, we let $\mF(S)$ denote the free group generated by $S$. We freely identify functions from $S$ to $H$, where $H$ is any group, with homomorphisms from $\mF(S)$ to $H$. If $R$ is a subset of $\mF(S)$ then the quotient of $\mF(S)$ by the normal subgroup generated by $R$ is denoted $\langle S:R\rangle$. 
 
-\tnote{not sure we need this:}For convenience we adopt the following notation from~\cite{slofstra2019set}. A \emph{group over $\Z_2$} is a pair $(G,J)$ of a finitely presented group $G$ and a central element $J$ of $G$ of order $2$. Any such group has a presentation $G=\langle S:R\rangle$ where $J\in S$ and $R$ includes the relations $J^2=e$ and $[J,s]=e$ for every $e\in S\backslash\{J\}$. We use the notation 
+For convenience we adopt the following notation from~\cite{slofstra2019set}. A \emph{group over $\Z_2$} is a pair $(G,J)$ of a finitely presented group $G$ and a central element $J$ of $G$ of order $2$. Any such group has a presentation $G=\langle S:R\rangle$ where $J\in S$ and $R$ includes the relations $J^2=e$ and $[J,s]=e$ for every $e\in S\backslash\{J\}$. We use the notation 
 \[ \langle S:R\rangle_{\Z_2} \,=\, \langle S\cup\{J\} : R\cup\{[J,s]=e:s\in S\}\cup\{J^2=e\}\rangle\;.\]
-
-In~\cite[Section 2]{hadwin2018stability} a notion of $\eps$-\emph{almost homomorphism} from a finitely presented group to a unital tracial $C^*$-algebra $\mA$ is introduced. Informally, an $\eps$-almost homomorphism of $G=\langle S:R\rangle$ is a map from $S$ to $\mU(\mA)$ that approximately respects all relations in $R$. We give a variant of their definition that quantifies the error in an average sense. 
+In~\cite[Section 2]{hadwin2018stability} a notion of $\eps$-\emph{almost homomorphism} from a finite group to a unital tracial $C^*$-algebra $\mA$ is introduced. Informally, an $\eps$-almost homomorphism of a finitely presented group $G=\langle S:R\rangle$ is a map from $S$ to $\mU(\mA)$ that approximately respects all relations in $R$. We give a variant of their definition that quantifies the error in an average sense. 
 
 \begin{definition}
 Let $G = \langle S:R\rangle $ be a finitely presented group, $\mu$ a distribution on $R$, and $(\mM,\tau)$ a tracial von Neumann algebra. An $(\eps,\mu)$-almost homomorphism of $G$ on $(\mM,\tau)$ is a homomorphism $\phi:\mF(S)\to\mU(\mM)$ such that
@@ -621,7 +562,7 @@ Let $G = \langle S:R\rangle $ be a finitely presented group, $\mu$ a distributio
 We note that this notion depends on the presentation of $G$, not only on the group itself. 
 When the distribution $\mu$ is uniform over the set $R$, we simply write $\eps$-homomorphism. The definition is consistent with the usual notion of a (unitary) homomorphism, which is recovered when $\eps=0$. 
 
-A stability result states that $\eps$-homomorphisms are close to homomorphisms. To measure the distance between homomorphisms into different algebras we make the following definition. 
+A stability result states that $\eps$-homomorphisms are close to exact hommorphisms. To measure the distance between homomorphisms into different algebras we make the following definition. 
 
 
 \begin{definition}[Closeness]\label{def:close}
@@ -641,38 +582,35 @@ Let $G = \langle S:R\rangle $ be a finitely presented group. Let $\mC$ be a clas
 \subsection{General results}
 
 We do not know many general results about stability. We give two. First of all, 
-for a finite group $G$ we can always write $G=\langle S:R\rangle$ where $S = G$ and $R=\{ g\cdot h \cdot (gh)^{-1} =e \}$. We refer to this presentation as the \emph{exhaustive presentation}. If we let $\mu_S$ and $\mu_R$ be the uniform distribution on $S$ and on $R$ respectively then Definition~\ref{def:eff-stab} reduces to a widely used notion of \emph{flexible (Hilbert-Schmidt) stability}. In particular, for finite groups the following result is known~\cite{gowers2017inverse,de2019operator}. We adopt the formulation from~\cite[Theorem 1.4]{de2022spectral}.
+for a finite group $G$ we can always write $G=\langle S:R\rangle$ where $S = G$ and $R=\{ g\cdot h \cdot (gh)^{-1} =e \}$. We refer to this presentation as the \emph{exhaustive presentation}. If we let $\mu_S$ and $\mu_R$ be the uniform distribution on $S$ and on $R$ respectively then Definition~\ref{def:eff-stab} reduces to a widely used notion of \emph{flexible (Hilbert-Schmidt) stability}. In particular, for finite groups the following result is known~\cite{gh,thom}.
 
-\begin{theorem}\label{thm:gh}
+\begin{theorem}\label{thm:gh}[Theorem~1.4 in~\cite{de2022spectral}]
 Let $G$ be a finite group and $\mC$ the class of all tracial von Neumann algebras. Let $U_S$ and $U_R$ be the uniform distribution on $S=G$ and $R=\{ g\cdot h \cdot (gh)^{-1}=e \}$ respectively. Then $G=\langle S:R\rangle$ is $(O(\eps),U_R,U_C,\mC)$-stable. 
 \end{theorem}
 
-Next we state a result from de la Salle~\cite{de2022spectral} which allows to combine stability results. The results in~\cite{de2022spectral} are general, and in particular allow to show that the direct product of stable groups is stable. Here, we will only use the following specialization to the case of $\Z_2^k$. For a measure $\mu$ on $\Z_2^k$, define its spectral gap 
+Next we state a result from de la Salle~\cite{de2022spectral} which allows to combine stability results. The results in~\cite{de2022spectral} are general, and in particular allow to show that the direct product of stable groups is stable. Here, we will only use the following specialization to the case of $\Z_2^k$, which is the only setting that we will use. For a measure $\mu$ on $\Z_2^k$, define its spectral gap 
 \[ \kappa = \max_{a\neq 0} \frac{1}{1-\Es{b\sim\mu}(-1)^{a\cdot b}}\;.\] 
 
-\begin{theorem}[\cite{de2022spectral} Corollary 2.6]\label{thm:dls-gap}
+\begin{theorem}[\cite{de2022spectral} Corollary 2.6]
 Let $\mu$ be a measure on $\Z_2^k$ with spectal gap $\kappa$. Let $\phi_X,\phi_Z: \Z_2^k \to \mU(\mM)$ be two homomorphisms such that
 \[ \Es{a,b\sim \mu} \big\| \phi_X(a)\phi_Z(b)-(-1)^{a\cdot b} \phi_Z(b)\phi_X(a)\big\|_\tau^2 \,\leq\,\eps\;.\]
-Then there is an $\mN=P\mM_\infty P$ and homomorphisms $U_X,U_Z:\Z_2^k\to\mU(\mN)$ and $\delta=O(\kappa^2\eps)$ such that $\phi_X$ and $U_X$ are $\delta$-close, $\phi_Z$ and $U_Z$ are $\delta$close, and moreover $U_X(a)U_Z(b)=(-1)^{a\cdot b}U_Z(b)U_X(a)$ for all $a,b\in\Z_2^k$.
+Then there are representations $U_X,U_Z:\Z_2^k\to\mN$ and $\delta=O(\kappa^2\eps)$ such that $\phi_X$ and $U_X$ are close, $\phi_Z$ and $U_Z$ are close, and moreover $U_X(a)U_Z(b)=(-1)^{a\cdot b}U_Z(b)U_X(a)$ for all $a,b\in\Z_2^k$.
 \end{theorem}
 
 
-\subsection{Examples}
+\subsection{Simple examples}
 
-As a first example we spell out the application of Theorem~\ref{thm:gh} to the case of $G=\Z_2^k$. 
+As a first simple application we spell out the application of Theorem~\ref{thm:gh} to the case of $G=\Z_2^k$ and $\mC$ the class of finite-dimensional matrix algebras. To emphasize the analogy between the following result and the \emph{Blum-Luby-Rubinfeld linearity test} in property testing~\cite{} we state the result for a restricted class of approximate homomorphisms, and give the consequence in a way that leverages the simple representation theory of $\Z_2^k$. 
 
-\begin{corollary}\label{cor:lin-test} \tnote{Stated this for finite dimensions. Not sure what we want in the end}
-Let $d\geq 1$ and $\phi:\Z_2^k \to \mU(\C^d)$ be such that 
-\[ \Es{x,y\in \Z_2^k} \big\| \phi(x)\phi(y)-\phi(x+y) \big\|_{\tau}^2 \,\leq\,\eps\;.\]
-Then there is a %$d'=(1+O(\eps))d$, an isometry $w:\C^d \to \C^{d'}$ and a 
-projective measurement $\{P_u\}_{u\in \Z_2^k}$ on $\mA$ such that 
-\[ \Es{x\in \Z_2^k} \Big\| \phi(x) -\Big(\sum_u (-1)^{u\cdot x} P_u\Big)  \Big\|_{\tau_d}^2 \,=\, O(\eps)\;.\]
+\begin{corollary}\label{cor:lin-test}
+Let $d\geq 1$ and $\phi:\Z_2^k \to \Obs(\C^d)$ be such that 
+\[ \Es{x,y\in \Z_2^k} \big\| \phi(x)\phi(y)-\phi(x+y) \big\|_{\tau_d}^2 \,\leq\,\eps\;.\]
+Then there is a $d'=(1+O(\eps))d$, an isometry $w:\C^d \to \C^{d'}$ and a projective measurement $\{P_u\}_{u\in \Z_2^k}$ on $\C^{d'}$ such that 
+\[ \Es{x\in \Z_2^k} \Big\| \phi(x) - w^* \Big(\sum_u (-1)^{u\cdot x} P_u\Big) w \Big\|_{\tau_d}^2 \,=\, O(\eps)\;.\]
 \end{corollary} 
 
 \begin{proof}
-Any $\phi$ as in the corollary statement is an $(\eps,U_R)$-almost homomorphism of $\Z_2^k$ into $(\mA,\tau_d)$ for the exhaustive presentation. Applying Theorem~\ref{thm:gh}, $\phi$ is $O(\eps)$-close to a homomorphism to $(\mN,\tau^\mN)$. Because $\Z_2^k$ is Abelian, such a homomorphism is given by commuting unitaries $(U_x)_{x\in\Z_2^k}$ on $\C^{d'}$. Moreover, since $\Z_2^k$ is a $2$-group, each $U_x$ satisfies $U_x^2=\Id$, hence $U_x=U_x^*$.
-
-For every $u\in  \Z_2^k$ let $Q_u = \Es{x} (-1)^{u\cdot x} U_x$. Then each $Q_u$ is a projection such that $\sum_u Q_u=\Id$. Using Lemma~\ref{lem:pull-back}, we find a projective measurement $\{P_u\}$ on $\mA$ that satisfies the conclusions of the corollary. \tnote{more details needed} 
+Any $\phi$ as in the corollary statement is an $(\eps,U_R)$-almost homomorphism of $\Z_2^k$ into $(M_d(\C),\tau_d)$ for the exhaustive presentation. Applying Theorem~\ref{thm:gh}, $\phi$ is $O(\eps)$-close to a homomorphism into $M_{d'}(\C)$. Such a homomorphism is given by commuting Hermitian unitaries $(U_x)_{x\in\Z_2^k}$ on $\C^{d'}$. Then it is easy to verify that for $u\in \Z_2^k$, $P_u = \Es{x} (-1)^{u\cdot x} U_x$ is a projection such that $\sum_u P_u=\Id$ and the $\{P_u\}$ satisfy the conclusion of the corollary. 
 \end{proof}
 
 There is a more efficient presentation of $\Z_2^k$, given by
@@ -681,7 +619,7 @@ There is a more efficient presentation of $\Z_2^k$, given by
  \Z_2^k = \langle x_1,\ldots,x_k : [x_i,x_j]=e, x_i^2=e \; \forall i\neq j \rangle\;.
 \end{equation}
 
-We call this presentation ``efficient'' because it has a number of generators and relations that is far smaller than those of the exhaustive presentation; in this case, polylogarithmic. This presentation is also stable. 
+We call this presentation ``efficient'' because it has a number of generators and relations that is far smaller than those of the exhaustive presentation; in this case, polylogarithmic. As one would naturally expect, this presentation has a weaker modulus of stability. 
 
 
 
@@ -689,14 +627,14 @@ We call this presentation ``efficient'' because it has a number of generators an
 For every $k$, there is a $\delta_k = O_k(\eps)$ such that the presentation~\eqref{eq:z2-efficient} is $\delta_k$-stable. Furthermore, the close representation can be taken on the same algebra. 
 \end{lemma}
 
-As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on the girth of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This is nearly tight, as shown in~\cite{chao2017overlapping}.
+The dependence of $\delta_k$ on $k$ that comes out of the proof from~\cite{slofstra2019set} is exponential, i.e. $\delta_k(\eps)\leq C^k \eps$ for some $C>1$. In Section~\ref{} we give a presentation that has an intermediate trade-off. 
 
-We end with a non-Abelian group that plays an important role in applications in quantum information, the \emph{Pauli group}. For an integer $k\geq 1$,  the Pauli group $\pauli_k$ can be defined as follows. Let $\gamma: \Z_2^k\times \Z_2^k \to \{-1,1\}$ be given by $\gamma(a,b)=(-1)^{a\cdot b}$. Then $\pauli_k$ is the central extension of $\Z_2^k\times \Z_2^k$ by $\{-1,1\}$ given by $\gamma$. Alternatively, $\pauli_k$ is the group generated by the Pauli matrices 
+We end with a non-Abelian group that is central to applications in quantum information, the \emph{Pauli group}. For an integer $k\geq 1$,  the Pauli group $\pauli_k$ can be defined as follows. Let $\gamma: \Z_2^k\times \Z_2^k \to \{-1,1\}$ be given by $\gamma(a,b)=(-1)^{a\cdot b}$. Then $\pauli_k$ is the central extension of $\Z_2^k\times \Z_2^k$ by $\{-1,1\}$ given by $\gamma$. Alternatively, $\pauli_k$ is the group generated by the Pauli matrices 
 \[ \sigma_X(a) = , \sigma_Z(b) =\]
 for $a,b\in \Z_2^k$. It is also known as the Heisenberg group $H_{2k+1} = \{\begin{pmatrix} 1 & a & c \\ 0 & 1_k & b \\ 0 & 0 & 1 \end{pmatrix} \}\subseteq GL_{k+2}(\F_2)$. Concretely, we label elements of the Pauli group as triples $(J,a,b)$ where $J$ is a special label and $a,b\in\Z_2^k$, and consider the following presentation for it:
 \[ \pauli_k \,=\, \langle (a,b), a,b\in \Z_2^k : (a,b)(a',b') = J^{a\cdot b'} (a',b')(a,b) \rangle_{\Z_2}\;.\] 
 This presentation is not quite the exhaustive presentation (it has $2^{2k}+1$ generators, when $|\pauli_k|=2^{2k+1}$), but it is not far from it.  
-Applying Theorem~\ref{thm:gh} we obtain the following consequence, which we again state only for the case of a subclass of approximate homomorphisms and the class of finite-dimensional matrix algebras\tnote{again, not sure what we want ultimately}. 
+Applying Theorem~\ref{thm:gh} we obtain the following consequence, which we again state only for the case of a subclass of approximate homomorphisms and the class of finite-dimensional matrix algebras. 
 
 \begin{corollary}[Pauli braiding test]
 Let $\phi_X,\phi_Z:\Z_2^k \to \Obs(\C^d)$ be such that for all $W\in \{X,Z\}$,
@@ -716,86 +654,45 @@ Similarly to Lemma~\ref{lem:eff-z2} we can state an ``efficient'' version of the
  \pauli_k = \langle x_1,\ldots,x_k,z_1,\ldots,z_k : [x_i,x_j]=[z_i,z_j]=[x_i,z_j]=e, x_i^2=z_i^2=e, \{x_i,z_i\}=e \; \forall i\neq j \rangle\;.
 \end{equation}
 
-\begin{lemma}\label{lem:eff-pauli}
-For every $k$, there is a $\delta'_k = O_k(\eps)$ such that the presentation~\eqref{eq:pauli-efficient} is $\delta_k$-stable.
+\begin{lemma}[\cite{Chao-Reichardt}]\label{lem:eff-pauli}
+For every $k$, there is a $\delta_k = O_k(\eps)$ such that the presentation~\eqref{eq:pauli-efficient} is $\delta_k$-stable.
 \end{lemma}
 
-\begin{proof}
-This follows from Lemma~\ref{lem:eff-z2} and Theorem~\ref{thm:dls-gap}.
-\end{proof}
+
+
 
 \section{Efficient stability for the Pauli group}
 
-The goal of this section is to reformulate, in the language of this paper, a result that plays an important role in~\cite{ji2020mip}. To state the result we first introduce a specific linear error-correcting code. 
+The goal of this section is to re-formulate, in the language of this paper, a result that plays an important role in~\cite{mipre}. To state the result we first introduce a specific linear error-correcting code. 
 
 \subsection{Presentations from codes}
 \label{sec:pres-code}
 
-For $q$ a prime power and $n,k,d$ integer, a linear $[n,k,d]_q$ code is a $k$-dimensional subspace $\code$ of $\F_q^n$ such that for all $x\in \code$ such that $x\neq 0$, the Hamming weight $|x|\geq d$. A code can be specified by a \emph{parity check matrix} $h\in \F_q^{m\times n}$ by setting $\code = \ker h$. 
-
-We now specialize to the case where $q=2$. 
-A parity check matrix for a code of dimension $k$ implies a presentation in the following way. Introduce $n$ generators $S=\{x_1,\ldots,x_n\}$. Each of the generators is required to be an involution: $x_i^2=e$. For each row $i\in \{1,\ldots,m\}$ of the parity check matrix, introduce a relation 
-\[ R_i\,:\; \prod_{1\leq j \leq k} x_j^{h_{ij}}=e \]
-that ``verifies'' the parity check associated with the $i$-th row of $j$. Finally, to guarantee that $R_i$ is independent of the order in which the $x_j$ are multiplied, whenever $j\neq j'$ are such that $h_{ij}$ and $h_{ij'}$ are both nonzero we require that $x_j$ and $x_j'$ commute. This can be written succinctly using a relation 
-\[ R'_{ijj'}\,:\; [x_j,x_{j'}]^{h_{ij} h_{ij'}}=e\;.\]
-The presentation obtained in this way defines a group $G=G(h)$ as 
-\[ G(h) \,=\, \big\langle x_1,\ldots,x_n \,:\, x_i^2=e\,,\; R_i\,,\; R'_{ijj'}\,,\quad \forall 1\leq i\leq n,\, 1\leq j< j' \leq m\big\rangle\;.\]
-Note that we made the dependence of $G(h)$ on $h$ explicit. This is because in general, the group defined in this way may depend on $h$. If however we further impose pairwise commutation relations then it is not hard to see the following. 
-
-\begin{lemma}\label{lem:com-code}
-Let $R''_{jj'}$ be the commutation relation $[x_j,x_{j'}]=e$. Then
-\[ \Z_2^k \,=\, \big\langle x_1,\ldots,x_n \,:\, x_i^2=e\,,\; R_i\,,\; R''_{jj'}\,,\quad \forall 1\leq i\leq n,\, 1\leq j< j' \leq m\big\rangle\;.\]
-\end{lemma}
-
-\begin{proof}
-The group defined by the right-hand side is obviously Abelian and a $2$-group, so it is of the form $\Z_2^{k'}$ for some $k'$. In fact, it is equal to the quotient of $Z_2^n$ by the subgroup generated by the $\prod_{1\leq j \leq k} x_j^{h_{ij}}$. So it is $\Z_2^k$ where $k$ is the dimension of the kernel of $h$.  
-\end{proof}
-
-\begin{remark}
-There exists matrices $h$ such that $G(h)$ is not $\Z_2^k$, and in fact is not Abelian. For an example, see e.g.~\cite[Example 2.16]{paddock2022arkhipov}.  
-\end{remark}
-
-
+A linear $[n,k,d]_2$ code is a $k$-dimensional subspace $\code$ of $\F_2^k$ such that for all $x\in \code$ such that $x\neq 0$, the Hamming weight $|x|\geq d$. A code can be specified by a \emph{parity check matrix} $h\in \F_2^{m\times n}$ by setting $\code = \ker h$. A parity check matrix for a code of dimension $k$ implies a presentation of $\Z_2^k$ as
+\[ \Z_2^k \,=\, \langle x_1,\ldots,x_n \,:\;,\, \prod_{1\leq j \leq k} x_j^{h_{ij}}=e \,, [x_{j},x_{j'}]= e \, \; \forall 1\leq i\leq n\rangle,\, j\neq j': h_{ij}\neq 0, h_{ij'}\neq 0\;.\]
+\tnote{this needs to be written better. The point is that commutation relations are only enforced on variables that appear in the same constraint}
 For readability it is convenient to reformulate the parity check matrix as a \emph{tester} for the code. This allows us to give a more succinct, ``algorithmic'' definition of a parity check matrix for a given code. Informally, the tester takes as input a word $w\in \F_2^n$ and determines if $w\in \mC$ by selecting a parity check at random and evaluating it. 
- Specifically we give the following definition. (For the sake of later use, we state the definition for the case of a general prime power $q$.)
+ Specifically we give the following definition. 
 
 \begin{definition}[$r$-local linear tester]\label{def:code-test}
 Let $\code$ be an $[n,k,d]_q$ linear code and $r\in \N$.
-An \emph{$r$-local linear tester for $\code$} is a pair $M = ((v_S)_{S \subseteq [n]},\nu)$ where $\nu$ is a distribution over subsets $S\subseteq [n]$ of size at most $r$, and for each such subset a vector $v_S\in\F_q^S$, such that $u\in \code$ if and only if for all $S$ in the support of $\nu$, $v_S\cdot u_S=0$.\footnote{Generally one imposes stronger ``soundness'' conditions on the tester. However, we will not need to be more specific than this.}
+An \emph{$r$-local linear tester for $\code$} is a pair $M = ((M_S)_{S \subseteq [n]},\nu)$ where $\nu$ is a distribution over subsets $S\subseteq [n]$ of size at most $r$, and for each such subset $M_S:\F_q^S\to\F_q$ is a linear function such that $u\in \code$ if and only if for all $S$ in the support of $\mu$, $M_S(u_S)=0$.\footnote{Generally one imposes stronger ``soundness'' conditions on the tester. However, we will not need to be more specific than this.}
 \end{definition}
 
 We conclude with an example, the \emph{Hadamard code}. This code can be defined for any  $t\geq 1$ and it is an $[T,t,T/2]_2$ linear code, where $T=2^t$. For simplicity we write  $\code_\had$ to denote this code, omitting $t$. As a linear map, for $i\in\{1,\ldots,t\}$, $\code_\had(e_i) = (x_i)_{x\in \field^t} \in \field^T$, where we identify the index set $\{1,\ldots,T\}$ with the set $\field^t$ in an arbitrary way.  
 
-A parity check matrix for $\code_\had$ is the matrix $h_\had\in \F_2^{T^2\times T}$ defined as follows. Identify the rows of $h_\had$ with pairs $(x,y)\in \F_2^t\times \F_2^t$, and the columns of $h_\had$ with $\F_2^t$. Then the $(x,y)$-th row of $h$ has nonzero entries at positions $x,y$ and $x+y$ only. The corresponding $3$-local linear tester is $M_\had=((v_S),\nu)$ where $\nu$ is uniform over triples $\{x,y,x+y\}$ for $(x,y)\in \F_2^t\times \F_2^t$ and $v_S = (1,1,1)^T$ for all $S$ in the support of $\nu$. This tester can be described more algorithmically as in Figure~\ref{fig:test-had}. 
-
-\begin{figure}[!htbp]
-  \centering
-  \begin{gamespec}
-	Given access to some $g\in \F_2^n$, where $n=2^t$, identify $g$ with a function $g:\F_2^t\to\F_2$. Perform the following. 
-\begin{enumerate}
-\item Select $(x,y)\in \F_2^t \times \F_2^t$ uniformly at random. 
-\item Accept if and only if $g(x)+g(y)+g(x+y)=0$.  	
-    \end{enumerate}
-  \end{gamespec}
-  \caption{A $3$-local linear tester for $\code_{\had}$}
-  \label{fig:test-had}
-\end{figure}
-
-\begin{remark}
-Because each pair of coordinates $(x,y)$ appears together in at least one parity check, we can apply Lemma~\ref{lem:com-code} to deduce that $G(h_\had)=\Z_2^t$. 
-\end{remark}
+It is shown in~\cite{blum1990self} that there is a $3$-local $\delta$-tester $M_\had$ for $\code_\had$, where $\delta(\eps)=6\eps$. The distribution $\nu_\had$ is uniform over subsets $\{ x, y, x+y \} \subset \field^t$ where $x,y\in \field^t$ are uniformly and independently chosen. For all $u \in \field^T$, the predicate $M_{\had,S}(u|_S) = 1$ if and only if $u_x + u_y = u_{x+y}$ (where we think of the coordinates of $u$ as being indexed by elements of $\field^t$). 
 
 
 
 \subsection{The Reed-Muller code over $\F_q$}
-\label{sec:rmq}
 
 Fix integers $m,t \in \N$ and let $q=2^t$ and $M = 2^m$. Let $\mP(q,m,d)$ be the vector space over $\F_q$ that consists of all $m$-variate polynomials $f$ over $\F_q$ of individual degree at most $d$, that is all functions of the form
 \[
 	f(x_1,\ldots,x_m) = \sum_{\alpha \in \{0,1,\ldots,d\}^m} c_\alpha\,
   x_1^{\alpha_1} \cdots x_m^{\alpha_m}\;,
 \]
-where $\{c_\alpha\}$ is a collection of coefficients in $\F_q$. It is easy to verify that $\mP(q,m,d)$ has dimension $k = (d+1)^m$ over $\F_q$. It follows that the map $\mC_\RM: (c_\alpha) \mapsto (f(x))_{x\in \F_q^m}$ defines a $[q^m,(d+1)^m,D]_q$ linear code over $\F_q$, where $D\geq (1-md/q)q^m$ follows from the Schwartz-Zippel lemma.
+where $\{c_\alpha\}$ is a collection of coefficients in $\F_q$. It is easy to verify that $\mP(q,m,d)$ has dimension $D = (d+1)^m$ over $\F_q$. It follows that the map $\mC_\RM: (c_\alpha) \mapsto f$ defines a $[q^m,(d+1)^m,D]_q$ linear code over $\F_q$, where $D\geq (1-md/q)q^m$ follows from the Schwartz-Zippel lemma: 
 
 \begin{lemma}[Schwartz-Zippel lemma~\cite{Sch80,Zip79}]
   \label{lem:schwartz-zippel}
@@ -806,23 +703,19 @@ where $\{c_\alpha\}$ is a collection of coefficients in $\F_q$. It is easy to ve
 \end{lemma}
 
 
-We define a local linear tester $M_{\RM}$ for the code $\mC_\RM$ over $\F_q$. The tester is introduced as an algorithmic procedure in Figure~\ref{fig:RM-tester}. From this description it is straightforward to deduce a description of the tester as a distribution $\nu$ on subsets of $\F_q^n$, where $n=q^m$, together with vectors $v_S\in F_q^S$ for every $S$ in the support of $\nu$. 
-
-To describe the tester we need to introduce interpolation coefficients, as follows. For $u\in \F_q$ and $i\in\{1,\ldots,d\}$ let 
-\[ \alpha_{u,i} = \frac{\prod_{\substack{i'=1\\i'\neq i}}^{d+1} i'}{\prod_{\substack{i'=1\\i'\neq i}}^{d+1} (i'-i)}\;.\]
-These are defined so that for any $f:\F_q\to\F_q$ of degree at most $d$, $f(u)=\sum_{i=1}^{d+1} \alpha_{u,i} f(u+i)$. The tester verifies this relation along a randomly chosen direction. 
-\tnote{Here I chose to specialize the ``line'' to $(d+2)$ consecutive points on it, which is notationally marginally simpler than $(d+2)$ uniformly random points on it. Hopefully it's fine}
-
-
-%The second test applied by the tester, the subcube commutation test, may seem superfluous, because it always accepts. However, the test is important to show that the code is robust. Note that including the test imposes a non-trivial constraint of pairwise approximate commutation on representations of $\mC_\RM$, and hence also on $\eps$-local presentations. Both tests are easily seen to be linear; in particular, testing that $q$ entries match the truth table of a polynomial of degree at most $d$ can be done by checking $(n-d-1)$ linear equalities, because the set of evaluation vectors  of polynomials of  degree at most $d<m$ at any $m$ distinct points  is a linear subspace of dimension $(d+1)$ of $\F_q^m$. 
+We define a tester $M_{\RM}$ for the code $\mC_\RM$ over $\F_q$, see Figure~\ref{fig:RM-tester}. The second test applied by the tester, the subcube commutation test, may seem superfluous, because it always accepts. However, the test is important to show that the code is robust. Note that including the test imposes a non-trivial constraint of pairwise approximate commutation on representations of $\mC_\RM$, and hence also on $\eps$-local presentations. Both tests are easily seen to be linear; in particular, testing that $q$ entries match the truth table of a polynomial of degree at most $d$ can be done by checking $(n-d-1)$ linear equalities, because the set of evaluation vectors  of polynomials of  degree at most $d<m$ at any $m$ distinct points  is a linear subspace of dimension $(d+1)$ of $\F_q^m$. 
 
 \begin{figure}[!htbp]
   \centering
   \begin{gamespec}
-Given access to some $g\in \F_q^n$, where $n=q^m$, identify $g$ with a function $g:\F_q^m\to F_q$. Perform the following.
+Perform one of the following tests with probability~$\tfrac{1}{2}$ each. 
 \begin{enumerate}
-	\item Sample	$u \sim \F_q^m$ and $j\sim \{1,\ldots,m\}$ uniformly at random. 
-	\item Let $e_j=(0,\ldots,0,1,0,\ldots,0)\in \F_q^m$, where the unique $1$ is in the $j$-th position. Accept if and only if $g(u) = \sum_{i=1}^{d+1} \alpha_{u,i} g(u+ie_j)$.  
+	\item \textbf{Axis-parallel lines test:}
+		Let $u \sim \F_q^m$ be a uniformly random point, $j\sim \{1,\ldots,m\}$ chosen uniformly at random,
+		and let $\ell = \{ (u_1,\ldots,u_{j-1},s,u_{j+1},\ldots,u_m) \in \F_q^m : s \in \F_q \}$
+		be the axis-parallel line passing through $u$ in the $j$-th direction. Read the entries indexed by $\ell$ and accept if and only if they match a degree-$d$ polynomial. 
+	\item \textbf{Subcube commutation test:}
+	Sample $j \sim \{1,\ldots,m\}$ uniformly at random, and sample $x_{m-j+2},\ldots,x_{m} \sim \F_q$ uniformly at random. Sample $u,v$ independently and uniformly at random from $\F_q^m$, conditioned on the last $(j-1)$ coordinates of both points being $x_{m-j+2},\ldots,x_m$. Read the entries indexed by $u$ and $v$ and accept. 	
     \end{enumerate}
   \end{gamespec}
   \caption{A local test for $\code_{\RM}$}
@@ -831,40 +724,33 @@ Given access to some $g\in \F_q^n$, where $n=q^m$, identify $g$ with a function 
 
 
 
-%\begin{theorem}\label{thm:mrm-sound}
-%$M_\RM$ has quantum soundness $\delta(\eps)=\poly(m,d)\cdot \poly(\eps,n^{-1})$.
-%\end{theorem}
+\begin{theorem}\label{thm:mrm-sound}
+$M_\RM$ has quantum soundness $\delta(\eps)=\poly(m,d)\cdot \poly(\eps,n^{-1})$.
+\end{theorem}
 
-%\begin{proof}
-%In~\cite{ji2022quantum} it is shown that the game $G_{\code_\RM,M_\RM}$ (played using $\F_q$ as the base field) is $(\delta,\nu)$-robust, where $\nu$ is the uniform distribution over $\F_q^m \subseteq \mX$ and $\delta$ satisfies $\delta(\eps)=\poly(m,d)\cdot \poly(\eps,n^{-1})$. The theorem follows by the second item of Proposition~\ref{prop:sound-game}. 
-%\end{proof}
+\begin{proof}
+In~\cite{ji2022quantum} it is shown that the game $G_{\code_\RM,M_\RM}$ (played using $\F_q$ as the base field) is $(\delta,\nu)$-robust, where $\nu$ is the uniform distribution over $\F_q^m \subseteq \mX$ and $\delta$ satisfies $\delta(\eps)=\poly(m,d)\cdot \poly(\eps,n^{-1})$. The theorem follows by the second item of Proposition~\ref{prop:sound-game}. 
+\end{proof}
+
+
+
+
 
 
 \subsection{Code composition}
 \label{sec:code-comp}
 
- The Reed-Muller code from the previous section is defined over $\F_q$, for $q$ a prime power. We can transform any $q$-ary code, for $q=2^t$, into a binary code using the idea of \emph{code composition} which we now describe. 
+ The Reed-Muller code from the previous section is defined over $\F_q$, for $q$ a large prime power. We can transform any $q$-ary code, for $q=2^t$, into a binary code using the idea of \emph{code composition} which we now describe. 
 
 For $q=2^t$ and $a\in \field$ we let $\kappa(a)\in\F_2^t$ denote the binary representation of $a$, taken in a fixed but usually left implicit self-dual basis of $\F_2^t$ over $\F_2$. We extend $\kappa$ to vectors over $\field$ coordinate-wise. We let $\tr(\cdot):\F_q\to\F_2$ denote the trace over $\F_2$. Because we chose a self-dual basis for the binary representation, the trace satisfies $\tr(ab)=\kappa(a)\cdot\kappa(b)$. 
 
-Let $q=2^t$ and $\code$ an $[n,k,d]_q$ linear code. Let $\code_{\Had}$ be the Hadamard code over $\F_2^t$ (introduced at the end of Section~\ref{sec:pres-code}). Let $T=2^t$.
+Let $q=2^t$ and $\code$ an $[n,k,d]_q$ linear code. Let $\code_{\Had}$ be the Hadamard code over $\F_2^t$ (see Section~\ref{sec:had}). Let $T=2^t$.
 Let $\mC'$ be the $[Tn,tk,d']$ linear code over $\F_2$ defined as follows. Given $a\in (\F_2^t)^{k}$, first map $a\mapsto a'=\kappa^{-1}(a) \in \F_q^{k}$. Then encode $a'$ to $b'=\code_\RM(a')\in \F_q^n$. Finally, return $b=\code_\Had(\kappa(b'))\in(\F_2^T)^n$, where $\code_\Had$ is applied component-wise. Using that $\code_\Had$ has relative distance $\frac{1}{2}$, it is easy to verify that this code has distance $d'\geq dT/2$.
 
-Given an $r$-local $\delta$-tester $M$ for $\code$, there is a natural $rq$-local tester $M'$ for $\code'$ which can be described as follows. Index coordinates of $\code'$ by pairs $(i,\alpha)\in [n]\times\F_2^t$, fixing a bijection between $[Tn]$ and $[n]\times \F_2^t$. Then $\nu'$ is the uniform mixtures of two distributions, $\nu'_1$ and $\nu'_2$. 
-
-To sample from $\nu'_1$, sample $S\sim\nu$ and $\alpha\in \F_2^t$ uniformly at random. If $M$ performed the check $v_S \cdot u=0$, then perform the check 
-\begin{align*}
-0 &= \tr\big(( v_S \cdot u) \alpha\big)\\
-&= \sum_{j\in S} \tr( v_{S,j} u_j \alpha) \\
-&= \sum_{j\in S} \kappa(\alpha v_{S,j}) \cdot \kappa(u_j)\;.
-\end{align*}
-This check can be performed by evaluating $u'$ at the coordinates $(j,\kappa(\alpha v_{S,j}))$ for $j\in S$ and summing the results in $\F_2$. \tnote{Sometimes there is a step of self-correction included in the composition. Here, the marginal distribution on each vector $\kappa(\alpha v_{S,j}) $ is uniform so it seems fine(?)}
-
-To sample from $\nu'_2$, sample $i\sim[n]$ uniformly at random and $x,y\in\F_2^t$ uniformly at random, and return $\{i\}\times\{x,y,x+y\}$. Execute the tester $M_\had$ for the Hadamard code, i.e.\ check if the three corresponding entries of $u'$ sum to zero. 
+Given an $r$-local $\delta$-tester $M$ for $\code$, there is a natural $rq$-local tester $M'$ for $\code'$ which can be described as follows. Index coordinates of $\code'$ by pairs $(i,\alpha)\in [n]\times\F_2^t$, fixing a bijection between $[Tn]$ and $[n]\times \F_2^t$. Then $\nu'$ is the uniform mixtures of two distributions, $\nu'_1$ and $\nu'_2$. To sample from $\nu'_1$, sample $S\sim\nu$ and return the set $S\times\F_2^t$. To sample from $\nu'_2$, sample $i\sim[n]$ uniformly at random and $x,y\in\F_2^t$ uniformly at random, and return $\{i\}\times\{x,y,x+y\}$. The decision predicate $M'$ executes $M$ for all sets of the form $S\times \F_2^t$, and the tester for the Hadamard code (Section~\ref{sec:had}) for sets of the form $\{i\}\times\{x,y,x+y\}$.
 
 
 \subsection{The code game}
-\tnote{This section is a dump---what do we need?}
 
 To make the connection with the literature on non-local games we associate a game $G_{\code,M}$ to any code $\code$ and local tester $M$ for it. In the game, one player is asked to provide an assignment to all variables in the set $S$ queried by the tester, that will satisfy its test, while the other player is asked to provide an assignment to a single $i\in S$, and checked for consistency with the first player. The formal definition follows.  
 
@@ -935,79 +821,48 @@ To conclude we show that $\{\tilde{A}^{i}\}$ and $\{\tilde{B}^{S,i}\}$ form a st
 where the first inequality is by~\eqref{eq:qto2-2} and the triangle inequality, the second line by Parseval's formula and the last is by assumption. 
 \end{proof}
 
-\section{An efficient presentation for $\Z_2^k$}
-
-Fix integers $m,t,d \in \N$ and let $q=2^t$. Let $\code_{\bRM}$ be the $[q^{m+1},tk,D']_2$ code obtained by applying the composition procedure from Section~\ref{sec:code-comp} to the $[q^m,(d+1)^m,D]_q$ Reed-Muller code $\code_\RM$ from Section~\ref{sec:rmq}. Let $N=q^{m+1}$ and $h_{\bRM}\in \F_2^{M\times N}$ the parity check matrix for $\code_{\bRM}$ obtained from the composition of the $(d+2)$-local tester for $\code_\RM$ with the $3$-local tester for $\code_\had$. Then $h_\bRM$ has $M= m\cdot q^m \cdot (1+q^2)$ rows, indexed by $(u,j)\in \F_1^m\times [m]$ and $\F_q^m\times [m] \times \F_q^2$ respectively, such that each row has at most $3(d+2)$ nonzero entries. 
-
-Let $G_\bRM = G(h_\bRM)$ be the group that is presented from $h_\bRM$. Explicitly, $h_\bRM$ is the parity check matrix that arises from the tester described in Figure~\ref{fig:bRM-tester}. 
-
-
-\begin{figure}[!htbp]
-  \centering
-  \begin{gamespec}
-Given access to some $g\in (\F_2^t)^n$, where $n=q^m$, identify $g$ with a function $g:(\F_2^t)^m \times \F_2^t \to F_2$. Perform one of the following tests with probability~$\tfrac{1}{2}$ each. \tnote{Needs to be filled in}
-\begin{enumerate}
-	\item \textbf{Low-degree test:}
-		Let $u \sim \F_q^m$ be a uniformly random point and $j\sim \{1,\ldots,m\}$ chosen uniformly at random. Let $e_j=(0,\ldots,0,1,0,\ldots,0)\in \F_q^m$, where the unique $1$ is in the $j$-th position. 
-	\item \textbf{Hadamard test:} 	
-    \end{enumerate}
-  \end{gamespec}
-  \caption{A local test for $\code_{\bRM}$}
-  \label{fig:bRM-tester}
-\end{figure}
-
-We do not know if $G_\bRM = \Z_2^K$, with $K=t(d+1)^m$. Instead we modify the presentation $G(h_\bRM)$ by adding pairwise commutation relations in a similar manner as Lemma~\ref{lem:com-code}. Let 
-\[ G(h_\bRM) = \langle x_1,\ldots,x_N : R_k, R'_{k'} \rangle\;,\]
-where $R_k$ ranges over all relations implied by the ``low-degree test'' in Figure~\ref{fig:bRM-tester} and $R'_{k'}$ ranges over all the relations implied by the ``Hadamard test.'' Then we define
-\begin{equation}\label{eq:z2k-eff}
- G' &= \langle x_1,\ldots,x_N : R_k, R'_{k'} , [x_i,x_j]=e \forall 1\leq i<j\leq N\rangle\;.
-\end{equation}
-From Lemma~\ref{lem:com-code} it follows that $G'=\Z_2^K$. Our main result is an efficient stability result for this presentation. To state this we need to introduce distributions $\mu_S$ and $\mu_R$ on the generators and relations of $G'$. The distribution $\mu_S$ is taken to be the uniform distribution over $[N] = (\F_2^t)^m \times \F_2^t$. The distribution $\mu_R$ is obtained as follows. With probability $1/4$ (resp.\ $1/4$), a relation from $\{R_k\}$ (resp.\ $\{R'_k\}$) is chosen uniformly at random. With probability $1/2$, a random commutation relation is chosen according to the following distribution. First select $j\in\{1,\ldots,m\}$ and $u_{m-j+2},\ldots,u_m \in \F_2^t$ uniformly at random. Then select $v,v' \in (\F_2^t)^m$ uniformly at random, conditioned on the last $(j-1)$ coordinates matching $u_{m-j+2},\ldots,u_m$. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random. Check commutation between $x_{u,\alpha}$ and $x_{u,\beta}$. 
 
 
 
+\subsection{An efficient presentation for $\Z_2^k$}
 
+Let $\Z_2^k = \langle S_k : R_k\rangle$ be the presentation of $\Z_2^k$ derived from the binary Reed-Muller code as described in Section~\ref{sec:pres-code}. Then $|S_k|,|R_k|=\poly\log(k)$. Furthermore, based on results from~\cite{} we have the following. 
 
-
+\tnote{keep proposition 4.3 from the other paper. So we make the connection with the code game in general. The only change in the proof is that we need to use the $\Z_2$-stability result to replace the $B$ measurements}
 
 \begin{theorem}
 Let $\mC$ be the class of all tracial von Neumann algebras. 
-The presentation of  $\Z_2^k$ given in~\eqref{eq:z2k-eff}, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with $\delta(\eps)=$. 
+The presentation  $\Z_2^k = \langle S_k : R_k\rangle$ is $(\delta,\mC)$ stable with $\delta(\eps)=$. 
 \end{theorem}
 
-
-\begin{proof}\tnote{TBD}
-Let $\phi$ be an $\eps$-homomorphism of $\langle S_k:R_k\rangle$ on $(\mU(\mA),\tau)$. 
- Here, $S_k = \{s_{u,a}: u\in (\F_2^t)^m, a\in \F_2^t\}$ and $R_k$ contains the relations implied by the tester described in Section~XX. Using XXX, up to a constant factor less in the $\eps$ we may assume that $\phi$ sends each element of $S_k$ to a Hermitian involution. 
-
-The tester for the composed code samples sets according to an equal mixture of two distributions. The condition of being an $\eps$-homomorphism requires $\phi$ to be a $(2\eps)$-homomorphism with respect to each of the corresponding sets of relations. 
-
-The first set of relations is is obtained by taking $q$ independent copies of the relations for the tester for $\code_\Had$, one for each $u\in \F_q$. This gives us the condition
+\begin{proof}
+Let $\phi$ be an $\eps$-homomorphism of $\langle S_k:R_k\rangle$ on $(\mU(\mA),\tau)$. This implies the following. For every $u\in \F_q^m$ and $a\in \F_2^t$ there is an $s_{u,a}\in S_k$ such that 
 \begin{equation}\label{eq:stab-rm-1}
-\Es{u\in \F_q} \Es{a,b\in \F_2^t} \big\|\phi(s_{u,a})\phi(s_{u,b})\phi(s_{u,a+b})-\Id\big\|_\tau^2 \,\leq\, 2\eps\;. 
+\Es{u\in \F_q^m} \Es{a,b\in \F_2^t} \big\|\phi(s_{u,a})\phi(s_{u,b})\phi(s_{u,a+b})-\Id\big\|_\tau^2 \,\leq\, 2\eps\;,
 \end{equation}
-The second set of relations applies to subsets of the form $\{u,u+1,\ldots,u+(d+1),v\}\subseteq \F_q$ for uniformly random $u,v\in \F_q$. 
-\begin{equation}
-\Es{u,v\in \F_q} \Es{b\in \F_2^t} \big\| \prod_{1\leq i \leq d+1} \phi(s_{u+i,a})^{h_{i,a}(v)} - \phi(s_{v,b}) \big\|_\tau^2 \leq 4\eps\;.
-\end{equation}
+and \tnote{adapt; need to not read all points on line --- edit the tester}
+\begin{align}
+\Es{\ell\subset \F_q^m,u_1,\ldots,u_{d+2}\in \ell} \big\| \prod_{1\leq i \leq d+2} \phi(u_i)^h_i - \Id \big\|_\tau^2 &\leq 4\eps\;,
+\Es{u,v\in \F_q^m}
+\end{align}
 We first show the following. 
 
 \begin{claim}
-For every $u\in \F_q^m$ there is a projective measurement $\{P^u_a\}_{a\in \F_q}$ such that 
-\[ \Es{u\in \F_q^m} \Es{a\in \F_2^t} \big\| \phi(s_{u,a}) - \sum_b (-1)^{\tr(ab)} P^u_b \big\|_\tau^2 \,=\, O(\eps)\;. \]
+For every $u\in \F_q^m$ there is a projective measurement $\{P^u_a\}_{a\in \F_q\}$ such that 
+\[ \Es{u\in \F_q^m} \Es{a\in \F_2^t} \big\| \phi(s_{u,a}) - \sum_b (-1)^{\tr(ab) P^u_b \big\|_\tau^2 \,=\, O(\eps)\;. 
 \end{claim}
 
 \begin{proof}
-This follows from~\eqref{eq:stab-rm-1} and Corollary~\ref{cor:lin-test} \tnote{which needs to be adapted to non-observable maps}\tnote{we're also using that for abelian groups, and for orthonormalization, the algebra doesn't need to change?}
+This follows from~\eqref{eq:stab-rm-1} and Corollary~\refl{cor:lin-test} \tnote{which needs to be adapted to non-observable maps}\tnote{we're also using that for abelian groups, and for orthonormalization, the algebra doesn't need to change?}
 \end{proof}
 
 \begin{claim}
 For every axis-parallel line $\ell\subseteq \F_q^m$ there is a projective measurement $\{Q^\ell_g\}$ such that 
-\[ \Es{u\in \F_q^m} \sum_f \tau\big( P^u_{f(u)} Q^\ell_g\big) \,\geq\, 1-\poly(\eps)\;. \]
+\[ \Es{u\in \F_q^m} \sum_f \tau\big( P^u_{f(u)} Q^\ell_g\big) \,\geq\, 1-\poly(\eps)\;. 
 \end{claim}
 
 \begin{proof}
-We first observe that the restriction of $\phi$ to $\{(u,a)\}$ for $u\in \ell$ and $a\in \F_2^t$ is an $\eps_\ell$-homomorphism of $\Z_2^{t(d+2)}$, where $\eps_\ell$ is such that $\Es{\ell} \eps_\ell = O(\eps)$. This is because we always include a commutation test. 
+We first observe that the restriction of $\phi$ to $\{(u,a)\}$ for $u\in \ell$ and $a\in \F_2^t$ is an $\eps_\ell$-homomorphism of $\Z_2^{tq}$, where $\eps_\ell$ is such that $\Es{\ell} \eps_\ell = O(\eps)$. \tnote{elaborate}
 
 Applying Lemma~\ref{lem:eff-z2} we derive commuting observables, from which we can create that $Q^\ell$.
 \end{proof}
@@ -1015,9 +870,6 @@ Applying Lemma~\ref{lem:eff-z2} we derive commuting observables, from which we c
 
 
 \end{proof}
-
-
-
 
 
 

@@ -89,6 +89,8 @@
 \newcommand{\Fq}{\field}
 \newcommand{\BH}{\textsc{BH}}
 \newcommand{\ld}{\textsc{ld}}
+\newcommand{\com}{\textsc{com}}
+\newcommand{\sq}{\textsc{sq}}
 \newcommand{\downsize}{\kappa}
 \newcommand{\tobin}{\flat}
 \newcommand{\downsizem}{\chi}
@@ -206,6 +208,8 @@
 
 \DeclareMathOperator{\arcsinh}{arcsinh}
 \DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\sgn}{sgn}
+
 
 \newcommand{\E}{\mathop{\mathbb{E}}\displaylimits} % Expectation
 
@@ -724,7 +728,7 @@ For every $k$, there is a $\delta'_k = O_k(\eps)$ such that the presentation~\eq
 This follows from Lemma~\ref{lem:eff-z2} and Theorem~\ref{thm:dls-gap}.
 \end{proof}
 
-\section{Efficient stability for the Pauli group}
+\section{Presentations from codes}
 
 The goal of this section is to reformulate, in the language of this paper, a result that plays an important role in~\cite{ji2020mip}. To state the result we first introduce a specific linear error-correcting code. 
 
@@ -739,7 +743,9 @@ A parity check matrix for a code of dimension $k$ implies a presentation in the 
 that ``verifies'' the parity check associated with the $i$-th row of $j$. Finally, to guarantee that $R_i$ is independent of the order in which the $x_j$ are multiplied, whenever $j\neq j'$ are such that $h_{ij}$ and $h_{ij'}$ are both nonzero we require that $x_j$ and $x_j'$ commute. This can be written succinctly using a relation 
 \[ R'_{ijj'}\,:\; [x_j,x_{j'}]^{h_{ij} h_{ij'}}=e\;.\]
 The presentation obtained in this way defines a group $G=G(h)$ as 
-\[ G(h) \,=\, \big\langle x_1,\ldots,x_n \,:\, x_i^2=e\,,\; R_i\,,\; R'_{ijj'}\,,\quad \forall 1\leq i\leq n,\, 1\leq j< j' \leq m\big\rangle\;.\]
+\begin{equation}\label{eq:def-gh-pres}
+ G(h) \,=\, \big\langle x_1,\ldots,x_n \,:\, x_i^2=e\,,\; R_i\,,\; R'_{ijj'}\,,\quad \forall 1\leq i\leq n,\, 1\leq j< j' \leq m\big\rangle\;.
+\end{equation}
 Note that we made the dependence of $G(h)$ on $h$ explicit. This is because in general, the group defined in this way may depend on $h$. If however we further impose pairwise commutation relations then it is not hard to see the following. 
 
 \begin{lemma}\label{lem:com-code}
@@ -784,6 +790,18 @@ A parity check matrix for $\code_\had$ is the matrix $h_\had\in \F_2^{T^2\times 
 \begin{remark}
 Because each pair of coordinates $(x,y)$ appears together in at least one parity check, we can apply Lemma~\ref{lem:com-code} to deduce that $G(h_\had)=\Z_2^t$. 
 \end{remark}
+
+We state our first stability result for a code-based presentation, the presentation $G(h_\had)$ defined as~\eqref{eq:def-gh-pres} where $h_\had$ is defined above. To state the result we need to specify distributions $\mu_S$ and $\mu_R$. We let $\mu_S$ be uniform over the $2^t$ generators, and $\mu_R$ uniform over the relations $R_i$, for $i\in \{1,\ldots,T^2\}$. Note that here, we do not need to place any weight on the commutation relations.  
+
+\begin{lemma}\label{lem:had-stab}
+Let $\mC$ be the class of all tracial von Neumann algebras. 
+The presentation $\Z_2^t= G(h_\had)$, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with $\delta(\eps)=O(\eps)$. 
+\end{lemma}
+
+\begin{proof}
+The result is an immediate application of Theorem~\ref{thm:gh}.
+
+\end{proof}
 
 
 
@@ -957,59 +975,99 @@ Given access to some $g\in (\F_2^t)^n$, where $n=q^m$, identify $g$ with a funct
 \end{figure}
 
 We do not know if $G_\bRM = \Z_2^K$, with $K=t(d+1)^m$. Instead we modify the presentation $G(h_\bRM)$ by adding pairwise commutation relations in a similar manner as Lemma~\ref{lem:com-code}. Let 
-\[ G(h_\bRM) = \langle x_1,\ldots,x_N : R_k, R'_{k'} \rangle\;,\]
-where $R_k$ ranges over all relations implied by the ``low-degree test'' in Figure~\ref{fig:bRM-tester} and $R'_{k'}$ ranges over all the relations implied by the ``Hadamard test.'' Then we define
+\[ G(h_\bRM) \,=\, \big\langle x_1,\ldots,x_N \;:\; \{R^\sq_k\}\,,\; \{R^\ld_k\}\,,\; \{R^\had_{k}\} \big\rangle\;,\]
+where  $R^\sq_k$ ranges overal all relations of the form $x_i^2=e$ for $i\in \{1,\ldots,N\}$, $R^\ld_k$ ranges over all relations implied by the ``low-degree test'' in Figure~\ref{fig:bRM-tester} and $R^\had_{k}$ ranges over all the relations implied by the ``Hadamard test.'' For $k=(i,j)\in\{1,\ldots,N\}$ such that $i<j$ let $R^\com_k$ be the relation $[x_i,x_j]=e$.
+Then we define
 \begin{equation}\label{eq:z2k-eff}
- G' &= \langle x_1,\ldots,x_N : R_k, R'_{k'} , [x_i,x_j]=e \forall 1\leq i<j\leq N\rangle\;.
+ G' \,=\,\big\langle x_1,\ldots,x_N \;:\; \{R^\sq_k\}\,,\; \{R^\ld_k\}\,,\; \{R^\had_{k}\}\, , \; \{ R^\com_k\}\big\rangle\;.
 \end{equation}
-From Lemma~\ref{lem:com-code} it follows that $G'=\Z_2^K$. Our main result is an efficient stability result for this presentation. To state this we need to introduce distributions $\mu_S$ and $\mu_R$ on the generators and relations of $G'$. The distribution $\mu_S$ is taken to be the uniform distribution over $[N] = (\F_2^t)^m \times \F_2^t$. The distribution $\mu_R$ is obtained as follows. With probability $1/4$ (resp.\ $1/4$), a relation from $\{R_k\}$ (resp.\ $\{R'_k\}$) is chosen uniformly at random. With probability $1/2$, a random commutation relation is chosen according to the following distribution. First select $j\in\{1,\ldots,m\}$ and $u_{m-j+2},\ldots,u_m \in \F_2^t$ uniformly at random. Then select $v,v' \in (\F_2^t)^m$ uniformly at random, conditioned on the last $(j-1)$ coordinates matching $u_{m-j+2},\ldots,u_m$. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random. Check commutation between $x_{u,\alpha}$ and $x_{u,\beta}$. 
+From Lemma~\ref{lem:com-code} it follows that $G'=\Z_2^K$. Our main result is an efficient stability result for this presentation. To state this we need to introduce distributions $\mu_S$ and $\mu_R$ on the generators and relations of $G'$. The distribution $\mu_S$ is taken to be the uniform distribution over $[N] = (\F_2^t)^m \times \F_2^t$. The distribution $\mu_R$ is obtained as follows. With probability $1/4$ each, a relation from $\{R^\sq_k\}$, $\{R^\ld_k\}$ or $\{R^\had_k\}$ is chosen uniformly at random. With probability $1/4$, a random commutation relation from $R^\com_k$ is chosen according to the following distribution. First select $j\in\{1,\ldots,m\}$ and $u_{m-j+2},\ldots,u_m \in \F_2^t$ uniformly at random. Then select $v,v' \in (\F_2^t)^m$ uniformly at random, conditioned on the last $(j-1)$ coordinates matching $u_{m-j+2},\ldots,u_m$. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random. Check commutation between $x_{u,\alpha}$ and $x_{u,\beta}$. 
 
 
 
-
-
-
-
-\begin{theorem}
+\begin{theorem}\label{thm:z2-stab}
 Let $\mC$ be the class of all tracial von Neumann algebras. 
-The presentation of  $\Z_2^k$ given in~\eqref{eq:z2k-eff}, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with $\delta(\eps)=$. 
+The presentation of  $\Z_2^K$ given in~\eqref{eq:z2k-eff}, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with $\delta(\eps)=$. 
 \end{theorem}
 
 
-\begin{proof}\tnote{TBD}
-Let $\phi$ be an $\eps$-homomorphism of $\langle S_k:R_k\rangle$ on $(\mU(\mA),\tau)$. 
- Here, $S_k = \{s_{u,a}: u\in (\F_2^t)^m, a\in \F_2^t\}$ and $R_k$ contains the relations implied by the tester described in Section~XX. Using XXX, up to a constant factor less in the $\eps$ we may assume that $\phi$ sends each element of $S_k$ to a Hermitian involution. 
+\begin{proof}\tnote{in progress}
+Let $(\mM,\tau)$ be a tracial von Neumann algebra and $\phi$ be an $\eps$-homomorphism of $\langle S:R\rangle$ on $(\mU(\mM),\tau)$. 
+ Here, $S = \{s_{u,\alpha}: u\in (\F_2^t)^m, \alpha\in \F_2^t\}$ and $R$ is the set of all relations in~\eqref{eq:z2k-eff}, i.e.\ $R= \{R^\ld_k\}\cup\{R^\had_k\}\cup\{R^\com_k\}$. We first show that we may assume without loss of generality that $\phi$ sends each element of $S$ to a Hermitian involution. 
 
-The tester for the composed code samples sets according to an equal mixture of two distributions. The condition of being an $\eps$-homomorphism requires $\phi$ to be a $(2\eps)$-homomorphism with respect to each of the corresponding sets of relations. 
-
-The first set of relations is is obtained by taking $q$ independent copies of the relations for the tester for $\code_\Had$, one for each $u\in \F_q$. This gives us the condition
-\begin{equation}\label{eq:stab-rm-1}
-\Es{u\in \F_q} \Es{a,b\in \F_2^t} \big\|\phi(s_{u,a})\phi(s_{u,b})\phi(s_{u,a+b})-\Id\big\|_\tau^2 \,\leq\, 2\eps\;. 
-\end{equation}
-The second set of relations applies to subsets of the form $\{u,u+1,\ldots,u+(d+1),v\}\subseteq \F_q$ for uniformly random $u,v\in \F_q$. 
-\begin{equation}
-\Es{u,v\in \F_q} \Es{b\in \F_2^t} \big\| \prod_{1\leq i \leq d+1} \phi(s_{u+i,a})^{h_{i,a}(v)} - \phi(s_{v,b}) \big\|_\tau^2 \leq 4\eps\;.
-\end{equation}
-We first show the following. 
-
-\begin{claim}
-For every $u\in \F_q^m$ there is a projective measurement $\{P^u_a\}_{a\in \F_q}$ such that 
-\[ \Es{u\in \F_q^m} \Es{a\in \F_2^t} \big\| \phi(s_{u,a}) - \sum_b (-1)^{\tr(ab)} P^u_b \big\|_\tau^2 \,=\, O(\eps)\;. \]
+\begin{claim}\label{claim:z2-stab-1}
+There is an $\eps^{(1)}=O(\eps)$ and an $\eps^{(1)}$-homomorphism $\phi^{(1)}$ of $\langle S:R\rangle$ on $(\mU(\mM),\tau)$ such that $\phi^{(1)}(x)$ is a Hermitian involution for all $x\in S$, and furthermore
+\[ \Es{x\sim\mu} \big\| \phi(x) - \phi^{(1)}(x) \big\|_\tau^2 \,\leq\, \eps^{(1)}\;.\] 
 \end{claim}
 
 \begin{proof}
-This follows from~\eqref{eq:stab-rm-1} and Corollary~\ref{cor:lin-test} \tnote{which needs to be adapted to non-observable maps}\tnote{we're also using that for abelian groups, and for orthonormalization, the algebra doesn't need to change?}
+Using elementary calculations (see e.g.~\cite[Lemma 3.6]{slofstra2019set}) we see that for any complex $\alpha$, 
+\[ \big| \sgn\Re\alpha-\alpha\big| \,\leq\, \Big(1+\frac{1}{\sqrt{2}}\Big) \big|\alpha^2 -1 \big|\;.\]
+For any $i\in \{1,\ldots,N\}$ let $\phi^{(1)}(x_i) = \sgn\Re (\phi(x_i))$. Then the claim follows since 
+\[ \Es{i\in\{1,\ldots,N\}} \big\| \phi(x_i)^2-\Id \big\|_\tau^2 \,\leq\, 4\eps\;,\]
+by assumption and the definition of $\mu_R$. 
 \end{proof}
 
-\begin{claim}
-For every axis-parallel line $\ell\subseteq \F_q^m$ there is a projective measurement $\{Q^\ell_g\}$ such that 
+For ease of notation we relabel $\phi^{(1)}$ and $\eps^{(1)}$ as $\phi$ and $\eps$ respectively. We first exploit the relations $\{R^\had_k\}$ to show the following. 
+
+\begin{claim}\label{claim:z2-stab-2}
+Let $q=2^t$. 
+For every $u\in \F_q^m$ there is a projective measurement $\{P^u_\alpha\}_{\alpha\in \F_q}$ on $\mM$ such that 
+\[ \Es{u\in \F_q^m} \Es{\alpha\in \F_2^t} \big\| \phi(s_{u,\alpha}) - \sum_{\beta\in\F_2^t} (-1)^{\alpha \cdot \beta} P^u_\beta \big\|_\tau^2 \,=\, O(\eps)\;. \]
+\end{claim}
+
+\begin{proof}
+Since $\mu_R$ places weight $1/4$ on relations $\{R^\had_k\}$ we deduce that 
+\begin{equation}\label{eq:stab-rm-1}
+\Es{u\in \F_q^m} \Es{\alpha,\beta\in \F_2^t} \big\|\phi(s_{u,\alpha})\phi(s_{u,\beta})\phi(s_{u,\alpha+\beta})-\Id\big\|_\tau^2 \,\leq\, 4\eps\;. 
+\end{equation}
+Fix an $u\in \F_q^m$ and apply Lemma~\ref{lem:had-stab} for that $u$. This gives a partial isometry $w\in P\mM_\infty\Id_\mM$ and a family of commuting unitaries $\{U_\alpha\}$ on $\mN=P\mM_\infty P$ such that 
+\[ \Es{\alpha \in \F_2^t} \big\| \phi(s_{u,\alpha}) - w^* U_\alpha w \big\|_\tau^2 \,=\, O(\eps_u)\;,\]
+where $\eps_u\geq 0$ is such that $\Es{u\in \F_q^m} \eps_u = 4\eps$. Because $\{U_\alpha\}$ are a representation of $\F_2^t$, there is a projective measurement $\{Q^u_\alpha\}_{\alpha\in \F_2^t}$ on $\mN$ such that $U_\alpha = \sum_\beta (-1)^{\alpha\cdot \beta} Q^u_\beta$. ($\{Q^u_\alpha\}$ can be found explicitly by applying the Fourier transform.) Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{P^u_\alpha\}_{\alpha\in \F_2^t}$  on $\mM$ such that (by the triangle inequality)
+\[ \Es{\alpha \in \F_2^t} \big\| \phi(s_{u,\alpha}) - \sum_{\beta\in\F_2^t} (-1)^{\alpha \cdot \beta} P^u_\beta \big\|_\tau^2 \,=\, O(\eps_u)\;.\]
+\end{proof}
+
+The following claim will prove useful.
+
+\begin{claim}\label{claim:z2-stab-2b}\tnote{This will require a specific distribution on the commutation relations}
+\[ \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{i\neq i' \in \{0,\ldots,d+1\}} \big\| [P^{u+ie_j}_\alpha, P^{u+i'
+ e_{j}}_\beta ]\big\|_\tau^2 = O(\eps)\;. \]
+\end{claim}
+
+\begin{proof}
+From Claim~\ref{claim:z2-stab-2} we have that 
+\[ \Es{u\in \F_q^m} \Es{\alpha\in \F_2^t} \big\|\Es{\alpha\in \F_2^t} (-1)^{\alpha \cdot \beta} \phi(s_{u,\alpha}) -  P^u_\beta \big\|_\tau^2 \,=\, O(\eps)\;. \]
+The claim therefore follows from the commutation relations. 
+\end{proof}
+
+Next we exploit the relations $\{R^\ld_k\}$ to obtain the following. 
+
+\begin{claim}\label{claim:z2-stab-3}
+For every axis-parallel line $\ell\subseteq \F_q^m$ there is a projective measurement $\{Q^\ell_g\}$ on $\mM$ such that 
 \[ \Es{u\in \F_q^m} \sum_f \tau\big( P^u_{f(u)} Q^\ell_g\big) \,\geq\, 1-\poly(\eps)\;. \]
 \end{claim}
 
 \begin{proof}
-We first observe that the restriction of $\phi$ to $\{(u,a)\}$ for $u\in \ell$ and $a\in \F_2^t$ is an $\eps_\ell$-homomorphism of $\Z_2^{t(d+2)}$, where $\eps_\ell$ is such that $\Es{\ell} \eps_\ell = O(\eps)$. This is because we always include a commutation test. 
+Fix a direction $j\in \{1,\ldots,m\}$, an $u\in \F_q^m$, and let $u_i = u+ i e_j$ for $i\in \{0,\ldots,d+1\}$. Let $\{P^{u_i}_\alpha\}$ be the projective measurement obtained from Claim~\ref{claim:z2-stab-2}, and $U_i = \sum_\alpha \omega_q^\alpha P^u_\alpha$, where $\omega_q = e^{2i\pi/q}$. Then $U_i \in \mU(\mM)$. Furthermore, from Claim~\ref{claim:z2-stab-2b} we immediately get that
+\begin{equation}\label{eq:z2-stab-3-1}
+\Es{i\neq j \in \{0,\ldots,d+1\}} \big\| [U_i,U_j] \big\|_\tau^2 = O(\eps)\;.
+\end{equation}
+We define $\psi: \Z_q^{d+2} \to \mU(\mM)$ by 
+\[\psi(x_1,\ldots,x_{d+2}) \,=\, U_1^{x_1} \cdots U_{d+1}^{x_{d+1}}\;,\]
+which is well-defined since each $U_i$ has order $q$. Using~\eqref{eq:z2-stab-3-1}, the map $\psi$ is an $O(d\eps)$-approximate homomorphism of $\Z_q^{d+2}$ on $\mU(\mA)$. 
 
-Applying Lemma~\ref{lem:eff-z2} we derive commuting observables, from which we can create that $Q^\ell$.
+This allows us to apply Theorem~\ref{thm:gh} to obtain a partial isometry $w\in P\mM_\infty\Id_\mM$ and a family of commuting unitaries $\{V_i\}$ of order $q$ each on $\mN=P\mM_\infty P$ such that 
+\[ \Es{i\in \{0,\ldots,d+1\}} \big\| U_i - w^* V_i \big\|_\tau^2 \,=\, O(d\eps)\;.\]
+\tnote{Actually this is not quite the right distance measure}
+Because $\{V_i\}$ are a representation of $\F_q^{d+1}$, there is a projective measurement $\{Q_\alpha\}_{\alpha\in \F_q^{d+1}}$ on $\mN$ such that $U_\alpha = \sum_\beta (-1)^{\alpha\cdot \beta} Q^u_\beta$. ($\{Q^u_\alpha\}$ can be found explicitly by applying the Fourier transform.) Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{P^u_\alpha\}_{\alpha\in \F_2^t}$  on $\mM$ such that (by the triangle inequality)
+\[ \Es{\alpha \in \F_2^t} \big\| \phi(s_{u,\alpha}) - \sum_{\beta\in\F_2^t} (-1)^{\alpha \cdot \beta} P^u_\beta \big\|_\tau^2 \,=\, O(\eps_u)\;.\]
+
+
+
+Let $V_1,\ldots,V_{d+1}$ be commuting unitaries. POVM. Pull-back. 
+
+
+
 \end{proof}
 
 

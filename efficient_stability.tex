@@ -826,13 +826,14 @@ where $\{c_\alpha\}$ is a collection of coefficients in $\F_q$. It is easy to ve
 
 We define a local linear tester $M_{\RM}$ for the code $\mC_\RM$ over $\F_q$. The tester is introduced as an algorithmic procedure in Figure~\ref{fig:RM-tester}. From this description it is straightforward to deduce a description of the tester as a distribution $\nu$ on subsets of $\F_q^n$, where $n=q^m$, together with vectors $v_S\in F_q^S$ for every $S$ in the support of $\nu$. 
 
-To describe the tester we need to introduce interpolation coefficients, as follows. For $u\in \F_q$ and $i\in\{1,\ldots,d\}$ let 
-\[ \alpha_{u,i} = \frac{\prod_{\substack{i'=1\\i'\neq i}}^{d+1} i'}{\prod_{\substack{i'=1\\i'\neq i}}^{d+1} (i'-i)}\;.\]
-These are defined so that for any $f:\F_q\to\F_q$ of degree at most $d$, $f(u)=\sum_{i=1}^{d+1} \alpha_{u,i} f(u+i)$. The tester verifies this relation along a randomly chosen direction. 
-\tnote{Here I chose to specialize the ``line'' to $(d+2)$ consecutive points on it, which is notationally marginally simpler than $(d+2)$ uniformly random points on it. Hopefully it's fine}\tnote{edit: I think I want to have the line be $(d+1)$ consecutive points, and also query at another independent random point on the same line to check the interpolation}
+To describe the tester we need to introduce interpolation coefficients, as follows. For $u,v\in \F_q$ and $i\in\{0,\ldots,d\}$ let 
+\begin{equation}\label{eq:interp-coeff}
+ \alpha_{u,v,i} = \frac{\prod_{\substack{i'=0\\i'\neq i}}^{d} \big(v-(u+i')\big)}{\prod_{\substack{i'=0\\i'\neq i}}^{d} \big(u+i-(u+i')\big)}\;.
+\end{equation}
+These are defined so that for any $f:\F_q\to\F_q$ of degree at most $d$, 
+\[ f(v)\,=\, \sum_{i=0}^{d} \alpha_{u,v,i} \, f(u+i)\;.\]
+The tester verifies this relation along a randomly chosen direction. 
 
-
-%The second test applied by the tester, the subcube commutation test, may seem superfluous, because it always accepts. However, the test is important to show that the code is robust. Note that including the test imposes a non-trivial constraint of pairwise approximate commutation on representations of $\mC_\RM$, and hence also on $\eps$-local presentations. Both tests are easily seen to be linear; in particular, testing that $q$ entries match the truth table of a polynomial of degree at most $d$ can be done by checking $(n-d-1)$ linear equalities, because the set of evaluation vectors  of polynomials of  degree at most $d<m$ at any $m$ distinct points  is a linear subspace of dimension $(d+1)$ of $\F_q^m$. 
 
 \begin{figure}[!htbp]
   \centering
@@ -963,11 +964,14 @@ Let $G_\bRM = G(h_\bRM)$ be the group that is presented from $h_\bRM$. Explicitl
 \begin{figure}[!htbp]
   \centering
   \begin{gamespec}
-Given access to some $g\in (\F_2^t)^n$, where $n=q^m$, identify $g$ with a function $g:(\F_2^t)^m \times \F_2^t \to F_2$. Perform one of the following tests with probability~$\tfrac{1}{2}$ each. \tnote{Needs to be filled in}
+Given access to some $g\in (\F_2^t)^n$, where $n=q^m$, identify $g$ with a function $g:(\F_2^t)^m \times \F_2^t \to \F_2$. Perform one of the following tests with probability~$\tfrac{1}{2}$ each. 
 \begin{enumerate}
 	\item \textbf{Low-degree test:}
-		Let $u \sim \F_q^m$ be a uniformly random point and $j\sim \{1,\ldots,m\}$ chosen uniformly at random. Let $e_j=(0,\ldots,0,1,0,\ldots,0)\in \F_q^m$, where the unique $1$ is in the $j$-th position. 
-	\item \textbf{Hadamard test:} 	
+		Let $u \sim \F_q^m$ be a uniformly random point and $j\sim \{1,\ldots,m\}$ chosen uniformly at random. Let $\ell$ be the line through $u$ in the $j$-th direction. Let $e_j=(0,\ldots,0,1,0,\ldots,0)\in \F_q^m$, where the unique $1$ is in the $j$-th position. Choose a uniformly random $v\in \ell$ and $\gamma\in \F_q$ and check that 
+		\[\sum_{i=0}^d g(u+ie_j,\kappa(\gamma \alpha_{u,v,i})) \,=\, g(v,\kappa(\gamma))\;,\]
+		where $\alpha_{u,v,i}$ is defined in~\eqref{eq:interp-coeff}.
+	\item \textbf{Hadamard test:} Let $u\sim\F_q^m$ be chosen uniformly at random and $\alpha,\beta\in \F_2^t$ chosen uniformly at random. Check that 
+	\[g(u,\alpha)+g(u,\beta)\,=\,g(u,\alpha+\beta)\;.\] 	
     \end{enumerate}
   \end{gamespec}
   \caption{A local test for $\code_{\bRM}$}
@@ -981,8 +985,11 @@ Then we define
 \begin{equation}\label{eq:z2k-eff}
  G' \,=\,\big\langle x_1,\ldots,x_N \;:\; \{R^\sq_k\}\,,\; \{R^\ld_k\}\,,\; \{R^\had_{k}\}\, , \; \{ R^\com_k\}\big\rangle\;.
 \end{equation}
-From Lemma~\ref{lem:com-code} it follows that $G'=\Z_2^K$. Our main result is an efficient stability result for this presentation. To state this we need to introduce distributions $\mu_S$ and $\mu_R$ on the generators and relations of $G'$. The distribution $\mu_S$ is taken to be the uniform distribution over $[N] = (\F_2^t)^m \times \F_2^t$. The distribution $\mu_R$ is obtained as follows. With probability $1/4$ each, a relation from $\{R^\sq_k\}$, $\{R^\ld_k\}$ or $\{R^\had_k\}$ is chosen uniformly at random. With probability $1/4$, a random commutation relation from $R^\com_k$ is chosen according to the following distribution. First select $j\in\{1,\ldots,m\}$ and $u_{m-j+2},\ldots,u_m \in \F_2^t$ uniformly at random. Then select $v,v' \in (\F_2^t)^m$ uniformly at random, conditioned on the last $(j-1)$ coordinates matching $u_{m-j+2},\ldots,u_m$. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random. Check commutation between $x_{u,\alpha}$ and $x_{u,\beta}$. 
-
+From Lemma~\ref{lem:com-code} it follows that $G'=\Z_2^K$. Our main result is an efficient stability result for this presentation. To state this we need to introduce distributions $\mu_S$ and $\mu_R$ on the generators and relations of $G'$. The distribution $\mu_S$ is taken to be the uniform distribution over $[N] = (\F_2^t)^m \times \F_2^t$. The distribution $\mu_R$ is obtained as follows. With probability $1/4$ each, a relation from $\{R^\sq_k\}$, $\{R^\ld_k\}$ or $\{R^\had_k\}$ is chosen uniformly at random. With probability $1/4$, a random commutation relation from $R^\com_k$ is chosen according to the uniform mixture of the following two distributions:
+\begin{enumerate}
+\item For the first distribution, we select $u\in \F_q^m$ uniformly at random, $j\in\{1,\ldots,m\}$ uniformly at random, and $i\neq i'\in\{0,\ldots,d\}$ uniformly at random. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random and check commutation between $x_{u+i e_j,\alpha}$ and $x_{u+i' e_j,\beta}$. 
+\item For the second distribution, we first select $j\in\{1,\ldots,m\}$ and $u_{m-j+2},\ldots,u_m \in \F_2^t$ uniformly at random. Then select $v,v' \in (\F_2^t)^m$ uniformly at random, conditioned on the last $(j-1)$ coordinates matching $u_{m-j+2},\ldots,u_m$. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random and check commutation between $x_{u,\alpha}$ and $x_{u,\beta}$. 
+\end{enumerate}
 
 
 \begin{theorem}\label{thm:z2-stab}
@@ -991,13 +998,17 @@ The presentation of  $\Z_2^K$ given in~\eqref{eq:z2k-eff}, together with the dis
 \end{theorem}
 
 
-\begin{proof}\tnote{in progress}
+\begin{proof}
 Let $(\mM,\tau)$ be a tracial von Neumann algebra and $\phi$ be an $\eps$-homomorphism of $\langle S:R\rangle$ on $(\mU(\mM),\tau)$. 
- Here, $S = \{s_{u,\alpha}: u\in (\F_2^t)^m, \alpha\in \F_2^t\}$ and $R$ is the set of all relations in~\eqref{eq:z2k-eff}, i.e.\ $R= \{R^\ld_k\}\cup\{R^\had_k\}\cup\{R^\com_k\}$. We first show that we may assume without loss of generality that $\phi$ sends each element of $S$ to a Hermitian involution. 
+ Here, $S = \{s_{u,\alpha}: u\in (\F_2^t)^m, \alpha\in \F_2^t\}$ and $R$ is the set of all relations in~\eqref{eq:z2k-eff}, i.e.\ $R= \{R_k^\sq\}\cup \{R^\ld_k\}\cup\{R^\had_k\}\cup\{R^\com_k\}$. Let $N=|S|$.
+
+We first exploit the relations $R_k^\sq$ to show that we may assume without loss of generality that $\phi$ sends each element of $S$ to a Hermitian involution. 
 
 \begin{claim}\label{claim:z2-stab-1}
-There is an $\eps^{(1)}=O(\eps)$ and an $\eps^{(1)}$-homomorphism $\phi^{(1)}$ of $\langle S:R\rangle$ on $(\mU(\mM),\tau)$ such that $\phi^{(1)}(x)$ is a Hermitian involution for all $x\in S$, and furthermore
-\[ \Es{x\sim\mu} \big\| \phi(x) - \phi^{(1)}(x) \big\|_\tau^2 \,\leq\, \eps^{(1)}\;.\] 
+There is an $\eps^{(1)}=O(d\eps)$ and an $\eps^{(1)}$-homomorphism $\phi^{(1)}$ of $\langle S:R\rangle$ on $(\mU(\mM),\tau)$ such that $\phi^{(1)}(x)$ is a Hermitian involution for all $x\in S$, and furthermore
+\begin{equation}\label{eq:z2-stab-1a}
+ \Es{x\sim\mu_S} \big\| \phi(x) - \phi^{(1)}(x) \big\|_\tau^2 \,\leq\, \eps^{(1)}\;.
+\end{equation}
 \end{claim}
 
 \begin{proof}
@@ -1005,16 +1016,16 @@ Using elementary calculations (see e.g.~\cite[Lemma 3.6]{slofstra2019set}) we se
 \[ \big| \sgn\Re\alpha-\alpha\big| \,\leq\, \Big(1+\frac{1}{\sqrt{2}}\Big) \big|\alpha^2 -1 \big|\;.\]
 For any $i\in \{1,\ldots,N\}$ let $\phi^{(1)}(x_i) = \sgn\Re (\phi(x_i))$. Then the claim follows since 
 \[ \Es{i\in\{1,\ldots,N\}} \big\| \phi(x_i)^2-\Id \big\|_\tau^2 \,\leq\, 4\eps\;,\]
-by assumption and the definition of $\mu_R$. 
+by assumption and the definition of $\mu_R$, which places weight $\frac{1}{4}$ on the relations in $R_k^\sq$. Since $\mu_S$ is uniform on $S$,~\eqref{eq:z2-stab-1a} follows. Furthermore, because all relations in $R$ have length at most $O(d)$, $\phi^{(1)}$ is an $O(d\eps)$-homomorphism of $\langle S:R\rangle$\footnote{This requires more explanation, e.g.\ we need the marginal of any variable appearing in a relation to be uniform. I'm also not sure it's not $d^2$ instead of $d$.}. 
 \end{proof}
 
-For ease of notation we relabel $\phi^{(1)}$ and $\eps^{(1)}$ as $\phi$ and $\eps$ respectively. We first exploit the relations $\{R^\had_k\}$ to show the following. 
+For ease of notation we relabel $\phi^{(1)}$ and $\eps^{(1)}$ as $\phi$ and $\eps$ respectively. Next we exploit the relations $\{R^\had_k\}$ to show the following. 
 
 \begin{claim}\label{claim:z2-stab-2}
 Let $q=2^t$. 
-For every $u\in \F_q^m$ there is a projective measurement $\{P^u_\alpha\}_{\alpha\in \F_{2^t}}$ on $\mM$ such that 
+For every $u\in \F_q^m$ there is a projective measurement $\{P^u_\alpha\}_{\alpha\in \F_{q}}$ on $\mM$ such that 
 \begin{equation}\label{eq:z2-stab-2}
- \Es{u\in \F_q^m} \Es{\alpha\in \F_2^t} \big\| \phi(s_{u,\alpha}) - \sum_{\beta\in\F_2^t} (-1)^{\alpha \cdot \beta} P^u_\beta \big\|_\tau^2 \,=\, O(\eps)\;. 
+ \Es{u\in \F_q^m} \Es{\alpha\in \F_2^t} \Big\| \phi(s_{u,\alpha}) - \sum_{\beta\in\F_q} (-1)^{\alpha \cdot \kappa(\beta)} P^u_\beta \Big\|_\tau^2 \,=\, O(\eps)\;. 
 \end{equation}
 \end{claim}
 
@@ -1023,15 +1034,24 @@ Since $\mu_R$ places weight $1/4$ on relations $\{R^\had_k\}$ we deduce that
 \begin{equation}\label{eq:stab-rm-1}
 \Es{u\in \F_q^m} \Es{\alpha,\beta\in \F_2^t} \big\|\phi(s_{u,\alpha})\phi(s_{u,\beta})\phi(s_{u,\alpha+\beta})-\Id\big\|_\tau^2 \,\leq\, 4\eps\;. 
 \end{equation}
-Fix an $u\in \F_q^m$ and apply Lemma~\ref{lem:had-stab} for that $u$. This gives a partial isometry $w\in P\mM_\infty\Id_\mM$ and a family of commuting unitaries $\{U_\alpha\}$ on $\mN=P\mM_\infty P$ such that 
-\[ \Es{\alpha \in \F_2^t} \big\| \phi(s_{u,\alpha}) - w^* U_\alpha w \big\|_\tau^2 \,=\, O(\eps_u)\;,\]
-where $\eps_u\geq 0$ is such that $\Es{u\in \F_q^m} \eps_u = 4\eps$. Because $\{U_\alpha\}$ are a representation of $\F_2^t$, there is a projective measurement $\{Q^u_\alpha\}_{\alpha\in \F_2^t}$ on $\mN$ such that $U_\alpha = \sum_\beta (-1)^{\alpha\cdot \beta} Q^u_\beta$. ($\{Q^u_\alpha\}$ can be found explicitly by applying the Fourier transform.) Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{P^u_\alpha\}_{\alpha\in \F_2^t}$  on $\mM$ such that (by the triangle inequality)
-\[ \Es{\alpha \in \F_2^t} \big\| \phi(s_{u,\alpha}) - \sum_{\beta\in\F_2^t} (-1)^{\alpha \cdot \beta} P^u_\beta \big\|_\tau^2 \,=\, O(\eps_u)\;.\]
+Fix an $u\in \F_q^m$ and apply Lemma~\ref{lem:had-stab} for that $u$. This gives a partial isometry $w\in P\mM_\infty\Id_\mM$ and a representation $\{U_\alpha\}$ of $\F_2^t$ on $\mN=P\mM_\infty P$ such that 
+\begin{equation}\label{eq:stab-rm-1b}
+ \Es{\alpha \in \F_2^t} \big\| \phi(s_{u,\alpha}) - w^* U_\alpha w \big\|_\tau^2 \,=\, O(\eps_u)\;,
+\end{equation}
+where $\eps_u\geq 0$ is such that $\Es{u\in \F_q^m} \eps_u = 4\eps$. Because $\{U_\alpha\}$ are a representation of the abelian group $\F_2^t$, there is a projective measurement $\{Q^u_\beta\}_{\beta\in \F_2^t}$ on $\mN$ such that $U_\alpha = \sum_\beta (-1)^{\alpha\cdot \beta} Q^u_\beta$. ($\{Q^u_\beta\}$ can be found explicitly by applying the Fourier transform.) Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{P^u_\beta\}_{\beta\in \F_q}$  on $\mM$ such that (by the triangle inequality)
+\begin{align*}
+ \Es{\alpha \in \F_2^t} \Big\| \phi(s_{u,\alpha}) - \sum_{\beta\in\F_q} (-1)^{\alpha \cdot \kappa(\beta)} P^u_\beta \Big\|_\tau^2
+&\leq 2 \Es{\alpha \in \F_2^t} \Big( \Big\| \phi(s_{u,\alpha}) - w^*\Big(\sum_{\beta\in\F_2^t} (-1)^{\alpha \cdot (\beta)} Q^u_\beta \Big) w \Big\|_\tau^2 \\
+&\qquad\qquad+   \Big\|  \sum_{\beta\in\F_2^t} (-1)^{\alpha \cdot \beta} w^* Q^u_\beta w - \sum_{\beta\in\F_q} (-1)^{\alpha \cdot \kappa(\beta)} P^u_\beta \Big\|_\tau^2\Big)\\
+ &\leq\, O(\eps_u) +  \sum_{\beta\in\F_q} \Big\| w^* Q^u_{\kappa(\beta)} w - P^u_{\beta} \Big\|_\tau^2\\
+&\leq O(\eps_u)\;,
+\end{align*}
+where the first inequality follows from the triangle inequality, the second is by~\eqref{eq:stab-rm-1b} for the first term and Parseval's identity for the second, and the last by the guarantees obtained from Lemma~\ref{lem:pull-back}.
 \end{proof}
 
-For $u\in \F_q^m$ let $\{P^{u}_\alpha\}_{\alpha \in \F_2^t}$ be the projective measurement obtained from Claim~\ref{claim:z2-stab-2}, and 
-\[ U_u = \sum_{\alpha\in\F_q} \omega_q^\alpha P^u_{\kappa(\alpha)}\;,\]
-where $\omega_q = e^{2i\pi/q}$. Then $U_i \in \mU(\mM)$. 
+For $u\in \F_q^m$ let $\{P^{u}_\beta\}_{\beta \in \F_q}$ be the projective measurement obtained from Claim~\ref{claim:z2-stab-2}, and 
+\[ U_u = \sum_{\beta\in\F_q} \omega_q^\beta P^u_{\beta}\;,\]
+where $\omega_q = e^{2i\pi/q}$. Then $U_u \in \mU(\mM)$. 
 
 %We observe that
 %\begin{equation}\label{eq:z2-stab-2a}
@@ -1045,80 +1065,134 @@ where $\omega_q = e^{2i\pi/q}$. Then $U_i \in \mU(\mM)$.
 %\end{align*}
 %where in the last line we slightly abused notation and identified $\alpha,\beta\in\F_q$ with $\kappa(\alpha),\kappa(\beta)\in \F_2^t$ respectively. \eqref{eq:z2-stab-2a} then follows from~\eqref{eq:z2-stab-2}.
 
-\begin{claim}\label{claim:z2-stab-2b}\tnote{This will require a specific distribution on the commutation relations}
-For $u\in \F_q^m$, $j\in\{1,\ldots,m\}$ and $i\in \{0,\ldots,d+1\}$ let $U_{i} = U_{u+ie_j}$ and $P^{(i)}_\alpha = P^{u+ie_j}_\alpha$ (leaving the dependence on $u$ implicit). Then 
-\[ \Es{u\in \F_q^m} \Es{\substack{j\in\{1,\ldots,m\}\\i\neq i' \in \{0,\ldots,d+1\}}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_i^\alpha, U_{i'}^{\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;. \]
+\begin{claim}\label{claim:z2-stab-2b}
+For $u\in \F_q^m$, $j\in\{1,\ldots,m\}$ and $i\in \{0,\ldots,d\}$ let $U_{i} = U_{u+ie_j}$ and, for all $\beta\in\F_q$, $P^{(i)}_\beta = P^{u+ie_j}_\beta$ (leaving the dependence on $u$ implicit). Then 
+\begin{equation}\label{eq:z2-stab-2b-0a}
+\Es{u\in \F_q^m} \Es{\substack{j\in\{1,\ldots,m\}\\i\neq i' \in \{0,\ldots,d\}}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_i^\alpha, U_{i'}^{\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;, 
+\end{equation}
+and
+\begin{equation}\label{eq:z2-stab-2b-0b}
+ \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_u^\alpha, U_{v}^{\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;,
+\end{equation}
+where the expectation is over a uniformly random $u$ and $j$, and a uniformly random $v$ conditioned on its last $(j-1)$ coordinates matching those of $u$. 
 \end{claim}
 
 \begin{proof}
-Due to the test of the relations $\{R^\com_k\}$, it holds that \tnote{this will depend on the distribution placed on commutation relations} 
-\begin{equation}\label{eq:z2-stab-2b-1}
-\Es{u\in \F_q^m} \Es{\substack{j\in\{1,\ldots,m\} \\ i\neq i' \in \{0,\ldots,d+1\}}} \Es{\alpha,\beta\in \F_q} \big\| [\phi(s_{u+i e_j,\alpha}),\phi(s_{u+i' e_j,\beta})] - \Id \big\|_\tau^2 = O(\eps)\; .
-\end{equation}
-Now, for $u\in \F_q^m$, $j\in \{1,\ldots,m\}$ and $i,i'\in \{0,\ldots,d+1\}$,
+Due to the test of the relations $\{R^\com_k\}$, it holds that \tnote{this will depend on the distribution placed on commutation relations; the factor $4$ might be off} 
+\begin{align}
+\Es{u\in \F_q^m} \Es{\substack{j\in\{1,\ldots,m\} \\ i\neq i' \in \{0,\ldots,d\}}} \Es{\alpha,\beta\in \F_q} \big\| [\phi(s_{u+i e_j,\alpha}),\phi(s_{u+i' e_j,\beta})] - \Id \big\|_\tau^2&\leq 8\eps\; ,\label{eq:z2-stab-2b-1}\\
+\Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}}\Es{\alpha,\alpha'\in \F_q} \big\| [\phi(s_{u,\alpha}),\phi(s_{v,\beta})]-\Id\big\|_\tau^2&\leq 8\eps\;.\label{eq:z2-stab-2b-1b}
+\end{align}
+Now, for any $u,v\in \F_q^m$
 \begin{align*}
-\Es{\alpha,\alpha'\in \F_q} &\tau\big( U_i^\alpha U_{i'}^{\alpha'} U_i^{-\alpha} U_{i'}^{-\alpha'} \big) \\
-&= \sum_{\beta,\beta',\gamma,\gamma'\in \F_q}\Es{\alpha\in \F_q} \omega_q^{\alpha(\beta-\beta')} \Es{\alpha'\in \F_q} \omega_q^{\alpha'(\gamma-\gamma')} \tau(P^{(i)}_{\kappa(\beta)} P^{(i')}_{\kappa(\gamma)} P^{(i)}_{\kappa(\beta')} P^{(i')}_{\kappa(\gamma')}\big)\\
-&=\sum_{\beta,\beta',\gamma,\gamma'\in \F_2^t}\Es{\alpha\in\F_2^t} (-1)^{\alpha(\beta-\beta')} \Es{\alpha'\in\F_2^t} (-1)^{\alpha'(\gamma-\gamma')} \tau(P^{(i)}_\beta P^{(i')}_\gamma P^{(i)}_{\beta'} P^{(i')}_{\gamma'}\big)\\
-&=\Es{\alpha,\alpha'\in\F_2^t}  \tau\Big( \Big(\sum_{\beta\in \F_2^t} (-1)^{\alpha\cdot \beta} P^{(i)}_\beta\Big) \Big(\sum_{\gamma\in \F_2^t} (-1)^{\alpha'\cdot \gamma} P^{(i')}_\gamma\Big)\Big(\sum_{\beta'\in \F_2^t} (-1)^{\alpha\cdot \beta'} P^{(i)}_{\beta'}\Big)\Big(\sum_{\gamma'\in \F_2^t} (-1)^{\alpha'\cdot \gamma'} P^{(i')}_{\gamma'}\Big)\Big)\;.
+\Es{\alpha,\alpha'\in \F_q} &\tau\big( U_u^\alpha U_{v}^{\alpha'} U_u^{-\alpha} U_{v}^{-\alpha'} \big) \\
+&= \sum_{\beta,\beta',\gamma,\gamma'\in \F_q}\Es{\alpha\in \F_q} \omega_q^{\alpha(\beta-\beta')} \Es{\alpha'\in \F_q} \omega_q^{\alpha'(\gamma-\gamma')}  \tau(P^{u}_\beta P^{v}_\gamma P^{u}_{\beta'} P^{v}_{\gamma'}\big)\\
+&=\sum_{\beta,\beta',\gamma,\gamma'\in \F_q}\Es{\alpha\in\F_2^t} (-1)^{\alpha\cdot\kappa(\beta-\beta')} \Es{\alpha'\in\F_2^t} (-1)^{\alpha'\cdot\kappa(\gamma-\gamma')} \tau(P^{u}_\beta P^{v}_\gamma P^{u}_{\beta'} P^{v}_{\gamma'}\big)\\
+&=\Es{\alpha,\alpha'\in\F_2^t}  \tau\Big( \Big(\sum_{\beta\in \F_q} (-1)^{\alpha\cdot \kappa(\beta)} P^{u}_\beta\Big) \Big(\sum_{\gamma\in \F_q} (-1)^{\alpha'\cdot \kappa(\gamma)} P^{v}_\gamma\Big)\Big(\sum_{\beta'\in \F_q} (-1)^{\alpha\cdot \kappa(\beta')} P^{u}_{\beta'}\Big)\Big(\sum_{\gamma'\in \F_q} (-1)^{\alpha'\cdot \kappa(\gamma')} P^{v}_{\gamma'}\Big)\Big)\;.
 \end{align*}
 Here, the second line follows since for $\beta,\beta'\in \F_q$,
-\[ \Es{\alpha\in \F_q} \omega_q^{\alpha(\beta-\beta')}\,=\,\Es{\alpha\in\F_2^t} (-1)^{\alpha(\kappa(\beta)-\kappa(\beta'))}\,=\delta_{\beta,\beta'}\;.\]
-It follows that, on average over uniformly random $u\in \F_q^m$, $j\in \{1,\ldots,m\}$ and $i,i'\in \{0,\ldots,d+1\}$,
+\[ \Es{\alpha\in \F_q} \omega_q^{\alpha(\beta-\beta')}\,=\,\Es{\alpha\in\F_2^t} (-1)^{\alpha\cdot \kappa(\beta-\beta')}\,=\delta_{\beta,\beta'}\;.\]
+It follows that, for any distribution on $(u,v)$ such that both marginals are uniform over $\F_q^m$,
 \begin{align*}
-\Es{\alpha,\alpha'\in \F_q} \big\| [U_i^\alpha ,U_{i'}^{\alpha'} ]-\Id\big\|_\tau^2
-&= \Es{\alpha,\alpha'\in \F_2^t} \Big\| \Big[\sum_{\beta\in \F_2^t} (-1)^{\alpha\cdot \beta} P^{(i)}_\beta ,\sum_{\beta'\in \F_2^t} (-1)^{\alpha\cdot \beta'} P^{(i')}_{\beta'} \Big]-\Id\Big\|_\tau^2\\
-&= \Es{\alpha,\alpha'\in \F_2^t} \big\| \big[ \phi(s_{u+i e_j,\alpha}),\phi(s_{u+i'e_j,\alpha'})\big]-\Id\big\|_\tau^2+O\big(\sqrt{\eps}\big)\;,
+\Es{u,v} \Es{\alpha,\alpha'\in \F_q} \big\| [U_u^\alpha ,U_{v}^{\alpha'} ]-\Id\big\|_\tau^2
+&= \Es{\alpha,\alpha'\in \F_2^t} \Big\| \Big[\sum_{\beta\in \F_q} (-1)^{\alpha\cdot \kappa(\beta)} P^{u}_\beta ,\sum_{\beta'\in \F_2^t} (-1)^{\alpha\cdot \kappa(\beta')} P^{v}_{\beta'} \Big]-\Id\Big\|_\tau^2\\
+&= \Es{\alpha,\alpha'\in \F_2^t} \big\| \big[ \phi(s_{u,\alpha}),\phi(s_{v,\alpha'})\big]-\Id\big\|_\tau^2+O\big(\sqrt{\eps}\big)\;,
 \end{align*}
-where the second line follows from Claim~\ref{claim:z2-stab-2}. This last expression is bounded by~\eqref{eq:z2-stab-2b-1}.
+where the second line follows from Claim~\ref{claim:z2-stab-2}. Thus~\eqref{eq:z2-stab-2b-0a} follows from~\eqref{eq:z2-stab-2b-1}, and~\eqref{eq:z2-stab-2b-0b} follows from~\eqref{eq:z2-stab-2b-1b}.
 \end{proof}
 
-Next we exploit the relations $\{R^\ld_k\}$ to obtain the following. 
+Now we show the following, which essentially follows from the previous claim. 
 
 \begin{claim}\label{claim:z2-stab-3}
-For every $u\in \F_q^m$ and axis-parallel line $\ell\subseteq \F_q^m$ through $u$ in the $j$-th direction there is a projective measurement $\{Q^{u,j}_g\}$ on $\mM$ such that 
-\[  \Es{x_0,\ldots,x_{d}\in \F_q} \Big\| U_0^{x_0}\cdots U_d^{x_d} -  \sum_{g} \omega^{\sum x_ig(u+ie_j)} R^{u,j}_g\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
+For every $u\in \F_q^m$ and $j\in\{1,\ldots,m\}$, there is a projective measurement $\{R^{u,j}_\alpha\}_{\alpha\in\F_q^{d+1}}$ on $\mM$ such that 
+\[ \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{x_0,\ldots,x_{d}\in \F_q} \Big\| U_0^{x_0}\cdots U_d^{x_d} -  \sum_{\alpha} \omega^{\sum x_i\alpha_i} R^{u,j}_\alpha\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
+Similarly, for any $u,v\in \F_q^m$ there is a projective measurement $\{R^{u,v}_{\alpha,\beta}\}_{(\alpha,\beta)\in\F_q^{2}}$ on $\mM$ such that 
+\[  \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}} \Es{x,y\in \F_q} \Big\| U_u^{x}  U_v^{y} -  \sum_{\alpha} \omega^{ \alpha x + \beta y} R^{u,v}_{\alpha,\beta}\Big\|_\tau^2 \,=\, \poly(\eps)\;.\]
 \end{claim}
 
 \begin{proof}
-Fix an $u\in \F_q^m$ and a direction $j\in \{1,\ldots,m\}$. Define
+We show the first part only, as the second part is entirely analogous. Fix an $u\in \F_q^m$ and a direction $j\in \{1,\ldots,m\}$. Define
 $\psi: \Z_q^{d+1} \to \mU(\mM)$ by 
 \[\psi(x_0,\ldots,x_{d}) \,=\, U_0^{x_0} \cdots U_{d}^{x_{d}}\;,\]
-where for each $i\in\{0,\ldots,d\}$, $U_i$ is the order-$q$ unitary defined in Claim~\ref{claim:z2-stab-2b}. Using Claim~\ref{claim:z2-stab-2b} and the triangle inequality we verify that the map $\psi$ is a $\delta=O(d^2\sqrt{\eps})$-approximate homomorphism of $\Z_q^{d+1}$ on $\mU(\mA)$, with respect to the exhaustive presentation\tnote{need to give details and check exponents of $d$,$\eps$}.  
-
+where for each $i\in\{0,\ldots,d\}$, $U_i$ is the order-$q$ unitary defined in Claim~\ref{claim:z2-stab-2b}. Using Claim~\ref{claim:z2-stab-2b} and the triangle inequality we verify that the map $\psi$ is a $\delta=O(d^4\sqrt{\eps})$-approximate homomorphism of $\Z_q^{d+1}$ on $\mU(\mA)$, with respect to the exhaustive presentation. To verify this first note that for any unitaries $V,W$, and any $i,i'$ we have that on average over $u$ and $j$,
+\begin{align*}
+\Es{\alpha,\alpha'\in \F_q} \big\| V U_i^\alpha U_{i'}^{\alpha'} W^* - V U_{i'}^{\alpha'} U_i^\alpha  W^*\big\|_\tau^2 \,=\, O\big(d^2 \sqrt{\eps}\big)\;,
+\end{align*}
+by Claim~\ref{claim:z2-stab-2b}, where the factor $d^2$ is because we require the relation to hold for all $i,i'$. Applying this relation $O(d^2)$ times gives
+\begin{align*}
+ \Es{x_0,\ldots,x_d\in\F_q}\Es{y_0,\ldots,y_d\in\F_q}\big\|\psi(x_0,\ldots,x_d)\psi(y_0,\ldots,y_d) -\psi(x_0+y_0,\ldots,x_d+y_d)\big\|_\tau^2 \,=\, O\big(d^4 \sqrt{\eps}\big)\;,
+\end{align*}
+as desired.
 Thus we may apply Theorem~\ref{thm:gh} to obtain a partial isometry $w\in P\mM_\infty\Id_\mM$ and a family of commuting unitaries $\{V_i\}$ of order $q$ each on $\mN=P\mM_\infty P$ such that, on average over $u$ and $j$,
-\[ \Es{x_0,\ldots,x_{d}} \big\| \psi(x_0,\ldots,x_{d+1}) - w^* V_0^{x_0}\cdots V_{d}^{x_{d}} w \big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
+\begin{equation}\label{eq:z2-stab-3-1}
+\Es{x_0,\ldots,x_{d}\in\F_q} \big\| \psi(x_0,\ldots,x_{d+1}) - w^* V_0^{x_0}\cdots V_{d}^{x_{d}} w \big\|_\tau^2 \,=\, \poly(d,\eps)\;.
+\end{equation}
 Because $\{V_i\}$ are a representation of $\Z_q^{d+1}$ (which is Abelian), there is a projective measurement $\{Q_\alpha\}_{\alpha\in \F_q^{d+1}}$ on $\mN$ such that for each $i\in\{0,\ldots,d\}$, 
 \[ V_i \,=\, \sum_{\alpha\in \Z_q^{d+1}} \omega^{\alpha_i} Q_\alpha\;,\]
 and  
 \[ V_0^{x_0}\cdots V_{d}^{x_{d}}  \,=\, \sum_{\alpha\in \Z_q^{d+1}} \omega^{\sum x_i\alpha_i} Q_\alpha\;.\]
 %($\{Q^u_\alpha\}$ can be found explicitly by applying the Fourier transform.) 
-Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{R^u_\alpha\}_{\alpha\in \Z_q^{d+1}}$  on $\mM$ such that, on average over $u$ and $j$,
-\[  \Es{x_0,\ldots,x_{d}} \Big\| \psi(x_0,\ldots,x_{d+1}) -  \sum_{\alpha\in \Z_q^{d+1}} \omega^{\sum x_i\alpha_i} R_\alpha\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
-For $\ell$ the line going through $u$ and parallel to the $j$-th axis, define $Q^\ell_g = R_{(g(u),\ldots,g(u+de_i))}$.
+Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{R^{u,j}_\alpha\}_{\alpha\in \Z_q^{d+1}}$  on $\mM$ such that by~\eqref{eq:z2-stab-3-1}, on average over $u$ and $j$,
+\[  \Es{x_0,\ldots,x_{d}\in\F_q} \Big\| \psi(x_0,\ldots,x_{d+1}) -  \sum_{\alpha\in \Z_q^{d+1}} \omega^{\sum x_i\alpha_i} R_\alpha^{u,j}\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
 \end{proof}
 
-Next we show that the statement of Claim~\ref{claim:z2-stab-3} can be strengthened to \emph{every} $x_0,\ldots,x_{d}$, instead of on average. This is done in the next claim. 
 
-\begin{claim}\label{claim:z2-stab-4}
-With the same notation as in Claim~\ref{claim:z2-stab-3}, for any $x_0,\ldots,x_d\in \F_q$ it holds that
-\[  \Big\| U_0^{x_0}\cdots U_d^{x_d} -  \sum_{g} \omega^{\sum x_ig(u+ie_j)} R^{u,j}_g\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
+
+Next we exploit the relations $\{R^\ld_k\}$ to obtain the following. 
+
+\begin{claim}\label{claim:z2-stab-5}
+Use the same notation as in Claim~\ref{claim:z2-stab-2b}. Let $u\in \F_q^m$, $\ell$ an axis-parallel line through $u$ and $v\in\F_q^m\cap \ell$. Let $(\alpha_{u,v,i})_{i=0,\ldots,d}$ be the interpolation coefficients~\eqref{eq:interp-coeff}. Let $U_v = \sum_\beta \omega^\beta P^v_\beta$. Then 
+\begin{equation}\label{eq:z2-stab-5-0}
+\Es{u\in\F_q^m} \Es{\ell: u\in \ell} \Es{v\in \ell} \Es{\gamma\in\F_q} \Big\| U_0^{\gamma \alpha_{u,v,0}}\cdots U_d^{\gamma  \alpha_{u,v,d}} - U_v^\gamma \big\|_\tau^2 \,=\, 1-O\big(d\sqrt{\eps}\big)\;,
+\end{equation}
+where the expectation is over a uniformly random axis-parallel line that contains $u$, and a uniformly random $v\in\ell$. 
 \end{claim}
 
 \begin{proof}
-For any $y_0,\ldots,y_d\in \F_q$ we can write 
-\[ U_0^{x_0}\cdots U_d^{x_d}\,=\, U_0^{y_0}U_0^{x_0-y_0}\cdots U_d^{y_d}U_0^{x_0-y_0}\;.\]
-By repeated application of Claim~\ref{claim:z2-stab-2b}, the term on the right-hand side is 
-\[  U_0^{y_0}U_0^{x_0-y_0}\cdots U_d^{y_d}U_0^{x_0-y_0} \,\simeq_{\poly(d,\eps)}U_0^{y_0}\cdots U_d^{y_d}U_0^{x_0-y_0}\cdots U_d^{x_d-y_d}\;.\]
-To show this it suffices to verify that we only need to ``commute'' pairs of terms whose exponents are indepent and uniformly random. The conclusion then follows by two applications of Claim~\ref{claim:z2-stab-3}.
+Write $\alpha_i$ for $\alpha_{u,v,i}$. 
+We observe that 
+\begin{align*}
+\Es{\gamma\in\F_q} \tau\big( U_0^{\gamma\alpha_{0}}\cdots U_d^{\gamma\alpha_{d}} U_v^{-\gamma} \big)
+&=  \sum_{\beta_0,\ldots,\beta_d\in\F_q}\sum_{\beta\in\F_q} \Es{\gamma\in\F_q} \omega^{\sum \gamma \alpha_i\beta_i} \omega^{-\gamma\beta} \tau\big( P^{(0)}_{\beta_0} \cdots P^{(d)}_{\beta_d} P^v_\beta \big)\\
+&= \sum_{\beta_0,\ldots,\beta_d\in\F_q}\sum_{\beta\in\F_q}\Es{\gamma\in\F_2^t} (-1)^{\gamma\cdot \kappa(\sum \alpha_i\beta_i-\beta)} \tau\big( P^{(0)}_{\beta_0} \cdots P^{(d)}_{\beta_d} P^v_\beta \big)\\
+&=\Es{\gamma\in\F_2^t}  \tau\Big( \Big(\sum_{\beta_0\in \F_q} (-1)^{\gamma\cdot \kappa(\alpha_0\beta_0)} P^{(0)}_{\beta_0} \Big)\cdots\Big(\sum_{\beta\in \F_q} (-1)^{-\gamma\cdot \kappa(\beta)} P^{v}_{\beta} \Big)\Big)\\
+&=\Es{\gamma\in\F_q}  \tau\Big( \Big(\sum_{\beta_0\in \F_q} (-1)^{\kappa( \gamma \alpha_0)\cdot\kappa(\beta_0)} P^{(0)}_{\beta_0} \Big)\cdots\Big(\sum_{\beta\in \F_q} (-1)^{\kappa(-\gamma)\cdot \kappa(\beta)} P^{v}_{\beta} \Big)\Big)\;.
+\end{align*}
+By repeated application of Claim~\ref{claim:z2-stab-2}, the last expression is within $O(d\sqrt{\eps})$ of 
+\[ \Es{\gamma\in\F_q}  \tau\big( \phi(s_{u+ie_j,\kappa(\gamma \alpha_0)})\cdots \phi(s_{v,\kappa(-\gamma)}) \big)\;.\]
+The latter expression is a random relation in $R^\ld_k$, and so, on average over $u,j$ and $v$ it is $1-O(\eps)$.
 \end{proof}
 
-Applying Claim~\ref{claim:z2-stab-4} to the interpolation coefficients $x_0,\ldots,x_d$, by Fourier transform we obtain
-\[ \Es{u\in \F_q^m} \sum_g \tau\big( P^u_{g(u)} Q^\ell_g\big) \,\geq\, 1-\poly(\eps)\;. \]
-\tnote{This should be one more claim. There are some parts to handle, e.g. the distribution on points, etc.}
 
-\tnote{Now we are ready to define a strategy and check that it succeeds in the tensor-codes game}
+\begin{claim}\label{claim:z2-stab-4}
+For every axis-parallel line $\ell$ there is a projective measurement $\{Q^\ell_g\}$ with outcomes $g$ that range over degree-$d$ polynomials on $\ell$ such that
+\[ \Es{\ell\subset \F_q^m} \Es{v\in \ell} \sum_g \tau\big( P^v_{g(v)} Q^\ell_g\big) \,\geq\, 1-\poly(d,\eps)\;, \]
+where the expectation is over a uniformly random axis-parallel line $\ell$ and point $v\in \ell$. 
+\end{claim}
 
+\begin{proof}
+First we show that the conclusion of Claim~\ref{claim:z2-stab-3} can be strengthened to hold for \emph{every} $x_0,\ldots,x_{d}$, instead of on average. To show this, note that for any $y_0,\ldots,y_d\in \F_q$ we can write 
+\[ U_0^{x_0}\cdots U_d^{x_d}\,=\, U_0^{y_0}U_0^{x_0-y_0}\cdots U_d^{y_d}U_d^{x_d-y_d}\;.\]
+By repeated application of Claim~\ref{claim:z2-stab-2b}, the term on the right-hand side satisfies 
+\[ \big\| U_0^{y_0}U_0^{x_0-y_0}\cdots U_d^{y_d}U_d^{x_d-y_d}  - U_0^{y_0}\cdots U_d^{y_d}U_0^{x_0-y_0}\cdots U_d^{x_d-y_d}\big\|_\tau^2 \,=\,\poly(d,\eps)\;.\]
+To show this it suffices to verify that we only need to ``commute'' pairs of terms whose exponents are independent and uniformly random. Using Claim~\ref{claim:z2-stab-3} twice, the right-hand side satisfies
+\[ \big\| U_0^{y_0}\cdots U_d^{y_d}U_0^{x_0-y_0}\cdots U_d^{x_d-y_d} - \Big(\sum_{\alpha} \omega^{\sum y_i\alpha_i} R^{u,j}_\alpha\Big)\Big(\sum_{\alpha} \omega^{\sum (x_i-y_i)\alpha_i} R^{u,j}_\alpha\Big) \big\|_\tau^2 \,=\,\poly(d,\eps)\;.\]
+Since $\{R^{u,j}_\alpha\}$ is a projective measurement, we get the desired conclusion: on average over $u$ and $j$, for any $x_0,\ldots,x_d\in\F_q$, it holds that 
+\begin{equation}\label{eq:z2-stab-4-1}
+ \Big\| U_0^{x_0}\cdots U_d^{x_d} -  \sum_{\alpha} \omega^{\sum x_i\alpha_i} R^{u,j}_\alpha\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
+	\end{equation}
+	For any line $\ell \subset \F_q^m$, let $u_\ell\in \ell$ be chosen such that, for a uniformly random $\ell$ and conditioned on that $u_\ell$,~\eqref{eq:z2-stab-4-1} and~\label{eq:z2-stab-5-0} both hold, with right-hand side multiplied by a factor at most $2$. For any $\ell$ in the $j$-th direction and degree-$d$ polynomial $g$, let $Q^\ell_g = R^{u_\ell,j}_{g(u_\ell),\ldots,g(u_\ell+de_j)}$.
+	Combining the two equations we deduce
+	\begin{equation}\label{eq:z2-stab-4-2}
+ \Es{\gamma\in\F_q} \Big\| U_v^\gamma -  \sum_{g} \omega^{\gamma \sum \alpha_{u_\ell,v,i} g(u_\ell+ie_j)} Q^{\ell}_g\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
+	\end{equation}
+	By definition, $\sum \alpha_{u_\ell,v,i} g(u_\ell+ie_j) = g(v)$. By Fourier transform, we obtain the desired conclusion. 
+\end{proof}
+
+
+We are now in a position to apply~\cite[Theorem 4.1]{ji2022quantum}. For this we need to define a synchronous strategy in the tensor code test $\code^{\otimes m}$, where $\code$ is the Reed-Solomon code with degree $d$ over $\F_q$, and thus $\code^{\otimes m}$ is the code $\code_\RM$ is the code considered in Section~\ref{sec:rmq}. For the ``points measurement'' $A^u$ we choose $P^u$. For the ``lines measurement'' $B^\ell$ we choose $Q^\ell$ from Claim~\ref{claim:z2-stab-4}. Finally, for the ``pair measurement'' $P^{u,v}$ we choose $R^{u,v}$ from Claim~\ref{claim:z2-stab-3}. By Claim~\ref{claim:z2-stab-4} this strategy succeeds with probability $1-\poly(d,\eps)$ in the ``axis-parallel lines test'', and by Claim~\ref{claim:z2-stab-3} it succeeds with probability $1-\poly(\eps)$ in the ``subcube commutation test.'' Applying~\cite[Theorem 4.1]{ji2022quantum} we deduce a projective measurement $\{G_c\}_{c\in\code^{\otimes m}}$ on $\mA$ such that
+\[ \Es{u\in\F_q^m} \sum_{c\in\code^{\otimes m}} \tau\big( G_c P^u_{c(u)}\big) \geq 1-\eta\;,\]
+where $\eta = \poly(m,d,r) \cdot\poly(\eps,q^{-1},e^{-\Omega(r/m^2)})$, with $r\geq 12mt$ an (arbitrary) integer.
 
 \end{proof}
 

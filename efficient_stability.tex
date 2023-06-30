@@ -877,7 +877,7 @@ Given access to some $g\in \F_q^n$, where $n=q^m$, identify $g$ with a function 
   \label{fig:RM-tester}
 \end{figure}
 
-
+\hnote{There shoudl be some lemma or theorem statement saying that this is in fact a tester, right? Perhaps cite BFL?}
 
 %\begin{theorem}\label{thm:mrm-sound}
 %$M_\RM$ has quantum soundness $\delta(\eps)=\poly(m,d)\cdot \poly(\eps,n^{-1})$.
@@ -893,10 +893,10 @@ Given access to some $g\in \F_q^n$, where $n=q^m$, identify $g$ with a function 
 
  The Reed-Muller code from the previous section is defined over $\F_q$, for $q$ a prime power. We can transform any $q$-ary code, for $q=2^t$, into a binary code using the idea of \emph{code composition} which we now describe. 
 
-For $q=2^t$ and $a\in \F_q$ we let $\kappa(a)\in\F_2^t$ denote the binary representation of $a$, taken in a fixed but usually left implicit self-dual basis of $\F_{q}$ over $\F_2$. We extend $\kappa$ to vectors over $\F_q$ coordinate-wise. We let $\tr(\cdot):\F_q\to\F_2$ denote the trace over $\F_2$. Because we chose a self-dual basis for the binary representation, the trace satisfies $\tr(ab)=\kappa(a)\cdot\kappa(b)$ \hnote{added:} where the right-hand side means the $\F_2$-inner product of the vectors $\kappa(a), \kappa(b)$. 
+For $q=2^t$ and $a\in \F_q$ we let $\kappa(a)\in\F_2^t$ denote the binary representation of $a$, taken in a fixed but usually left implicit self-dual basis of $\F_{q}$ over $\F_2$. We extend $\kappa$ to vectors over $\F_q$ coordinate-wise. We let $\tr(\cdot):\F_q\to\F_2$ denote the trace over $\F_2$. Because we chose a self-dual basis for the binary representation, the trace satisfies $\tr(ab)=\kappa(a)\cdot\kappa(b)$ \hnote{added:} where the right-hand side means the $\F_2$-inner product of the vectors $\kappa(a), \kappa(b)$. \hnote{added:} For more details on the $\kappa$ map and its properties, see~\cite[Section 3.3]{ji2020mip}.
 
 Let $q=2^t$ and $\code$ an $[n,k,d]_q$ linear code. Let $\code_{\Had}$ be the Hadamard code over $\F_2^t$ (introduced at the end of Section~\ref{sec:pres-code}). Let $T=2^t$.
-Let $\code'$ be the $[Tn,tk,d']$ linear code over $\F_2$ defined as follows. Given $a\in (\F_2^t)^{k}$, first map $a\mapsto a'=\kappa^{-1}(a) \in \F_q^{k}$. Then encode $a'$ to $b'=\code_\RM(a')\in \F_q^n$. Finally, return $b=\code_\Had(\kappa(b'))\in(\F_2^T)^n$, where $\code_\Had$ is applied component-wise. Using that $\code_\Had$ has relative distance $\frac{1}{2}$, it is easy to verify that this code has distance $d'\geq dT/2$.
+Let $\code'$ be the $[Tn,tk,d']$ linear code over $\F_2$ defined as follows. Given $a\in (\F_2^t)^{k}$, first map $a\mapsto a'=\kappa^{-1}(a) \in \F_q^{k}$. Then encode $a'$ to $b'=\code_\RM(a')\in \F_q^n$ \hnote{should this be $\code$ or $\code_\RM$?}. Finally, return $b=\code_\Had(\kappa(b'))\in(\F_2^T)^n$, where $\code_\Had$ is applied component-wise. Using that $\code_\Had$ has distance $T/2$, it is easy to verify that this code has distance $d'\geq dT/2$.
 
 Given an $r$-local $\delta$-tester $M$ for $\code$, there is a natural $rq$-local tester $M'$ for $\code'$ which can be described as follows. Index coordinates of $\code'$ by pairs $(i,\alpha)\in [n]\times\F_2^t$, fixing a bijection between $[Tn]$ and $[n]\times \F_2^t$. Then $\nu'$ is the uniform mixtures of two distributions, $\nu'_1$ and $\nu'_2$, defined as follows. 
 
@@ -909,6 +909,10 @@ To sample from $\nu'_1$, sample $S\sim\nu$ and $\gamma\in \F_2^t$ uniformly at r
 This check can be performed by evaluating $u$ at the coordinates $(j,\kappa(\gamma  v_{j}))$ for $j\in S$ and summing the results in $\F_2$. 
 
 To sample from $\nu'_2$, sample $i\sim[n]$ uniformly at random and $x,y\in\F_2^t$ uniformly at random, and return $\{i\}\times\{x,y,x+y\}$. Execute the tester $M_\had$ for the Hadamard code, i.e.\ check if the three corresponding entries of $u$ sum to zero. 
+
+\hnote{I'm a little confused by the description of this local tester... This seems to just make $r$ queries, right (but it says $rq$ above)? And it feels like to ``simulate'' the check from $\code$, one has to make $2q$ random queries to the Hadamard code to decode the symbol from $\F_q$, right?}
+
+\hnote{Also, probably could use another lemma or proposition here arguing that this is in fact a valid tester.}
 
 \section{An efficient presentation for $\Z_2^k$}
 

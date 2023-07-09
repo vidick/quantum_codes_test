@@ -1028,7 +1028,7 @@ where $\omega_q = e^{2i\pi/q}$. Then $U_u \in \mU(\mM)$.
 %where in the last line we slightly abused notation and identified $\alpha,\beta\in\F_q$ with $\kappa(\alpha),\kappa(\beta)\in \F_2^t$ respectively. \eqref{eq:z2-stab-2a} then follows from~\eqref{eq:z2-stab-2}.
 
 \begin{claim}\label{claim:z2-stab-2b}
-For $u\in \F_q^m$, $j\in\{1,\ldots,m\}$ and $i\in \{0,\ldots,d\}$ let $U_{i} = U_{u+ie_j}$ and, for all $\beta\in\F_q$, $P^{(i)}_\beta = P^{u+ie_j}_\beta$ (leaving the dependence on $u$ implicit). Then 
+For $u\in \F_q^m$, $j\in\{1,\ldots,m\}$ and $i\in \{0,\ldots,d\}$ let $U_{i} = U_{u+ie_j}$ and, for all $\beta\in\F_q$, $P^{(i)}_\beta = P^{u+ie_j}_\beta$ (leaving the dependence on $u$ \hnote{and $j$?} implicit). Then 
 \begin{equation}\label{eq:z2-stab-2b-0a}
 \Es{u\in \F_q^m} \Es{\substack{j\in\{1,\ldots,m\}\\i\neq i' \in \{0,\ldots,d\}}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_i^\alpha, U_{i'}^{\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;, 
 \end{equation}
@@ -1037,6 +1037,7 @@ and
  \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_u^\alpha, U_{v}^{\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;,
 \end{equation}
 where the expectation is over a uniformly random $u$ and $j$, and a uniformly random $v$ conditioned on its last $(j-1)$ coordinates matching those of $u$. 
+\hnote{should we clarify what it means to raise a unitary to a power in a finite field? I assume there's some canonical identification of elements of $\F_q$ with $\{0,1,2,\ldots,q-1\}$?} \hnote{Should specify this is the group commutator?}
 \end{claim}
 
 \begin{proof}
@@ -1052,8 +1053,8 @@ Now, for any $u,v\in \F_q^m$
 &=\sum_{\beta,\beta',\gamma,\gamma'\in \F_q}\Es{\alpha\in\F_2^t} (-1)^{\alpha\cdot\kappa(\beta-\beta')} \Es{\alpha'\in\F_2^t} (-1)^{\alpha'\cdot\kappa(\gamma-\gamma')} \tau(P^{u}_\beta P^{v}_\gamma P^{u}_{\beta'} P^{v}_{\gamma'}\big)\\
 &=\Es{\alpha,\alpha'\in\F_2^t}  \tau\Big( \Big(\sum_{\beta\in \F_q} (-1)^{\alpha\cdot \kappa(\beta)} P^{u}_\beta\Big) \Big(\sum_{\gamma\in \F_q} (-1)^{\alpha'\cdot \kappa(\gamma)} P^{v}_\gamma\Big)\Big(\sum_{\beta'\in \F_q} (-1)^{\alpha\cdot \kappa(\beta')} P^{u}_{\beta'}\Big)\Big(\sum_{\gamma'\in \F_q} (-1)^{\alpha'\cdot \kappa(\gamma')} P^{v}_{\gamma'}\Big)\Big)\;.
 \end{align*}
-Here, the second line follows since for $\beta,\beta'\in \F_q$,
-\[ \Es{\alpha\in \F_q} \omega_q^{\alpha(\beta-\beta')}\,=\,\Es{\alpha\in\F_2^t} (-1)^{\alpha\cdot \kappa(\beta-\beta')}\,=\delta_{\beta,\beta'}\;.\]
+Here, the second line follows since for $\beta,\beta'\in \F_q$, \hnote{rearranged so that the delta was in the middle}
+\[ \Es{\alpha\in \F_q} \omega_q^{\alpha(\beta-\beta')}\,=\delta_{\beta,\beta'}\,=\,\Es{\alpha\in\F_2^t} (-1)^{\alpha\cdot \kappa(\beta-\beta')}\,\;.\]
 It follows that, for any distribution on $(u,v)$ such that both marginals are uniform over $\F_q^m$,
 \begin{align*}
 \Es{u,v} \Es{\alpha,\alpha'\in \F_q} \big\| [U_u^\alpha ,U_{v}^{\alpha'} ]-\Id\big\|_\tau^2
@@ -1068,6 +1069,7 @@ Now we show the following, which essentially follows from the previous claim.
 \begin{claim}\label{claim:z2-stab-3}
 For every $u\in \F_q^m$ and $j\in\{1,\ldots,m\}$, there is a projective measurement $\{R^{u,j}_\alpha\}_{\alpha\in\F_q^{d+1}}$ on $\mM$ such that 
 \[ \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{x_0,\ldots,x_{d}\in \F_q} \Big\| U_0^{x_0}\cdots U_d^{x_d} -  \sum_{\alpha} \omega^{\sum x_i\alpha_i} R^{u,j}_\alpha\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
+\hnote{the use of $x$'s as elements in $\F_q$ is confusing, especially since above we used $x_i$'s as generators...}
 Similarly, for any $u,v\in \F_q^m$ there is a projective measurement $\{R^{u,v}_{\alpha,\beta}\}_{(\alpha,\beta)\in\F_q^{2}}$ on $\mM$ such that 
 \[  \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}} \Es{x,y\in \F_q} \Big\| U_u^{x}  U_v^{y} -  \sum_{\alpha} \omega^{ \alpha x + \beta y} R^{u,v}_{\alpha,\beta}\Big\|_\tau^2 \,=\, \poly(\eps)\;.\]
 \end{claim}

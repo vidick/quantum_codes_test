@@ -506,7 +506,7 @@ When we write $\Es{i\in \mX}$ where $\mX$ is a finite set, we mean the expectati
 
 \subsection{Algebra}
 
-  A \emph{tracial von Neumann algebra} is a pair $(\mM,\tau)$ of a von Neumann algebra $\mM$ together with a normal faithful tracial state $\tau$ on $\mM$, which we often refer to as the \emph{trace}. The main example of interest is $\mM=M_n(\C)$, the algebra $n\times n$ complex matrices, with $\tau$ the dimension-normalized trace, which we denote $\tr(M)=\frac{1}{n}\Tr(M)$. 	We write $\|x\|_2=\tau(x^*x)^{1/2}$ for the $2$-norm on $\mM$. \hnote{sometimes we use $\| \cdot \|_\tau$ below, which one should we use?}\tnote{Ah yes sorry. I prefer $\|\cdot\|_\tau$}
+  A \emph{tracial von Neumann algebra} is a pair $(\mM,\tau)$ of a von Neumann algebra $\mM$ together with a normal faithful tracial state $\tau$ on $\mM$, which we often refer to as the \emph{trace}. The main example of interest is $\mM=M_n(\C)$, the algebra $n\times n$ complex matrices, with $\tau$ the dimension-normalized trace, which we denote $\tr(M)=\frac{1}{n}\Tr(M)$. 	We write $\|x\|_\tau=\tau(x^*x)^{1/2}$ to denote the $2$-norm on $\mM$ with respect to $\tau$. \hnote{sometimes we use $\| \cdot \|_\tau$ below, which one should we use?}\tnote{Ah yes sorry. I prefer $\|\cdot\|_\tau$} \hnote{edited}
 	
 	Let $B(\ell_2)$ be the von Neumann algebra of bounded operators on $\ell_2$, the Hilbert space of convergent sequences in $\C^\Z$ equipped with the usual Euclidean norm (for which we let $(e_i)_{i \in \Z}$ denote the standard basis). We denote $\mM_\infty = \mM \overline{\otimes} B(\ell_2)$, where the overline denotes closure for the operator topology. $\mM_\infty$ is a von Neumann algebra equipped with the (infinite) trace $\tau_\infty = \tau \otimes \Tr$, with $\Tr(x)=\sum_{i\in \Z} e_i^T X e_i$ the trace on $B(\ell_2)$. We generally identify $\mM$ with the ``corner'' $\mM\otimes e_{1,1}\subset \mM_\infty$. 
 
@@ -644,7 +644,7 @@ If the measure $\mu$ is omitted then it is understood to be the uniform measure 
 We now give our definition of stability.
 
 \begin{definition}\label{def:eff-stab}
-Let $G = \langle S:R\rangle $ be a finitely presented group. Let $\mC$ be a class of tracial von Neumann algebras. Let $\mu_S$ be a distribution on $S$ and $\mu_R$ a distribution on $R$. For $\delta:[0,1]\to[0,1]$ such that $\lim_{t\to 0}\delta(t)=0$ we say that \hnote{added, to make it clear that it's the presentation that's stable } the presentation $G=\langle S:R\rangle$ is $(\delta,\mu_S,\mu_R,\mC)$-stable if for every $(\cM,\tau)$ in $\mC$, every $(\eps,\mu_R)$-almost homomorphism of $G$ is $(\delta(\eps),\mu_S)$-close to a unitary representation of $G$ on some $(\mN,\tau^\mN)\in \mC$. \tnote{added:} We refer to the function $\delta$ as the ``modulus of stability'' of the presentation.
+Let $G = \langle S:R\rangle $ be a finitely presented group. Let $\mC$ be a class of tracial von Neumann algebras. Let $\mu_S$ be a distribution on $S$ and $\mu_R$ a distribution on $R$. For $\delta:[0,1]\to[0,1]$ such that $\lim_{t\to 0}\delta(t)=0$ we say that the presentation $G=\langle S:R\rangle$ is $(\delta,\mu_S,\mu_R,\mC)$-stable if for every $(\cM,\tau)$ in $\mC$, every $(\eps,\mu_R)$-almost homomorphism of $G$ is $(\delta(\eps),\mu_S)$-close to a unitary representation of $G$ on some $(\mN,\tau^\mN)\in \mC$. \tnote{added:} We refer to the function $\delta$ as the ``modulus of stability'' of the presentation.
 \end{definition}
 
 
@@ -655,7 +655,7 @@ We do not know many general results about stability. We give two. First of all,
 for a finite group $G$ we can always write $G=\langle S:R\rangle$ where $S = G$ and $R=\{ g\cdot h \cdot (gh)^{-1} =e \}$. We refer to this presentation as the \emph{exhaustive presentation}. If we let $\mu_S$ and $\mu_R$ be the uniform distribution on $S$ and on $R$ respectively then Definition~\ref{def:eff-stab} reduces to a widely used notion of \emph{flexible (Hilbert-Schmidt) stability}. In particular, for finite groups the following result is known~\cite{gowers2017inverse,de2019operator}. We adopt the formulation from~\cite[Theorem 1.4]{de2022spectral}.
 
 \begin{theorem}\label{thm:gh}
-Let $G$ be a finite group and $\mC$ the class of all tracial von Neumann algebras. Let $\mu_S$ and $\mu_R$ be the uniform distribution on $S=G$ and $R=\{ g\cdot h \cdot (gh)^{-1}=e \}$ respectively. Then $G=\langle S:R\rangle$ is $(O(\eps),\mu_S,\mu_R,\mC)$-stable.  \hnote{$U_S,U_R$ may not be the best notation, as similar names are used for unitaries e.g., in the next theorem. Maybe just say $\mu_S,\mu_R$ are uniform?}\tnote{ok, fixed}
+Let $G$ be a finite group and $\mC$ the class of all tracial von Neumann algebras. Let $\mu_S$ and $\mu_R$ be the uniform distribution on $S=G$ and $R=\{ g\cdot h \cdot (gh)^{-1}=e \}$ respectively. Then $G=\langle S:R\rangle$ is $(O(\eps),\mu_S,\mu_R,\mC)$-stable.
 \end{theorem}
 
 Next we state a result from~\cite{de2022spectral} which allows to combine stability results. The results in~\cite{de2022spectral} are rather general, and in particular imply that the direct product of stable groups is stable. Here, we will only use the following specialization to the case of $\Z_2^k$. For a measure $\mu$ on $\Z_2^k$, define its spectral gap 
@@ -704,21 +704,18 @@ We call this presentation ``efficient'' because it has a number of generators an
 For every $k$, there is a $\delta_k = O_k(\eps)$ such that the presentation~\eqref{eq:z2-efficient} is $\delta_k$-stable. Furthermore, the close representation can be taken on the same algebra. \hnote{Is there a reason to do $O_k(\eps)$ instead of writing out what the dependence of $k$ is in this lemma? I feel like this is an important aspect of the result (which motivates the later results...)}\tnote{Yes, the motivation was to first hide it, and then expand in the comment (which makes it clear that some $O_k(\eps)$ will always be true for a finite group, and that we care precisely about the $k$-dependence, which at first one might not ``notice''. Some of the stuff here I did not fine-tune too much the presentation of, because I thought we'll do that once we agree with the rough outline of the results and work on an intro and possible reorganization if needed. I agree it's not optimal now.}
 \end{lemma}
 
-As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on the girth of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This is nearly tight, as shown in~\cite{chao2017overlapping}. In the next section we will obtain presentations of $\Z_2^k$ that have a much better size/modulus tradeoff. \hnote{What does modulus mean?}\tnote{I added in Definition~\ref{def:eff-stab}}
+As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on the girth of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This is nearly tight, as shown in~\cite{chao2017overlapping}. In the next section we will obtain presentations of $\Z_2^k$ that have a much better size/modulus tradeoff.
 
 We end with a non-Abelian group that plays an important role in applications in quantum information, the \emph{Pauli group}. For an integer $k\geq 1$,  the Pauli group $\pauli_k$ can be defined as follows. Let $\gamma: \Z_2^k\times \Z_2^k \to \{-1,1\}$ be given by $\gamma(a,b)=(-1)^{a\cdot b}$. Then $\pauli_k$ is the central extension of $\Z_2^k\times \Z_2^k$ by $\{-1,1\}$ given by $\gamma$. Alternatively, $\pauli_k$ is the group generated by the Pauli matrices $\sigma_X(a)$, $\sigma_Z(b)$ introduced in~\eqref{eq:def-pauli-2}.
 It is also known as the Heisenberg group 
 \[ H_{2k+1} = \left \{ \begin{pmatrix} 1 & a & c \\ 0 & I_{k \times k} & b \\ 0 & 0 & 1 \end{pmatrix} \right\}\subseteq {\mathrm{GL}}_{k+2}(\F_2)\;.\]
-\hnote{what's the $1_k$ in the middle?}\tnote{$k\times k$ identity. Is it better now?}
  Concretely, %we label elements of the Pauli group as triples $(c,a,b)$ 
-\hnote{is this right? There should be an option to ``turn $J$ off'' right?}\tnote{oh yes sorry. Anyways this was confusing, I removed it}
 % where $c\in\{0,1\}$ and $a,b\in\Z_2^k$, and 
 we consider the following presentation for the Pauli group:
 \begin{align*}
  \pauli_k \,=\, \big\langle \{J\}\cup  \{(a,b): a,b\in \Z_2^k\} &: a^2=b^2=J^2=e,\; [a,J]=[b,J]=e,\\
 &\qquad  (a,b)(a',b') = J^{a\cdot b'} (a',b')(a,b) \; \quad \forall a,b\big\rangle\;.
 \end{align*}
-\hnote{should the $J$ and $(a,b)$ be triples instead? (given the sentence about labelling Pauli group as triples...)}\tnote{no, they're generators; see above}
 This presentation is not quite the exhaustive presentation (it has $2^{2k}+1$ generators, whereas $|\pauli_k|=2^{2k+1}$), but it is not far from it.  
 Applying Theorem~\ref{thm:gh} we obtain the following consequence.%, which we again state only for the case of a subclass of approximate homomorphisms and the class of finite-dimensional matrix algebras\tnote{again, not sure what we want ultimately}. 
 
@@ -758,7 +755,7 @@ As a first step, we introduce a general method for translating any binary linear
 \subsection{Presentations from codes}
 \label{sec:pres-code}
 
-For $q$ a prime power and $n,k,d$ integer, a linear $[n,k,d]_q$ code $\code$ \hnote{changed to curly script C to avoid clashing with $\mC$, which was used as notation for vNAs} is a $k$-dimensional subspace of $\F_q^n$ such that for all $x\in \code$ such that $x\neq 0$, the Hamming weight $|x|$ (i.e. the number of nonzero coordinates of $xs$) is at least $d$. The parameter $n$ is called the \emph{length} of the code, $k$ its \emph{dimension} and $d$ its \emph{distance}. A code can be specified by a \emph{parity check matrix} $h\in \F_q^{m\times n}$ such that $\code = \ker h$. 
+For $q$ a prime power and $n,k,d$ integer, a linear $[n,k,d]_q$ code $\code$ is a $k$-dimensional subspace of $\F_q^n$ such that for all $x\in \code$ such that $x\neq 0$, the Hamming weight $|x|$ (i.e. the number of nonzero coordinates of $xs$) is at least $d$. The parameter $n$ is called the \emph{length} of the code, $k$ its \emph{dimension} and $d$ its \emph{distance}. A code can be specified by a \emph{parity check matrix} $h\in \F_q^{m\times n}$ such that $\code = \ker h$. 
 
 For the remainder of this section we specialize the discussion to the case where $q=2$. 
 A parity check matrix for a code of dimension $k$ implies a presentation in the following way. Introduce $n$ generators $S=\{x_1,\ldots,x_n\}$. Each of the generators is required to be an involution: $x_i^2=e$. For each row $i\in \{1,\ldots,m\}$ of the parity check matrix $h$, introduce a relation 
@@ -769,7 +766,6 @@ The presentation obtained in this way defines a group $G=G(h)$ as
 \begin{equation}\label{eq:def-gh-pres}
  G(h) \,=\, \big\langle x_1,\ldots,x_n \,:\, x_j^2=e\,,\; R_i\,,\; R'_{ijj'}\,,\quad \forall 1\leq i\leq m,\, 1\leq j< j' \leq n\big\rangle\;.
 \end{equation}
-\hnote{should it be $1 \leq i \leq m$, $1 \leq j < j' \leq n$?}\tnote{Ah it was overloaded...fixed}
 Note that we made the dependence of $G(h)$ on $h$ explicit. This is because in general, the group defined in this way may depend on $h$, and not only on $\code$. If however we further impose all pairwise commutation relations then we obtain the following. 
 
 \begin{lemma}\label{lem:com-code}
@@ -919,7 +915,7 @@ To sample from $\nu'_2$, sample $i\sim[n]$ uniformly at random and $x,y\in\F_2^t
 
 Fix integers $m,t,d \in \N$ and let $q=2^t$. Let $\code_{\bRM}$ be the $[q^{m+1},tk,D']_2$ code obtained by applying the composition procedure from Section~\ref{sec:code-comp} to the $[q^m,(d+1)^m,D]_q$ Reed-Muller code $\code_\RM$ from Section~\ref{sec:rmq}. Let $N=q^{m+1}$ and $h_{\bRM}\in \F_2^{M\times N}$ the parity check matrix for $\code_{\bRM}$ obtained from the composition of the $(d+2)$-local tester for $\code_\RM$ with the $3$-local tester for $\code_\had$. Then $h_\bRM$ has $M= m\cdot q^m \cdot (1+q^2)$ rows, indexed by $(u,j)\in \F_1^m\times [m]$ and $\F_q^m\times [m] \times \F_q^2$ respectively, such that each row has at most $3(d+2)$ nonzero entries. 
 
-Let $G_\bRM = G(h_\bRM)$ be the group that is presented from $h_\bRM$ (\hnote{added:} recall from \Cref{sec:pres-code} that codes give rise to group presentations). Explicitly, $h_\bRM$ is the parity check matrix that arises from the tester described in Figure~\ref{fig:bRM-tester}. 
+Let $G_\bRM = G(h_\bRM)$ be the group that is presented from $h_\bRM$ (recall from \Cref{sec:pres-code} that codes give rise to group presentations). Explicitly, $h_\bRM$ is the parity check matrix that arises from the tester described in Figure~\ref{fig:bRM-tester}. 
 
 
 \begin{figure}[!htbp]
@@ -949,7 +945,7 @@ Then we define
 From Lemma~\ref{lem:com-code} it follows that $G'=\Z_2^K$. Our main result is an efficient stability result for this presentation. To state this we need to introduce distributions $\mu_S$ and $\mu_R$ on the generators and relations of $G'$. The distribution $\mu_S$ is taken to be the uniform distribution over $[N] = (\F_2^t)^m \times \F_2^t$. The distribution $\mu_R$ is obtained as follows. With probability $1/4$ each, a relation from $\{R^\sq_k\}$, $\{R^\ld_k\}$ or $\{R^\had_k\}$ is chosen uniformly at random. With probability $1/4$, a random commutation relation from $R^\com_k$ is chosen according to the uniform mixture of the following two distributions:
 \begin{enumerate}
 \item For the first distribution, we select $u\in \F_q^m$ uniformly at random, $j\in\{1,\ldots,m\}$ uniformly at random, and $i\neq i'\in\{0,\ldots,d\}$ uniformly at random. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random and check commutation between $x_{u+i e_j,\alpha}$ and $x_{u+i' e_j,\beta}$. 
-\item For the second distribution, we first select $j\in\{1,\ldots,m\}$ and $u_{m-j+2},\ldots,u_m \in \F_2^t$ uniformly at random. Then select $v,v' \in (\F_2^t)^m$ uniformly at random, conditioned on the last $(j-1)$ coordinates matching $u_{m-j+2},\ldots,u_m$. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random and check commutation between $x_{v,\alpha}$ and $x_{v',\beta}$.  \hnote{$v$ and $v'$ don't seem to show up, is it supposed to be $x_{v,\alpha}$ and $x_{v',\beta}$?}\tnote{yes, fixed}
+\item For the second distribution, we first select $j\in\{1,\ldots,m\}$ and $u_{m-j+2},\ldots,u_m \in \F_2^t$ uniformly at random. Then select $v,v' \in (\F_2^t)^m$ uniformly at random, conditioned on the last $(j-1)$ coordinates matching $u_{m-j+2},\ldots,u_m$. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random and check commutation between $x_{v,\alpha}$ and $x_{v',\beta}$. 
 \end{enumerate}
 
 
@@ -961,12 +957,12 @@ The presentation of  $\Z_2^K$ given in~\eqref{eq:z2k-eff}, together with the dis
 
 \begin{proof}
 Let $(\mM,\tau)$ be a tracial von Neumann algebra and $\phi$ be an $\eps$-homomorphism of $\langle S:R\rangle$ on $(\mM,\tau)$. 
- Here, $S = \{s_{u,\alpha}: u\in (\F_2^t)^m, \alpha\in \F_2^t\}$ \hnote{what is $s_{u,\alpha}$? should it be $x_{u,\alpha}$?}\tnote{Yes...this was a bit confusing. I added an ``explanation'' now}. We sometimes enumerate the items of $S$ as $S=\{x_i: i\in\{1,\ldots,N\}\}$, where $N=2^{tm+t}$ and we fixed an arbitrary bijection between $(\F_2^t)^m\times \F_2^t$ and $\{1,\ldots,N\}$. Let $R$ be the set of all relations in~\eqref{eq:z2k-eff}, i.e.\ $R= \{R_k^\sq\}\cup \{R^\ld_k\}\cup\{R^\had_k\}\cup\{R^\com_k\}$. Let $N=|S|$.
+ Here, $S = \{s_{u,\alpha}: u\in (\F_2^t)^m, \alpha\in \F_2^t\}$. We sometimes enumerate the items of $S$ as $S=\{x_i: i\in\{1,\ldots,N\}\}$, where $N=2^{tm+t}$ and we fixed an arbitrary bijection between $(\F_2^t)^m\times \F_2^t$ and $\{1,\ldots,N\}$. Let $R$ be the set of all relations in~\eqref{eq:z2k-eff}, i.e.\ $R= \{R_k^\sq\}\cup \{R^\ld_k\}\cup\{R^\had_k\}\cup\{R^\com_k\}$. Let $N=|S|$.
 
 We first exploit the relations $R_k^\sq$ to show that we may assume without loss of generality that $\phi$ sends each element of $S$ to a Hermitian involution. 
 
 \begin{claim}\label{claim:z2-stab-1}
-There is an $\eps^{(1)}=O(d\eps)$ and an $\eps^{(1)}$-homomorphism $\phi^{(1)}$ of $\langle S:R\rangle$ on $(\mM,\tau)$ \hnote{same thing, should be $(\mM,\tau)$ I think}\tnote{yes} such that $\phi^{(1)}(x)$ is a Hermitian involution for all $x\in S$, and furthermore
+There is an $\eps^{(1)}=O(d\eps)$ and an $\eps^{(1)}$-homomorphism $\phi^{(1)}$ of $\langle S:R\rangle$ on $(\mM,\tau)$ such that $\phi^{(1)}(x)$ is a Hermitian involution for all $x\in S$, and furthermore
 \begin{equation}\label{eq:z2-stab-1a}
  \Es{x\sim\mu_S} \big\| \phi(x) - \phi^{(1)}(x) \big\|_\tau^2 \,\leq\, \eps^{(1)}\;.
 \end{equation}
@@ -975,9 +971,9 @@ There is an $\eps^{(1)}=O(d\eps)$ and an $\eps^{(1)}$-homomorphism $\phi^{(1)}$ 
 \begin{proof}
 Using elementary calculations (see e.g.~\cite[Lemma 3.6]{slofstra2019set}) we see that for any complex $\alpha$, 
 \[ \big| \sgn\Re\alpha-\alpha\big| \,\leq\, \Big(1+\frac{1}{\sqrt{2}}\Big) \big|\alpha^2 -1 \big|\;.\]
-For any $i\in \{1,\ldots,N\}$ let $\phi^{(1)}(x_i) = \sgn\Re (\phi(x_i))$ \hnote{maybe there should be a comment somewhere saying we identify $\{1,\ldots,N\}$ with $(\F_2^t)^m \times \F_2^t$}\tnote{see above}. Then the claim follows since 
+For any $i\in \{1,\ldots,N\}$ let $\phi^{(1)}(x_i) = \sgn\Re (\phi(x_i))$. Then the claim follows since 
 \[ \Es{i\in\{1,\ldots,N\}} \big\| \phi(x_i)^2-\Id \big\|_\tau^2 \,\leq\, 4\eps\;,\]
-by assumption and the definition of $\mu_R$, which places weight $\frac{1}{4}$ on the relations in $R_k^\sq$. Since $\mu_S$ is uniform on $S$,~\eqref{eq:z2-stab-1a} follows. Furthermore, because all relations in $R$ have length at most $O(d)$, $\phi^{(1)}$ is an $O(d\eps)$-homomorphism of $\langle S:R\rangle$\tnote{This requires more explanation, e.g.\ we need the marginal of any variable appearing in a relation to be uniform. I'm also not sure it's not $d^2$ instead of $d$.} \hnote{What is the length of a relation? The number of variables in it?}\tnote{yes}. 
+by assumption and the definition of $\mu_R$, which places weight $\frac{1}{4}$ on the relations in $R_k^\sq$. Since $\mu_S$ is uniform on $S$,~\eqref{eq:z2-stab-1a} follows. Furthermore, because all relations in $R$ have length at most $O(d)$, $\phi^{(1)}$ is an $O(d\eps)$-homomorphism of $\langle S:R\rangle$\tnote{This requires more explanation, e.g.\ we need the marginal of any variable appearing in a relation to be uniform. I'm also not sure it's not $d^2$ instead of $d$.} 
 \end{proof}
 
 For ease of notation we relabel $\phi^{(1)}$ and $\eps^{(1)}$ as $\phi$ and $\eps$ respectively. Next we exploit the relations $\{R^\had_k\}$ to show the following. 
@@ -988,7 +984,6 @@ For every $u\in \F_q^m$ there is a projective measurement $\{P^u_\alpha\}_{\alph
 \begin{equation}\label{eq:z2-stab-2}
  \Es{u\in \F_q^m} \Es{\alpha\in \F_2^t} \Big\| \phi(s_{u,\alpha}) - \sum_{\beta\in\F_q} (-1)^{\alpha \cdot \kappa(\beta)} P^u_\beta \Big\|_\tau^2 \,=\, O(\eps)\;. 
 \end{equation}
-\hnote{notational consistency: are we using $s_{u,\alpha}$ or $x_{u,\alpha}$?}\tnote{see above, is it ok now?}
 \end{claim}
 
 \begin{proof}
@@ -1000,7 +995,7 @@ Fix an $u\in \F_q^m$ and apply Lemma~\ref{lem:had-stab} for that $u$. This gives
 \begin{equation}\label{eq:stab-rm-1b}
  \Es{\alpha \in \F_2^t} \big\| \phi(s_{u,\alpha}) - w^* U_\alpha w \big\|_\tau^2 \,=\, O(\eps_u)\;,
 \end{equation}
-where $\eps_u\geq 0$ is such that $\Es{u\in \F_q^m} \eps_u = 4\eps$. Because $\{U_\alpha\}$ are a representation of the abelian group $\F_2^t$, there is a projective measurement $\{Q^u_\beta\}_{\beta\in \F_2^t}$ on $\mN$ such that $U_\alpha = \sum_\beta (-1)^{\alpha\cdot \beta} Q^u_\beta$. ($\{Q^u_\beta\}$ can be found explicitly by applying the Fourier transform, i.e.\ $Q^u_\beta = \sum_\alpha (-1)^{\alpha \cdot \beta} U_\alpha$.) Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{P^u_\beta\}_{\beta\in \F_q}$  \hnote{here (and in what follows) it's kind of confusing because $\beta$ keeps switching back and forth between $\F_q$ and $\F_q^t$, which means that sometimes it's $\kappa(\beta)$ and $\beta$, which is confusing...}\tnote{Ok so let's use $b$ for the $\F_2^t$ element} on $\mM$ such that (by the triangle inequality)
+where $\eps_u\geq 0$ is such that $\Es{u\in \F_q^m} \eps_u = 4\eps$. Because $\{U_\alpha\}$ are a representation of the abelian group $\F_2^t$, there is a projective measurement $\{Q^u_b\}_{b\in \F_2^t}$ on $\mN$ such that $U_\alpha = \sum_b (-1)^{\alpha\cdot b} Q^u_b$. ($\{Q^u_b\}$ can be found explicitly by applying the Fourier transform, i.e.\ $Q^u_b = \sum_\alpha (-1)^{\alpha \cdot b} U_\alpha$.) Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{P^u_\beta\}_{\beta\in \F_q}$ on $\mM$ such that (by the triangle inequality)
 \begin{align*}
  \Es{\alpha \in \F_2^t} \Big\| \phi(s_{u,\alpha}) - \sum_{\beta\in\F_q} (-1)^{\alpha \cdot \kappa(\beta)} P^u_\beta \Big\|_\tau^2
 &\leq 2 \Es{\alpha \in \F_2^t} \Big( \Big\| \phi(s_{u,\alpha}) - w^*\Big(\sum_{b\in\F_2^t} (-1)^{\alpha \cdot b} Q^u_b \Big) w \Big\|_\tau^2 \\
@@ -1038,7 +1033,7 @@ and
  \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_u^\alpha, U_{v}^{\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;,
 \end{equation}
 where the expectation is over a uniformly random $u$ and $j$, and a uniformly random $v$ conditioned on its last $(j-1)$ coordinates matching those of $u$, and $[U,V]=UVU^\dagger V^\dagger$ is the group commutator. 
-\hnote{should we clarify what it means to raise a unitary to a power in a finite field? I assume there's some canonical identification of elements of $\F_q$ with $\{0,1,2,\ldots,q-1\}$?}\tnote{I got confused by this. I added a comment above. What we need is that $(\omega_q^\alpha)^\beta = \omega_q^{\alpha \beta}$, for the field multiplication $\alpha \beta$. This will not be satisfied by an arbitrary choice of representative, right?}
+\hnote{should we clarify what it means to raise a unitary to a power in a finite field? I assume there's some canonical identification of elements of $\F_q$ with $\{0,1,2,\ldots,q-1\}$?}\tnote{I got confused by this. I added a comment above. What we need is that $(\omega_q^\alpha)^\beta = \omega_q^{\alpha \beta}$, for the field multiplication $\alpha \beta$. This will not be satisfied by an arbitrary choice of representative, right?} \hnote{Yeah I'm not sure this works... the multiplication over $\F_q$ for $q = 2^t$ does not look like multiplication in $\Z_q$; it's some more complicated linear transformation that has to do with irreducible polynomials and stuff...} \hnote{why do we need to package everything into a unitary, though? The low degree test/tensor codes stuff only needs line/points measurements}
 \end{claim}
 
 \begin{proof}
@@ -1070,7 +1065,6 @@ Now we show the following, which essentially follows from the previous claim.
 \begin{claim}\label{claim:z2-stab-3}
 For every $u\in \F_q^m$ and $j\in\{1,\ldots,m\}$, there is a projective measurement $\{R^{u,j}_\alpha\}_{\alpha\in\F_q^{d+1}}$ on $\mM$ such that 
 \[ \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{z_0,\ldots,z_{d}\in \F_q} \Big\| U_0^{z_0}\cdots U_d^{z_d} -  \sum_{\alpha} \omega^{\sum x_i\alpha_i} R^{u,j}_\alpha\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
-\hnote{the use of $x$'s as elements in $\F_q$ is confusing, especially since above we used $x_i$'s as generators...}\tnote{ok so I used $z_i$}
 Similarly, for any $u,v\in \F_q^m$ there is a projective measurement $\{R^{u,v}_{\alpha,\beta}\}_{(\alpha,\beta)\in\F_q^{2}}$ on $\mM$ such that 
 \[  \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}} \Es{y,z\in \F_q} \Big\| U_u^{z}  U_v^{y} -  \sum_{\alpha} \omega^{ \alpha z + \beta y} R^{u,v}_{\alpha,\beta}\Big\|_\tau^2 \,=\, \poly(\eps)\;.\]
 \end{claim}
@@ -1098,7 +1092,7 @@ and
 \[ V_0^{z_0}\cdots V_{d}^{z_{d}}  \,=\, \sum_{\alpha\in \Z_q^{d+1}} \omega^{\sum z_i\alpha_i} Q_\alpha\;.\]
 %($\{Q^u_\alpha\}$ can be found explicitly by applying the Fourier transform.) 
 Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{R^{u,j}_\alpha\}_{\alpha\in \Z_q^{d+1}}$  on $\mM$ such that by~\eqref{eq:z2-stab-3-1}, on average over $u$ and $j$,
-\[  \Es{z_0,\ldots,z_{d}\in\F_q} \Big\| \psi(x_0,\ldots,x_{d+1}) -  \sum_{\alpha\in \Z_q^{d+1}} \omega^{\sum z_i\alpha_i} R_\alpha^{u,j}\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
+\[  \Es{z_0,\ldots,z_{d}\in\F_q} \Big\| \psi(z_0,\ldots,z_{d}) -  \sum_{\alpha\in \Z_q^{d+1}} \omega^{\sum z_i\alpha_i} R_\alpha^{u,j}\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
 \end{proof}
 
 

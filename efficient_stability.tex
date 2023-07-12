@@ -1006,10 +1006,11 @@ where $\eps_u\geq 0$ is such that $\Es{u\in \F_q^m} \eps_u = 4\eps$. Because $\{
 where the first inequality follows from the triangle inequality, the second is by~\eqref{eq:stab-rm-1b} for the first term and Parseval's identity for the second, and the last by the guarantees obtained from Lemma~\ref{lem:pull-back}.
 \end{proof}
 
-For $u\in \F_q^m$ let $\{P^{u}_\beta\}_{\beta \in \F_q}$ be the projective measurement obtained from Claim~\ref{claim:z2-stab-2}, and 
-\[ U_u = \sum_{\beta\in\F_q} \omega_q^\beta P^u_{\beta}\;,\]
-where $\omega_q = e^{2i\pi/q}$. (\tnote{added:}To define $\omega_q^\beta$ for $\beta\in \F_q$, we use the representative of $\beta$ in $\{0,\ldots,q-1\}$.)
-Then $U_u \in \mU(\mM)$. 
+\tnote{changed this, and modified everything downstream}
+For $u\in \F_q^m$ let $\{P^{u}_\beta\}_{\beta \in \F_q}$ be the projective measurement obtained from Claim~\ref{claim:z2-stab-2}. For $\alpha\in \F_q$, let  
+\[ U_{u,\alpha} = \sum_{\beta\in\F_q} (-1)^{\tr(\alpha\beta)} P^u_{\beta}\;.\]
+%where $\omega_q = e^{2i\pi/q}$. (\tnote{added:}To define $\omega_q^\beta$ for $\beta\in \F_q$, we use the representative of $\beta$ in $\{0,\ldots,q-1\}$.)
+Then $U_{u,\alpha} \in \mU(\mM)$. 
 
 %We observe that
 %\begin{equation}\label{eq:z2-stab-2a}
@@ -1024,16 +1025,16 @@ Then $U_u \in \mU(\mM)$.
 %where in the last line we slightly abused notation and identified $\alpha,\beta\in\F_q$ with $\kappa(\alpha),\kappa(\beta)\in \F_2^t$ respectively. \eqref{eq:z2-stab-2a} then follows from~\eqref{eq:z2-stab-2}.
 
 \begin{claim}\label{claim:z2-stab-2b}
-For $u\in \F_q^m$, $j\in\{1,\ldots,m\}$ and $i\in \{0,\ldots,d\}$ let $U_{i} = U_{u+ie_j}$ and, for all $\beta\in\F_q$, $P^{(i)}_\beta = P^{u+ie_j}_\beta$ (leaving the dependence on $u$ and $j$ implicit). Then 
+For $u\in \F_q^m$, $\alpha\in\F_q$, $j\in\{1,\ldots,m\}$ and $i\in \{0,\ldots,d\}$ let $U_{i,\alpha} = U_{u+ie_j,\alpha}$ and, for all $\beta\in\F_q$, $P^{(i)}_\beta = P^{u+ie_j}_\beta$ (leaving the dependence on $u$ and $j$ implicit). Then 
 \begin{equation}\label{eq:z2-stab-2b-0a}
-\Es{u\in \F_q^m} \Es{\substack{j\in\{1,\ldots,m\}\\i\neq i' \in \{0,\ldots,d\}}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_i^\alpha, U_{i'}^{\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;, 
+\Es{u\in \F_q^m} \Es{\substack{j\in\{1,\ldots,m\}\\i\neq i' \in \{0,\ldots,d\}}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_{i,\alpha}, U_{i',\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;, 
 \end{equation}
 and
 \begin{equation}\label{eq:z2-stab-2b-0b}
- \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_u^\alpha, U_{v}^{\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;,
+ \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_{u,\alpha}, U_{v,\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;,
 \end{equation}
 where the expectation is over a uniformly random $u$ and $j$, and a uniformly random $v$ conditioned on its last $(j-1)$ coordinates matching those of $u$, and $[U,V]=UVU^\dagger V^\dagger$ is the group commutator. 
-\hnote{should we clarify what it means to raise a unitary to a power in a finite field? I assume there's some canonical identification of elements of $\F_q$ with $\{0,1,2,\ldots,q-1\}$?}\tnote{I got confused by this. I added a comment above. What we need is that $(\omega_q^\alpha)^\beta = \omega_q^{\alpha \beta}$, for the field multiplication $\alpha \beta$. This will not be satisfied by an arbitrary choice of representative, right?} \hnote{Yeah I'm not sure this works... the multiplication over $\F_q$ for $q = 2^t$ does not look like multiplication in $\Z_q$; it's some more complicated linear transformation that has to do with irreducible polynomials and stuff...} \hnote{why do we need to package everything into a unitary, though? The low degree test/tensor codes stuff only needs line/points measurements}
+\hnote{should we clarify what it means to raise a unitary to a power in a finite field? I assume there's some canonical identification of elements of $\F_q$ with $\{0,1,2,\ldots,q-1\}$?}\tnote{I got confused by this. I added a comment above. What we need is that $(\omega_q^\alpha)^\beta = \omega_q^{\alpha \beta}$, for the field multiplication $\alpha \beta$. This will not be satisfied by an arbitrary choice of representative, right?} \hnote{Yeah I'm not sure this works... the multiplication over $\F_q$ for $q = 2^t$ does not look like multiplication in $\Z_q$; it's some more complicated linear transformation that has to do with irreducible polynomials and stuff...} \hnote{why do we need to package everything into a unitary, though? The low degree test/tensor codes stuff only needs line/points measurements}\tnote{The unitary is the best way to make use of the commutation relations; I wasn't able to control the errors without them. I redid it, without $\omega$'s, doing everything as if it was $\Z_2^t$ instead of $\F_q$.}
 \end{claim}
 
 \begin{proof}
@@ -1044,18 +1045,18 @@ Due to the test of the relations $\{R^\com_k\}$, it holds that
 \end{align}
 Now, for any $u,v\in \F_q^m$
 \begin{align*}
-\Es{\alpha,\alpha'\in \F_q} &\tau\big( U_u^\alpha U_{v}^{\alpha'} U_u^{-\alpha} U_{v}^{-\alpha'} \big) \\
-&= \sum_{\beta,\beta',\gamma,\gamma'\in \F_q}\Es{\alpha\in \F_q} \omega_q^{\alpha(\beta-\beta')} \Es{\alpha'\in \F_q} \omega_q^{\alpha'(\gamma-\gamma')}  \tau(P^{u}_\beta P^{v}_\gamma P^{u}_{\beta'} P^{v}_{\gamma'}\big)\\
-&=\sum_{\beta,\beta',\gamma,\gamma'\in \F_q}\Es{\alpha\in\F_2^t} (-1)^{\alpha\cdot\kappa(\beta-\beta')} \Es{\alpha'\in\F_2^t} (-1)^{\alpha'\cdot\kappa(\gamma-\gamma')} \tau(P^{u}_\beta P^{v}_\gamma P^{u}_{\beta'} P^{v}_{\gamma'}\big)\\
-&=\Es{\alpha,\alpha'\in\F_2^t}  \tau\Big( \Big(\sum_{\beta\in \F_q} (-1)^{\alpha\cdot \kappa(\beta)} P^{u}_\beta\Big) \Big(\sum_{\gamma\in \F_q} (-1)^{\alpha'\cdot \kappa(\gamma)} P^{v}_\gamma\Big)\Big(\sum_{\beta'\in \F_q} (-1)^{\alpha\cdot \kappa(\beta')} P^{u}_{\beta'}\Big)\Big(\sum_{\gamma'\in \F_q} (-1)^{\alpha'\cdot \kappa(\gamma')} P^{v}_{\gamma'}\Big)\Big)\;.
+\Es{\alpha,\alpha'\in \F_q} &\tau\big( U_{u,\alpha} U_{v,\alpha'} U_{u,-\alpha} U_{v,-\alpha'} \big) \\
+&= \sum_{\beta,\beta',\gamma,\gamma'\in \F_q}\Es{\alpha\in \F_q} (-1)^{\tr(\alpha(\beta-\beta'))} \Es{\alpha'\in \F_q} (-1)^{\tr(\alpha'(\gamma-\gamma'))}  \tau(P^{u}_\beta P^{v}_\gamma P^{u}_{\beta'} P^{v}_{\gamma'}\big)\\
+&=\sum_{\beta,\beta',\gamma,\gamma'\in \F_q}\Es{a\in\F_2^t} (-1)^{a\cdot\kappa(\beta-\beta')} \Es{a'\in\F_2^t} (-1)^{a'\cdot\kappa(\gamma-\gamma')} \tau(P^{u}_\beta P^{v}_\gamma P^{u}_{\beta'} P^{v}_{\gamma'}\big)\\
+&=\Es{a,a'\in\F_2^t}  \tau\Big( \Big(\sum_{\beta\in \F_q} (-1)^{a\cdot \kappa(\beta)} P^{u}_\beta\Big) \Big(\sum_{\gamma\in \F_q} (-1)^{a'\cdot \kappa(\gamma)} P^{v}_\gamma\Big)\Big(\sum_{\beta'\in \F_q} (-1)^{a\cdot \kappa(\beta')} P^{u}_{\beta'}\Big)\Big(\sum_{\gamma'\in \F_q} (-1)^{a'\cdot \kappa(\gamma')} P^{v}_{\gamma'}\Big)\Big)\;.
 \end{align*}
-Here, the second line follows since for $\beta,\beta'\in \F_q$, 
-\[ \Es{\alpha\in \F_q} \omega_q^{\alpha(\beta-\beta')}\,=\delta_{\beta,\beta'}\,=\,\Es{\alpha\in\F_2^t} (-1)^{\alpha\cdot \kappa(\beta-\beta')}\,\;.\]
-It follows that, for any distribution on $(u,v)$ such that both marginals are uniform over $\F_q^m$,
+%Here, the second line follows since for $\beta,\beta'\in \F_q$, 
+%\[ \Es{\alpha\in \F_q} \omega_q^{\alpha(\beta-\beta')}\,=\delta_{\beta,\beta'}\,=\,\Es{\alpha\in\F_2^t} (-1)^{\alpha\cdot \kappa(\beta-\beta')}\,\;.\]
+%It follows that, for any distribution on $(u,v)$ such that both marginals are uniform over $\F_q^m$,
 \begin{align*}
-\Es{u,v} \Es{\alpha,\alpha'\in \F_q} \big\| [U_u^\alpha ,U_{v}^{\alpha'} ]-\Id\big\|_\tau^2
-&= \Es{\alpha,\alpha'\in \F_2^t} \Big\| \Big[\sum_{\beta\in \F_q} (-1)^{\alpha\cdot \kappa(\beta)} P^{u}_\beta ,\sum_{\beta'\in \F_2^t} (-1)^{\alpha\cdot \kappa(\beta')} P^{v}_{\beta'} \Big]-\Id\Big\|_\tau^2\\
-&= \Es{\alpha,\alpha'\in \F_2^t} \big\| \big[ \phi(s_{u,\alpha}),\phi(s_{v,\alpha'})\big]-\Id\big\|_\tau^2+O\big(\sqrt{\eps}\big)\;,
+\Es{u,v} \Es{\alpha,\alpha'\in \F_q} \big\| [U_{u,\alpha} ,U_{v,\alpha'} ]-\Id\big\|_\tau^2
+&= \Es{a,a'\in \F_2^t} \Big\| \Big[\sum_{\beta\in \F_q} (-1)^{a\cdot \kappa(\beta)} P^{u}_\beta ,\sum_{\beta'\in \F_q} (-1)^{a'\cdot \kappa(\beta')} P^{v}_{\beta'} \Big]-\Id\Big\|_\tau^2\\
+&= \Es{\alpha,\alpha'\in \F_q} \big\| \big[ \phi(s_{u,\alpha}),\phi(s_{v,\alpha'})\big]-\Id\big\|_\tau^2+O\big(\sqrt{\eps}\big)\;,
 \end{align*}
 where the second line follows from Claim~\ref{claim:z2-stab-2}. Thus~\eqref{eq:z2-stab-2b-0a} follows from~\eqref{eq:z2-stab-2b-1}, and~\eqref{eq:z2-stab-2b-0b} follows from~\eqref{eq:z2-stab-2b-1b}.
 \end{proof}
@@ -1064,35 +1065,39 @@ Now we show the following, which essentially follows from the previous claim.
 
 \begin{claim}\label{claim:z2-stab-3}
 For every $u\in \F_q^m$ and $j\in\{1,\ldots,m\}$, there is a projective measurement $\{R^{u,j}_\alpha\}_{\alpha\in\F_q^{d+1}}$ on $\mM$ such that 
-\[ \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{z_0,\ldots,z_{d}\in \F_q} \Big\| U_0^{z_0}\cdots U_d^{z_d} -  \sum_{\alpha} \omega^{\sum x_i\alpha_i} R^{u,j}_\alpha\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
+\[ \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{z_0,\ldots,z_{d}\in \F_q} \Big\| U_{0,z_0}\cdots U_{d,z_d} -  \sum_{\alpha} (-1)^{\tr(\sum z_i\alpha_i)} R^{u,j}_\alpha\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
 Similarly, for any $u,v\in \F_q^m$ there is a projective measurement $\{R^{u,v}_{\alpha,\beta}\}_{(\alpha,\beta)\in\F_q^{2}}$ on $\mM$ such that 
-\[  \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}} \Es{y,z\in \F_q} \Big\| U_u^{z}  U_v^{y} -  \sum_{\alpha} \omega^{ \alpha z + \beta y} R^{u,v}_{\alpha,\beta}\Big\|_\tau^2 \,=\, \poly(\eps)\;.\]
+\[  \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}} \Es{y,z\in \F_q} \Big\| U_{u,z}  U_{v,y} -  \sum_{\alpha} (-1)^{ \tr(\alpha z + \beta y)} R^{u,v}_{\alpha,\beta}\Big\|_\tau^2 \,=\, \poly(\eps)\;.\]
 \end{claim}
 
 \begin{proof}
 We show the first part only, as the second part is entirely analogous. Fix an $u\in \F_q^m$ and a direction $j\in \{1,\ldots,m\}$. Define
-$\psi: \Z_q^{d+1} \to \mU(\mM)$ by 
-\[\psi(z_0,\ldots,z_{d}) \,=\, U_0^{z_0} \cdots U_{d}^{z_{d}}\;,\]
-where for each $i\in\{0,\ldots,d\}$, $U_i$ is the order-$q$ unitary defined in Claim~\ref{claim:z2-stab-2b}. Using Claim~\ref{claim:z2-stab-2b} and the triangle inequality we verify that the map $\psi$ is a $\delta=O(d^4\sqrt{\eps})$-approximate homomorphism of $\Z_q^{d+1}$ on $\mU(\mA)$, with respect to the exhaustive presentation. To verify this first note that for any unitaries $V,W$, and any $i,i'$ we have that on average over $u$ and $j$,
+$\psi: (\Z_2^{t})^{d+1} \to \mU(\mM)$ by 
+\[\psi(z_0,\ldots,z_{d}) \,=\, U_{0,z_0} \cdots U_{d,z_{d}}\;,\]
+where for each $i\in\{0,\ldots,d\}$ and $z_i\in \F_q$, $U_{i,z_i}$ is the unitary defined in Claim~\ref{claim:z2-stab-2b} and we slightly abused notation to identify $z_i\in \Z_2^t$ with the unique $\tilde{z}_i\in \F_q$ such that $\kappa(\tilde{z}_i)=z_i$ . Using Claim~\ref{claim:z2-stab-2b} and the triangle inequality we verify that the map $\psi$ is a $\delta=O(d^4\sqrt{\eps})$-approximate homomorphism of $\Z_2^{t(d+1)}$ on $\mU(\mA)$, with respect to the exhaustive presentation. To verify this first note that for any unitaries $V,W$, and any $i,i'$ we have that on average over $u$ and $j$,
 \begin{align*}
-\Es{\alpha,\alpha'\in \F_q} \big\| V U_i^\alpha U_{i'}^{\alpha'} W^* - V U_{i'}^{\alpha'} U_i^\alpha  W^*\big\|_\tau^2 \,=\, O\big(d^2 \sqrt{\eps}\big)\;,
+\Es{\alpha,\alpha'\in \F_q} \big\| V U_{i,\alpha} U_{i',\alpha'} W^* - V U_{i',\alpha'} U_{i,\alpha}  W^*\big\|_\tau^2 \,=\, O\big(d^2 \sqrt{\eps}\big)\;,
 \end{align*}
-by Claim~\ref{claim:z2-stab-2b}, where the factor $d^2$ is because we require the relation to hold for all $i,i'$. Applying this relation $O(d^2)$ times gives
+by Claim~\ref{claim:z2-stab-2b}, where the factor $d^2$ is because we require the relation to hold for all $i,i'$. Moreover, $U_{i,\alpha}U_{i,\alpha'}=U_{i,\alpha+\alpha'}$ by definition. Applying these relation $O(d^2)$ times gives
 \begin{align*}
- \Es{z_0,\ldots,z_d\in\F_q}\Es{y_0,\ldots,y_d\in\F_q}\big\|\psi(z_0,\ldots,z_d)\psi(y_0,\ldots,y_d) -\psi(z_0+y_0,\ldots,z_d+y_d)\big\|_\tau^2 \,=\, O\big(d^4 \sqrt{\eps}\big)\;,
+ \Es{z_0,\ldots,z_d\in\F_2^t}\Es{y_0,\ldots,y_d\in\F_2^t}\big\|\psi(z_0,\ldots,z_d)\psi(y_0,\ldots,y_d) -\psi(z_0+y_0,\ldots,z_d+y_d)\big\|_\tau^2 \,=\, O\big(d^4 \sqrt{\eps}\big)\;,
 \end{align*}
 as desired.
-Thus we may apply Theorem~\ref{thm:gh} to obtain a partial isometry $w\in P\mM_\infty\Id_\mM$ and a family of commuting unitaries $\{V_i\}$ of order $q$ each on $\mN=P\mM_\infty P$ such that, on average over $u$ and $j$,
+Thus we may apply Theorem~\ref{thm:gh} to obtain a partial isometry $w\in P\mM_\infty\Id_\mM$ and a family of commuting unitaries $\{V_{i,k}\}$ of order $2$ each on $\mN=P\mM_\infty P$ such that, on average over $u$ and $j$, defining $V_i^z = \prod_{k=1}^t V_{i,k}^{z_k}$,
 \begin{equation}\label{eq:z2-stab-3-1}
-\Es{z_0,\ldots,z_{d}\in\F_q} \big\| \psi(z_0,\ldots,z_{d+1}) - w^* V_0^{z_0}\cdots V_{d}^{z_{d}} w \big\|_\tau^2 \,=\, \poly(d,\eps)\;.
+\Es{z_0,\ldots,z_{d}\in\F_2^t} \big\| \psi(z_0,\ldots,z_{d+1}) - w^* V_0^{z_0}\cdots V_{d}^{z_{d}} w \big\|_\tau^2 \,=\, \poly(d,\eps)\;.
 \end{equation}
-Because $\{V_i\}$ are a representation of $\Z_q^{d+1}$ (which is Abelian), there is a projective measurement $\{Q_\alpha\}_{\alpha\in \F_q^{d+1}}$ on $\mN$ such that for each $i\in\{0,\ldots,d\}$, 
-\[ V_i \,=\, \sum_{\alpha\in \Z_q^{d+1}} \omega^{\alpha_i} Q_\alpha\;,\]
+Because $\{V_{i,z}\}$ are a representation of $\Z_2^{t(d+1)}$ (which is Abelian), there is a projective measurement $\{Q_\alpha\}_{\alpha\in \Z_2^{t(d+1)}}$ on $\mN$ such that for each $i\in\{0,\ldots,d\}$, 
+\[ V_{i}^{z} \,=\, \sum_{\alpha\in (\Z_2^{t})^{d+1}} (-1)^{\alpha_{i}\cdot z} Q_\alpha\;,\]
 and  
-\[ V_0^{z_0}\cdots V_{d}^{z_{d}}  \,=\, \sum_{\alpha\in \Z_q^{d+1}} \omega^{\sum z_i\alpha_i} Q_\alpha\;.\]
+\[ V_{0}^{z_0}\cdots V_{d}^{z_{d}}  \,=\, \sum_{\alpha\in (\Z_2^{t})^{d+1}} (-1)^{\sum \alpha_{i}\cdot z_i} Q_\alpha\;.\]
+Identifying $\alpha$ with an element of $\F_q^{d+1}$, and interpreting $z_i$ as an element of $\F_q$ as well,
+ the preceding equation can be rewritten as
+\[ V_{0}^{z_0}\cdots V_{d}^{z_{d}}  \,=\, \sum_{\alpha\in \F_q^{d+1}} (-1)^{\tr(\sum \alpha_{i} z_i} Q_\alpha\;.\]
+
 %($\{Q^u_\alpha\}$ can be found explicitly by applying the Fourier transform.) 
-Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{R^{u,j}_\alpha\}_{\alpha\in \Z_q^{d+1}}$  on $\mM$ such that by~\eqref{eq:z2-stab-3-1}, on average over $u$ and $j$,
-\[  \Es{z_0,\ldots,z_{d}\in\F_q} \Big\| \psi(z_0,\ldots,z_{d}) -  \sum_{\alpha\in \Z_q^{d+1}} \omega^{\sum z_i\alpha_i} R_\alpha^{u,j}\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
+Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{R^{u,j}_\alpha\}_{\alpha\in (\F_q)^{d+1}}$  on $\mM$ such that by~\eqref{eq:z2-stab-3-1}, on average over $u$ and $j$,
+\[  \Es{z_0,\ldots,z_{d}\in\F_q} \Big\| \psi(z_0,\ldots,z_{d}) -  \sum_{\alpha\in (\F_q^{d+1}} (-1)^{\tr(\sum z_i\alpha_i)} R_\alpha^{u,j}\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.\]
 \end{proof}
 
 
@@ -1100,9 +1105,10 @@ Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{R^{u,j
 Next we exploit the relations $\{R^\ld_k\}$ to obtain the following. 
 
 \begin{claim}\label{claim:z2-stab-5}
-Use the same notation as in Claim~\ref{claim:z2-stab-2b}. Let $u\in \F_q^m$, $\ell$ an axis-parallel line through $u$ and $v\in\F_q^m\cap \ell$. Let $(\alpha_{u,v,i})_{i=0,\ldots,d}$ be the interpolation coefficients~\eqref{eq:interp-coeff}. Let $U_v = \sum_\beta \omega^\beta P^v_\beta$. Then 
+Use the same notation as in Claim~\ref{claim:z2-stab-2b}. Let $u\in \F_q^m$, $\ell$ an axis-parallel line through $u$ and $v\in\F_q^m\cap \ell$. Let $(\alpha_{u,v,i})_{i=0,\ldots,d}$ be the interpolation coefficients~\eqref{eq:interp-coeff}. %Let $U_v = \sum_\beta \omega^\beta P^v_\beta$. 
+Then 
 \begin{equation}\label{eq:z2-stab-5-0}
-\Es{u\in\F_q^m} \Es{\ell: u\in \ell} \Es{v\in \ell} \Es{\gamma\in\F_q} \Big\| U_0^{\gamma \alpha_{u,v,0}}\cdots U_d^{\gamma  \alpha_{u,v,d}} - U_v^\gamma \big\|_\tau^2 \,=\, 1-O\big(d\sqrt{\eps}\big)\;,
+\Es{u\in\F_q^m} \Es{\ell: u\in \ell} \Es{v\in \ell} \Es{\gamma\in\F_q} \Big\| U_{0,\gamma \alpha_{u,v,0}}\cdots U_{d,\gamma  \alpha_{u,v,d}} - U_{v,\gamma} \big\|_\tau^2 \,=\, 1-O\big(d\sqrt{\eps}\big)\;,
 \end{equation}
 where the expectation is over a uniformly random axis-parallel line that contains $u$, and a uniformly random $v\in\ell$. 
 \end{claim}
@@ -1111,8 +1117,8 @@ where the expectation is over a uniformly random axis-parallel line that contain
 Write $\alpha_i$ for $\alpha_{u,v,i}$. 
 We observe that 
 \begin{align*}
-\Es{\gamma\in\F_q} \tau\big( U_0^{\gamma\alpha_{0}}\cdots U_d^{\gamma\alpha_{d}} U_v^{-\gamma} \big)
-&=  \sum_{\beta_0,\ldots,\beta_d\in\F_q}\sum_{\beta\in\F_q} \Es{\gamma\in\F_q} \omega^{\sum \gamma \alpha_i\beta_i} \omega^{-\gamma\beta} \tau\big( P^{(0)}_{\beta_0} \cdots P^{(d)}_{\beta_d} P^v_\beta \big)\\
+\Es{\gamma\in\F_q} \tau\big( U_{0,\gamma\alpha_{0}}\cdots U_{d,\gamma\alpha_{d}} U_{v,-\gamma} \big)
+&=  \sum_{\beta_0,\ldots,\beta_d\in\F_q}\sum_{\beta\in\F_q} \Es{\gamma\in\F_q} (-1)^{\tr(\sum \gamma \alpha_i\beta_i)} (-1)^{\tr(-\gamma\beta)} \tau\big( P^{(0)}_{\beta_0} \cdots P^{(d)}_{\beta_d} P^v_\beta \big)\\
 &= \sum_{\beta_0,\ldots,\beta_d\in\F_q}\sum_{\beta\in\F_q}\Es{\gamma\in\F_2^t} (-1)^{\gamma\cdot \kappa(\sum \alpha_i\beta_i-\beta)} \tau\big( P^{(0)}_{\beta_0} \cdots P^{(d)}_{\beta_d} P^v_\beta \big)\\
 &=\Es{\gamma\in\F_2^t}  \tau\Big( \Big(\sum_{\beta_0\in \F_q} (-1)^{\gamma\cdot \kappa(\alpha_0\beta_0)} P^{(0)}_{\beta_0} \Big)\cdots\Big(\sum_{\beta\in \F_q} (-1)^{-\gamma\cdot \kappa(\beta)} P^{v}_{\beta} \Big)\Big)\\
 &=\Es{\gamma\in\F_q}  \tau\Big( \Big(\sum_{\beta_0\in \F_q} (-1)^{\kappa( \gamma \alpha_0)\cdot\kappa(\beta_0)} P^{(0)}_{\beta_0} \Big)\cdots\Big(\sum_{\beta\in \F_q} (-1)^{\kappa(-\gamma)\cdot \kappa(\beta)} P^{v}_{\beta} \Big)\Big)\;.
@@ -1131,19 +1137,19 @@ where the expectation is over a uniformly random axis-parallel line $\ell$ and p
 
 \begin{proof}
 First we show that the conclusion of Claim~\ref{claim:z2-stab-3} can be strengthened to hold for \emph{every} $z_0,\ldots,z_{d}$, instead of on average. To show this, note that for any $y_0,\ldots,y_d\in \F_q$ we can write 
-\[ U_0^{z_0}\cdots U_d^{z_d}\,=\, U_0^{y_0}U_0^{z_0-y_0}\cdots U_d^{y_d}U_d^{z_d-y_d}\;.\]
+\[ U_{0,z_0}\cdots U_{d,z_d}\,=\, U_{0,y_0}U_{0,z_0-y_0}\cdots U_{d,y_d}U_{d,z_d-y_d}\;.\]
 By repeated application of Claim~\ref{claim:z2-stab-2b}, the term on the right-hand side satisfies 
-\[ \big\| U_0^{y_0}U_0^{z_0-y_0}\cdots U_d^{y_d}U_d^{z_d-y_d}  - U_0^{y_0}\cdots U_d^{y_d}U_0^{z_0-y_0}\cdots U_d^{z_d-y_d}\big\|_\tau^2 \,=\,\poly(d,\eps)\;.\]
+\[ \big\| U_{0,y_0}U_{0,z_0-y_0}\cdots U_{d,y_d}U_{d,z_d-y_d}  - U_{0,y_0}\cdots U_{d,y_d}U_{0,z_0-y_0}\cdots U_{d,z_d-y_d}\big\|_\tau^2 \,=\,\poly(d,\eps)\;.\]
 To show this it suffices to verify that we only need to ``commute'' pairs of terms whose exponents are independent and uniformly random. Using Claim~\ref{claim:z2-stab-3} twice, the right-hand side satisfies
-\[ \big\| U_0^{y_0}\cdots U_d^{y_d}U_0^{z_0-y_0}\cdots U_d^{z_d-y_d} - \Big(\sum_{\alpha} \omega^{\sum y_i\alpha_i} R^{u,j}_\alpha\Big)\Big(\sum_{\alpha} \omega^{\sum (z_i-y_i)\alpha_i} R^{u,j}_\alpha\Big) \big\|_\tau^2 \,=\,\poly(d,\eps)\;.\]
+\[ \big\| U_{0,y_0}\cdots U_{d,y_d}U_{0,z_0-y_0}\cdots U_{d,z_d-y_d} - \Big(\sum_{\alpha} \omega^{\sum y_i\alpha_i} R^{u,j}_\alpha\Big)\Big(\sum_{\alpha} (-1)^{\tr(\sum (z_i-y_i)\alpha_i)} R^{u,j}_\alpha\Big) \big\|_\tau^2 \,=\,\poly(d,\eps)\;.\]
 Since $\{R^{u,j}_\alpha\}$ is a projective measurement, we get the desired conclusion: on average over $u$ and $j$, for any $z_0,\ldots,z_d\in\F_q$, it holds that 
 \begin{equation}\label{eq:z2-stab-4-1}
- \Big\| U_0^{z_0}\cdots U_d^{z_d} -  \sum_{\alpha} \omega^{\sum x_i\alpha_i} R^{u,j}_\alpha\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
+ \Big\| U_{0,z_0}\cdots U_{d,z_d} -  \sum_{\alpha} (-1)^{\tr(\sum x_i\alpha_i)} R^{u,j}_\alpha\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
 	\end{equation}
 	For any line $\ell \subset \F_q^m$, let $u_\ell\in \ell$ be chosen such that, for a uniformly random $\ell$ and conditioned on that $u_\ell$,~\eqref{eq:z2-stab-4-1} and~\label{eq:z2-stab-5-0} both hold, with right-hand side multiplied by a factor at most $2$. For any $\ell$ in the $j$-th direction and degree-$d$ polynomial $g$, let $Q^\ell_g = R^{u_\ell,j}_{g(u_\ell),\ldots,g(u_\ell+de_j)}$.
 	Combining the two equations we deduce
 	\begin{equation}\label{eq:z2-stab-4-2}
- \Es{\gamma\in\F_q} \Big\| U_v^\gamma -  \sum_{g} \omega^{\gamma \sum \alpha_{u_\ell,v,i} g(u_\ell+ie_j)} Q^{\ell}_g\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
+ \Es{\gamma\in\F_q} \Big\| U_v^\gamma -  \sum_{g} (-1)^{\tr(\gamma \sum \alpha_{u_\ell,v,i} g(u_\ell+ie_j))} Q^{\ell}_g\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
 	\end{equation}
 	By definition, $\sum \alpha_{u_\ell,v,i} g(u_\ell+ie_j) = g(v)$. By Fourier transform, we obtain the desired conclusion. 
 \end{proof}

@@ -685,7 +685,7 @@ projective measurement $\{P_u\}_{u\in \Z_2^k}$ on $\mM$ such that
 \end{corollary} 
 
 \begin{proof}
-Any $\phi$ as in the corollary statement is an $(\eps,U_R)$-almost homomorphism of $\Z_2^k$ into $(\mM,\tau)$ for the exhaustive presentation. Applying Theorem~\ref{thm:gh}, $\phi$ is $O(\eps)$-close to a homomorphism to some \hnote{``to some'' or ``of some''?}\tnote{I meant it in the sense of ``into'' (taking values into..) How do you prefer to say it?} $(\mN,\tau^\mN)$. Because $\Z_2^k$ is Abelian, such a homomorphism is given by commuting unitaries $(U_x)_{x\in\Z_2^k}$ on $\mM$. Moreover, since $\Z_2^k$ is a $2$-group, each $U_x$ satisfies $U_x^2=\Id$, hence $U_x=U_x^*$.
+Any $\phi$ as in the corollary statement is an $(\eps,U_R)$-almost homomorphism of $\Z_2^k$ into $(\mM,\tau)$ for the exhaustive presentation. Applying Theorem~\ref{thm:gh}, $\phi$ is $O(\eps)$-close to a homomorphism from $\Z_2^k$ to some $(\mN,\tau^\mN)$. Because $\Z_2^k$ is Abelian, such a homomorphism is given by commuting unitaries $(U_x)_{x\in\Z_2^k}$ on $\mM$. Moreover, since $\Z_2^k$ is a $2$-group, each $U_x$ satisfies $U_x^2=\Id$, hence $U_x=U_x^*$.
 
 For every $u\in  \Z_2^k$ let $Q_u = \Es{x} (-1)^{u\cdot x} U_x$. Then each $Q_u$ is a projection such that $\sum_u Q_u=\Id$. Using Lemma~\ref{lem:pull-back}, we find a projective measurement $\{P_u\}$ on $\mM$ that satisfies the conclusions of the corollary. 
 \end{proof}
@@ -819,7 +819,8 @@ The presentation $\Z_2^t= G(h_\had)$, together with the distributions $\mu_S$ an
 \end{lemma}
 
 \begin{proof}
-This an immediate consequence of Theorem~\ref{thm:gh}. \hnote{Sorry, I'm missing something here. That theorem has to do with exhaustive presentations. Is $G(h_\had)$ an exhaustive presentation -- is this because checking $g(x) + g(y) = g(x+y)$ is checking all group relations? If so this could be pointed out explicitly.}\tnote{Yes, that's the point :)}
+This an immediate consequence of Theorem~\ref{thm:gh}, \hnote{added:} because $G(h_\had)$ is the exhaustive presentation for $\Z_2^t$.
+%\hnote{Sorry, I'm missing something here. That theorem has to do with exhaustive presentations. Is $G(h_\had)$ an exhaustive presentation -- is this because checking $g(x) + g(y) = g(x+y)$ is checking all group relations? If so this could be pointed out explicitly.}\tnote{Yes, that's the point :)}
 \end{proof}
 
 
@@ -850,14 +851,14 @@ We have that $\code_\RM = \code_\RS^{\otimes m}$, where $\code_\RS$ is defined a
 
 We define a local linear tester $M_{\RM}$ for the code $\code_\RM$ over $\F_q$. The tester is described as an algorithmic procedure in Figure~\ref{fig:RM-tester}. From this description it is straightforward to deduce a description of the tester as a distribution $\nu$ on subsets of $\F_q^n$, where $n=q^m$, together with vectors $v_S\in \F_q^S$ for every $S$ in the support of $\nu$. 
 
-To describe the tester we need to introduce interpolation coefficients, as follows. For $u,v\in \F_q$ and $i\in\{0,\ldots,d\}$ let 
+To describe the tester we need to introduce interpolation coefficients, as follows. For $u,v\in \F_q$ and $i\in\{0,\ldots,d\}$ \hnote{here we're also canonically identifying some elements of $\F_q$ with $\{0,1,\ldots,d\}$, is this right? Or should it be a general collection of $d+1$ points $t_0,\ldots,t_d \in \F_q$?} let 
 \begin{equation}\label{eq:interp-coeff}
  \alpha_{u,v,i} = \frac{\prod_{\substack{i'=0\\i'\neq i}}^{d} \big(v-(u+i')\big)}{\prod_{\substack{i'=0\\i'\neq i}}^{d} \big(u+i-(u+i')\big)}\;.
 \end{equation}
-These are defined so that for any $f:\F_q\to\F_q$ of degree at most $d$, 
+These are defined so that any polynomial $f:\F_q\to\F_q$ of degree at most $d$ satisfies
 \[ f(v)\,=\, \sum_{i=0}^{d} \alpha_{u,v,i} \, f(u+i)\;.\]
 
-The tester verifies this relation along a randomly chosen \emph{axis-aligned direction}.  For all points $u \in \F_q^m$ and $j \in \{1,\ldots,m\}$, we say that the line through $u$ parallel to the $j$-th axis is the set of points $\{ u + ie_j : i \in \F_q \}$ where $e_j=(0,\ldots,0,1,0,\ldots,0)\in \F_q^m$, where the unique $1$ is in the $j$-th position. 
+The tester verifies this relation along a randomly chosen \emph{axis-aligned direction}.  For all points $u \in \F_q^m$ and $j \in \{1,\ldots,m\}$, we say that the line through $u$ parallel to the $j$-th axis is the set of points $\{ u + te_j : t \in \F_q \}$ where $e_j=(0,\ldots,0,1,0,\ldots,0)\in \F_q^m$, where the unique $1$ is in the $j$-th position. 
 
 
 \begin{figure}[!htbp]

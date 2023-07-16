@@ -788,11 +788,13 @@ For readability it is convenient to reformulate the parity check matrix as a \em
 \begin{definition}[$r$-local linear tester]\label{def:code-test}
 Let $\code$ be an $[n,k,d]_q$ linear code and $r\in \N$.
 An \emph{$r$-local linear tester for $\code$} is a pair $M = ((v_S)_{S \subseteq [n]},\nu)$ where $\nu$ is a distribution over subsets $S\subseteq [n]$ of size at most $r$, and for each such subset a vector $v_S\in\F_q^S$, such that $u\in \code$ if and only if for all $S$ in the support of $\nu$, $v_S\cdot u_S=0$ where $u_S$ denotes the restriction of $u$ to coordinates in $S$.\footnote{Generally one imposes stronger ``soundness'' conditions on the tester. However, we will not need to be more specific than this. \hnote{This is probably a very vague comment that only makes sense to those who already know LTCs :)}} \hnote{Given that we've already talked about parity check matrices, it seems easier to define a local linear tester for a code $\code$ as a pair $(h,\nu)$ where $h \in \F^{m \times n}$ is a parity matrix for $\code$ and $\nu$ is a distribution over $\{1,\ldots,m\}$.}\tnote{Yes ok. I didn't change now but I'm in favor}
+
+\hnote{ok, here's the parity check version} Let $\code$ be an $[n,k,d]_q$ linear code and $r\in \N$. An \emph{$r$-local linear tester for $\code$} is a pair $M = (h,\nu)$ where $h \in \F^{m \times n}$ is a parity matrix for $\code$ and $\nu$ is a distribution over $\{1,\ldots,m\}$. \hnote{below, everywhere a tester is defined, I added a ``parity check'' version of it.}
 \end{definition}
 
 We end this section with an example, the \emph{Hadamard code}. This code can be defined for any  $t\geq 1$ and it is a $[T,t,T/2]_2$ linear code, where $T=2^t$. For simplicity we write  $\code_\had$ to denote this code, omitting $t$. As a linear space, $\code_\had$ is the span of all $(x_i)_{x\in \field^t} \in \field^T$, for $i\in \{1,\ldots,t\}$.  
 
-A parity check matrix for $\code_\had$ is the matrix $h_\had\in \F_2^{T^2\times T}$ defined as follows. Identify the rows of $h_\had$ with pairs $(x,y)\in \F_2^t\times \F_2^t$, and the columns of $h_\had$ with $\F_2^t$. Then the $(x,y)$-th row of $h$ has nonzero entries at positions $x,y$ and $x+y$ only. The corresponding $3$-local linear tester is $M_\had=((v_S),\nu)$ where $\nu$ is uniform over triples $\{x,y,x+y\}$ for $(x,y)\in \F_2^t\times \F_2^t$ and $v_S = (1,1,1)^T$ for all $S$ in the support of $\nu$. This tester can be described more algorithmically as in Figure~\ref{fig:test-had}. 
+A parity check matrix for $\code_\had$ is the matrix $h_\had\in \F_2^{T^2\times T}$ defined as follows. Identify the rows of $h_\had$ with pairs $(x,y)\in \F_2^t\times \F_2^t$, and the columns of $h_\had$ with $\F_2^t$. Then the $(x,y)$-th row of $h_\had$ has nonzero entries at positions $x,y$ and $x+y$ only. The corresponding $3$-local linear tester is $M_\had=((v_S),\nu)$ where $\nu$ is uniform over triples $\{x,y,x+y\}$ for $(x,y)\in \F_2^t\times \F_2^t$ and $v_S = (1,1,1)^T$ for all $S$ in the support of $\nu$. \hnote{here's the parity check version:} The corresponding $3$-local linear tester is $M_\had = (h_\had,\nu)$ where $\nu$ is the uniform distribution over $\F_2^t \times \F_2^t$. This tester can be described more algorithmically as in Figure~\ref{fig:test-had}. 
 
 \begin{figure}[!htbp]
   \centering
@@ -849,9 +851,9 @@ We have that $\code_\RM = \code_\RS^{\otimes m}$, where $\code_\RS$ is defined a
 \end{remark}
 
 
-We define a local linear tester $M_{\RM}$ for the code $\code_\RM$ over $\F_q$. The tester is described as an algorithmic procedure in Figure~\ref{fig:RM-tester}. From this description it is straightforward to deduce a description of the tester as a distribution $\nu$ on subsets of $\F_q^n$, where $n=q^m$, together with vectors $v_S\in \F_q^S$ for every $S$ in the support of $\nu$. 
+We define a local linear tester $M_{\RM}$ for the code $\code_\RM$ over $\F_q$. \hnote{added:} The tester is described as an algorithmic procedure in Figure~\ref{fig:RM-tester}. From this description it is straightforward to deduce a description of the tester as a distribution $\nu$ on subsets of $\F_q^n$, where $n=q^m$, together with vectors $v_S\in \F_q^S$ for every $S$ in the support of $\nu$. 
 
-To describe the tester we need to introduce interpolation coefficients, as follows. For $u,v\in \F_q$ and $i\in\{0,\ldots,d\}$ \hnote{here we're also canonically identifying some elements of $\F_q$ with $\{0,1,\ldots,d\}$, is this right? Or should it be a general collection of $d+1$ points $t_0,\ldots,t_d \in \F_q$?} let 
+To describe the tester we need to introduce interpolation coefficients, as follows. For $u,v\in \F_q$ and $i\in\{0,\ldots,d\}$ \hnote{Since multiplying $\F_q$ by $\{0,1,\ldots,d\}$ doesn't make sense I think we need to interpolate with respect to some fixed $d+1$ points $t_0,\ldots,t_d \in \F_q$.} let 
 \begin{equation}\label{eq:interp-coeff}
  \alpha_{u,v,i} = \frac{\prod_{\substack{i'=0\\i'\neq i}}^{d} \big(v-(u+i')\big)}{\prod_{\substack{i'=0\\i'\neq i}}^{d} \big(u+i-(u+i')\big)}\;.
 \end{equation}
@@ -868,12 +870,14 @@ Given access to some $g\in \F_q^n$, where $n=q^m$, identify $g$ with a function 
 \begin{enumerate}
 	\item Sample	$u\in \F_q^m$ and $j\in \{1,\ldots,m\}$ uniformly at random. Let $v$ be a uniformly random point on the line through $u$ parallel to the $j$-th axis.
 	\item 
-	Accept if and only if $g(v) = \sum_{i=0}^{d} \alpha_{u,v,i} g(u+ie_j)$.  
+	Accept if and only if $g(v) = \sum_{i=0}^{d} \alpha_{u,v,i} g(u+i e_j)$. 
     \end{enumerate}
   \end{gamespec}
   \caption{A local test for $\code_{\RM}$}
   \label{fig:RM-tester}
 \end{figure}
+
+\hnote{added the parity check version of this test:} A parity check matrix $h_{\RM} \in \F^{m q^{m+1} \times q^m}$ for $\code_{\RM}$ is as follows. Identify the rows with triples $(u,j,t) \in \F_q^m \times \{1,\ldots,m\} \times (\F_q \setminus \{t_0,\ldots,t_d\})$. The $(u,j,t)$-th row of $h_{\RM}$ is the vector in $\F_q^m$ that has $\alpha_{u,u+te_j,i}$ in the coordinate indexed by $u + t_i e_j$, and $-1$ in the coordinate indexed by $u + te_j$. Rubinfeld and Sudan \hnote{need to double check reference} showed that $h_{\RM}$ is indeed a parity check matrix for $\code_{\RM}$, and... \hnote{complete later}
 
 \hnote{There shoudl be some lemma or theorem statement saying that this is in fact a tester, right? Perhaps cite BFL?}
 
@@ -891,7 +895,8 @@ Given access to some $g\in \F_q^n$, where $n=q^m$, identify $g$ with a function 
 
  The Reed-Muller code from the previous section is defined over $\F_q$, for $q$ a prime power. We can transform any $q$-ary code, for $q=2^t$, into a binary code using the idea of \emph{code composition} which we now describe. 
 
-For $q=2^t$ and $a\in \F_q$ we let $\kappa(a)\in\F_2^t$ denote the binary representation of $a$, taken in a fixed but usually left implicit self-dual basis of $\F_{q}$ over $\F_2$. We extend $\kappa$ to vectors over $\F_q$ coordinate-wise. We let $\tr(\cdot):\F_q\to\F_2$ denote the trace over $\F_2$. Because we chose a self-dual basis for the binary representation, the trace satisfies $\tr(ab)=\kappa(a)\cdot\kappa(b)$  where the right-hand side means the $\F_2$-inner product of the vectors $\kappa(a), \kappa(b)$. For more details on the $\kappa$ map and its properties, see~\cite[Section 3.3]{ji2020mip}.
+%For $q=2^t$ and $a\in \F_q$ we let $\kappa(a)\in\F_2^t$ denote binary representation of $a$, taken in a fixed but usually left implicit self-dual basis of $\F_{q}$ over $\F_2$. 
+\hnote{edited slightly:} Let $\kappa: \F_q \to \F_2^t$ denote an invertible linear map such that $\kappa(a)$ is the $\F_2$-representation of $a \in \F_q$ over some (implicitly specified) self-dual basis of $\F_q$ over $\F_2$. We extend $\kappa$ and its inverse $\kappa^{-1}$ to vectors over $\F_q$ coordinate-wise. We let $\tr(\cdot):\F_q\to\F_2$ denote the trace over $\F_2$. Because we chose a self-dual basis for the binary representation, the trace satisfies $\tr(ab)=\kappa(a)\cdot\kappa(b)$  where the right-hand side means the $\F_2$-inner product of the vectors $\kappa(a), \kappa(b)$. For more details on the $\kappa$ map and its properties, see~\cite[Section 3.3]{ji2020mip}.
 
 Let $q=2^t$ and $\code$ an $[n,k,d]_q$ linear code. Let $\code_{\Had}$ be the Hadamard code over $\F_2^t$ (introduced at the end of Section~\ref{sec:pres-code}). Let $T=2^t$.
 Let $\code'$ be the $[Tn,tk,d']$ linear code over $\F_2$ defined as follows. Given $a\in (\F_2^t)^{k}$, first map $a\mapsto a'=\kappa^{-1}(a) \in \F_q^{k}$. Then encode $a'$ to $b'=\code(a')\in \F_q^n$. Finally, return $b=\code_\Had(\kappa(b'))\in(\F_2^T)^n$, where $\code_\Had$ is applied component-wise. Using that $\code_\Had$ has distance $T/2$, it is easy to verify that this code has distance $d'\geq dT/2$.

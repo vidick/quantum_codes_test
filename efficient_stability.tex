@@ -877,7 +877,7 @@ Given access to some $g\in \F_q^n$, where $n=q^m$, identify $g$ with a function 
   \label{fig:RM-tester}
 \end{figure}
 
-\hnote{added the parity check version of this test:} A parity check matrix $h_{\RM} \in \F^{m q^{m+1} \times q^m}$ for $\code_{\RM}$ is as follows. Identify the rows with triples $(u,j,t) \in \F_q^m \times \{1,\ldots,m\} \times (\F_q \setminus \{t_0,\ldots,t_d\})$. The $(u,j,t)$-th row of $h_{\RM}$ is the vector in $\F_q^m$ that has $\alpha_{u,u+te_j,i}$ in the coordinate indexed by $u + t_i e_j$, and $-1$ in the coordinate indexed by $u + te_j$. Rubinfeld and Sudan \hnote{need to double check reference} showed that $h_{\RM}$ is indeed a parity check matrix for $\code_{\RM}$, and... \hnote{complete later}
+\hnote{added the parity check version of this test:} A parity check matrix $h_{\RM} \in \F^{S \times q^m}$ for $\code_{\RM}$ where $S = q^m \times m \times (q - d-1)$ is as follows. Identify the rows with triples $(u,j,t) \in \F_q^m \times \{1,\ldots,m\} \times (\F_q \setminus \{t_0,\ldots,t_d\})$. The $(u,j,t)$-th row of $h_{\RM}$ is the vector in $\F_q^m$ that has $\alpha_{u,u+te_j,i}$ in the coordinate indexed by $u + t_i e_j$, and $-1$ in the coordinate indexed by $u + te_j$. Babai, Fortnow, and Lund essentially showed that \hnote{need to double check reference} $h_{\RM}$ is indeed a parity check matrix for $\code_{\RM}$. \hnote{complete later}
 
 \hnote{There shoudl be some lemma or theorem statement saying that this is in fact a tester, right? Perhaps cite BFL?}
 
@@ -903,7 +903,7 @@ Let $\code'$ be the $[Tn,tk,d']$ linear code over $\F_2$ defined as follows. Giv
 
 Given an $r$-local $\delta$-tester $M$ for $\code$, there is a natural $rq$-local tester $M'$ for $\code'$ which can be described as follows. Index coordinates of $\code'$ by pairs $(i,\alpha)\in [n]\times\F_2^t$, fixing a bijection between $[Tn]$ and $[n]\times \F_2^t$. Then $\nu'$ is the uniform mixtures of two distributions, $\nu'_1$ and $\nu'_2$, defined as follows. 
 
-To sample from $\nu'_1$, sample $S\sim\nu$ and $\gamma\in \F_2^t$ uniformly at random. If $M$ performed the check $v_S \cdot u_S=0$, then perform the check 
+To sample from $\nu'_1$, sample $S\sim\nu$ and $\gamma\in \F_2^t$ uniformly at random \hnote{type-checking, $\gamma$ should be in $\F_q$, I think}. If $M$ performed the check $v_S \cdot u_S=0$, then perform the check 
 \begin{align*}
 0 &= \tr\big(( v_S \cdot u_S) \gamma\big)\\
 &= \sum_{j\in S} \tr( v_{j} u_j \gamma) \\
@@ -913,7 +913,13 @@ This check can be performed by evaluating $u$ at the coordinates $(j,\kappa(\gam
 
 To sample from $\nu'_2$, sample $i\sim[n]$ uniformly at random and $x,y\in\F_2^t$ uniformly at random, and return $\{i\}\times\{x,y,x+y\}$. Execute the tester $M_\had$ for the Hadamard code, i.e.\ check if the three corresponding entries of $u$ sum to zero. 
 
-\hnote{I'm a little confused by the description of this local tester... This seems to just make $r$ queries, right (but it says $rq$ above)? And it feels like to ``simulate'' the check from $\code$, one has to make $2q$ random queries to the Hadamard code to decode the symbol from $\F_q$, right?}\tnote{You're right, it's just $r$ queries. I don't think that we need to recover the entire $\F_q$ symbols, because we're checking a linear equation. What we're effectively doing (by multiplying by $\gamma$ and taking the trace) is checking a ``random projection'' of the equation. Like a random linear combination of the $t$ equations implied by one equation over $\F_q$. We definitely don't want any $q$-dependence in the tester}
+\hnote{added the parity check version of the tester: } Let $M = (h,\nu)$ denote an $r$-local $\delta$-tester for $\code$, where $h \in \F_q^{\ell \times n}$ is a parity check matrix for $\code$. We now describe an $r$-local $(\cdots)$-tester $M' = (h',\nu')$ for $\code'$. Define $h'$ to be the block matrix $\begin{bmatrix} A \\ B \end{bmatrix}$ where 
+\begin{itemize}
+	\item $A \in \F^{nT^2 \times nT}$ is itself a block-diagonal matrix where the diagonal blocks are the $T^2 \times T$ parity check matrix for the Hadamard code. 
+	In other words, $A$ can be viewed as $I_{n\times n} \otimes h_\had$ where $h_\had \in \F_2^{T^2 \times T}$ is the parity check matrix for the Hadamard code. 
+	\item $B \in \F^{\ell T \times nT}$ is viewed as having the rows indexed by pairs $(p,\gamma) \in \{1,\ldots,\ell\} \times \F_q$ and columns indexed by pairs $(i,x) \in \{1,\ldots,n\} \times \F_2^t$. The entry in row $(p,\gamma)$ and column $(i,x)$ is $1$ if and only if $h_{pi} \neq 0$ and $x = \kappa(\gamma h_{pi})$. \hnote{double check this}
+\end{itemize}
+It is easy to check that $h'$ is a parity check matrix for $\code'$. Finally, define the distribution $\nu'$ to be... \hnote{to be continued}
 
 \hnote{Also, probably could use another lemma or proposition here arguing that this is in fact a valid tester.}
 

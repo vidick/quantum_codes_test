@@ -933,7 +933,7 @@ It is easy to check that $h'$ is a parity check matrix for $\code'$. Finally, de
 
 \section{An efficient presentation for $\Z_2^k$}
 
-Fix integers $m,t,d \in \N$ and let $q=2^t$. Let $\code_{\bRM}$ be the $[q^{m+1},tk,D']_2$ code obtained by applying the composition procedure from Section~\ref{sec:code-comp} to the $[q^m,(d+1)^m,D]_q$ Reed-Muller code $\code_\RM$ from Section~\ref{sec:rmq}. Let $N=q^{m+1}$ and $h_{\bRM}\in \F_2^{M\times N}$ the parity check matrix for $\code_{\bRM}$ obtained from the composition of the $(d+2)$-local tester for $\code_\RM$ with the $3$-local tester for $\code_\had$. Then $h_\bRM$ has $M= m\cdot q^m \cdot (1+q^2)$ rows, indexed by $(u,j)\in \F_1^m\times [m]$ and $\F_q^m\times [m] \times \F_q^2$ respectively, such that each row has at most $3(d+2)$ nonzero entries. 
+Fix integers $m,t,d \in \N$ and let $q=2^t$. Let $\code_{\bRM}$ be the $[q^{m+1},t(d+1)^m,D']$ code obtained by applying the composition procedure from Section~\ref{sec:code-comp} to the $[q^m,(d+1)^m,D]_q$ Reed-Muller code $\code_\RM$ from Section~\ref{sec:rmq}. Let $N=q^{m+1}$ and $h_{\bRM}\in \F_2^{M\times N}$ the parity check matrix for $\code_{\bRM}$ obtained from the composition of the $(d+2)$-local tester for $\code_\RM$ with the $3$-local tester for $\code_\had$. Then $h_\bRM$ has $M= m\cdot q^m \cdot (1+q^2)$ rows, indexed by $(u,j)\in \F_1^m\times [m]$ and $\F_q^m\times [m] \times \F_q^2$ respectively, such that each row has at most $3(d+2)$ nonzero entries. 
 
 Let $G_\bRM = G(h_\bRM)$ be the group that is presented from $h_\bRM$ (recall from \Cref{sec:pres-code} that codes give rise to group presentations). Explicitly, $h_\bRM$ is the parity check matrix that arises from the tester described in Figure~\ref{fig:bRM-tester}. 
 

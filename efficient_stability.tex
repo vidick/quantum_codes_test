@@ -1019,7 +1019,7 @@ Then $U_{u,\alpha} \in \mU(\mM)$.
 %where in the last line we slightly abused notation and identified $\alpha,\beta\in\F_q$ with $\kappa(\alpha),\kappa(\beta)\in \F_2^t$ respectively. \eqref{eq:z2-stab-2a} then follows from~\eqref{eq:z2-stab-2}.
 
 \begin{claim}\label{claim:z2-stab-2b}
-For $u\in \F_q^m$, $\alpha\in\F_q$, $j\in\{1,\ldots,m\}$ and $i\in \{0,\ldots,d\}$ let $U_{i,\alpha} = U_{u+ie_j,\alpha}$ and, for all $\beta\in\F_q$, $P^{(i)}_\beta = P^{u+ie_j}_\beta$ (leaving the dependence on $u$ and $j$ implicit). Then 
+For $u\in \F_q^m$, $\alpha\in\F_q$, $j\in\{1,\ldots,m\}$ and $i\in \{0,\ldots,d\}$ let $U_{i,\alpha} = U_{u+t_ie_j,\alpha}$ and, for all $\beta\in\F_q$, $P^{(i)}_\beta = P^{u+t_ie_j}_\beta$ (leaving the dependence on $u$ and $j$ implicit). Then 
 \begin{equation}\label{eq:z2-stab-2b-0a}
 \Es{u\in \F_q^m} \Es{\substack{j\in\{1,\ldots,m\}\\i\neq i' \in \{0,\ldots,d\}}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_{i,\alpha}, U_{i',\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;, 
 \end{equation}
@@ -1028,13 +1028,13 @@ and
  \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_{u,\alpha}, U_{v,\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;,
 \end{equation}
 where the expectation is over a uniformly random $u$ and $j$, and a uniformly random $v$ conditioned on its last $(j-1)$ coordinates matching those of $u$, and $[U,V]=UVU^* V^*$ is the group commutator. 
-\hnote{should we clarify what it means to raise a unitary to a power in a finite field? I assume there's some canonical identification of elements of $\F_q$ with $\{0,1,2,\ldots,q-1\}$?}\tnote{I got confused by this. I added a comment above. What we need is that $(\omega_q^\alpha)^\beta = \omega_q^{\alpha \beta}$, for the field multiplication $\alpha \beta$. This will not be satisfied by an arbitrary choice of representative, right?} \hnote{Yeah I'm not sure this works... the multiplication over $\F_q$ for $q = 2^t$ does not look like multiplication in $\Z_q$; it's some more complicated linear transformation that has to do with irreducible polynomials and stuff...} \hnote{why do we need to package everything into a unitary, though? The low degree test/tensor codes stuff only needs line/points measurements}\tnote{The unitary is the best way to make use of the commutation relations; I wasn't able to control the errors without them. I redid it, without $\omega$'s, doing everything as if it was $\Z_2^t$ instead of $\F_q$.}
+%\hnote{should we clarify what it means to raise a unitary to a power in a finite field? I assume there's some canonical identification of elements of $\F_q$ with $\{0,1,2,\ldots,q-1\}$?}\tnote{I got confused by this. I added a comment above. What we need is that $(\omega_q^\alpha)^\beta = \omega_q^{\alpha \beta}$, for the field multiplication $\alpha \beta$. This will not be satisfied by an arbitrary choice of representative, right?} \hnote{Yeah I'm not sure this works... the multiplication over $\F_q$ for $q = 2^t$ does not look like multiplication in $\Z_q$; it's some more complicated linear transformation that has to do with irreducible polynomials and stuff...} \hnote{why do we need to package everything into a unitary, though? The low degree test/tensor codes stuff only needs line/points measurements}\tnote{The unitary is the best way to make use of the commutation relations; I wasn't able to control the errors without them. I redid it, without $\omega$'s, doing everything as if it was $\Z_2^t$ instead of $\F_q$.}
 \end{claim}
 
 \begin{proof}
 Due to the test of the relations $\{R^\com_k\}$, it holds that 
 \begin{align}
-\Es{u\in \F_q^m} \Es{\substack{j\in\{1,\ldots,m\} \\ i\neq i' \in \{0,\ldots,d\}}} \Es{\alpha,\beta\in \F_q} \big\| [\phi(s_{u+i e_j,\alpha}),\phi(s_{u+i' e_j,\beta})] - \Id \big\|_\tau^2&\leq 8\eps\; ,\label{eq:z2-stab-2b-1}\\
+\Es{u\in \F_q^m} \Es{\substack{j\in\{1,\ldots,m\} \\ i\neq i' \in \{0,\ldots,d\}}} \Es{\alpha,\beta\in \F_q} \big\| [\phi(s_{u+t_i e_j,\alpha}),\phi(s_{u+t_{i'} e_j,\beta})] - \Id \big\|_\tau^2&\leq 8\eps\; ,\label{eq:z2-stab-2b-1}\\
 \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}}\Es{\alpha,\alpha'\in \F_q} \big\| [\phi(s_{u,\alpha}),\phi(s_{v,\beta})]-\Id\big\|_\tau^2&\leq 8\eps\;.\label{eq:z2-stab-2b-1b}
 \end{align}
 Now, for any $u,v\in \F_q^m$

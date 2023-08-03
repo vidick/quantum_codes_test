@@ -562,11 +562,10 @@ for a finite group $G$ we can always write $G=\langle S:R\rangle$ where $S = G$ 
 Let $G$ be a finite group and $\mC$ the class of all tracial von Neumann algebras. Let $\mu_S$ and $\mu_R$ be the uniform distribution on $S=G$ and $R=\{ g\cdot h \cdot (gh)^{-1}=e \}$ respectively. Then $G=\langle S:R\rangle$ is $(O(\eps),\mu_S,\mu_R,\mC)$-stable.
 \end{theorem}
 
-Next we state a result from~\cite{de2022spectral} which allows to combine stability results. The results in~\cite{de2022spectral} are rather general, and in particular imply that the direct product of stable groups is stable. Here, we will only use the following specialization to the case of $\Z_2^k$. For a measure $\mu$ on $\Z_2^k$, define its inverse spectral gap 
-\[ \kappa = \max_{a\neq 0} \frac{1}{1-\Es{b\sim\mu}(-1)^{a\cdot b}}\;,\] 
-where $a \cdot b$ denotes the inner product $\sum_{i=1}^k a_i b_i$. 
+Next we state a result from~\cite{de2022spectral} which allows to combine stability results. The results in~\cite{de2022spectral} are rather general and apply to direct products and certain central extensions of a class of finite groups. Here, we will only use the following specialization to the case of the central extension of $\Z_2^k \times \Z_2^k$ by $\{-1,1\}$ given by $\gamma(a,b)=(-1)^{a\cdot b}$, with $a\cdot b$ the inner product modulo $2$. For a measure $\mu$ on $\Z_2^k$, define its inverse spectral gap 
+\[ \kappa = \max_{a\neq 0} \frac{1}{1-\Es{b\sim\mu}(-1)^{a\cdot b}}\;.\] 
 	
-\hnote{I am wondering how exactly the comment above connects with the next theorem. For example, what is the ``direct product'' here? Also, is there a way to explain where  $(-1)^{a \cdot b}$ comes from? For someone who doesn't know what's coming next it may not be apparent where this is from.}\tnote{I thought it's clear that the theorem applies to a specific semidirect poduct. So but yes I agree that this should be introduced better}
+\hnote{I am wondering how exactly the comment above connects with the next theorem. For example, what is the ``direct product'' here? Also, is there a way to explain where  $(-1)^{a \cdot b}$ comes from? For someone who doesn't know what's coming next it may not be apparent where this is from.}\tnote{I tried, adding something above}
 
 \begin{theorem}[\cite{de2022spectral} Corollary 2.6]\label{thm:dls-gap}
 Let $\mu$ be a measure on $\Z_2^k$ with inverse spectal gap $\kappa$. Let $\phi_X,\phi_Z: \Z_2^k \to \mU(\mM)$ be two homomorphisms such that
@@ -662,7 +661,7 @@ We call this presentation ``efficient'' because it has a number of generators an
 For every $k$, there is a $\delta_k = O_k(\eps)$ such that the presentation~\eqref{eq:z2-efficient} is $\delta_k$-stable. Furthermore, the close representation can be taken on the same algebra. \hnote{Is there a reason to do $O_k(\eps)$ instead of writing out what the dependence of $k$ is in this lemma? I feel like this is an important aspect of the result (which motivates the later results...)}\tnote{Yes, the motivation was to first hide it, and then expand in the comment (which makes it clear that some $O_k(\eps)$ will always be true for a finite group, and that we care precisely about the $k$-dependence, which at first one might not ``notice''. Some of the stuff here I did not fine-tune too much the presentation of, because I thought we'll do that once we agree with the rough outline of the results and work on an intro and possible reorganization if needed. I agree it's not optimal now.}
 \end{lemma}
 
-As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on the girth of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This is nearly tight, as shown in~\cite{chao2017overlapping}. In the next section we will obtain presentations of $\Z_2^k$ that have a much better size/modulus tradeoff.
+As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on the diameter of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This is nearly tight, as shown in~\cite{chao2017overlapping}. In the next section we will obtain presentations of $\Z_2^k$ that have a much better size/modulus tradeoff.
 
 To formulate the last example we recall the definition of the Pauli matrices
 	\begin{equation}\label{eq:def-pauli-1} \sigma^X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\;,\qquad \sigma^Z = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}\;,
@@ -693,12 +692,13 @@ Let $\phi_X,\phi_Z:\Z_2^k \to \mU(\mM)$ be such that for all $W\in \{X,Z\}$,
 \[ \Es{a,b\in \Z_2^k} \big\| \phi_W(a)\phi_W(b)-\phi_W(a+b) \big\|_\tau^2 \,\leq\,\eps\;,\]
 and
 \[ \Es{a,b\in \Z_2^k} \big\| \phi_X(a)\phi_Z(b)- (-1)^{a\cdot b} \phi_Z(b)\phi_X(a) \big\|_{\tau}^2 \,\leq\,\eps\;.\]
-Then there is a partial isometry $w\in P\mM_\infty I_\mM$ such that for all $W\in \{X,Z\}$, \tnote{This is a bit sketchy; we need $\mN = (\C^2)^{\otimes n} \otimes \mN'$. I wasn't quite sure how to spell it out}
-\[ \Es{W\in \Z_2^k} \big\| \phi_W(a) - w^* \big(\sigma_W(a)\otimes \Id\big) w \big\|_{\tau}^2 \,=\, O(\eps)\;.\]
+Then there is a projection $P\in \mM_\infty$ such that if $\mN=P\mM_\infty P$ then $\mN\simeq (M_2(\C))^{\otimes k} \otimes \mN'$ for some $\mN'$, and a
+partial isometry $w\in P\mM_\infty I_\mM$ such that for all $W\in \{X,Z\}$, 
+\[ \Es{W\in \Z_2^k} \big\| \phi_W(a) - w^* \big(\sigma_W(a)\otimes \Id_{\mN'}\big) w \big\|_{\tau}^2 \,=\, O(\eps)\;.\]
 \end{corollary}
 
 \begin{proof}[Proof sketch]
-\tnote{todo}
+Define $\phi:\pauli_k \to \mU(\mM)$ by $\phi(J^c ab)= (-1)^c \phi_X(a)\phi_Z(b)$, where $c\in \{\pm 1\}$ and $a,b\in \Z_2^k$. Then it is not hard to verify that the assumptions of the corollary imply that  $\phi$ is an $O(\eps)$-almost homomorphism for the multiplication table presentation of $\pauli_k$. Applying Theorem~\ref{thm:gh} we find a unitary representation $\phi'$ of $\pauli_k$ on some $(\mN,\tau^\mN)$ that is $O(\eps)$-close to $\phi$. To conclude we observe that the only irreducible unitary representation of $\pauli_k$ that sends $J$ to $-1$ is the representation by the Pauli matrices; furthermore, all other irreducible representations are $1$-dimensional. From there it is not hard to show that, if we restrict $\phi'$ to its support on the Pauli matrix representation, the result remains $O(\eps)$-close to $\phi$. We omit the details. 
 \end{proof}
 
 Similarly to Lemma~\ref{lem:eff-z2} we can state an ``efficient'' version of the preceding corollary, which applies to the presentation
@@ -793,7 +793,7 @@ The presentation $\Z_2^t= G(h_\had)$, together with the distributions $\mu_S$ an
 \end{lemma}
 
 \begin{proof}
-This an immediate consequence of Theorem~\ref{thm:gh}, \hnote{added:} because $G(h_\had)$ is the multiplication table presentation for $\Z_2^t$.
+This an immediate consequence of Theorem~\ref{thm:gh}, because $G(h_\had)$ is the multiplication table presentation for $\Z_2^t$.
 %\hnote{Sorry, I'm missing something here. That theorem has to do with exhaustive presentations. Is $G(h_\had)$ an exhaustive presentation -- is this because checking $g(x) + g(y) = g(x+y)$ is checking all group relations? If so this could be pointed out explicitly.}\tnote{Yes, that's the point :)}
 \end{proof}
 
@@ -823,8 +823,8 @@ We have that $\code_\RM = \code_\RS^{\otimes m}$, where $\code_\RS$ is defined a
 \end{remark}
 
 
-We define a local linear tester $M_{\RM}$ for the code $\code_\RM$ over $\F_q$. \hnote{added:} The tester is described as an algorithmic procedure in Figure~\ref{fig:RM-tester}. %From this description it is straightforward to deduce a description of the tester as a distribution $\nu$ on subsets of $\F_q^n$, where $n=q^m$, together with vectors $v_S\in \F_q^S$ for every $S$ in the support of $\nu$. 
-To describe the tester we need to introduce interpolation coefficients, as follows. %For $u,v\in \F_q$ and $i\in\{0,\ldots,d\}$ \hnote{Since multiplying $\F_q$ by $\{0,1,\ldots,d\}$ doesn't necessarily make sense I think we need to interpolate with respect to some fixed $d+1$ points $t_0,\ldots,t_d \in \F_q$.} let 
+We define a local linear tester $M_{\RM}$ for the code $\code_\RM$ over $\F_q$. The tester is described as an algorithmic procedure in Figure~\ref{fig:RM-tester}. %From this description it is straightforward to deduce a description of the tester as a distribution $\nu$ on subsets of $\F_q^n$, where $n=q^m$, together with vectors $v_S\in \F_q^S$ for every $S$ in the support of $\nu$. 
+The description makes use of interpolation coefficients, which are defined as follows. %For $u,v\in \F_q$ and $i\in\{0,\ldots,d\}$ \hnote{Since multiplying $\F_q$ by $\{0,1,\ldots,d\}$ doesn't necessarily make sense I think we need to interpolate with respect to some fixed $d+1$ points $t_0,\ldots,t_d \in \F_q$.} let 
 %\begin{equation}\label{eq:interp-coeff}
 % \alpha_{u,v,i} = \frac{\prod_{\substack{i'=0\\i'\neq i}}^{d} \big(v-(u+i')\big)}{\prod_{\substack{i'=0\\i'\neq i}}^{d} \big(u+i-(u+i')\big)}\;.
 %\end{equation}
@@ -879,29 +879,32 @@ Let $\kappa: \F_q \to \F_2^t$ denote an invertible linear map such that $\kappa(
 Let $q=2^t$ and $\code$ an $[n,k,d]_q$ linear code. Let $\code_{\Had}$ be the Hadamard code over $\F_2^t$ (introduced at the end of Section~\ref{sec:pres-code}). 
 Let $\code'$ be the $[qn,tk,d']$ linear code over $\F_2$ defined as follows. Given $a\in (\F_2^t)^{k}$, first map $a\mapsto a'=\kappa^{-1}(a) \in \F_q^{k}$. Then encode $a'$ to $b'=\code(a')\in \F_q^n$. Finally, return $b=\code_\Had(\kappa(b'))\in(\F_2^q)^n$, where $\code_\Had$ is applied component-wise. Using that $\code_\Had$ has distance $q/2$, it is easy to verify that this code has distance $d'\geq dq/2$.
 
-Given an $r$-local $M$ for $\code$, there is a natural \hnote{should be $r$-local, right?} $rq$-local tester $M'$ for $\code'$ which can be described as follows. Index coordinates of $\code'$ by pairs $(i,\alpha)\in [n]\times\F_2^t$, fixing a bijection between $[qn]$ and $[n]\times \F_2^t$. Then $\nu'$ is the uniform mixtures of two distributions, $\nu'_1$ and $\nu'_2$, defined as follows. 
-
-To sample from $\nu'_1$, sample $S\sim\nu$ and $\gamma\in \F_q$ uniformly at random. If $M$ performed the check $v_S \cdot u_S=0$, then perform the check 
-\begin{align*}
-0 &= \tr\big(( v_S \cdot u_S) \gamma\big)\\
-&= \sum_{j\in S} \tr( v_{j} u_j \gamma) \\
-&= \sum_{j\in S} \kappa(\gamma v_{j}) \cdot \kappa(u_j)\;.
-\end{align*}
-This check can be performed by evaluating $u$ at the coordinates $(j,\kappa(\gamma  v_{j}))$ for $j\in S$ and summing the results in $\F_2$. 
-
-To sample from $\nu'_2$, sample $i\sim[n]$ uniformly at random and $x,y\in\F_2^t$ uniformly at random, and return $\{i\}\times\{x,y,x+y\}$. Execute the tester $M_\had$ for the Hadamard code, i.e.\ check if the three corresponding entries of $u$ sum to zero. 
-
-\hnote{added the parity check version of the tester: } Let $M = (h,\nu)$ denote an $r$-local tester for $\code$, where $h \in \F_q^{\ell \times n}$ is a parity check matrix for $\code$. We now describe an $\max\{r,3\}$-local tester $M' = (h',\nu')$ for $\code'$. Define $h'$ to be the block matrix $h'=\begin{pmatrix} A \\ B \end{pmatrix}$ where 
+Given an $r$-local $M=(h,\nu)$ for $\code$, there is a natural $r$-local tester $M'$ for $\code'$ which can be described as follows. Index coordinates of $\code'$ by pairs $(i,\alpha)\in [n]\times\F_2^t$, fixing a bijection between $[qn]$ and $[n]\times \F_2^t$.  We describe an $r$-local tester $M' = (h',\nu')$ for $\code'$. Informally, $h'$ contains two type of checks. First, the $A$-checks consist in the repetition of $n$ copies of the checks for the Hadamard code, one for each Hadamard-code encoding of an $\F_q$-symbol from $\code$. Second, the $B$-checks implement the checks of $\code$ specified by $M$, directly on the Hadamard encoding. More precisely, define $h'$ to be the block matrix $h'=\begin{pmatrix} A \\ B \end{pmatrix}$ where 
 \begin{itemize}
 	\item $A \in \F^{nq^2 \times nq}$ is itself a block-diagonal matrix where the diagonal blocks are the $q^2 \times q$ parity check matrix for the Hadamard code. 
 	In other words, $A$ can be viewed as $I_{n\times n} \otimes h_\had$ where $h_\had \in \F_2^{q^2 \times q}$ is the parity check matrix for the Hadamard code. 
 	\item $B \in \F^{\ell q \times nq}$ is viewed as having rows indexed by pairs $(p,\gamma) \in \{1,\ldots,\ell\} \times \F_q$ and columns indexed by pairs $(i,x) \in \{1,\ldots,n\} \times \F_2^t$. The entry in row $(p,\gamma)$ and column $(i,x)$ is $1$ if and only if $h_{pi} \neq 0$ and $x = \kappa(\gamma h_{pi})$.
 \end{itemize}
-It is easy to check that $h'$ is a parity check matrix for $\code'$. Furthermore, every row of $h'$ has at most $\max \{r,3\}$ nonzero entries; this is because the rows of $A$ have at most $3$ nonzero entries and the rows of $B$ have at most $r$ nonzero entries. Finally, define the distribution $\nu'$ to be choosing a uniformly random row of the $A$ block matrix with probability $1/2$, and choosing a uniformly random row of the $B$ block matrix with probability $1/2$. 
+Define the distribution $\nu'$ as the uniform mixture of the uniform distribution on the rows of the $A$ block matrix and the uniform distribution on the rows of the $B$ block matrix. 
 
-\hnote{maybe good to add a sentence or two of intuition about why this tester makes sense...}
+\begin{claim}
+$h'$ is a parity check matrix for $\code'$.
+\end{claim}
 
-\hnote{Also, probably could use another lemma or proposition here arguing that this is in fact a valid tester.}
+\begin{proof}
+Let $x\in \F_2^{qn}$ be such that $h'x=0$. Since the $A$-checks enforce that each block of $k$ symbols contains the Hadamard-code encoding of an $\F_q$ symbol, $x$ can be decoded to $x'\in \F_q^n$ such that for each $(i,x)\in \{1,\ldots,n\}\times \F_2^t$, $x_{(i,x)} = \kappa(x'_i)\cdot x$. If the $p$-th row of $h$ enforces the check $v_p\cdot x'=0$, where $v_p\in \F_q^n$, then 
+the $(p,\gamma)$-th row of $B$ enforces the check 
+\begin{align*}
+0&=\sum_{j=1}^n \kappa(\gamma (v_p)_j) \cdot \kappa(x'_j)\\
+&= \sum_{j=1}^n \tr( \gamma (v_p)_j x'_j) \\
+&= \tr(\gamma (v_p\cdot  x')\;.
+\end{align*}
+Therefore, $h'x=0$ is equivalent to $\tr(\gamma(v_p \cdot x'))=0$ for all $\gamma$, which is equivalent to $v_p\cdot x'=0$. Thus $\code'=\ker h'$, as desired. 
+\end{proof}
+
+\hnote{maybe good to add a sentence or two of intuition about why this tester makes sense...}\tnote{added}
+
+\hnote{Also, probably could use another lemma or proposition here arguing that this is in fact a valid tester.}\tnote{added above, if this what you meant?}
 
 \section{An efficient presentation for $\Z_2^k$}
 

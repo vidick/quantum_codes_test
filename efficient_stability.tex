@@ -1118,7 +1118,7 @@ We observe that
 &=\Es{\gamma\in\F_q}  \tau\Big( \Big(\sum_{\beta_0\in \F_q} (-1)^{\kappa( \gamma \alpha_0)\cdot\kappa(\beta_0)} P^{(0)}_{\beta_0} \Big)\cdots\Big(\sum_{\beta\in \F_q} (-1)^{\kappa(-\gamma)\cdot \kappa(\beta)} P^{v}_{\beta} \Big)\Big)\;.
 \end{align*}
 By repeated application of Claim~\ref{claim:z2-stab-2}, the last expression is within $O(d\sqrt{\eps})$ of 
-\[ \Es{\gamma\in\F_q}  \tau\big( \phi(s_{u+ie_j,\kappa(\gamma \alpha_0)})\cdots \phi(s_{v,\kappa(-\gamma)}) \big)\;.\]
+\[ \Es{\gamma\in\F_q}  \tau\big( \phi(s_{u+t_ie_j,\kappa(\gamma \alpha_0)})\cdots \phi(s_{v,\kappa(-\gamma)}) \big)\;.\]
 The latter expression is a random relation in $R^\ld_k$, and so, on average over $u,j$ and $v$ it is $1-O(\eps)$.
 \end{proof}
 
@@ -1140,12 +1140,12 @@ Since $\{R^{u,j}_\alpha\}$ is a projective measurement, we get the desired concl
 \begin{equation}\label{eq:z2-stab-4-1}
  \Big\| U_{0,z_0}\cdots U_{d,z_d} -  \sum_{\alpha} (-1)^{\tr(\sum x_i\alpha_i)} R^{u,j}_\alpha\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
 	\end{equation}
-	For any line $\ell \subset \F_q^m$, let $u_\ell\in \ell$ be chosen such that, for a uniformly random $\ell$ and conditioned on that $u_\ell$,~\eqref{eq:z2-stab-4-1} and~\label{eq:z2-stab-5-0} both hold, with right-hand side multiplied by a factor at most $2$. For any $\ell$ in the $j$-th direction and degree-$d$ polynomial $g$, let $Q^\ell_g = R^{u_\ell,j}_{g(u_\ell),\ldots,g(u_\ell+de_j)}$.
+	For any line $\ell \subset \F_q^m$, let $u_\ell\in \ell$ be chosen such that, for a uniformly random $\ell$ and conditioned on that $u_\ell$,~\eqref{eq:z2-stab-4-1} and~\label{eq:z2-stab-5-0} both hold, with right-hand side multiplied by a factor at most $2$. For any $\ell$ in the $j$-th direction and degree-$d$ polynomial $g$, let $Q^\ell_g = R^{u_\ell,j}_{g(u_\ell+t_0 e_j),\ldots,g(u_\ell+t_de_j)}$.
 	Combining the two equations we deduce
 	\begin{equation}\label{eq:z2-stab-4-2}
- \Es{\gamma\in\F_q} \Big\| U_v^\gamma -  \sum_{g} (-1)^{\tr(\gamma \sum \alpha_{u_\ell,v,i} g(u_\ell+ie_j))} Q^{\ell}_g\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
+ \Es{\gamma\in\F_q} \Big\| U_v^\gamma -  \sum_{g} (-1)^{\tr(\gamma \sum \alpha_{u_\ell,v,i} g(u_\ell+t_ie_j))} Q^{\ell}_g\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
 	\end{equation}
-	By definition, $\sum \alpha_{u_\ell,v,i} g(u_\ell+ie_j) = g(v)$. By Fourier transform, we obtain the desired conclusion. 
+	By definition, $\sum \alpha_{u_\ell,v,i} g(u_\ell+t_ie_j) = g(v)$. By Fourier transform, we obtain the desired conclusion. 
 \end{proof}
 
 

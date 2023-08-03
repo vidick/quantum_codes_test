@@ -891,13 +891,13 @@ This check can be performed by evaluating $u$ at the coordinates $(j,\kappa(\gam
 
 To sample from $\nu'_2$, sample $i\sim[n]$ uniformly at random and $x,y\in\F_2^t$ uniformly at random, and return $\{i\}\times\{x,y,x+y\}$. Execute the tester $M_\had$ for the Hadamard code, i.e.\ check if the three corresponding entries of $u$ sum to zero. 
 
-\hnote{added the parity check version of the tester: } Let $M = (h,\nu)$ denote an $r$-local tester for $\code$, where $h \in \F_q^{\ell \times n}$ is a parity check matrix for $\code$. We now describe an $r$-local tester $M' = (h',\nu')$ for $\code'$. Define $h'$ to be the block matrix $h'=\begin{pmatrix} A \\ B \end{pmatrix}$ where 
+\hnote{added the parity check version of the tester: } Let $M = (h,\nu)$ denote an $r$-local tester for $\code$, where $h \in \F_q^{\ell \times n}$ is a parity check matrix for $\code$. We now describe an $\max\{r,3\}$-local tester $M' = (h',\nu')$ for $\code'$. Define $h'$ to be the block matrix $h'=\begin{pmatrix} A \\ B \end{pmatrix}$ where 
 \begin{itemize}
 	\item $A \in \F^{nq^2 \times nq}$ is itself a block-diagonal matrix where the diagonal blocks are the $q^2 \times q$ parity check matrix for the Hadamard code. 
 	In other words, $A$ can be viewed as $I_{n\times n} \otimes h_\had$ where $h_\had \in \F_2^{q^2 \times q}$ is the parity check matrix for the Hadamard code. 
 	\item $B \in \F^{\ell q \times nq}$ is viewed as having rows indexed by pairs $(p,\gamma) \in \{1,\ldots,\ell\} \times \F_q$ and columns indexed by pairs $(i,x) \in \{1,\ldots,n\} \times \F_2^t$. The entry in row $(p,\gamma)$ and column $(i,x)$ is $1$ if and only if $h_{pi} \neq 0$ and $x = \kappa(\gamma h_{pi})$.
 \end{itemize}
-It is easy to check that $h'$ is a parity check matrix for $\code'$. Finally, define the distribution $\nu'$ to be choosing a uniformly random row of the $A$ block matrix with probability $1/2$, and choosing a uniformly random row of the $B$ block matrix with probability $1/2$. 
+It is easy to check that $h'$ is a parity check matrix for $\code'$. Furthermore, every row of $h'$ has at most $\max \{r,3\}$ nonzero entries; this is because the rows of $A$ have at most $3$ nonzero entries and the rows of $B$ have at most $r$ nonzero entries. Finally, define the distribution $\nu'$ to be choosing a uniformly random row of the $A$ block matrix with probability $1/2$, and choosing a uniformly random row of the $B$ block matrix with probability $1/2$. 
 
 \hnote{maybe good to add a sentence or two of intuition about why this tester makes sense...}
 
@@ -906,19 +906,20 @@ It is easy to check that $h'$ is a parity check matrix for $\code'$. Finally, de
 \section{An efficient presentation for $\Z_2^k$}
 
 Fix integers $m,t,d \in \N$ and let $q=2^t$. Let $\code_{\bRM}$ be the $[q^{m+1},t(d+1)^m,D']$ code obtained by applying the composition procedure from Section~\ref{sec:code-comp} to the $[q^m,(d+1)^m,D]_q$ Reed-Muller code $\code_\RM$ from Section~\ref{sec:rmq}. Let $N=q^{m+1}$ and $h_{\bRM}\in \F_2^{M\times N}$ the parity check matrix for $\code_{\bRM}$ obtained from the composition of the $(d+2)$-local tester for $\code_\RM$ with the $3$-local tester for $\code_\had$. Then $h_\bRM$ has $M= m\cdot q^m \cdot (1+q^2)$ rows, indexed by $(u,j)\in \F_1^m\times [m]$ and $\F_q^m\times [m] \times \F_q^2$ respectively, such that each row has at most $3(d+2)$ nonzero entries. 
+\hnote{According to the description of the parity check matrix for the concatenated Reed-Muller code, I believe $h_{\bRM}$ should have $q^{m+2}(1+m)$ rows and $q^{m+1}$ columns. It should also be $(d+2)$-local.}
+\Cref{fig:bRM-tester} presents an algorithmic interpretation of the local tester corresponding to the parity check matrix $h_{\bRM}$. 
 
-Let $G_\bRM = G(h_\bRM)$ be the group that is presented from $h_\bRM$ (recall from \Cref{sec:pres-code} that codes give rise to group presentations). Explicitly, $h_\bRM$ is the parity check matrix that arises from the tester described in Figure~\ref{fig:bRM-tester}. 
-
+ %Explicitly, $h_\bRM$ is the parity check matrix that arises from the tester described in Figure~\ref{fig:bRM-tester}. 
 
 \begin{figure}[!htbp]
   \centering
   \begin{gamespec}
-Given access to some $g\in (\F_2^t)^n$, where $n=q^m$, identify $g$ with a function $g:(\F_2^t)^m \times \F_2^t \to \F_2$. Perform one of the following tests with probability~$\tfrac{1}{2}$ each. 
+Given access to some $g\in (\F_2^t)^n$ \hnote{I think this should be $(\F_2^t)^{m+1}$, which has length $q^{m+1}$, which is the length of truth table}, where $n=q^m$, identify $g$ with a function $g:(\F_2^t)^m \times \F_2^t \to \F_2$. Perform one of the following tests with probability~$\tfrac{1}{2}$ each. 
 \begin{enumerate}
 	\item \textbf{Low-degree test:}
 		Let $u \in \F_q^m$ be a uniformly random point and $j\in \{1,\ldots,m\}$ chosen uniformly at random. Let $\ell$ be the line through $u$ in the $j$-th direction. Let $e_j=(0,\ldots,0,1,0,\ldots,0)\in \F_q^m$, where the unique $1$ is in the $j$-th position. Choose a uniformly random $v\in \ell$ and $\gamma\in \F_q$ and check that 
-		\[\sum_{i=0}^d g(u+ie_j,\kappa(\gamma \alpha_{u,v,i})) \,=\, g(v,\kappa(\gamma))\;,\]
-		where $\alpha_{u,v,i}$ is defined in~\eqref{eq:interp-coeff}.
+		\[\sum_{i=0}^d g(u+t_i e_j,\kappa(\gamma \alpha_{u,v,i})) \,=\, g(v,\kappa(\gamma))\;,\]
+		\hnote{changed $u+ie_j$ to $u+t_i e_j$.} where the interpolation points $t_0,\ldots,t_d \in \F_q$ and the $\alpha_{u,v,i}$ are defined in~\eqref{eq:interp-coeff}.
 	\item \textbf{Hadamard test:} Let $u\sim\F_q^m$ be chosen uniformly at random and $\alpha,\beta\in \F_2^t$ chosen uniformly at random. Check that 
 	\[g(u,\alpha)+g(u,\beta)\,=\,g(u,\alpha+\beta)\;.\] 	
     \end{enumerate}
@@ -927,7 +928,7 @@ Given access to some $g\in (\F_2^t)^n$, where $n=q^m$, identify $g$ with a funct
   \label{fig:bRM-tester}
 \end{figure}
 
-We do not know if $G_\bRM = \Z_2^K$, with $K=t(d+1)^m$. Instead we modify the presentation $G(h_\bRM)$ by adding pairwise commutation relations in a similar manner as Lemma~\ref{lem:com-code}. Let 
+Let $G_\bRM = G(h_\bRM)$ be the group that is presented from $h_\bRM$ (recall from \Cref{sec:pres-code} that codes give rise to group presentations). We do not know if $G_\bRM = \Z_2^K$, with $K=t(d+1)^m$. Instead we modify the presentation $G(h_\bRM)$ by adding pairwise commutation relations in a similar manner as Lemma~\ref{lem:com-code}. Let 
 \[ G(h_\bRM) \,=\, \big\langle x_1,\ldots,x_N \;:\; \{R^\sq_k\}\,,\; \{R^\ld_k\}\,,\; \{R^\had_{k}\} \big\rangle\;,\]
 where  $R^\sq_k$ ranges overal all relations of the form $x_i^2=e$ for $i\in \{1,\ldots,N\}$, $R^\ld_k$ ranges over all relations implied by the ``low-degree test'' in Figure~\ref{fig:bRM-tester} and $R^\had_{k}$ ranges over all the relations implied by the ``Hadamard test.'' For $k=(i,j)\in\{1,\ldots,N\}$ such that $i<j$ let $R^\com_k$ be the relation $[x_i,x_j]=e$.
 Then we define
@@ -936,14 +937,15 @@ Then we define
 \end{equation}
 From Lemma~\ref{lem:com-code} it follows that $G'=\Z_2^K$. Our main result is an efficient stability result for this presentation. To state this we need to introduce distributions $\mu_S$ and $\mu_R$ on the generators and relations of $G'$. The distribution $\mu_S$ is taken to be the uniform distribution over $[N] = (\F_2^t)^m \times \F_2^t$. The distribution $\mu_R$ is obtained as follows. With probability $1/4$ each, a relation from $\{R^\sq_k\}$, $\{R^\ld_k\}$ or $\{R^\had_k\}$ is chosen uniformly at random. With probability $1/4$, a random commutation relation from $R^\com_k$ is chosen according to the uniform mixture of the following two distributions:
 \begin{enumerate}
-\item For the first distribution, we select $u\in \F_q^m$ uniformly at random, $j\in\{1,\ldots,m\}$ uniformly at random, and $i\neq i'\in\{0,\ldots,d\}$ uniformly at random. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random and check commutation between $x_{u+i e_j,\alpha}$ and $x_{u+i' e_j,\beta}$. 
+\item For the first distribution, we select $u\in \F_q^m$ uniformly at random, $j\in\{1,\ldots,m\}$ uniformly at random, and $i\neq i'\in\{0,\ldots,d\}$ uniformly at random. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random and check commutation between $x_{u+t_i e_j,\alpha}$ and $x_{u+t_{i'} e_j,\beta}$, \hnote{added:} where we interpret the subscripts  $u+t_i e_j,\alpha$ and $u+t_{i'} e_j,\beta$ as corresponding to some integer in $[N]$. 
+
 \item For the second distribution, we first select $j\in\{1,\ldots,m\}$ and $u_{m-j+2},\ldots,u_m \in \F_2^t$ uniformly at random. Then select $v,v' \in (\F_2^t)^m$ uniformly at random, conditioned on the last $(j-1)$ coordinates matching $u_{m-j+2},\ldots,u_m$. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random and check commutation between $x_{v,\alpha}$ and $x_{v',\beta}$. 
 \end{enumerate}
 
 
 \begin{theorem}\label{thm:z2-stab}
 Let $\mC$ be the class of all tracial von Neumann algebras. 
-The presentation of  $\Z_2^K$ given in~\eqref{eq:z2k-eff}, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with $\delta(\eps)=$. 
+The presentation of  $\Z_2^K$ given in~\eqref{eq:z2k-eff}, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with $\delta(\eps)=$ \hnote{gotta insert}. 
 \end{theorem}
 
 

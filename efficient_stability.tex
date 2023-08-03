@@ -1130,7 +1130,7 @@ The latter expression is a random relation in $R^\ld_k$, and so, on average over
 
 
 \begin{claim}\label{claim:z2-stab-4}
-For every axis-parallel line $\ell$ there is a projective measurement $\{Q^\ell_g\}$ with outcomes $g$ that range over degree-$d$ polynomials on $\ell$ such that
+For every axis-parallel line $\ell$ there is a projective measurement $\{Q^\ell_g\}$ with outcomes $g \in \cal{P}(q,1,d)$ that range over degree-$d$ polynomials on $\ell$ such that
 \[ \Es{\ell\subset \F_q^m} \Es{v\in \ell} \sum_g \tau\big( P^v_{g(v)} Q^\ell_g\big) \,\geq\, 1-\poly(d,\eps)\;, \]
 where the expectation is over a uniformly random axis-parallel line $\ell$ and point $v\in \ell$. 
 \end{claim}
@@ -1140,24 +1140,24 @@ First we show that the conclusion of Claim~\ref{claim:z2-stab-3} can be strength
 \[ U_{0,z_0}\cdots U_{d,z_d}\,=\, U_{0,y_0}U_{0,z_0-y_0}\cdots U_{d,y_d}U_{d,z_d-y_d}\;.\]
 By repeated application of Claim~\ref{claim:z2-stab-2b}, the term on the right-hand side satisfies 
 \[ \big\| U_{0,y_0}U_{0,z_0-y_0}\cdots U_{d,y_d}U_{d,z_d-y_d}  - U_{0,y_0}\cdots U_{d,y_d}U_{0,z_0-y_0}\cdots U_{d,z_d-y_d}\big\|_\tau^2 \,=\,\poly(d,\eps)\;.\]
-To show this it suffices to verify that we only need to ``commute'' pairs of terms whose exponents are independent and uniformly random. Using Claim~\ref{claim:z2-stab-3} twice, the right-hand side satisfies
+To show this it suffices to verify that we only need to ``commute'' pairs of terms whose exponents are independent and uniformly random. Using Claim~\ref{claim:z2-stab-3} twice, the right-hand side satisfies \hnote{the first parenthesis should have $(-1)^{\tr(\sum y_i \alpha_i)}$, right?}
 \[ \big\| U_{0,y_0}\cdots U_{d,y_d}U_{0,z_0-y_0}\cdots U_{d,z_d-y_d} - \Big(\sum_{\alpha} \omega^{\sum y_i\alpha_i} R^{u,j}_\alpha\Big)\Big(\sum_{\alpha} (-1)^{\tr(\sum (z_i-y_i)\alpha_i)} R^{u,j}_\alpha\Big) \big\|_\tau^2 \,=\,\poly(d,\eps)\;.\]
-Since $\{R^{u,j}_\alpha\}$ is a projective measurement, we get the desired conclusion: on average over $u$ and $j$, for any $z_0,\ldots,z_d\in\F_q$, it holds that 
+Since $\{R^{u,j}_\alpha\}$ is a projective measurement, we get the desired conclusion: on average over $u$ and $j$, for any $z_0,\ldots,z_d\in\F_q$, it holds that
 \begin{equation}\label{eq:z2-stab-4-1}
- \Big\| U_{0,z_0}\cdots U_{d,z_d} -  \sum_{\alpha} (-1)^{\tr(\sum x_i\alpha_i)} R^{u,j}_\alpha\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
+ \Big\| U_{0,z_0}\cdots U_{d,z_d} -  \sum_{\alpha} (-1)^{\tr(\sum z_i\alpha_i)} R^{u,j}_\alpha\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
 	\end{equation}
-	For any line $\ell \subset \F_q^m$, let $u_\ell\in \ell$ be chosen such that, for a uniformly random $\ell$ and conditioned on that $u_\ell$,~\eqref{eq:z2-stab-4-1} and~\label{eq:z2-stab-5-0} both hold, with right-hand side multiplied by a factor at most $2$. For any $\ell$ in the $j$-th direction and degree-$d$ polynomial $g$, let $Q^\ell_g = R^{u_\ell,j}_{g(u_\ell+t_0 e_j),\ldots,g(u_\ell+t_de_j)}$.
+	For any line $\ell \subset \F_q^m$, let $u_\ell\in \ell$ be chosen such that, for a uniformly random $\ell$ and conditioned on that $u_\ell$,~\eqref{eq:z2-stab-4-1} and~\eqref{eq:z2-stab-5-0} both hold, with right-hand side multiplied by a factor at most $2$. For any $\ell$ in the $j$-th direction and degree-$d$ polynomial $g$, define the operator $Q^\ell_g = R^{u_\ell,j}_{g(u_\ell+t_0 e_j),\ldots,g(u_\ell+t_de_j)}$.
 	Combining the two equations we deduce
 	\begin{equation}\label{eq:z2-stab-4-2}
  \Es{\gamma\in\F_q} \Big\| U_v^\gamma -  \sum_{g} (-1)^{\tr(\gamma \sum \alpha_{u_\ell,v,i} g(u_\ell+t_ie_j))} Q^{\ell}_g\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
 	\end{equation}
-	By definition, $\sum \alpha_{u_\ell,v,i} g(u_\ell+t_ie_j) = g(v)$. By Fourier transform, we obtain the desired conclusion. 
+	\hnote{What does $U_v^\gamma$ mean?} By definition, $\sum \alpha_{u_\ell,v,i} g(u_\ell+t_ie_j) = g(v)$. By Fourier transform, we obtain the desired conclusion. 
 \end{proof}
 
 
-We are now in a position to apply~\cite[Theorem 4.1]{ji2022quantum}. For this we need to define a synchronous strategy in the tensor code test $\code^{\otimes m}$, where $\code$ is the Reed-Solomon code with degree $d$ over $\F_q$, and thus $\code^{\otimes m}$ is the code $\code_\RM$ is the code considered in Section~\ref{sec:rmq}. For the ``points measurement'' $A^u$ we choose $P^u$. For the ``lines measurement'' $B^\ell$ we choose $Q^\ell$ from Claim~\ref{claim:z2-stab-4}. Finally, for the ``pair measurement'' $P^{u,v}$ we choose $R^{u,v}$ from Claim~\ref{claim:z2-stab-3}. By Claim~\ref{claim:z2-stab-4} this strategy succeeds with probability $1-\poly(d,\eps)$ in the ``axis-parallel lines test'', and by Claim~\ref{claim:z2-stab-3} it succeeds with probability $1-\poly(\eps)$ in the ``subcube commutation test.'' Applying~\cite[Theorem 4.1]{ji2022quantum} we deduce a projective measurement $\{G_c\}_{c\in\code^{\otimes m}}$ on $\mA$ such that
+We are now in a position to apply~\cite[Theorem 4.1]{ji2022quantum}. For this we need to define a synchronous strategy in the tensor code test $\code^{\otimes m}$, where $\code$ is the Reed-Solomon code with degree $d$ over $\F_q$, and thus $\code^{\otimes m}$ is the code $\code_\RM$ is the code considered in Section~\ref{sec:rmq}. For the ``points measurement'' $A^u$ we choose $P^u$. For the ``lines measurement'' $B^\ell$ we choose $Q^\ell$ from Claim~\ref{claim:z2-stab-4}. Finally, for the ``pair measurement'' $P^{u,v}$ we choose $R^{u,v}$ from Claim~\ref{claim:z2-stab-3}. By Claim~\ref{claim:z2-stab-4} this strategy succeeds with probability $1-\poly(d,\eps)$ in the ``axis-parallel lines test'', and by Claim~\ref{claim:z2-stab-3} it succeeds with probability $1-\poly(\eps)$ in the ``subcube commutation test.'' Applying~\cite[Theorem 4.1]{ji2022quantum} we deduce the existence of a projective measurement $\{G_c\}_{c\in\code^{\otimes m}}$ on $\mA$ such that
 \[ \Es{u\in\F_q^m} \sum_{c\in\code^{\otimes m}} \tau\big( G_c P^u_{c(u)}\big) \geq 1-\eta\;,\]
-where $\eta = \poly(m,d,r) \cdot\poly(\eps,q^{-1},e^{-\Omega(r/m^2)})$, with $r\geq 12mt$ an (arbitrary) integer.
+where $\eta = \poly(m,d,r) \cdot\poly(\eps,q^{-1},e^{-\Omega(r/m^2)})$, with $r\geq 12mt$ an (arbitrary) integer. \hnote{what is the quantification on $r$? Is it for all $r \geq 12mt$, or for some $r \geq 12mt$?}
 
 \end{proof}
 

@@ -974,7 +974,7 @@ For ease of notation we relabel $\phi^{(1)}$ and $\eps^{(1)}$ as $\phi$ and $\ep
 
 \begin{claim}\label{claim:z2-stab-2}
 Let $q=2^t$. 
-For every $u\in \F_q^m$ there is a projective measurement $\{P^u_\alpha\}_{\alpha\in \F_{q}}$ on $\mM$ such that 
+For every $u\in \F_q^m$ there is a projective measurement $\{P^u_\beta\}_{\beta\in \F_{q}}$ on $\mM$ such that 
 \begin{equation}\label{eq:z2-stab-2}
  \Es{u\in \F_q^m} \Es{\alpha\in \F_2^t} \Big\| \phi(s_{u,\alpha}) - \sum_{\beta\in\F_q} (-1)^{\alpha \cdot \kappa(\beta)} P^u_\beta \Big\|_\tau^2 \,=\, O(\eps)\;. 
 \end{equation}
@@ -985,11 +985,11 @@ Since $\mu_R$ places weight $1/4$ on relations $\{R^\had_k\}$ we deduce that
 \begin{equation}\label{eq:stab-rm-1}
 \Es{u\in \F_q^m} \Es{\alpha,\beta\in \F_2^t} \big\|\phi(s_{u,\alpha})\phi(s_{u,\beta})\phi(s_{u,\alpha+\beta})-\Id\big\|_\tau^2 \,\leq\, 4\eps\;. 
 \end{equation}
-Fix an $u\in \F_q^m$ and apply Lemma~\ref{lem:had-stab} for that $u$. This gives a partial isometry $w\in P\mM_\infty\Id_\mM$ and a unitary representation $\{U_\alpha\}$ of $\F_2^t$ on $\mN=P\mM_\infty P$ such that 
+Fix an $u\in \F_q^m$ and apply Lemma~\ref{lem:had-stab} for that $u$. This gives a partial isometry $w\in P\mM_\infty\Id_\mM$ and a unitary representation $\{U_\alpha\}$ of $\F_2^t$ \hnote{should be $\Z_2^t$?} on $\mN=P\mM_\infty P$ such that 
 \begin{equation}\label{eq:stab-rm-1b}
  \Es{\alpha \in \F_2^t} \big\| \phi(s_{u,\alpha}) - w^* U_\alpha w \big\|_\tau^2 \,=\, O(\eps_u)\;,
 \end{equation}
-where $\eps_u\geq 0$ is such that $\Es{u\in \F_q^m} \eps_u = 4\eps$. Because $\{U_\alpha\}$ are a representation of the abelian group $\F_2^t$, there is a projective measurement $\{Q^u_b\}_{b\in \F_2^t}$ on $\mN$ such that $U_\alpha = \sum_b (-1)^{\alpha\cdot b} Q^u_b$. ($\{Q^u_b\}$ can be found explicitly by applying the Fourier transform, i.e.\ $Q^u_b = \sum_\alpha (-1)^{\alpha \cdot b} U_\alpha$.) Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{P^u_\beta\}_{\beta\in \F_q}$ on $\mM$ such that (by the triangle inequality)
+where $\eps_u\geq 0$ is such that $\Es{u\in \F_q^m} \eps_u = 4\eps$. Because $\{U_\alpha\}$ are a representation of the abelian group $\F_2^t$ \hnote{same comment}, there is a projective measurement $\{Q^u_b\}_{b\in \F_2^t}$ on $\mN$ such that $U_\alpha = \sum_b (-1)^{\alpha\cdot b} Q^u_b$. ($\{Q^u_b\}$ can be found explicitly by applying the Fourier transform, i.e.\ $Q^u_b = \sum_\alpha (-1)^{\alpha \cdot b} U_\alpha$.) Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{P^u_\beta\}_{\beta\in \F_q}$ on $\mM$ such that (by the triangle inequality)
 \begin{align*}
  \Es{\alpha \in \F_2^t} \Big\| \phi(s_{u,\alpha}) - \sum_{\beta\in\F_q} (-1)^{\alpha \cdot \kappa(\beta)} P^u_\beta \Big\|_\tau^2
 &\leq 2 \Es{\alpha \in \F_2^t} \Big( \Big\| \phi(s_{u,\alpha}) - w^*\Big(\sum_{b\in\F_2^t} (-1)^{\alpha \cdot b} Q^u_b \Big) w \Big\|_\tau^2 \\
@@ -1004,6 +1004,7 @@ where the first inequality follows from the triangle inequality, the second is b
 For $u\in \F_q^m$ let $\{P^{u}_\beta\}_{\beta \in \F_q}$ be the projective measurement obtained from Claim~\ref{claim:z2-stab-2}. For $\alpha\in \F_q$, let  
 \[ U_{u,\alpha} = \sum_{\beta\in\F_q} (-1)^{\tr(\alpha\beta)} P^u_{\beta}\;.\]
 %where $\omega_q = e^{2i\pi/q}$. (\tnote{added:}To define $\omega_q^\beta$ for $\beta\in \F_q$, we use the representative of $\beta$ in $\{0,\ldots,q-1\}$.)
+\hnote{There is a minor inconsistency in what follows. These unitaries are indexed by $(u,\alpha)\in \F_q^m \times \F_q$, but above the generators $s_{u,\alpha}$ are indexed by $\F_q^m \times (\F_2)^t$. Of course it's fine, but the types need to be consistent. Above, it seems like $\alpha$ means something in $\F_2^t$, and $\beta$ means something in $\F_q$. Perhaps this can be the convention?}
 Then $U_{u,\alpha} \in \mU(\mM)$. 
 
 %We observe that
@@ -1044,6 +1045,7 @@ Now, for any $u,v\in \F_q^m$
 &=\sum_{\beta,\beta',\gamma,\gamma'\in \F_q}\Es{a\in\F_2^t} (-1)^{a\cdot\kappa(\beta-\beta')} \Es{a'\in\F_2^t} (-1)^{a'\cdot\kappa(\gamma-\gamma')} \tau(P^{u}_\beta P^{v}_\gamma P^{u}_{\beta'} P^{v}_{\gamma'}\big)\\
 &=\Es{a,a'\in\F_2^t}  \tau\Big( \Big(\sum_{\beta\in \F_q} (-1)^{a\cdot \kappa(\beta)} P^{u}_\beta\Big) \Big(\sum_{\gamma\in \F_q} (-1)^{a'\cdot \kappa(\gamma)} P^{v}_\gamma\Big)\Big(\sum_{\beta'\in \F_q} (-1)^{a\cdot \kappa(\beta')} P^{u}_{\beta'}\Big)\Big(\sum_{\gamma'\in \F_q} (-1)^{a'\cdot \kappa(\gamma')} P^{v}_{\gamma'}\Big)\Big)\;.
 \end{align*}
+\hnote{There seems to be some missing connective text between these two eqn blocks. Is it the commented out stuff below?}
 %Here, the second line follows since for $\beta,\beta'\in \F_q$, 
 %\[ \Es{\alpha\in \F_q} \omega_q^{\alpha(\beta-\beta')}\,=\delta_{\beta,\beta'}\,=\,\Es{\alpha\in\F_2^t} (-1)^{\alpha\cdot \kappa(\beta-\beta')}\,\;.\]
 %It follows that, for any distribution on $(u,v)$ such that both marginals are uniform over $\F_q^m$,
@@ -1068,7 +1070,7 @@ Similarly, for any $u,v\in \F_q^m$ there is a projective measurement $\{R^{u,v}_
 We show the first part only, as the second part is entirely analogous. Fix an $u\in \F_q^m$ and a direction $j\in \{1,\ldots,m\}$. Define
 $\psi: (\Z_2^{t})^{d+1} \to \mU(\mM)$ by 
 \[\psi(z_0,\ldots,z_{d}) \,=\, U_{0,z_0} \cdots U_{d,z_{d}}\;,\]
-where for each $i\in\{0,\ldots,d\}$ and $z_i\in \F_q$, $U_{i,z_i}$ is the unitary defined in Claim~\ref{claim:z2-stab-2b} and we slightly abused notation to identify $z_i\in \Z_2^t$ with the unique $\tilde{z}_i\in \F_q$ such that $\kappa(\tilde{z}_i)=z_i$ . Using Claim~\ref{claim:z2-stab-2b} and the triangle inequality we verify that the map $\psi$ is a $\delta=O(d^4\sqrt{\eps})$-approximate homomorphism of $\Z_2^{t(d+1)}$ on $\mU(\mA)$, with respect to the multiplication table presentation. To verify this first note that for any unitaries $V,W$, and any $i,i'$ we have that on average over $u$ and $j$,
+where for each $i\in\{0,\ldots,d\}$ and $z_i\in \F_q$, $U_{i,z_i}$ is the unitary defined in Claim~\ref{claim:z2-stab-2b} and we slightly abused notation to identify $z_i\in \Z_2^t$ with the unique $\tilde{z}_i\in \F_q$ such that $\kappa(\tilde{z}_i)=z_i$. Using Claim~\ref{claim:z2-stab-2b} and the triangle inequality we verify that the map $\psi$ is a $\delta=O(d^4\sqrt{\eps})$-approximate homomorphism of $\Z_2^{t(d+1)}$ on $\mU(\mA)$, with respect to the multiplication table presentation. To verify this first note that for any unitaries $V,W$, and any $i,i'$ we have that on average over $u$ and $j$,
 \begin{align*}
 \Es{\alpha,\alpha'\in \F_q} \big\| V U_{i,\alpha} U_{i',\alpha'} W^* - V U_{i',\alpha'} U_{i,\alpha}  W^*\big\|_\tau^2 \,=\, O\big(d^2 \sqrt{\eps}\big)\;,
 \end{align*}
@@ -1087,7 +1089,7 @@ and
 \[ V_{0}^{z_0}\cdots V_{d}^{z_{d}}  \,=\, \sum_{\alpha\in (\Z_2^{t})^{d+1}} (-1)^{\sum \alpha_{i}\cdot z_i} Q_\alpha\;.\]
 Identifying $\alpha$ with an element of $\F_q^{d+1}$, and interpreting $z_i$ as an element of $\F_q$ as well,
  the preceding equation can be rewritten as
-\[ V_{0}^{z_0}\cdots V_{d}^{z_{d}}  \,=\, \sum_{\alpha\in \F_q^{d+1}} (-1)^{\tr(\sum \alpha_{i} z_i} Q_\alpha\;.\]
+\[ V_{0}^{z_0}\cdots V_{d}^{z_{d}}  \,=\, \sum_{\alpha\in \F_q^{d+1}} (-1)^{\tr(\sum \alpha_{i} z_i)} Q_\alpha\;.\]
 
 %($\{Q^u_\alpha\}$ can be found explicitly by applying the Fourier transform.) 
 Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{R^{u,j}_\alpha\}_{\alpha\in (\F_q)^{d+1}}$  on $\mM$ such that by~\eqref{eq:z2-stab-3-1}, on average over $u$ and $j$,
@@ -1099,11 +1101,12 @@ Applying Lemma~\ref{lem:pull-back}, we deduce a projective measurement $\{R^{u,j
 Next we exploit the relations $\{R^\ld_k\}$ to obtain the following. 
 
 \begin{claim}\label{claim:z2-stab-5}
-Use the same notation as in Claim~\ref{claim:z2-stab-2b}. Let $u\in \F_q^m$, $\ell$ an axis-parallel line through $u$ and $v\in\F_q^m\cap \ell$. Let $(\alpha_{u,v,i})_{i=0,\ldots,d}$ be the interpolation coefficients~\eqref{eq:interp-coeff}. %Let $U_v = \sum_\beta \omega^\beta P^v_\beta$. 
+Use the same notation as in Claim~\ref{claim:z2-stab-2b}. Let $u\in \F_q^m$, $\ell$ an axis-parallel line through $u$ and $v\in\F_q^m\cap \ell$ \hnote{why not say $v \in \ell$?}. Let $(\alpha_{u,v,i})_{i=0,\ldots,d}$ be the interpolation coefficients defined in~\eqref{eq:interp-coeff}. %Let $U_v = \sum_\beta \omega^\beta P^v_\beta$. 
 Then 
 \begin{equation}\label{eq:z2-stab-5-0}
 \Es{u\in\F_q^m} \Es{\ell: u\in \ell} \Es{v\in \ell} \Es{\gamma\in\F_q} \Big\| U_{0,\gamma \alpha_{u,v,0}}\cdots U_{d,\gamma  \alpha_{u,v,d}} - U_{v,\gamma} \big\|_\tau^2 \,=\, 1-O\big(d\sqrt{\eps}\big)\;,
 \end{equation}
+\hnote{the RHS should be $O(d\sqrt{\eps}$, because LHS is a distance, yes?}
 where the expectation is over a uniformly random axis-parallel line that contains $u$, and a uniformly random $v\in\ell$. 
 \end{claim}
 

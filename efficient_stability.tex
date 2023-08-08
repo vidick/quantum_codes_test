@@ -134,7 +134,8 @@
 
 \newcommand{\Alg}{\mathcal{A}}
 \newcommand{\ind}{\ensuremath{\mathrm{ind}}}
-
+\newcommand{\cc}{\mathrm{com}}
+\newcommand{\ac}{\mathrm{ac}}
 
 \newcommand{\setft}[1]{\mathrm{#1}}
 \newcommand{\Density}{\setft{D}}
@@ -173,7 +174,7 @@
 \newcommand{\ph}{\ensuremath{\varphi}}
 
 
-\newcommand{\ac}{\textsc{ac}}
+%\newcommand{\ac}{\textsc{ac}}
 \newcommand{\GX}{\textsc{Gap-Maxcut}}
 \newcommand{\GNI}{\textsc{Graph Non-Isomorphism}}
 
@@ -210,6 +211,7 @@
 \DeclareMathOperator{\arcsinh}{arcsinh}
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\sgn}{sgn}
+%\newcommand{\dlS}{\ensuremath{\rm dlS}}
 
 
 \newcommand{\E}{\mathop{\mathbb{E}}\displaylimits} % Expectation
@@ -909,6 +911,7 @@ Therefore, $h'x=0$ is equivalent to $\tr(\gamma(v_p \cdot x'))=0$ for all $\gamm
 \hnote{Also, probably could use another lemma or proposition here arguing that this is in fact a valid tester.}\tnote{added above, if this what you meant?}
 
 \section{An efficient presentation for $\Z_2^k$}
+\label{sec:eff-z2k}
 
 Fix integers $m,t,d \in \N$ and let $q=2^t$. Let $\code_{\bRM}$ be the $[q^{m+1},t(d+1)^m,D']$ code obtained by applying the composition procedure from Section~\ref{sec:code-comp} to the $[q^m,(d+1)^m,D]_q$ Reed-Muller code $\code_\RM$ from Section~\ref{sec:rmq}. Let $N=q^{m+1}$ and $h_{\bRM}\in \F_2^{M\times N}$ the parity check matrix for $\code_{\bRM}$ obtained from the composition of the $(d+2)$-local tester for $\code_\RM$ with the $3$-local tester for $\code_\had$. Then $h_\bRM$ has $M=  q^{m+2}(1+m)$ rows, such that each row has at most $(d+2)$ nonzero entries. 
 \Cref{fig:bRM-tester} presents an algorithmic interpretation of the local tester corresponding to the parity check matrix $h_{\bRM}$. 
@@ -1162,7 +1165,7 @@ where $\eta = \poly(m,d,r) \cdot\poly(\eps,q^{-1},e^{-\Omega(r/m^2)})$, with $r\
 \end{proof}
 
 
-\section{Application to testing entanglement}
+\section{Testing entanglement}
 
 In this section we give an application of our stability results to the problem of entanglement testing. We first introduce the language of nonlocal games. Then we associate a nonlocal game to any presentation of $\Z_2^t$. Finally, we show that, if the presentation is stable, then the game is a good entanglement test. 
 	
@@ -1193,17 +1196,18 @@ The name \emph{synchronous} stems from the fact that whenever an identical pair 
 	
 \subsection{Some simple games}
 
+We introduce games commonly used in the literature, that will serve as building blocks. For details on the implementation of these games we refer to~\cite{de2022spectral}.
 
 \paragraph{Commutation game.}
-We call \emph{commutation game} the game defined in~\cite[Section 3.1]{de2022spectral}. For convenience we change the notation slightly and denote $x_{X,0}, x_{Z,0} \in \mX_{com}$ the two special questions, $x_{com,1}$ and $x_{com,2}$ respectively. 
+We call \emph{commutation game} the game $G_{\cc}=(\mX_\cc,\mu_\cc,\mA_\cc,D_\cc)$defined in~\cite[Section 3.1]{de2022spectral}. For convenience we change the notation slightly and denote $x_{X,0}, x_{Z,0} \in \mX_{\cc}$ the two special questions, $x_{\cc,1}$ and $x_{\cc,2}$ respectively. 
 
 \paragraph{Anti-commutation game.}
-We call \emph{anti-commutation game} the game defined in~\cite[Section 3.2]{de2022spectral}. For convenience we change the notation slightly and  denote $x_{X,1}, x_{Z,1} \in \mX_{anticom}$ the two special questions, $x_{anticom,1}$ and $x_{anticom,2}$ respectively. 
+We call \emph{anti-commutation game} the game $G_\ac=(\mX\ac,\mu_\ac,\mA_\ac,D_\ac)$ defined in~\cite[Section 3.2]{de2022spectral}. For convenience we change the notation slightly and  denote $x_{X,1}, x_{Z,1} \in \mX_{\ac}$ the two special questions, $x_{\ac,1}$ and $x_{\ac,2}$ respectively. 
 
 \paragraph{Braiding game.}
-We introduce a game, which we denote $G_{\dlS}$, that is a specific instantiation of a more general class of games analyzed in~\cite[Section 3.4]{de2022spectral}.  Using notation from~\cite{de2022spectral}, the game $G_{\dlS}$ is obtained by making the following choices. The group is $H=\field^k$. Let
-\[ S_X=S_Z=\{G_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k\;,\]
-and let $\mu_{\dlS}$ be the uniform distribution over $S_X\times S_Z$. Let $\Omega$ be the support of $\mu_{\dlS}$ and $\alpha,\beta$ the coordinate projections. Then $G_{\dlS}=(\mX,\mu_{\dlS},\mA,D)$ has question set $\mX = \{PX,PZ\} \cup (\mX_{com}\times \Omega_+) \cup (\mX_{anticom} \times \Omega_-)$ and is as described in~\cite[Section 3.4]{de2022spectral}. For clarity we recall the game, using our notation, in Figure~\ref{fig:dlS}. 
+Finally we introduce a game, which we denote $G_{\dlS}$, that is built from the previous two games and is a specific instantiation of a more general class of games analyzed in~\cite[Section 3.4]{de2022spectral}.  Using notation from~\cite{de2022spectral}, the game $G_{\dlS}$ is obtained by making the following choices. The game can be constructed from any $G\in\F_2^{k\times n}$. Let 
+\[ S_X=S_Z=\{G e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k\;,\]
+and let $\mu_{\dlS}$ be the uniform distribution over $\Omega=S_X\times S_Z$. Let $\alpha,\beta$ be the coordinate projections on $\Omega$. Let $\Omega_+ = \{(a,b)\in \Omega:a\cdot b=0\}$ and $\Omega_-=\{(a,b)\in\Omega:a\cdot b=1\}$. Then $G_{\dlS}=(\mX_{\dlS},\mu_{\dlS},\mA_{\dlS},D_{\dlS})$ has question set $\mX_{\dlS} = \{PX,PZ\} \cup (\mX_{\cc}\times \Omega_+) \cup (\mX_{\ac} \times \Omega_-)$ and is as described in~\cite[Section 3.4]{de2022spectral}. For clarity we recall the game, using our notation, in Figure~\ref{fig:dlS}. 
 
 \begin{figure}[!htbp]
   \centering
@@ -1211,22 +1215,43 @@ and let $\mu_{\dlS}$ be the uniform distribution over $S_X\times S_Z$. Let $\Ome
 Let $S_X,S_Z\subseteq \field^k$.  Sample $\omega = (\omega_X,\omega_Z)\in S_X \times S_Z $ uniformly at random. Let $\gamma = \omega_X \cdot \omega_Z \in \field$. Execute either of the following tests with probability $1/3$ each. 
     \begin{enumerate}
       \setlength\itemsep{1pt}
-    \item (\textbf{Anti-commutation test}) 
+    \item \textbf{(Anti-)commutation test:} 
 		\begin{enumerate}
-		\item If $\gamma=0$ then sample a pair of questions $(x_c,y_c)$ as in the commutation game. Send $(x_c,\omega)$ to $\alice$ and $(y_c,\omega)$ to Bob. Accept if and only if their answers are accepted in the commutation game. 
+		\item If $\gamma=0$ then sample a pair of questions $(x_c,y_c)\sim\mu_\cc$ as in the commutation game. If $x_c = x_{W,0}$ (resp.\ $y_c=x_{W,0}$) for some $W\in \{X,Z\}$ then send $(W,\omega_W)$ to Alice (resp.\ $(W,\omega_W)$ to Bob). Otherwise, send $(x_c,\omega)$ to $\alice$ (resp.\ $(y_c,\omega)$ to Bob). Accept if and only if their answers are accepted in the commutation game. 
 		\item If $\gamma\neq 0$ then do the same but for the anti-commutation game. 
 		\end{enumerate} 
-		 \item (\textbf{$Z$-Consistency test}) Send $Z$ to $\alice$ and $(x_{Z,\gamma},\omega)$ to $\bob$. Receive $a\in \field^k$ and $b\in \field$ respectively. Accept if and only if $a\cdot \omega_Z=b$. 
-		 \item (\textbf{$X$-Consistency test}) Send $X$ to $\alice$ and $(x_{X,\gamma},\omega)$ to $\bob$. Receive $a\in \field^k$ and $b\in \field$ respectively. Accept if and only if $a\cdot \omega_X=b$. 
+		 \item \textbf{Consistency test:} Select $W\in\{X,Z\}$ uniformly at random. Send $W$ to $\alice$ and $(W,\omega_W)$ to $\bob$. Receive $a\in \field^k$ and $b\in \field$ respectively. Accept if and only if $a\cdot \omega_W=b$. 
     \end{enumerate}
   \end{gamespec}
   \caption{The game $G_{\dlS}$ checks (anti)commutation relations between two collections of observables.}
   \label{fig:dlS}
 \end{figure}
 
-\tnote{Quote ~\cite[Corollary 3.9]{de2022spectral}}
+We recall the following result from~\cite{de2022spectral} about this game. (The result from~\cite{de2022spectral} is more general, and applies to non-uniform measures on $\Omega$. We only need the consequence stated here.) Before stating the result, we introduce the notion of a \emph{qubit test}. 
+
+For a projective measurement $P = \{P_a\}_{a \in \F_2^k}$, we use $\widehat{P}(b)$ to denote the observable
+\[\widehat{P}(b) \,=\, \sum_a (-1)^{a\cdot b} P_a\;.\]
+For binary outcome measurements $P = \{ P_0, P_1\}$, we write $\widehat{P}$ to denote $P_0 - P_1$. 
+
+\begin{definition}
+Let $k\in \N$ and $\delta:[0,1]\to\R_+$. 
+A \emph{$(k,\delta(\eps))$-qubit test} is a synchronous game $G=(\mX,\mu,\mA,D)$ such there are two sets $S_X,S_Z\subseteq \field^k$ that each span $\field^k$ and an injection $\phi:(\{X\}\times S_X) \cup (\{Z\}\times S_Z) \to \mX$ such that $\mA(\phi({X},a))=\mA(\phi({Z},b))=\field$ for all $a\in S_X$, $b\in S_Z$ and such that the following holds:
+\begin{itemize}
+\item (Completeness:) There is a synchronous strategy $(\mM,P)$ for $G$ on $\mM=M_{2^{k}}(\C)$ that succeeds with probability $1$ in $G$ and is such that $\widehat{P}^{\phi({W},a)} = \sigma^W(a)$ for every $W\in\{X,Z\}$ and $a\in S_W$. 
+\item (Soundness:) Let $\mu'$ denote the (renormalized) restriction of (the marginal of) $\mu$ to the image of $\phi$ in $\mX$.
+Any synchronous strategy in $(\mM,\tau)$ for $G$ that succeeds with probability $1-\eps$ for some $\eps\geq 0$ is $(\delta(\eps),\tilde{\mu})$-close to a strategy on some algebra $(M_{2^{k}}(\C)\otimes \mN,\tr\otimes \tau')$ where $(\mN,\tau')$ is a tracial sub-algebra of $\mM_\infty$ and such that
+\[\widehat{P}^{\phi({W},a)} = \sigma^W(a)\otimes \Id_\mN\;.\]
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Corollary 3.9 in~\cite{de2022spectral}]\label{thm:dls-braid}
+The game $G_{\dlS}$ is a $(k,O(\eps))$-qubit test, where the sets $S_X$ and $S_Z$ are both equal to $\F_2^k$ and $\phi((X,a))=(X,a)$ and $\phi((Z,b))=(Z,b)$.  
+\end{theorem}
+
+The goal in the remaining sections is to design a qubit test where the size of the question set is $\polylog(k)$, as opposed to $\Omega(k^2)$ here. 
 
 \subsection{The code game}
+\label{sec:code-game}
 
 We associate a game $G_{\code,M}$ to any $[n,k,d]_2$ code $\code$ and $r$-local tester $M=(h,\nu)$ for it. In the game, one player is asked to provide an assignment to all generators in the support of a randomly chosen row of $h$, such that this assignment satisfies the check enforced by that row. The other player is asked to provide an assignment to a single of these variables, and checked for consistency with the first player. The formal definition follows.  
 
@@ -1250,20 +1275,6 @@ Let $\code$ be an $[n,k,d]_2$ linear code and $M=(h,\nu)$ an $r$-local tester fo
 
 
 
-\subsection{Qubit tests}
-
-Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$. Recall that for a projective measurement $P = \{P_a\}_{a \in \F_2^k}$, we use $\widehat{P}(b)$ to denote the corresponding observable (see \Cref{sec:measurements}). For binary outcome measurements $P = \{ P_0, P_1\}$, we write $\widehat{P}$ to denote $P_0 - P_1$. 
-
-\begin{definition}
-Let $k\in \N$ and $\delta:[0,1]\to\R_+$. 
-A \emph{$(k,\delta(\eps))$-qubit test} is a synchronous game $G=(\mX,\mu,\mA,D)$ such there are two sets $S_X,S_Z\subseteq \field^k$ that span $\field^k$ and an injection $\phi:(\{X\}\times S_X) \cup (\{Z\}\times S_Z) \to \mX$ such that $\mA(\phi({X},a))=\mA(\phi({Z},b))=\field$ for all $a\in S_X$, $b\in S_Z$ and such that the following holds:
-\begin{itemize}
-\item (Completeness:) There is a synchronous strategy $(\mM,P)$ for $G$ on $\mM=M_{2^{k}}(\C)$ that succeeds with probability $1$ in $G$ and is such that $\widehat{P}^{\phi({W},a)} = \sigma^W(a)$ for every $W\in\{X,Z\}$ and $a\in S_W$. 
-\item (Soundness:) \tnote{added:}Let $\mu'$ denote the (renormalized) restriction of (the marginal of) $\mu$ to the image of $\phi$ in $\mX$.
-Any synchronous strategy in $(\mM,\tau)$ for $G$ that succeeds with probability $1-\eps$ for some $\eps\geq 0$ is $(\delta(\eps),\tilde{\mu})$-close to a strategy on some algebra $(M_{2^{k}}(\C)\otimes \mN,\tr\otimes \tau')$ where $(\mN,\tau')$ is a tracial sub-algebra of $\mM_\infty$ and such that
-\[\widehat{P}^{\phi({W},a)} = \sigma^W(a)\otimes \Id_\mN\;.\]
-\end{itemize}
-\end{definition}
 
 
 \subsection{Braiding the code test}
@@ -1274,25 +1285,24 @@ Any synchronous strategy in $(\mM,\tau)$ for $G$ that succeeds with probability 
 Let $M=(h,\nu)$ be an $r$-local tester for the $[n,k,d]_2$ code $\code$.  Execute either of the following tests with probability $1/3$ each. 
     \begin{enumerate}
       \setlength\itemsep{1pt}
-    \item (\textbf{Code test}) Sample $W\in \{X,Z\}$ uniformly at random. Execute the code game $G_{\code,M}$ with both players, prepending the symbol $W$ to all questions (which now take the form $(W,\var,i)$ or $(W,\eq,j)$). 
+    \item \textbf{Code test:} Sample $W\in \{X,Z\}$ uniformly at random. Execute the code game $G_{\code,M}$ with both players, prepending the symbol $W$ to all questions (which now take the form $(W,\var,i)$ or $(W,\eq,j)$). 
 		
-    \item (\textbf{Anti-commutation test}) Sample $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ uniformly at random. Let $\omega = (E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma =  (E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) \in \field$. 
+    \item \textbf{(Anti-)commutation test:} Sample $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ uniformly at random. Let $\omega = (E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma =  (E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) \in \field$. 
 		\begin{enumerate} 
 		\item If $\gamma=0$ then sample a pair of questions $(x_c,y_c)$ as in the commutation game. Send $(x_c,\omega)$ to $\alice$ and $(y_c,\omega)$ to Bob. Accept if and only if their answers are accepted in the commutation game. 
 		\item If $\gamma\neq 0$ then do the same but for the anti-commutation game. 
 		\end{enumerate} 
-		 \item (\textbf{Consistency test}) Sample $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ and $W\in \{X,Z\}$ uniformly at random. Let $\omega=(E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma = (E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) \in \field$. Send $(W,\var,i_W)$ to $\alice$ and $(x_{W,\gamma},\omega)$ to $\bob$, where $x_{W,\gamma}$ is a question from the anti-commutation game. Receive $a\in \field$ and $b\in \field$ respectively. Accept if and only if $a=b$. 
+		 \item \textbf{Consistency test:} Sample $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ and $W\in \{X,Z\}$ uniformly at random. Let $\omega=(E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma = (E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) \in \field$. Send $(W,\var,i_W)$ to $\alice$ and $(x_{W,\gamma},\omega)$ to $\bob$, where $x_{W,\gamma}$ is a question from the anti-commutation game. Receive $a\in \field$ and $b\in \field$ respectively. Accept if and only if $a=b$. 
     \end{enumerate}
   \end{gamespec}
   \caption{The braiding test over $\code$ verifies that the players respond consistently with a uniformly random codeword from $\code$.}
   \label{fig:braiding-test}
 \end{figure}
 
-\paragraph{The braiding test.}
-Let $\code$ be an $[n,k,d]_2$ linear code and $M$ an $r$-local tester for $\code$. The braiding test constructed from $\code$ and $M$ is described in Figure~\ref{fig:braiding-test}. Informally, the test combines two independent copies of the code test from Section~\ref{} with appropriate commutation and anti-commutation games that will force any successful strategy in the game to be close, in some sense, to a representation of the Pauli group generated by observables $\sigma^X(a)$ and $\sigma^Z(b)$, $a,b\in \F_2^k$. This is shown in the following theorem. 
+Let $\code$ be an $[n,k,d]_2$ linear code and $M=(h,\nu)$ an $r$-local tester for $\code$. The braiding test constructed from $\code$ and $M$ is described in Figure~\ref{fig:braiding-test}. Informally, the test combines two independent copies of the code game from Section~\ref{sec:code-game} with appropriate commutation and anti-commutation games that will force any successful strategy in the game to be close, in some sense, to a representation of the Pauli group generated by observables $\sigma^X(a)$ and $\sigma^Z(b)$, $a,b\in \F_2^k$. This is shown in the following theorem. 
 
 \begin{theorem}\label{thm:braiding}
-Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound and such that $(\code,M)$ is Abelian. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test with sets $S_X=S_Z=\{E_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$, map $\phi(W,E_\code e_i)=(W,i)$ and error function $\delta' = O(\delta^{1/2}(6\eps))$.\footnote{Assume $E_\code$ has no repeated columns.} 
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound and such that $(\code,M)$ is Abelian. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test with sets $S_X=S_Z=\{E_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$, map $\phi(W,E_\code e_i)=(W,\eq,i)$ and error function $\delta' = O(\delta^{1/2}(6\eps))$.\footnote{Assume $E_\code$ has no repeated columns.} 
 \end{theorem}
 
 
@@ -1312,8 +1322,8 @@ This follows by expending the left-hand side and using $\tau(P_aQ_{a'})\geq 0$ f
 \end{proof}
 
 
-\begin{proof}[Proof of Theorem~\ref{thm:main}]
-\underline{Completeness:} We first verify completeness. For $W\in\{X,Z\}$, $i\in\{1,\ldots,n\}$ and $b\in \F_2$ let $P^{(W,i)}_b = \frac{1}{2}(\Id + (-1)^b\sigma^W(E_\code e_i))$, and for $a\in \F_2^S$ let $P^{(W,S)}_a = \prod_{i\in S} P^{(W,i)}_{a_i}$. Writing $(f_0,f_1)$ for the canonical basis of $\C^2$, $P^{(W,S)}_a$ is the projection on the span of all $\otimes_{i=1}^k f_{u_i}$ where $u=(u_1,\ldots,u_k)$ is such that $u^T E_\code=a$.   
+\begin{proof}[Proof of Theorem~\ref{thm:braiding}]
+\underline{Completeness:} We first verify completeness. For $W\in\{X,Z\}$, $i\in\{1,\ldots,n\}$ and $b\in \F_2$ let $P^{(W,\eq,i)}_b = \frac{1}{2}(\Id + (-1)^b\sigma^W(E_\code e_i))$, and for $a\in \F_2^S$ let $P^{(W,\var,j)}_a = \prod_{i: h_{ji}=1} P^{(W,\eq,i)}_{a_i}$. Writing $(f_0,f_1)$ for the canonical basis of $\C^2$, $P^{(W,\var,j)}_a$ is the projection on the span of all $\otimes_{i=1}^k f_{u_i}$ where $u=(u_1,\ldots,u_k)$ is such that $u^T E_\code=a$.   
 
 For $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ let $\omega=(E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma =(E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) $ we let $P^{x_{W,\gamma},\omega} = P^{(W,i_W)}$. 
 
@@ -1329,9 +1339,9 @@ commute in case $\gamma=0$ and anti-commute in case $\gamma=1$. This is because 
 
 \bigskip 
 
-\underline{Soundness:} Next we show soundness. Let $\strategy$ be a synchronous strategy for the braiding test  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. For $W\in\{X,Z\}$ let $\strategy^W$ be the strategy in $G_{\code,M}$ that is obtained by restricting $\strategy$ to the relevant measurements \hnote{added:} corresponding to the ``Code test'' part of the braiding test, i.e.\ the $P^{W,S}$ and $P^{W,i}$.  Then $\strategy^W$ succeeds with probability at least $1-3\eps$ in $G_{\code,M}$. Using the assumption that $M$ is $\delta(\cdot)$-quantum sound and the second item from Proposition~\ref{prop:sound-game} it follows that there is a $\delta_1 = O({\delta(6\eps)})$ such that for each $W\in\{X,Z\}$, $\strategy^W$ is $(\delta_1,\nu)$ close to a perfect strategy $\tilde{\strategy}^W$ on $(\mN^W,\tau^W)$ for $G_{\code,M}$, where $\nu$ is uniform on $\{1,\ldots,n\}$. This strategy has measurement operators $\{ \tilde{P}^{W,S}_a\}$ and $\{\tilde{P}^{W,i}_b\}$ associated with questions of the form $S$ and $i$ in $G_{\code,M}$. Using the definition of $\nu$, these satisfy that 
+\underline{Soundness:} Next we show soundness. Let $\strategy$ be a synchronous strategy for the braiding test  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. For $W\in\{X,Z\}$ let $\strategy^W$ be the strategy in $G_{\code,M}$ that is obtained by restricting $\strategy$ to the relevant measurements corresponding to the ``Code test'' part of the braiding test, i.e.\ the $P^{W,\eq,j}$ and $P^{W,\var,i}$.  Then $\strategy^W$ succeeds with probability at least $1-3\eps$ in $G_{\code,M}$. Using Proposition~\ref{prop:rep-game} it follows that $\{\widehat{P}^{W,\var,i}\}$ is an $O(\eps)$-homomorphism of $G(h)$. Under the assumption that $G(h)=\Z_2^k$ is $(\delta,\mC)$-stable, we deduce that there is a $\delta_1 = O({\delta(6\eps)})$ such that for each $W\in\{X,Z\}$, $\strategy^W$ is $(\delta_1,\nu)$ close to a perfect strategy $\tilde{\strategy}^W$ on $(\mN^W,\tau^W)$ for $G_{\code,M}$, where $\nu$ is uniform on $\{1,\ldots,n\}$. This strategy has measurement operators $\{ \tilde{P}^{W,\eq,j}_a\}$ and $\{\tilde{P}^{W,\var,i}_b\}$ which satisfy 
 \begin{equation}\label{eq:main-0}
-\Es{i\in\{1,\ldots,n\}}\sum_{b \in \F_2} \big\|P^{W,i}_b - (w^W)^* \tilde{P}_b^{W,i} w^W \big\|^2_2 \,=\, O(\delta_1)\;.
+\Es{i\in\{1,\ldots,n\}}\sum_{b \in \F_2} \big\|P^{W,\eq,i}_b - (w^W)^* \tilde{P}_b^{W,\eq,i} w^W \big\|^2_2 \,=\, O(\delta_1)\;.
 \end{equation}
 Furthermore, since $(\code,M)$ is Abelian, there is a  POVM $\{\tilde{P}^W_u\}_{u\in \field^n}$ such that $\sum_{u\in \code}\tilde{P}^W_u = \Id$ and for each $i\in \{1,\ldots,n\}$, $\tilde{P}^{W,i}_b = \sum_{u:u_i=b} \tilde{P}^W_u$.
  
@@ -1349,7 +1359,7 @@ For $W\in\{X,Z\}$ and $b\in \F_2^k$ let $R^W_b = Q^W_{G_\mC^T b}$, where by defi
 
 We now define a strategy $\strategy'$ for the game $G_{\dlS}$. On question $W\in \{X,Z\}$ the projective measurement is $\{R^W_b\}$. On question of the form $(x_c,\omega)$ for $x_c$ a question in the commutation game, the projective measurement is $\{P^{x_c,\omega}\}$, i.e.\ the same projective measurement as used in $\strategy$. Similarly, on a question of the form $(x_{ac},\omega)$ for $x_{ac}$ a question in the anti-commutation game, the projective measurement is $\{P^{x_{ac},\omega}\}$.
 
-To conclude we show that this strategy succeeds in the game $G_{\dlS}$ with probability $1-O(\sqrt{\delta_1})$. Assuming that this has been shown, by~\cite[Corollary 3.9]{de2022spectral} the strategy $\strategy'$ is $O(\sqrt{\delta_1})$-close to a strategy $\strategy''$ on an algebra of the form $(M_{2^{k}}(\C)\otimes \mN,\tr\otimes \tau')$ such that $P^W_b = \sigma^W_b\otimes I_\mN$. By definition of $R$, 
+To conclude we show that this strategy succeeds in the game $G_{\dlS}$ with probability $1-O(\sqrt{\delta_1})$. Assuming that this has been shown, by Theorem~\ref{thm:dls-braid} the strategy $\strategy'$ is $O(\sqrt{\delta_1})$-close to a strategy $\strategy''$ on an algebra of the form $(M_{2^{k}}(\C)\otimes \mN,\tr\otimes \tau')$ such that $P^W_b = \sigma^W_b\otimes I_\mN$. By definition of $R$, 
 \begin{equation}\label{eq:main-3}
  Q^{W,i}_b \,=\,  \sum_{a \in \F_2^n:\,a_i=b}  Q^W_a \,=\, \sum_{c \in \F^k_2: (G_\mC^T c)_i=b}  R^W_c \;,
 \end{equation}
@@ -1379,12 +1389,13 @@ Using~\eqref{eq:main-3}, this can be rewritten as
 Since $\omega_W = G_\mC e_i$, $(G_\mC^T c)_i = c\cdot \omega_W$. Thus~\eqref{eq:main-4} shows that $\strategy'$ succeeds with probability $1-O(\sqrt{\delta_1})$ in the $W$-consistency test, as desired. 
 \end{proof}
 
+By instantiating $\code$ using the Reed-Muller code from Section~\ref{sec:eff-z2k} we obtain the following corollary. 
+
+\begin{corollary}[Pauli braiding test]
 
 
+\end{corollary}
 
-
-
-\subsection{The Pauli braiding test}
 
 
 

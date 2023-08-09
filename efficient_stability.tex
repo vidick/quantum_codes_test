@@ -536,7 +536,7 @@ When the distribution $\mu$ is uniform over the set $R$, we simply write $\eps$-
 A stability result is a statement that $\eps$-homomorphisms are close to homomorphisms. To measure the distance between homomorphisms into different algebras we make the following definition. 
 
 
-\begin{definition}[Closeness]\label{def:close}
+\begin{definition}[Closeness for unitaries]\label{def:close}
 Let $\{U_i\}\subseteq \mM$ and $\{V_i\}\subseteq \mN$ be two families of unitaries on  tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$ respectively, indexed by the same set $\mI$. For $\delta\geq0$ and $\mu$ a measure on $\mI$ we say that $\{U_i\}$ and $\{V_i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau_\infty/\tau_\infty(P)$, and a partial isometry $w\in P \mM_\infty \Id_\mM$ such that 
 \[ \Es{i\sim\mu} \big\| U_i - w^* V_i w \big\|_{\tau^\mM}^2 \,\leq\,\delta\]
 and 
@@ -1193,6 +1193,102 @@ We say that $\strategy$ is \emph{perfect} if $\omega(G;\strategy)=1$.
 \end{definition}
 	
 The name \emph{synchronous} stems from the fact that whenever an identical pair $(x,x)$ is chosen, $\tau(P^x_a P^x_b)=0$ for $a\neq b$ due to the requirement that $\{P^x_a\}_a$ is a projective measurement. Thus a synchronous strategy always returns the same answer to the same question. More general strategies, which allow different operators $\{P^x_a\}$ and $\{Q^y_b\}$, do not automatically enforce the synchronicity condition, but we do not consider such strategies here. 
+
+It will be convenient to have a measure of closeness for strategies. The following definition parallels Definition~\ref{def:close}. 
+
+	\begin{definition}[Closeness for strategies]\label{def:close-meas}
+Let $\{A^i_a\}\subseteq \mM$ and $\{B^i_a\}\subseteq \mN$ be two families of projective measurements on  tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$ respectively, indexed by the same set $i\in \mI$ and with the same set of outcomes $a,b\in\mA$. For $\delta\geq0$ and $\mu$ a measure on $\mI$ we say that $\{A^i\}$ and $\{B^i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau_\infty/\tau_\infty(P)$, and a partial isometry $w\in P \mM_\infty \Id_\mM$ such that 
+\[ \Es{i\sim\mu} \sum_{a\in\mA} \big\| A^i_a - w^* B^i_a w \big\|_2^2 \,\leq\,\delta\]
+and 
+\[\max\big\{ \tau^\mM(\Id_\mM-w^*w)\,,\; \tau^\mN(P-ww^*)\big\} \,\leq\, \delta\;.\]
+If the measure $\mu$ is omitted then it is understood to be the uniform measure on $\mI$.
+\end{definition}
+
+In Definition~\ref{def:close-meas} closeness is measured in the $L_2$ sense. The following lemma gives a consequence for distance measured in an $L_1$ sense. 
+
+
+\begin{lemma}\label{lem:l1-l2}
+Let $\{P_a^i\}$ and $\{Q_a^i\}$ be two families of projective measurements that are $(\eps,\mu)$-close. Then 
+\begin{equation}\label{eq:l1-l2}
+\Es{i\in\mI} \sum_{a\in \mA(i)} \tau\big(|P_a-w^*Q_aw|\big) \,\leq\, \eps+ 2 \sqrt{\eps}\;.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Using the triangle inequality, 
+\begin{align}
+\Es{i} \sum_a \tau\big(|P^i_a - w^* Q^i_a w|\big) &\leq\, \Es{i}\sum_a \Big(\tau\big(|(P^i_a-(P^i_a)^2)|\big) + \tau\big(|P_a(P^i_a-w^*Q^i_aw)|\big) \notag\\
+&\qquad\qquad+ \tau\big(|(P^i_a-w^*Q^i_aw)w^*Q^i_aw|\big) \notag \\
+ \label{eq:lem:l1-l2}
+&\qquad +\tau\big(| (w^*Q^i_aw^*wQ^i_aw-w^*Q^i_aw)|\big)\Big)\;.
+\end{align}
+The first term on the right-hand side is zero, because $P^i$ is assumed projective. The terms in the middle are bounded using H\"older's inequality:
+\begin{align*}
+\Es{i}\sum_a  \tau\big(|P^i_a(P^i_a-w^*Q^i_aw)|\big) &\leq \Es{i} \sum_a \|P^i_a\|_2 \, \, \|P^i_a-w^*Q^i_aw\|_2\\
+&\leq \Big(\Es{i}\sum_a \|P^i_a\|^2_2\Big)^{1/2}\Big( \Es{i}\sum_a  \|P^i_a-w^*Q^i_aw\|_2^2 \Big)^{1/2}\\
+&\leq \sqrt{\eps}
+\end{align*}
+by closeness. The second term of~\eqref{eq:lem:l1-l2} is bounded in a similar fashion.
+Finally the last term of~\eqref{eq:lem:l1-l2} can be bounded as 
+\begin{align*}
+\Es{i}\sum_a \tau\big(| w^*Q^i_aw^*wQ^i_aw-w^*Q^i_aw|\big) &= \Es{i}\sum_a \tau\big( (w^*Q^i_a(I - w^*w)Q^i_aw)\big)\\
+&=  \tau\Big( (I-w^*w)\Big(\Es{i}\sum_a Q^i_aww^* Q^i_a\Big)\Big)\\
+&\leq \tau(I-w^*w) \,\, \Big\|\Es{i}\sum_a Q^i_aww^* Q^i_a\Big\|\\
+&\leq \eps\;.
+\end{align*}
+\end{proof}
+
+
+We will make use of the following elementary lemma, which shows that two strategies for the same game $G$ that are close according to Definition~\ref{def:close-meas} have a close value. 
+
+\begin{lemma}\label{lem:close-value}
+Let $G=(\mX,\mu,\mA,D)$ be a game and $\strategy=\{P^x_a\}$ and $\strategy'=\{Q^x_a\}$ strategies on $\mM$ and $\mN$ respectively such that $\{P^x_a\}$ and $\{Q^x_a\}$ are $(\eps,\mu)$-close. Then 
+\[ \big|\omega(G;\strategy) - \omega(G;\strategy')\big|\,\leq\, 8\sqrt{\eps} \;.\]
+\end{lemma}
+
+\begin{proof}
+By definition, there exists a projection $P \in \mM_\infty$ and a partial isometry $w \in P \mM_\infty I_\mM$ such that $\mN = P \mM_\infty P$ and
+\begin{align*}
+\omega(G;\strategy') &= \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( Q^x_a \, Q^y_b \big)\\
+&=  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\\
+&\qquad\qquad+  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big) \\
+&\qquad\qquad+ \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big(Q^x_a  Q^y_b (P-ww^*)\big)~.
+\end{align*}
+Here we used the fact that $Q^x_a \in \mN$ so $P Q^x_a P = Q^x_a$ for all $x,a$. 
+The second and third term on the right-hand side can be bounded as
+%\begin{align*}
+%\Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|
+%&=\Big| \tau\Big(  (P - w\, w^* )\Big( \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big)\Big)\Big|\\
+%&\leq \tau(P-ww^*) \Big\|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big\|\\
+%&\leq \eps\;,
+%\end{align*}
+%where the first inequality is by H\"older's inequality and the last inequality uses the definition of closeness to bound the first term. To bound the second term on the right-hand side, we write it as $\|A\circ B\|$, with $\circ$ the Hadamard product, and use  $\|A\circ B\| \leq \max_{i,j} |A_{i,j}|\|B\|$. Here $A = \sum_{a,b} D(a,b) P_{a,b}$, with $P_{a,b} = \sum_{i,j} \ket{u_{i,a}} \bra{v_{j,b}}$ with $\ket{u_{i,a}}$ a basis for the range of $Q^x_a$ and $\ket{v_{j,b}}$ for the range of $Q^y_b$, and $B=\sum_{a,b} Q^y_b ww^* Q^x_a = ww^*$.  \hnote{not quite sure about this proof... is the Hadamard product well defined in infinite dimensions? What is $D(a,b)$? A bit confused...}
+%\hnote{here's an alternate proof:}
+\begin{align*}
+\Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) & \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|\\
+&\leq \Es{(x,y)\sim\mu} \Big | \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b w w^* Q^x_a (P - w\, w^* ) \big) \Big | \\
+&\leq \sqrt{ \tau((P - ww^*)^2)} \cdot \sqrt{\Es{(x,y)\sim\mu} \tau\big( \big| \sum_{a,b} D(a,b,x,y)   Q^x_a w w^* Q^y_b \big|^2 \big) } \\
+&\leq \sqrt{\eps}\sqrt{ \Es{(x,y)\sim\mu} \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b ww^* Q^x_a w w^* Q^y_b \big) } \\
+&\leq \sqrt{\eps}\sqrt{ \Es{(x,y)\sim\mu}  \sum_{a,b}  \tau\big(Q^y_b ww^* Q^x_a w w^* Q^y_b \big) }  \\
+&=\sqrt{\eps}\sqrt{ \Es{(x,y)\sim\mu}  \sum_{b}  \tau\big(Q^y_b ww^* \big) } \\
+&\leq \sqrt{\eps}\;.
+%&=\Big| \tau\Big(  (P - w\, w^* )\Big( \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big)\Big)\Big|\\
+%&\leq \tau(P-ww^*) \Big\|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big\|\\
+%&\leq \eps\;,
+\end{align*}
+The third line is due to Cauchy-Schwarz and Jensen's inequality, where $|A|^2=A^*A$. The fourth line uses that $P - ww^*$ is a positive operator with operator norm at most $1$ for the first term, and that for fixed $x,y$, the measurements $\{ Q^x_a \}_a$ and $\{Q^y_b\}_b$ are projective. The fifth line is due to $D(x,y,a,b) \in \{0,1\}$. The sixth line is due to $\sum_a Q^x_a = I_\mN$. The seventh line is due to $\sum_a Q^y_b = I_\mN$.
+
+For $x\in \mX$ such that $\mu(x)\neq 0$, denote by $\mu_x$ the (symmetrized) conditional distribution $\mu_x(y)=\frac{1}{2}(\mu(x,y)+\mu(y,x))/\mu(x)$. Then using the above
+\begin{align*}
+\big|\omega(G;\strategy) - \omega(G;\strategy')\big|
+ &\leq 2\sqrt{\eps}+ \Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) \big( \tau\big( P^x_a \, P^y_b \big)-\tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\big)\Big|\\
+&\leq  2\sqrt{\eps}+ \Big|\Es{x\sim\mu} \sum_{a}  \tau\Big( \big(P^x_a-w^* Q^x_aw\big) \, \Big( \Es{y\sim \mu_x} \sum_b D(a,b,x,y) P^y_b \Big)\Big)\Big|\\
+&\qquad+ \Big|\Es{y\sim\mu} \sum_{b}  \tau\Big(\Big( \Es{x\sim \mu_y} \sum_a D(a,b,x,y) w^* Q^x_a w\Big) \big(P^y_b-w^*Q^y_bw\big) \, \Big)\Big|\\
+&\leq 2\sqrt{\eps}+2\Es{x\sim\mu} \sum_{a}  \tau\big(\big| P^x_a-w^*Q^x_aw\big|\big) \\
+&\leq 2\sqrt{\eps}+2(\eps + 2\sqrt{\eps}) \leq 8\sqrt{\eps}\;,
+\end{align*}
+where the third line uses $\tau(AB)\leq\tau(|A|)\|B\|$ and the last line is by~\eqref{eq:l1-l2}.% and Jensen's inequality.
+\end{proof}
 	
 \subsection{Some simple games}
 
@@ -1253,24 +1349,53 @@ The goal in the remaining sections is to design a qubit test where the size of t
 \subsection{The code game}
 \label{sec:code-game}
 
-We associate a game $G_{\code,M}$ to any $[n,k,d]_2$ code $\code$ and $r$-local tester $M=(h,\nu)$ for it. In the game, one player is asked to provide an assignment to all generators in the support of a randomly chosen row of $h$, such that this assignment satisfies the check enforced by that row. The other player is asked to provide an assignment to a single of these variables, and checked for consistency with the first player. The formal definition follows.  
+In this section we associate a game $G_{\code,M}$ to any $[n,k,d]_2$ code $\code$ and $r$-local tester $M=(h,\nu)$ for it. In the game, one player is asked to provide an assignment to all generators in the support of a randomly chosen row of $h$, such that this assignment satisfies the check enforced by that row. The other player is asked to provide an assignment to a single of these variables, and checked for consistency with the first player. The formal definition follows.  
 
 \begin{definition}
 Let $\code$ be an $[n,k,d]_q$ linear code and $M(h,\nu)$ an $r$-local tester for $\code$ such that $h\in \F_2^{m\times n}$. The game $G_{\code,M}$ is defined as follows. We set 
 \[\mX = \big\{ \{\eq\}\times\{1,\ldots,m\} \sqcup\{\var\}\times \{1,\ldots,n\}\big\}\;,\]
 and
 \[\mu((\var,i),(\eq,j))=\mu((\eq,j),(\var,i)) = \frac{1}{m} \frac{1}{|h_{j\cdot}|} 1_{h_{ji}=1}\;,\]
-where $|h_{j\cdot}|$ denotes the Hamming weight of the $j$-th row of $h$. For any $j$, $\mA((\eq,j))=\F_2^{|h_{j\cdot}|}$, and for any $i\in\{1,\ldots,n\}$, $\mA((\var,i))=\F_2$. Finally $D((\eq,j),(\var,i),a,b)=(h_{j\cdot} a) 1_{a_i=b}$, where $h_{j\cdot}a$ is naturally computed as the sum, in $\F_2$, of all entries of $a$.  
+where $|h_{j\cdot}|$ denotes the Hamming weight of the $j$-th row of $h$. For any $j$, $\mA((\eq,j))=\F_2^{|h_{j\cdot}|}$, and for any $i\in\{1,\ldots,n\}$, $\mA((\var,i))=\F_2$. Finally $D((\eq,j),(\var,i),a,b)=1_{h_{j\cdot} a=0} 1_{a_i=b}$, where $h_{j\cdot}a$ is naturally computed as the sum, in $\F_2$, of all entries of $a$.  
 \end{definition}
 
-We show the following. 
+We show the following. For $\code$ an $[n,k,d]_2$ linear code and $M=(h,\nu)$ an $r$-local tester for $\code$, recall the presentation~\eqref{eq:def-gh-pres} of $G(h)$. We define a distribution $\mu$ on the relations defining that presentation as follows. First, sample a uniformly random $j\in\{1,\ldots,m\}$ and uniformly random $i,i'\in\{1,\ldots,n\}$, conditioned on $h_{ji}=h_{ji'}=1$ and $i\neq i'$. Then, with probability $1/3$ we return the relation $x_i^2=e$, with probability $1/3$ we return the relation $R_i$, and with probability $1/3$ we return $R'_{jii'}$. 
 
 \begin{proposition}\label{prop:rep-game}
-Let $\code$ be an $[n,k,d]_2$ linear code and $M=(h,\nu)$ an $r$-local tester for $\code$. Let $\strategy$ be a strategy for $G_{\code,m}$ on $(\mN,\tau^\mN)$ such that $\omega^*(\G_{\code,M},\strategy)\geq 1-\eps$. Then $\{\phi((\var,i))\}_{1\leq i \leq n}$ is an $\eps$-homomorphism of the presentation~\eqref{eq:def-gh-pres} of $G(h)$. 
+Let $\code$ be an $[n,k,d]_2$ linear code, $M=(h,\nu)$ an $r$-local tester for $\code$, and $\mu$ the distribution defined above. Let $\strategy$ be a strategy for $G_{\code,m}$ on $(\mN,\tau^\mN)$ such that $\omega^*(\G_{\code,M},\strategy)\geq 1-\eps$. Then $\phi:x_i\mapsto {\widehat{P}}^{(\var,i)}$, for $i\in\{1,\ldots,n\}$, is an $(O(r\eps),\mu)$-homomorphism of the presentation~\eqref{eq:def-gh-pres} of $G(h)$.
 \end{proposition}
 
 \begin{proof}
-\tnote{todo}
+Let $\strategy$ be a synchronous strategy for the braiding test  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$ in $G_{\code,M}$. For $i\in\{1,\ldots,n\}$ let 
+\[ \phi(x_i)\,=\,{\widehat{P}}^{(\var,i)}\,=\, P^{(\var,i)}_0-P^{(\var,i)}_1\;.\]
+Then by definition $\phi(x_i)^2=\Id$ for all $i$. Recalling~\eqref{eq:def-gh-pres}, it remains to verify the relations $R_j$ and $R'_{jii'}$, for $1\leq i<i'\leq n$ and $1\leq j \leq m$. To show these relations, first express the assumption that $\strategy$ succeeds in $G_{\code,M}$ as
+\begin{align}
+1-\eps &\leq \Es{j\in\{1,\ldots,m\}} \Es{i: h_{ji}=1} \sum_{a:h_{j\cdot} a=0}\tau\big(P^{(\eq,j)}_a P^{(\var,i)}_{a_i}\big)\label{eq:rep-game-1}
+\end{align}
+For an equation $j$ and variables $i,i'$, let 
+\[ R^{(\eq,j)}_{ii'} = \sum_a (-1)^{a_i+a_{i'}} P^{(\eq,j)}_a\qquad\text{and}\qquad R^{(\eq,j)}_{i} = \sum_a (-1)^{a_i}P^{(\eq,j)}_a\;,\]
+so that, using that $\{P^{(\eq,j)}_a\}$ is a projective measurement, 
+\[R^{(\eq,j)}_{ii'} \,=\, R^{(\eq,j)}_{i}R^{(\eq,j)}_{i'}\,=\,R^{(\eq,j)}_{i'}R^{(\eq,j)}_{i}\;.\]
+Using this we compute  
+\begin{align*}
+\Es{(j,i,i')\sim\mu} \|R'_{jii'}-\Id\|_\tau^2 &= \Es{(j,i,i')} \big\| \widehat{P}^{(\var,i)}\widehat{P}^{(\var,i')} - \widehat{P}^{(\var,i')}\widehat{P}^{(\var,i)}\big\|_\tau^2\\
+&= \Es{(j,i,i')} \big\| \big(\widehat{P}^{(\var,i)} - R^{(\eq,j)}_{i}\big)\widehat{P}^{(\var,i')} + R^{(\eq,j)}_{i}\big(\widehat{P}^{(\var,i')}-R^{(\eq,j)}_{i'}\big)  \\
+&\hskip3cm - R^{(\eq,j)}_{i'}\big(\widehat{P}^{(\var,i)}-R^{(\eq,j)}_{i}\big)- \big(\widehat{P}^{(\var,i')}- R^{(\eq,j)}_{i'}\big)\widehat{P}^{(\var,i)}  \big\|_\tau^2\\
+&\leq 2\Big( \Es{(j,i,i')} \big\| \widehat{P}^{(\var,i)} - R^{(\eq,j)}_{i}\big\|_\tau^2 +\Es{(j,i,i')} \big\| \widehat{P}^{(\var,i')} - R^{(\eq,j)}_{i'}\big\|_\tau^2\Big)\\
+&= 2\Big(4-2\Big(\Es{(j,i,i')} \tau\big( \widehat{P}^{(\var,i)}  R^{(\eq,j)}_{i}\big) +\tau\big(\widehat{P}^{(\var,i')}  R^{(\eq,j)}_{i'}\big)\Big)\Big)\\
+&=2\Big(8-8 \Es{j\in\{1,\ldots,m\}} \Es{i:h_{ji}=1}\sum_{a} \tau\big( \widehat{P}^{(\var,i)}_{a_i}  P^{(\eq,j)}_{a}\big)\Big)\;.
+\end{align*}
+Here the third line is the Cauchy-Schwarz inequality and uses that $\widehat{P}^{(\var,i)}$ and $R^{(\eq,j)}_{i}$ are observables, hence square to identity; the fourth line expands the norms and also uses this fact; and the fifth line uses that for observables $A=A0-A_1$ and $B=B_0-B_1$, $AB=\Id-2(A_0B_0+A_1B_1)$. The last line also uses that the marginal of $(j,i,i')\sim\mu$ on $(j,i)$ or $(j,i')$ are identical and match the distribution indicated in the last line. Using~\eqref{eq:rep-game-1} we deduce that  
+\[ \Es{(j,i,i')\sim\mu} \|R'_{jii'}-\Id\|_\tau^2 \,\leq\, 16\eps\;.\]
+Now we consider the relations $R_j$. For $j\in\{1,\ldots,m\}$ we denote $i_1,\ldots,i_r$ the indices such that $h_{ji}=1$ (assume for simplicity of notation that there are exactly $r$). Then 
+\begin{align*}
+\Es{j} \|R_{j}-\Id\|_\tau^2
+ &= \Es{j} \big\| \widehat{P}^{(\var,i_1)}\cdots \widehat{P}^{(\var,i_r)}-\Id\big\|_\tau^2\\
+&\leq (r+1)\Big(\Es{j} \big\| R^{(\eq,j)}_{i_1}\cdots R^{(\eq,j)}_{i_r}-\Id\big\|_\tau^2 + \sum_{t=1}^r \big\|R^{(\eq,j)}_{i_t}-\widehat{P}^{(\var,i_t)}\big\|_\tau^2\Big)\\
+&\leq (r+1)\big(2-2\Es{j}\tau\big( R^{(\eq,j)}_{i_1}\cdots R^{(\eq,j)}_{i_r}\big)\big) + O(r\eps)\\
+&\leq O(r\eps)\;,
+\end{align*}
+where the second line follows from the triangle inequality and using a telescoping sum, the third line uses the definition of $R$ and~\eqref{eq:rep-game-1}, and the last line again uses the definition of $R$ and~\eqref{eq:rep-game-1}. This concludes the proof. 
 \end{proof}
 
 
@@ -1295,11 +1420,12 @@ Let $M=(h,\nu)$ be an $r$-local tester for the $[n,k,d]_2$ code $\code$.  Execut
 		 \item \textbf{Consistency test:} Sample $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ and $W\in \{X,Z\}$ uniformly at random. Let $\omega=(E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma = (E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) \in \field$. Send $(W,\var,i_W)$ to $\alice$ and $(x_{W,\gamma},\omega)$ to $\bob$, where $x_{W,\gamma}$ is a question from the anti-commutation game. Receive $a\in \field$ and $b\in \field$ respectively. Accept if and only if $a=b$. 
     \end{enumerate}
   \end{gamespec}
-  \caption{The braiding test over $\code$ verifies that the players respond consistently with a uniformly random codeword from $\code$.}
+  \caption{The braiding test over $\code$ verifies that the players respond consistently with a uniformly random codeword from $\code$. $E_\code$ is a generating matrix for $\code$, and for $i\in\{1,\ldots,n\}$ we let $e_i$ be the $i$-th canonical basis vector of $\F_2^n$.}
   \label{fig:braiding-test}
 \end{figure}
 
-Let $\code$ be an $[n,k,d]_2$ linear code and $M=(h,\nu)$ an $r$-local tester for $\code$. The braiding test constructed from $\code$ and $M$ is described in Figure~\ref{fig:braiding-test}. Informally, the test combines two independent copies of the code game from Section~\ref{sec:code-game} with appropriate commutation and anti-commutation games that will force any successful strategy in the game to be close, in some sense, to a representation of the Pauli group generated by observables $\sigma^X(a)$ and $\sigma^Z(b)$, $a,b\in \F_2^k$. This is shown in the following theorem. 
+Let $\code$ be an $[n,k,d]_2$ linear code and $M=(h,\nu)$ an $r$-local tester for $\code$. We let $E_\code\in\F_2^{k\times n}$ be a generating matrix for $\code$, i.e.\ $E_\code$ is such that its rows are linearly independent and span the codespace. 
+ The braiding test constructed from $\code$ and $M$ is described in Figure~\ref{fig:braiding-test}. Informally, the test combines two independent copies of the code game from Section~\ref{sec:code-game} with appropriate commutation and anti-commutation games that will force any successful strategy in the game to be close, in some sense, to a representation of the Pauli group generated by observables $\sigma^X(a)$ and $\sigma^Z(b)$, $a,b\in \F_2^k$ (recall the notation from~\eqref{eq:def-pauli-2}). This is shown in the following theorem. 
 
 \begin{theorem}\label{thm:braiding}
 Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound and such that $(\code,M)$ is Abelian. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test with sets $S_X=S_Z=\{E_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$, map $\phi(W,E_\code e_i)=(W,\eq,i)$ and error function $\delta' = O(\delta^{1/2}(6\eps))$.\footnote{Assume $E_\code$ has no repeated columns.} 
@@ -1324,12 +1450,11 @@ This follows by expending the left-hand side and using $\tau(P_aQ_{a'})\geq 0$ f
 
 \begin{proof}[Proof of Theorem~\ref{thm:braiding}]
 \underline{Completeness:} We first verify completeness. For $W\in\{X,Z\}$, $i\in\{1,\ldots,n\}$ and $b\in \F_2$ let $P^{(W,\eq,i)}_b = \frac{1}{2}(\Id + (-1)^b\sigma^W(E_\code e_i))$, and for $a\in \F_2^S$ let $P^{(W,\var,j)}_a = \prod_{i: h_{ji}=1} P^{(W,\eq,i)}_{a_i}$. Writing $(f_0,f_1)$ for the canonical basis of $\C^2$, $P^{(W,\var,j)}_a$ is the projection on the span of all $\otimes_{i=1}^k f_{u_i}$ where $u=(u_1,\ldots,u_k)$ is such that $u^T E_\code=a$.   
+For $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ let $\omega=(E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma =(E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) $. We let $P^{x_{W,\gamma},\omega} = P^{(W,\var,i_W)}$. 
 
-For $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ let $\omega=(E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma =(E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) $ we let $P^{x_{W,\gamma},\omega} = P^{(W,i_W)}$. 
-
-These choices already ensure that the strategy succeeds with probability $1$ in the consistency test. We verify that it succeeds in the code test. Let $S\subseteq\{1,\ldots,n\}$. As observed above, for any $a\in\field^S$ such that $P^{W,S}_a\neq 0$ there is an $u\in \field^k$ such that $u^TE_\code=a$, which means that $a\in \code$. 
+These choices already ensure that the strategy succeeds with probability $1$ in the consistency test. We verify that it succeeds in the code test. Let $j\in\{1,\ldots,k\}$. As observed above, for any $a\in\field^r$ such that $P^{W,\eq,j}_a\neq 0$ there is an $u\in \field^k$ such that $u^TE_\code=a$, which means that $a\in \code$. 
 % and $h\in \F_2^S$ any valid parity check, i.e.\ $h^T E_\code=0$, for $\code$ with support in $S$. Then $\sum_{i\in S} h_i E_\code e_i = 0$, so $\prod_{i\in S}(\sigma^W(E_\code e_i))^{h_i}=\Id$. This means that for any $a\in\field^S$ such that $P^{W,S}_a\neq 0$, we have that $h\cdot a =0$, i.e.\ $a$ satisfies the parity check 
-Using the completeness property of $M$ it follows that $M$ must accept any $a$ such that $P^{W,S}_a\neq 0$, which shows that the strategy succeeds in the code test with probability $1$. 
+Using the completeness property of $M$ it follows that $M$ must accept any $a$ such that $P^{W,\eq,j}_a\neq 0$, which shows that the strategy succeeds in the code test with probability $1$. 
 
 It remains to verify that the anti-commutation test is passed with probability $1$. For this we observe that 
 % To define $P^{(x_c,\omega)}$ and $P^{(x_a,\omega)}$ for $x_c\notin \{x_{Z,0},x_{Z,0}\}$ and $x_a \notin \{x_{X,1},x_{Z,1}\}$ we observe that 
@@ -1389,10 +1514,16 @@ Using~\eqref{eq:main-3}, this can be rewritten as
 Since $\omega_W = G_\mC e_i$, $(G_\mC^T c)_i = c\cdot \omega_W$. Thus~\eqref{eq:main-4} shows that $\strategy'$ succeeds with probability $1-O(\sqrt{\delta_1})$ in the $W$-consistency test, as desired. 
 \end{proof}
 
+
+
+\subsection{The Pauli braiding test}
+
 By instantiating $\code$ using the Reed-Muller code from Section~\ref{sec:eff-z2k} we obtain the following corollary. 
 
-\begin{corollary}[Pauli braiding test]
+\tnote{add a figure, since we need to include an additional commutation test}
 
+\begin{corollary}[Pauli braiding test]
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound and such that $(\code,M)$ is Abelian. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test with error function $\delta' = $\tnote{fill in}.
 
 \end{corollary}
 

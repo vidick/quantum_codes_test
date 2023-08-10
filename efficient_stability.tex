@@ -1420,7 +1420,7 @@ Let $M=(h,\nu)$ be an $r$-local tester for the $[n,k,d]_2$ code $\code$.  Execut
 		 \item \textbf{Consistency test:} Sample $(i_X,i_Z)\in \{1,\ldots,n\}^2 $ and $W\in \{X,Z\}$ uniformly at random. Let $\omega=(E_\code e_{i_X}, E_\code e_{i_Z})$ and $\gamma = (E_\code e_{i_X}) \cdot(E_\code e_{i_Z}) \in \field$. Send $(W,\var,i_W)$ to $\alice$ and $(x_{W,\gamma},\omega)$ to $\bob$, where $x_{W,\gamma}$ is a question from the anti-commutation game. Receive $a\in \field$ and $b\in \field$ respectively. Accept if and only if $a=b$. 
     \end{enumerate}
   \end{gamespec}
-  \caption{The braiding test over $\code$ verifies that the players respond consistently with a uniformly random codeword from $\code$. $E_\code$ is a generating matrix for $\code$, and for $i\in\{1,\ldots,n\}$ we let $e_i$ be the $i$-th canonical basis vector of $\F_2^n$.}
+  \caption{The braiding test over $\code$ verifies that the players respond consistently with a uniformly random codeword from $\code$. $E_\code \in \F_2^{k\times n}$ is a generating matrix for $\code$, and for $i\in\{1,\ldots,n\}$ we let $e_i$ be the $i$-th canonical basis vector of $\F_2^n$.}
   \label{fig:braiding-test}
 \end{figure}
 
@@ -1518,18 +1518,39 @@ Since $\omega_W = G_\mC e_i$, $(G_\mC^T c)_i = c\cdot \omega_W$. Thus~\eqref{eq:
 
 \subsection{The Pauli braiding test}
 
-By instantiating $\code$ using the Reed-Muller code from Section~\ref{sec:eff-z2k} we obtain the following corollary. 
+By instantiating $\code$ using the Reed-Muller code from Section~\ref{sec:eff-z2k} we obtain an efficient entanglement test.  Because we do not know if $G(h_\bRM)$ is Abelian, we need to introduce an additional test for the relations $\{R_k^\com\}$ in~\eqref{eq:z2k-eff}. The resulting test is described in Figure~\ref{fig:pbt}.
 
-\tnote{add a figure, since we need to include an additional commutation test}
+\begin{figure}[!htbp]
+  \centering
+  \begin{gamespec}
+Let $h_\bRM\in \F_2^{M\times N}$ be the parity check matrix for $\code_\bRM$ considered in Section~\ref{sec:eff-z2k}. Here, $N=q^{m+1}$ and $M=q^{m+2}(1+m)$. Let $\mu_R$ be the distribution on relations~\eqref{eq:z2k-eff} described in Section~\ref{sec:eff-z2k}. Execute either of the following tests with probability $1/4$ each. 
+    \begin{enumerate}
+      \setlength\itemsep{1pt}
+    \item \textbf{Code test:} Identical to Figure~\ref{fig:braiding-test}.
+    \item \textbf{(Anti-)commutation test:} Identical to Figure~\ref{fig:braiding-test}.
+		 \item \textbf{Consistency test:} Identical to Figure~\ref{fig:braiding-test}.
+		\item \textbf{Pairwise commutation test:} Sample $(i,i')\in \{1,\ldots,N\}^2$ according to the distribution $\mu_R$, conditioned on choosing a relation from $R_k^\com$. and $W\in \{X,Z\}$ uniformly at random. 	
+		Let $\omega=(E_\code e_{i}, E_\code e_{i'})$ an 
+		Sample a pair of questions $(x_c,y_c)$ as in the commutation game. If either question is $x_{X,0}$ or $x_{Z,0}$, replace it with $(W,\var,i)$ or $(W,\var,i')$ respectively. Otherwise, send the original question together with $\omega$, i.e.\ $(x_c,\omega)$ or $(y_c,\omega)$ respectively. Accept if and only if the players' answers are accepted in the commutation game.  
+    \end{enumerate}
+  \end{gamespec}
+  \caption{The Pauli braiding test, obtained by adapting the braiding test from Figure~\ref{fig:braiding-test} to the $[q^{m+1},t(d+1)^m,D']_2$ code $\code_\bRM$.}
+  \label{fig:pbt}
+	
+\end{figure}
+
 
 \begin{corollary}[Pauli braiding test]
-Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound and such that $(\code,M)$ is Abelian. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test with error function $\delta' = $\tnote{fill in}.
-
+Let $\code_\bRM$ be the $[q^{m+1},t(d+1)^m,D']_2$ Reed-Muller from Section~\ref{sec:eff-z2k}, and $M=(h_\bRM,\nu_\bRM)$ the $(d+2)$-local tester for $\code_\bRM$ described in Figure~\ref{fig:bRM-tester}. Then the associated Pauli braiding test (Figure~\ref{fig:pbt}) is a $(k,\delta')$-qubit test with error function $\delta' = $\tnote{fill in}.
 \end{corollary}
 
+\begin{proof}
+Let $\strategy$ be a synchronous strategy that succeeds in the braiding test with probability at least $1-\eps$. Then in particular the strategy succeeds with probability at least $1-4\eps/3$ in the braiding test over $\bRM$. Since $(\code_\bRM,M)$ is not known to be abelian, we cannot apply Theorem~\ref{thm:braiding} directly. However, we can follow its proof. 
 
+The completeness part of the proof follows in a straightforward manner, since the measurement operators $P^{(W,\var,i)}$ and $P^{(W,\var,i')}$ defined in the proof pairwise commute, for any pair $(i,i')\in \{1,\ldots,N)^2$. 
 
-
+For the soundness part, we first define the same pair of strategies $\strategy^X$ and $\strategy^Z$ for $G_{\code_\bRM,M}$. Applying Proposition~\ref{prop:rep-game}, we deduce an $O(d\eps)$-homomorphism of the presentation~\eqref{eq:def-gh-pres} of $G(h_\bRM)$. However, we are interested in constructing an approximate homomorphism of the presentation~\eqref{eq:z2k-eff}, which in addition contains the relations $R_k^\com$. The fact that $x_i \mapsto \widehat{P}^{(W,\var,i)}$ satisfies these relations, on average and according to the distribution $\mu_R$, follows from success in the pairwise commutation test executed as part of the Pauli braiding test (Figure~\ref{fig:pbt}). Thus we obtain that $x_i \mapsto \widehat{P}^{(W,\var,i)}$ is an $(O(d\eps),\mu_R)$-homomorphism of the presentation~\eqref{eq:z2k-eff}. Applying Theorem~\ref{thm:z2-stab}, and similarly to the proof of Theorem~\ref{thm:braiding} we obtain a pair of POVMs $\{\tilde{P}^W_u\}_{u\in\F_2^N}$, for $W\in\{X,Z\}$, such that defining $\tilde{P}^{W,i}_b = \sum_{u:u_i=b} \tilde{P}^W_u$ these operators satisfy~\eqref{eq:main-0}, with right-hand side $\delta_2 = \delta(O(d\eps))$, with $\delta$ the soundness function from Theorem~\ref{thm:z2-stab}. From here on the proof proceeds exactly as Theorem~\ref{thm:braiding}, leading to the desired conclusion. 
+\end{proof}
 
 
 

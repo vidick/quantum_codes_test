@@ -568,8 +568,6 @@ Let $G$ be a finite group and $\mC$ the class of all tracial von Neumann algebra
 
 Next we state a result from~\cite{de2022spectral} which allows to combine stability results. The results in~\cite{de2022spectral} are rather general and apply to direct products and certain central extensions of a class of finite groups. Here, we will only use the following specialization to the case of the central extension of $\Z_2^k \times \Z_2^k$ by $\{-1,1\}$ given by $\gamma(a,b)=(-1)^{a\cdot b}$, with $a\cdot b$ the inner product modulo $2$. For a measure $\mu$ on $\Z_2^k$, define its inverse spectral gap 
 \[ \kappa = \max_{a\neq 0} \frac{1}{1-\Es{b\sim\mu}(-1)^{a\cdot b}}\;.\] 
-	
-\hnote{I am wondering how exactly the comment above connects with the next theorem. For example, what is the ``direct product'' here? Also, is there a way to explain where  $(-1)^{a \cdot b}$ comes from? For someone who doesn't know what's coming next it may not be apparent where this is from.}\tnote{I tried, adding something above}
 
 \begin{theorem}[\cite{de2022spectral} Corollary 2.6]\label{thm:dls-gap}
 Let $\mu$ be a measure on $\Z_2^k$ with inverse spectal gap $\kappa$. Let $\phi_X,\phi_Z: \Z_2^k \to \mU(\mM)$ be two homomorphisms such that
@@ -860,7 +858,7 @@ Given access to some $g\in \F_q^n$, where $n=q^m$, identify $g$ with a function 
 
 A parity check matrix $h_{\RM} \in \F^{S \times q^m}$ for $\code_{\RM}$ where $S = q^m \times m \times q$ is as follows. Identify the rows with triples $(u,j,t) \in \F_q^m \times \{1,\ldots,m\} \times \F_q$. The $(u,j,t)$-th row of $h_{\RM}$ is the vector in $\F_q^m$ that for $i \in \{0,\ldots,d\}$ has the value $\alpha_{u,v,i}$ for $v = u + t e_j$ in the coordinate indexed by $u + t_i e_j$, the value $-1$ in the coordinate indexed by $u + te_j$, and the value $0$ everywhere else. 
 
-Babai, Fortnow, and Lund essentially showed that \hnote{need to double check reference} $h_{\RM}$ is indeed a parity check matrix for $\code_{\RM}$. \hnote{There is a slight difference in that BFL chooses the $t_0,\ldots,t_d$ randomly, whereas in what I wrote above, it's a fixed choice of points.}\tnote{Write this as a footnote? I thought they read the entire line} Furthermore, they showed that the parity check matrix gives rise to a $(d+2)$-local tester for $\code_{\RM}$. 
+Rubinfeld and Sudan~\cite{rubinfeld1996robust} (building on the work of Babai, Fortnow, and Lund~\cite{babai1991non}) showed that $h_{\RM}$ is indeed a parity check matrix for $\code_{\RM}$. Furthermore, they showed that the parity check matrix gives rise to a $(d+2)$-local tester for $\code_{\RM}$. 
 
 %\begin{theorem}\label{thm:mrm-sound}
 %$M_\RM$ has quantum soundness $\delta(\eps)=\poly(m,d)\cdot \poly(\eps,n^{-1})$.
@@ -905,10 +903,6 @@ the $(p,\gamma)$-th row of $B$ enforces the check
 \end{align*}
 Therefore, $h'x=0$ is equivalent to $\tr(\gamma(v_p \cdot x'))=0$ for all $\gamma$, which is equivalent to $v_p\cdot x'=0$. Thus $\code'=\ker h'$, as desired. 
 \end{proof}
-
-\hnote{maybe good to add a sentence or two of intuition about why this tester makes sense...}\tnote{added}
-
-\hnote{Also, probably could use another lemma or proposition here arguing that this is in fact a valid tester.}\tnote{added above, if this what you meant?}
 
 \section{An efficient presentation for $\Z_2^k$}
 \label{sec:eff-z2k}
@@ -1052,9 +1046,6 @@ Now, for any $u,v\in \F_q^m$
 &=\sum_{\beta,\beta',\gamma,\gamma'\in \F_q}\Es{a\in\F_2^t} (-1)^{a\cdot\kappa(\beta-\beta')} \Es{a'\in\F_2^t} (-1)^{a'\cdot\kappa(\gamma-\gamma')} \tau(P^{u}_\beta P^{v}_\gamma P^{u}_{\beta'} P^{v}_{\gamma'}\big)\\
 &=\Es{a,a'\in\F_2^t}  \tau\Big( \Big(\sum_{\beta\in \F_q} (-1)^{a\cdot \kappa(\beta)} P^{u}_\beta\Big) \Big(\sum_{\gamma\in \F_q} (-1)^{a'\cdot \kappa(\gamma)} P^{v}_\gamma\Big)\Big(\sum_{\beta'\in \F_q} (-1)^{a\cdot \kappa(\beta')} P^{u}_{\beta'}\Big)\Big(\sum_{\gamma'\in \F_q} (-1)^{a'\cdot \kappa(\gamma')} P^{v}_{\gamma'}\Big)\Big)\;.
 \end{align*}
-\hnote{There seems to be some missing connective text between these two eqn blocks. Is it the commented out stuff below?}\tnote{fixed}
-%Here, the second line follows since for $\beta,\beta'\in \F_q$, 
-%\[ \Es{\alpha\in \F_q} (-1)^{\alpha(\beta-\beta')}\,=\delta_{\beta,\beta'}\,=\,\Es{\alpha\in\F_2^t} (-1)^{\alpha\cdot \kappa(\beta-\beta')}\,\;.\]
 It follows that, for any distribution on $(u,v)$ such that both marginals are uniform over $\F_q^m$,
 \begin{align*}
 \Es{u,v} \Es{\alpha,\alpha'\in \F_q} \big\| [U_{u,\alpha} ,U_{v,\alpha'} ]-\Id\big\|_\tau^2
@@ -1154,20 +1145,20 @@ Since $\{R^{u,j}_\alpha\}$ is a projective measurement, we get the desired concl
 	\begin{equation}\label{eq:z2-stab-4-2}
  \Es{\gamma\in\F_q} \Big\| U_{v,\gamma} -  \sum_{g} (-1)^{\tr(\gamma \sum \alpha_{u_\ell,v,i} g(u_\ell+t_ie_j))} Q^{\ell}_g\Big\|_\tau^2 \,=\, \poly(d,\eps)\;.
 	\end{equation}
-	\hnote{What does $U_v^\gamma$ mean?}\tnote{old notation; fixed} By definition, $\sum \alpha_{u_\ell,v,i} g(u_\ell+t_ie_j) = g(v)$. By Fourier transform, we obtain the desired conclusion. 
+	 By definition, $\sum \alpha_{u_\ell,v,i} g(u_\ell+t_ie_j) = g(v)$. By Fourier transform, we obtain the desired conclusion. 
 \end{proof}
 
 
-We are now in a position to apply~\cite[Theorem 4.1]{ji2022quantum}. For this we need to define a synchronous strategy in the tensor code test $\code^{\otimes m}$, where $\code$ is the Reed-Solomon code with degree $d$ over $\F_q$, and thus $\code^{\otimes m}$ is the code $\code_\RM$ is the code considered in Section~\ref{sec:rmq}. For the ``points measurement'' $A^u$ we choose $P^u$. For the ``lines measurement'' $B^\ell$ we choose $Q^\ell$ from Claim~\ref{claim:z2-stab-4}. Finally, for the ``pair measurement'' $P^{u,v}$ we choose $R^{u,v}$ from Claim~\ref{claim:z2-stab-3}. By Claim~\ref{claim:z2-stab-4} this strategy succeeds with probability $1-\poly(d,\eps)$ in the ``axis-parallel lines test'', and by Claim~\ref{claim:z2-stab-3} it succeeds with probability $1-\poly(\eps)$ in the ``subcube commutation test.'' Applying~\cite[Theorem 4.1]{ji2022quantum} we deduce the existence of a projective measurement $\{G_c\}_{c\in\code^{\otimes m}}$ on $\mA$ such that
+We are now in a position to apply~\cite[Theorem 4.1]{ji2022quantum}. For this we need to define a synchronous strategy in the tensor code test $\code^{\otimes m}$, where $\code$ is the Reed-Solomon code with degree $d$ over $\F_q$, and thus $\code^{\otimes m}$ is the code $\code_\RM$ is the code considered in Section~\ref{sec:rmq}. For the ``points measurement'' $A^u$ we choose $P^u$. For the ``lines measurement'' $B^\ell$ we choose $Q^\ell$ from Claim~\ref{claim:z2-stab-4}. Finally, for the ``pair measurement'' $P^{u,v}$ we choose $R^{u,v}$ from Claim~\ref{claim:z2-stab-3}. By Claim~\ref{claim:z2-stab-4} this strategy succeeds with probability $1-\poly(d,\eps)$ in the ``axis-parallel lines test'', and by Claim~\ref{claim:z2-stab-3} it succeeds with probability $1-\poly(\eps)$ in the ``subcube commutation test.'' Applying~\cite[Theorem 4.1]{ji2022quantum} we deduce the existence of a projective measurement $\{G_c\}_{c\in\code^{\otimes m}}$ on $\mA$ such that for all integers $r \geq 12mt$,
 \[ \Es{u\in\F_q^m} \sum_{c\in\code^{\otimes m}} \tau\big( G_c P^u_{c(u)}\big) \geq 1-\eta\;,\]
-where $\eta = \poly(m,d,r) \cdot\poly(\eps,q^{-1},e^{-\Omega(r/m^2)})$, with $r\geq 12mt$ an (arbitrary) integer. \hnote{what is the quantification on $r$? Is it for all $r \geq 12mt$, or for some $r \geq 12mt$?}\tnote{That's from our paper :) You get to choose $r$. That's what I meant by ``arbitrary''. Feel free to edit} 
+where $\eta = \poly(m,d,r) \cdot\poly(\eps,q^{-1},e^{-\Omega(r/m^2)})$. %, with $r\geq 12mt$ an (arbitrary) integer. 
 
 \end{proof}
 
 
 \section{Testing entanglement}
 
-In this section we give an application of our stability results to the problem of entanglement testing. We first introduce the language of nonlocal games. Then we associate a nonlocal game to any presentation of $\Z_2^t$. Finally, we show that, if the presentation is stable, then the game is a good entanglement test. 
+In this section we give an application of our stability results to the problem of entanglement testing in quantum information. We first introduce the language of nonlocal games. Then we associate a nonlocal game to any presentation of $\Z_2^t$. Finally, we show that, if the presentation is stable, then the game is a robust  entanglement test. 
 	
 \subsection{Nonlocal games}
 
@@ -1329,13 +1320,13 @@ For a projective measurement $P = \{P_a\}_{a \in \F_2^k}$, we use $\widehat{P}(b
 \[\widehat{P}(b) \,=\, \sum_a (-1)^{a\cdot b} P_a\;.\]
 For binary outcome measurements $P = \{ P_0, P_1\}$, we write $\widehat{P}$ to denote $P_0 - P_1$. 
 
-\begin{definition}
+\begin{definition}[Qubit test]
 Let $k\in \N$ and $\delta:[0,1]\to\R_+$. 
 A \emph{$(k,\delta(\eps))$-qubit test} is a synchronous game $G=(\mX,\mu,\mA,D)$ such there are two sets $S_X,S_Z\subseteq \field^k$ that each span $\field^k$ and an injection $\phi:(\{X\}\times S_X) \cup (\{Z\}\times S_Z) \to \mX$ such that $\mA(\phi({X},a))=\mA(\phi({Z},b))=\field$ for all $a\in S_X$, $b\in S_Z$ and such that the following holds:
 \begin{itemize}
-\item (Completeness:) There is a synchronous strategy $(\mM,P)$ for $G$ on $\mM=M_{2^{k}}(\C)$ that succeeds with probability $1$ in $G$ and is such that $\widehat{P}^{\phi({W},a)} = \sigma^W(a)$ for every $W\in\{X,Z\}$ and $a\in S_W$. 
+\item (Completeness:) There is a synchronous strategy $\strategy = \{P^{x}\}_{x \in \mX}$ for $G$ on $\mM=M_{2^{k}}(\C)$ that succeeds with probability $1$ in $G$ and is such that $\widehat{P}^{\phi({W},a)} = \sigma^W(a)$ for every $W\in\{X,Z\}$ and $a\in S_W$. 
 \item (Soundness:) Let $\mu'$ denote the (renormalized) restriction of (the marginal of) $\mu$ to the image of $\phi$ in $\mX$.
-Any synchronous strategy in $(\mM,\tau)$ for $G$ that succeeds with probability $1-\eps$ for some $\eps\geq 0$ is $(\delta(\eps),\tilde{\mu})$-close to a strategy on some algebra $(M_{2^{k}}(\C)\otimes \mN,\tr\otimes \tau')$ where $(\mN,\tau')$ is a tracial sub-algebra of $\mM_\infty$ and such that
+Any synchronous strategy  $\strategy = \{P^{x}\}_{x \in \mX}$ on $(\mM,\tau)$ for $G$ that succeeds with probability $1-\eps$ for some $\eps\geq 0$ is $(\delta(\eps),\tilde{\mu})$-close to a strategy on some algebra $(M_{2^{k}}(\C)\otimes \mN,\tr\otimes \tau')$ where $(\mN,\tau')$ is a tracial sub-algebra of $\mM_\infty$ and such that
 \[\widehat{P}^{\phi({W},a)} = \sigma^W(a)\otimes \Id_\mN\;.\]
 \end{itemize}
 \end{definition}
@@ -1362,7 +1353,7 @@ where $|h_{j\cdot}|$ denotes the Hamming weight of the $j$-th row of $h$. For an
 We show the following. For $\code$ an $[n,k,d]_2$ linear code and $M=(h,\nu)$ an $r$-local tester for $\code$, recall the presentation~\eqref{eq:def-gh-pres} of $G(h)$. We define a distribution $\mu$ on the relations defining that presentation as follows. First, sample a uniformly random $j\in\{1,\ldots,m\}$ and uniformly random $i,i'\in\{1,\ldots,n\}$, conditioned on $h_{ji}=h_{ji'}=1$ and $i\neq i'$. Then, with probability $1/3$ we return the relation $x_i^2=e$, with probability $1/3$ we return the relation $R_i$, and with probability $1/3$ we return $R'_{jii'}$. 
 
 \begin{proposition}\label{prop:rep-game}
-Let $\code$ be an $[n,k,d]_2$ linear code, $M=(h,\nu)$ an $r$-local tester for $\code$, and $\mu$ the distribution defined above. Let $\strategy$ be a strategy for $G_{\code,m}$ on $(\mN,\tau^\mN)$ such that $\omega^*(\G_{\code,M},\strategy)\geq 1-\eps$. Then $\phi:x_i\mapsto {\widehat{P}}^{(\var,i)}$, for $i\in\{1,\ldots,n\}$, is an $(O(r\eps),\mu)$-homomorphism of the presentation~\eqref{eq:def-gh-pres} of $G(h)$.
+Let $\code$ be an $[n,k,d]_2$ linear code, $M=(h,\nu)$ an $r$-local tester for $\code$, and $\mu$ the distribution defined above. Let $\strategy = \{P^{x}\}_{x \in \mX}$ be a strategy for $G_{\code,m}$ on $(\mN,\tau^\mN)$ such that $\omega^*(\G_{\code,M},\strategy)\geq 1-\eps$ \hnote{$G_{\code,m}$ vs $\G_{\code,M}$}. Then $\phi:x_i\mapsto {\widehat{P}}^{(\var,i)}$, for $i\in\{1,\ldots,n\}$, is an $(O(r\eps),\mu)$-homomorphism of the presentation~\eqref{eq:def-gh-pres} of $G(h)$.
 \end{proposition}
 
 \begin{proof}
@@ -1428,7 +1419,7 @@ Let $\code$ be an $[n,k,d]_2$ linear code and $M=(h,\nu)$ an $r$-local tester fo
  The braiding test constructed from $\code$ and $M$ is described in Figure~\ref{fig:braiding-test}. Informally, the test combines two independent copies of the code game from Section~\ref{sec:code-game} with appropriate commutation and anti-commutation games that will force any successful strategy in the game to be close, in some sense, to a representation of the Pauli group generated by observables $\sigma^X(a)$ and $\sigma^Z(b)$, $a,b\in \F_2^k$ (recall the notation from~\eqref{eq:def-pauli-2}). This is shown in the following theorem. 
 
 \begin{theorem}\label{thm:braiding}
-Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound and such that $(\code,M)$ is Abelian. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test with sets $S_X=S_Z=\{E_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$, map $\phi(W,E_\code e_i)=(W,\eq,i)$ and error function $\delta' = O(\delta^{1/2}(6\eps))$.\footnote{Assume $E_\code$ has no repeated columns.} 
+Let $\code$ be an $[n,k,d]$ linear code and $M$ an $r$-local tester for $\code$ that is $\delta(\eps)$-quantum sound \hnote{I don't think quantum sound has been defined yet...do we mean to say stable?} and such that $(\code,M)$ is Abelian \hnote{What does it mean for the pair to be Abelian?}. Then the braiding test over $\code$ is a $(k,\delta')$-qubit test with sets $S_X=S_Z=\{E_\code e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k$, map $\phi(W,E_\code e_i)=(W,\eq,i)$ and error function $\delta' = O(\delta^{1/2}(6\eps))$.\footnote{Assume $E_\code$ has no repeated columns.} 
 \end{theorem}
 
 
@@ -1526,9 +1517,9 @@ By instantiating $\code$ using the Reed-Muller code from Section~\ref{sec:eff-z2
 Let $h_\bRM\in \F_2^{M\times N}$ be the parity check matrix for $\code_\bRM$ considered in Section~\ref{sec:eff-z2k}. Here, $N=q^{m+1}$ and $M=q^{m+2}(1+m)$. Let $\mu_R$ be the distribution on relations~\eqref{eq:z2k-eff} described in Section~\ref{sec:eff-z2k}. Execute either of the following tests with probability $1/4$ each. 
     \begin{enumerate}
       \setlength\itemsep{1pt}
-    \item \textbf{Code test:} Identical to Figure~\ref{fig:braiding-test}.
-    \item \textbf{(Anti-)commutation test:} Identical to Figure~\ref{fig:braiding-test}.
-		 \item \textbf{Consistency test:} Identical to Figure~\ref{fig:braiding-test}.
+    \item \textbf{Code test:} Identical to that in Figure~\ref{fig:braiding-test}.
+    \item \textbf{(Anti-)commutation test:} Identical to that in Figure~\ref{fig:braiding-test}.
+		 \item \textbf{Consistency test:} Identical to that in Figure~\ref{fig:braiding-test}.
 		\item \textbf{Pairwise commutation test:} Sample $(i,i')\in \{1,\ldots,N\}^2$ according to the distribution $\mu_R$, conditioned on choosing a relation from $R_k^\com$. and $W\in \{X,Z\}$ uniformly at random. 	
 		Let $\omega=(E_\code e_{i}, E_\code e_{i'})$ an 
 		Sample a pair of questions $(x_c,y_c)$ as in the commutation game. If either question is $x_{X,0}$ or $x_{Z,0}$, replace it with $(W,\var,i)$ or $(W,\var,i')$ respectively. Otherwise, send the original question together with $\omega$, i.e.\ $(x_c,\omega)$ or $(y_c,\omega)$ respectively. Accept if and only if the players' answers are accepted in the commutation game.  
@@ -1562,7 +1553,7 @@ The next proposition states a simple consequence of a qubit test, which is that 
 
 \begin{proposition}
 \label{prop:dim-test}
-Let $G = (\mX,\mu,\mA,D)$ denote a $(k,\delta(\eps))$-qubit test Then all synchronous strategies $\strategy$ in $(\mM,\tau)$ for $G$ that succeed with probability $1 - \eps$ must satisfy 
+Let $G = (\mX,\mu,\mA,D)$ denote a $(k,\delta(\eps))$-qubit test. Then all synchronous strategies $\strategy$ in $(\mM,\tau)$ for $G$ that succeed with probability $1 - \eps$ must satisfy 
 \[
 \dim(\mM) \geq \Big( 1 + O(\sqrt{\delta(\eps)}) + \frac{\delta(\eps)}{1 - \delta(\eps)}\Big)^{-1} 2^k~.
 \]

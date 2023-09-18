@@ -37,6 +37,8 @@
 }
 
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem*}{Theorem}
+
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -499,7 +501,69 @@
 
 \section{Introduction}
 
-\tnote{Make the connection with LCS}
+\paragraph{Motivation.}
+A linear error-correcting code $\code$ is a $k$-dimensional subspace of the vector space $\F^n$ over a finite field $\F$ that has certain combinatorial properties. The foremost of these is the \emph{minimal distance} $d$, which is defined as the smallest Hamming weight (number of nonzero coordinates) $|c|$ of a nonzero vector  $c\in\code$. A finer property which concerns us here is the \emph{soundness} of the code, a parameter that is connected to the notion of \emph{local testability}. A code can be (non-uniquely) specified through a \emph{parity-check matrix} $h\in\F^{m\times n}$ as $\code = \ker h$. The rows of $h$ are thought of as constraints (``parity checks'') that uniquely identify elements of $\code$ within $\F^n$. A code is called locally testable \emph{with soundness $\rho$} if for every $x\in \F^n$, $\frac{1}{m}|hx|\geq \rho\, d(x,\code)$, where $d(x,\code)$ denotes the minimum of $|x-c|$ over $c\in \code$. The terminology ``locally testable'' comes from an interpretation of $\frac{1}{m}|hx|$ as the probability of rejection of a natural ``tester'' for $\code$, i.e.\ an algorithm that on input $x$ checks a randomly chosen row $h_i$ of $h$ and accepts if and only if the parity $h_i\cdot x=0$.\footnote{Note that in principle a code can have a small minimal distance $d$, and still be locally testable with soundness $\rho>0$. In general one would like to design families of codes of increasing length $n$, such that $d$ is a linear function of $n$ and $\rho$ is bounded below by a constant independent of $n$.}  Thus a code is called locally testable if words that are far from the code have a high probability of being rejected according to this tester. This notion plays a central role in applications of codes to complexity theory~\cite{}, and continues to be actively studied, see e.g.~\cite{} for a recent breakthrough on the topic. 
+
+We make an observation that connects the study of locally testable codes to questions of stability in group theory and motivates our work. Let $\code=\ker h$ be a linear code as above, and suppose for simplicity that $\F=\F_2$ is the binary field. Consider the finitely presented group 
+\begin{equation}\label{eq:gh-intro}
+ G(h) \,=\, \langle S:R\rangle \,=\, \big\langle x_1,\ldots,x_n \,:\, x_j^2=e\;\; \forall 1\leq j\leq n\;,\quad \prod_{1\leq j \leq n} x_j^{h_{ij}} = e \;\; \forall 1\leq i\leq m\,\big\rangle\;.
+\end{equation}
+Here we do not assume that the generators $x_j$ commute, and the product is taken in (say) increasing order of indices from left to right. We observe that $1$-dimensional representations, i.e.\ maps from $S=\{x_1,\ldots,x_n\}$ to $\{-1,1\}$ that satisfy all relations $R$, are in one-to-one correspondence with elements of $\code$. Moreover, \emph{approximate} $1$-dimensional representations, i.e.\ maps from  $S=\{x_1,\ldots,x_n\}$ to $\{-1,1\}$ that satisfy a fraction $1-\eps$ of all relations for small $\eps$, can be identified with words $x\in\F_2^n$ such that $\frac{1}{m}|hx|\leq C\eps$ for some constant $C$ depending on the ratio $m/n$.\footnote{In principle we could allow the map to range over $U(\C)$ instead of $\{-1,1\}$. In general we will allow this; but for the purposes of this introduction it is simpler to restrict to the $\{-1,1\}$-valued case (which corresponds to considering the relations $x_j^2=e$ as ``hard'' constraints that always need to be satisfied).} In particular, and somewhat loosely speaking, we notice that $\code$ is locally testable with soundness $\rho$ if and only if approximate $1$-dimensional representations are always close to $1$-dimensional representations. 
+
+\paragraph{Groups stability.}
+This observation, which at first may seem quite anodyne or even forced, opens a universe of questions. The problem of relating approximate representations of a group to exact representations of it is termed \emph{stability} in group theory, and has a long history. There are of course many flavors of the problem, depending on how one defines closeness (should it be the operator norm or the Hilbert-Schmidt norm? Should closeness hold for every relation, or every pair of group elements, or is it sufficient that it holds on average? Etc.) We will review some relevant results in this area below. For now, we can mention Voiculescu's famous counter-example~\cite{voiculescu1983asymptotically} about approximately commuting unitaries, which was motivated by a question of Halmost on pairs of approximately commuting Hermitian operators~\cite{halmos1976some}. Using the terminology of stability, Voiculeschu showed that the presentation $\Z^2 = \langle x,y:[x,y]=e\rangle$ is \emph{not} stable with respect to the operator norm. However, much more recently Glebsky~\cite{glebsky2010almost} showed that the same presentation \emph{is} stable with respect to the normalized Hilbert-Schmidt norm. 
+
+This example and many others show that stability is a natural property, which can be very sensitive to how it is measured exactly. Returning to our main concern, so far we have argued that 
+stability of approximate \emph{$1$-dimensional} representations of the presentation $G(h)$ is connected to local testability of the code $\ker h$. In the case of $1$-dimensional representations of course the choice of norm does not matter; however, the choice of measuring the error on average over relations, as opposed to e.g.\ taking the maximum, is a first choice that we made and in which we depart from most of the litterature. We will motivate this choice further below; but before we can continue we must pause to introduce the key definitions that our work builds on. For simplicity we restrict the discussion to finite-dimensional representations; in the paper we treat the general case of representations in a tracial von Neumann algebra. For $X\in \C^{d\times d}$ let $\|X\|_f^2 = \frac{1}{d}\Tr(X^* X)$ denote the normalized Hilbert-Schmidt norm. 
+
+\begin{definition}[Almost homomorphism]\label{def:approx-hom-intro}
+Let $G = \langle S:R\rangle $ be a finitely presented group and $\mu_R$ a distribution on $R$. An $(\eps,\mu_R)$-almost homomorphism of $G$ is a homomorphism $\phi:\mF(S)\to\mU(\C^d)$ for some $d\geq 1$ such that
+\[ \Es{r\sim \mu_R} \big\|  \phi(r) - \Id \big \|_f^2 \,\leq\, \eps\;.\]
+Here, $\phi(r)$ denotes the product of $\phi(s)$ for $s$ appearing in $r$, in the specified order. 
+\end{definition}
+
+As already mentioned this definition makes two importance choices: firstly, to measure closeness in the Hilbert-Schmidt norm, and secondly, to measure it on average over the choice of a relation. Next we give our definition for a finitely presented group to be stable.  
+
+\begin{definition}[Efficient stability]\label{def:eff-stab-intro}
+Let $G = \langle S:R\rangle $ be a finitely presented group, $\mu_S$ a distribution on $S$ and $\mu_R$ a distribution on $R$.\footnote{It is natural, and will always be the case for us, to take $\mu_S$ as the ``marginal'' of $\mu_R$, i.e.\ the distribution on $S$ obtained by sampling $r\sim\mu_R$ and returning a uniformly random $s$ that appears in $r$, when $r$ is considered as a multi-set.} For $\delta:[0,1]\to[0,1]$ such that $\lim_{t\to 0}\delta(t)=0$ and an integer $d\geq 1$ we say that the presentation $G=\langle S:R\rangle$ is $(\delta,\mu_S,\mu_R,d)$-stable if for every $(\eps,\mu_R)$-almost homomorphism $\phi$ from $G$ to $\mU(\C^d)$ there is a unitary representation $\psi$ of $G$ on $\mU_d(\C)$ such that
+\[ \Es{s\sim \mu_S} \big\|  \phi(s) - \psi(s) \big \|_f^2 \,\leq\, \delta(\eps)\;.\]
+We refer to any function $\delta$ satisfying the above as a ``modulus of stability'' of the presentation.
+\end{definition}
+
+For the general definition (Definition~\ref{def:eff-stab}) we consider \emph{flexible} stability, i.e.\ the representation $\psi$ is allowed to range in $U_{d'}(\C)$ for some $d'\neq d$. This requires a more careful definition of closeness and for the purpose of this introduction we restrict ourselves to the simpler definition. 
+
+We can now ask the question: is $G(h)$ stable according to Definition~\ref{def:eff-stab-intro}? One can verify that with $\mu_R$ and $\mu_S$ the uniform distribution on $R$ and $S$ respectively, $G(h)$ is $(\delta,\mu_S,\mu_R,1)$-stable for some $\delta=O(\eps)$ if and only if $\code = \ker h$ is locally testable with soundness $\rho>0$. But what about higher-dimensional approximate representations? Are these also stable, or does one need to make further requirements on $\code$ beyond local testability? We do not have a comprehensive answer to these questions; other than that the answer is not trivial. In particular, and perhaps surprisingly, the group $G(h)$ is not necessarily Abelian, see Remark~\ref{rk:non-abelian}. 
+
+\paragraph{Efficient stability.}
+Faced with the apparent difficulty of studying the general question, it is time to refine our focus and formulate the question which we \emph{do} address. To start, let us explicitly note that 
+while stability has previously (for the more part) been studied as a question about a group, our formulation makes it a question about a \emph{presentation} of the group. In particular it is known~\cite{gowers2017inverse,de2019operator} that for finite groups $G$, which are the only groups we consider, the multiplication table presentation, which has $|G|$ generators and $|G|^2$ relations, is $\delta(\eps)=C\eps$-stable for some constant $C$ that is independent of the group---and this, even for approximate representations in arbitrary tracial von Neumann algebras, as long as one allows the notion of flexible stability referred to above. Now observe that, if $G(h)$ happens to be Abelian, then it provides a \emph{different} presentation~\eqref{eq:gh-intro} of $\Z_2^k$, where $k$ is the dimension of $\ker h$. This presentation could be much smaller --- if $n,k$ are linearly related then it has $O(k)$ generators and relations, as opposed to $2^k$ and $2^{2k}$ respectively. Can such ``efficient'' presentations still be stable? The naive approach, of extending an $\eps$-approximate homomorphism of $G(h)=\langle S:R\rangle$ into an $\eps'$-approximate homomorphism of the multiplication table presentation of $\Z_2^k$, leads to $\eps'=\Omega(k\eps)$ and hence a logarithmic dependence of the modulus of stability on the group size. Is it possible to do better? Glebsky's result for the case of $\Z^2$  mentioned earlier suggests that it is, in some cases, possible; but in what generality?  
+
+Our main results are presentations of $\Z_2^k$, and of slightly more complex $2$-groups built on them (e.g. the \emph{Pauli}, or \emph{Weyl-Heisenberg}, group ubiquitous in quantum information theory), that are \emph{efficiently stable}: the size of the presentation is quasi-polynomial, as opposed to exponential, in $k$, and yet the modulus of stability only depends poly-logarithmically on $k$. These presentations are constructed from specific error-correcting codes, the Reed-Muller codes based on polynomials, which are known to have good local testability properties~\cite{}. 
+
+\begin{theorem*}[Main, informal]
+For every integer $k$ there is a presentation $\Z_2^k = \langle S_k:R_k\rangle$ such that $|S_k|,|R_k| = 2^{\poly\log(k)}$ and furthermore this presentation is $\delta(\eps)=\poly(\log k,\eps)$-stable. 
+\end{theorem*}
+
+We do not know of any other presentation of $\Z_2^k$, which is arguably the simplest example one could think of, that is stable with similar parameters as the one stated in the theorem. It would be very interesting to discover different such presentations, built from locally testable error-correcting codes or not, and for this group or other groups. 
+
+\paragraph{Nonlocal games in quantum information theory.}
+
+To motivate the focus on efficient stability we now sketch a connection between our results and problems in quantum complexity theory and in particular the theory of nonlocal games that motivate us. A \emph{nonlocal game} $\game$ is specified by the following date: finite question and answer sets $\mX$ and $\mA$ respectively, a distribution $\mu$ on $\mX\times \mX$, and a decision predicate $D:\mX\times \mX\times \mA\times \mA\to \{0,1\}$. The interpretation of $G=(\mX,\mu,\mA,D)$ as a game is as follows. A ``referee'' is imagined to sample a pair of ``questions'' $(x,y)\sim \mu$. Each question is sent to a different player, who is tasked with responding with an answer $a,b\in \mA$ respectively. Finally, the referee decides that the players win the game if and only if $D(x,y,a,b)=1$. Interestingly, the maximum success probability of the players in this game, probability is over the referee's choice of questions and any randomness in the player's strategy, depends on the set of strategies that is allowed. In particular, and without going into details, this maximum can be different depending on whether only \emph{classical} strategies are allowed (where each player answers according to a function $f:\mX\to\mA$ of their choice), or \emph{quantum} strategies are allowed, which allow some additional form of coordination between the players in the form of \emph{quantum entanglement}. Understanding when there is a gap between the two values, and how large the gap can be, is of great interest in the foundations of quantum mechanics. To study this question one is drawn to investigate the structure of optimal quantum strategies in a game, and how to design games that enforce a specific structure --- for example, forcing as much ``non-classicality'' in the strategy as possible. (And beyond that, many applications to e.g.\ verification which we do not survey in detail.)
+
+A class of games that has been successful as LCS. These are defined by a system of equations. We now see the connection with presentations of the form $G(h)$. The stability results enable conclusions about approximately optimal strategies. In particular, the results about the Pauli group lead to qubit and dimension tests. These are an ingredient in MIP*=RE. Recover PBT
+
+
+\paragraph{Related works on stability.}
+
+
+
+
+\paragraph{Outline.}
+
+
+
+
+\paragraph{Acknowledgments.}
 
 
 \section{Efficient stability}
@@ -752,7 +816,7 @@ Let $R''_{jj'}$ be the commutation relation $[x_j,x_{j'}]=e$. Then
 The group defined by the right-hand side is obviously Abelian and a $2$-group, so it is of the form $\Z_2^{k'}$ for some $k'$. In fact, it is equal to the quotient of $\Z_2^n$ by the subgroup generated by the $\prod_{1\leq j \leq k} x_j^{h_{ij}}$. So it is $\Z_2^k$ where $k=n-\dim\textrm{im}\ h = \dim\ker h=\dim \code$.  
 \end{proof}
 
-\begin{remark}
+\begin{remark}\label{rk:non-abelian}
 There exists matrices $h$ such that $G(h)$ is not $\Z_2^k$, and in fact is not Abelian. For an example, see~\cite[Example 2.16]{paddock2022arkhipov}.  
 \end{remark}
 

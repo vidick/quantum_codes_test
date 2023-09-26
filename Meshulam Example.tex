@@ -1,0 +1,579 @@
+ \documentclass[11pt]{article}
+\usepackage{booktabs}
+\usepackage{fullpage}
+\usepackage{titlesec}
+%\newcommand{\sectionbreak}{\clearpage}
+\usepackage{amsmath,amsfonts,amsthm,mathrsfs,xspace,graphicx}
+\usepackage[backref,colorlinks,citecolor=blue,bookmarks=true]{hyperref}
+\usepackage{mathpazo}
+\usepackage{nicefrac}
+\usepackage{endnotes}
+\usepackage{color}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{bbm}
+\usepackage{suffix} % for *-version commands
+\usepackage{times}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{amssymb,latexsym}
+%\usepackage{IEEEtrantools}
+\usepackage[capitalize]{cleveref}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage[affil-it]{authblk}
+
+
+\mdfdefinestyle{figstyle}{ %
+  linecolor=black!7, %
+  backgroundcolor=black!7, %
+  innertopmargin=10pt, %
+  innerleftmargin=25pt, %
+  innerrightmargin=25pt, %
+  innerbottommargin=10pt %
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem*}{Theorem}
+
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newtheorem{remark}[theorem]{Remark}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\beq}{\begin{eqnarray}}
+\newcommand{\eeq}{\end{eqnarray}}
+
+\newcommand{\code}{\mathscr{C}}
+\newcommand{\strategy}{\mathscr{S}}
+\newcommand{\algebra}{\mathscr{A}}
+
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\ketbra}[2]{\ket{#1}\!\bra{#2}}
+\newcommand{\ip}[2]{\langle #1 \! | #2 \rangle}
+\newcommand{\proj}[1]{\ket{#1}\!\bra{#1}}
+\newcommand{\Tr}{\mbox{\rm Tr}}
+\newcommand{\Id}{\ensuremath{I}}
+\DeclareMathOperator*{\Expectation}{\mathbb{E}}
+\newcommand{\Es}[1]{\Expectation_{#1}}
+
+\newcommand{\reg}[1]{{\textsf{#1}}}
+\newcommand{\ol}[1]{\overline{#1}}
+
+\newcommand{\field}{\mathbb{F}_2}
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\bbN}{\ensuremath{\mathbb{N}}}
+\newcommand{\complex}{\ensuremath{\mathbb{C}}}
+\newcommand{\real}{\ensuremath{\mathbb{R}}}
+%\newcommand{\natural}{\ensuremath{\mathbb{N}}}
+
+\newcommand{\bij}{\pi}
+\newcommand{\qp}{\tau}
+\newcommand{\dlS}{\ensuremath{\rm dlS}}
+
+\newcommand{\F}{\ensuremath{\mathbb{F}}}
+\newcommand{\M}{\ensuremath{\mathbb{M}}}
+\newcommand{\ot}{\otimes}
+\newcommand{\Fp}{\F_p}
+\newcommand{\Fq}{\field}
+\newcommand{\BH}{\textsc{BH}}
+\newcommand{\ld}{\textsc{ld}}
+\newcommand{\com}{\textsc{com}}
+\newcommand{\sq}{\textsc{sq}}
+\newcommand{\downsize}{\kappa}
+\newcommand{\tobin}{\flat}
+\newcommand{\downsizem}{\chi}
+
+\newcommand{\K}{\ensuremath{\mathbb{K}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+
+\newcommand{\mA}{\ensuremath{\mathcal{A}}}
+\newcommand{\mB}{\ensuremath{\mathcal{B}}}
+\newcommand{\mC}{\ensuremath{\mathcal{C}}}
+\newcommand{\mE}{\ensuremath{\mathcal{E}}}
+\newcommand{\mD}{\ensuremath{\mathcal{D}}}
+\newcommand{\mF}{\ensuremath{\mathcal{F}}}
+\newcommand{\mG}{\ensuremath{\mathcal{G}}}
+\newcommand{\mH}{\ensuremath{\mathcal{H}}}
+\newcommand{\mK}{\ensuremath{\mathcal{K}}}
+\newcommand{\mM}{\ensuremath{\mathcal{M}}}
+\newcommand{\mI}{\ensuremath{\mathcal{I}}}
+\newcommand{\mJ}{\ensuremath{\mathcal{J}}}
+\newcommand{\cM}{\ensuremath{\mathcal{M}}}
+\newcommand{\mP}{\ensuremath{\mathcal{P}}}
+\newcommand{\mQ}{\ensuremath{\mathcal{Q}}}
+\newcommand{\mR}{\ensuremath{\mathcal{R}}}
+\newcommand{\mS}{\ensuremath{\mathcal{S}}}
+\newcommand{\mT}{\ensuremath{\mathcal{T}}}
+\newcommand{\mU}{\ensuremath{\mathcal{U}}}
+\newcommand{\mX}{\ensuremath{\mathcal{X}}}
+\newcommand{\mY}{\ensuremath{\mathcal{Y}}}
+
+\newcommand{\Inv}{\ensuremath{\textsc{Inv}}}
+\newcommand{\GEN}{\ensuremath{\textsc{GEN}}}
+\newcommand{\SAMP}{\ensuremath{\textsc{SAMP}}}
+\newcommand{\epr}{\ensuremath{\textsc{epr}}}
+\newcommand{\RM}{\ensuremath{\textsc{RM}}}
+\newcommand{\RS}{\ensuremath{\textsc{RS}}}
+\newcommand{\bRM}{\ensuremath{\textsc{RM2}}}
+\newcommand{\Had}{\ensuremath{\textsc{Had}}}
+\newcommand{\HRM}{\ensuremath{\textsc{HRM}}}
+
+
+\newcommand{\Alg}{\mathcal{A}}
+\newcommand{\ind}{\ensuremath{\mathrm{ind}}}
+\newcommand{\cc}{\mathrm{com}}
+\newcommand{\ac}{\mathrm{ac}}
+
+\newcommand{\setft}[1]{\mathrm{#1}}
+\newcommand{\Density}{\setft{D}}
+\newcommand{\Pos}{\setft{Pos}}
+\newcommand{\Proj}{\setft{Proj}}
+\newcommand{\Channel}{\setft{C}}
+\newcommand{\Unitary}{\setft{U}}
+\newcommand{\Herm}{\setft{Herm}}
+\newcommand{\Obs}{\setft{Obs}}
+\newcommand{\Lin}{\setft{L}}
+\newcommand{\Trans}{\setft{T}}
+\DeclareMathOperator{\poly}{poly}
+\DeclareMathOperator{\negl}{negl}
+\newcommand{\dset}{G}
+
+\newcommand{\val}{\ensuremath{\mathrm{val}}}
+\newcommand{\valco}{\ensuremath{\mathrm{val}^{\mathrm{co}}}}
+\newcommand{\ia}{\Id_\alice}
+\newcommand{\ib}{\Id_\bob}
+
+\newcommand{\desc}[1]{\overline{\cal{#1}}}
+\newcommand{\supp}{\textsc{Supp}}
+\newcommand{\Gen}{\textsc{Gen}}
+\newcommand{\Enc}{\textsc{Enc}}
+\newcommand{\Dec}{\textsc{Dec}}
+
+\newcommand{\GenTrap}{\textsc{GenTrap}}
+\newcommand{\Invert}{\textsc{Invert}}
+\newcommand{\lossy}{\textsc{lossy}}
+
+\newcommand{\rand}{\textrm{rand}}
+\newcommand{\had}{\textsc{Had}}
+
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ph}{\ensuremath{\varphi}}
+
+
+%\newcommand{\ac}{\textsc{ac}}
+\newcommand{\GX}{\textsc{Gap-Maxcut}}
+\newcommand{\GNI}{\textsc{Graph Non-Isomorphism}}
+
+
+\newcommand{\Acc}{\textsc{Acc}}
+\newcommand{\Samp}{\textsc{Samp}}
+\newcommand{\Ext}{\ensuremath{\text{Ext}}}
+
+\newcommand{\BD}{\mathbb{QB}}
+\newcommand{\DD}{\mathbb{D}}
+\newcommand{\DDb}{\mathbb{D'}}
+\newcommand{\Pot}{\Phi}
+\newcommand{\inj}{J}
+\newcommand{\mZ}{\mathcal{Z}}
+\newcommand{\mN}{\mathcal{N}}
+\newcommand{\vs}{\vspace{2mm}~\newline\noindent}
+\newcommand{\vb}{\vspace{3mm}\noindent}
+\newcommand{\sX}{\mathcal{X}}
+\newcommand{\sA}{\mathcal{A}}
+\newcommand{\sB}{\mathcal{B}}
+\newcommand{\sY}{\mathcal{Y}}
+\newcommand{\sR}{\mathcal{R}}
+
+
+\newcommand{\trnq}[1]{\left[ {#1} \right]_q}
+
+\DeclareMathOperator{\polylog}{polylog}
+\newcommand{\mx}[1]{\mathbf{{#1}}}
+\newcommand{\vc}[1]{\mathbf{{#1}}}
+\newcommand{\abs}[1]{\left\vert {#1} \right\vert}
+\newcommand{\norm}[1]{\left\| {#1} \right\|}
+\newcommand{\for}{\text{for }}
+
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\sgn}{sgn}
+%\newcommand{\dlS}{\ensuremath{\rm dlS}}
+
+
+\newcommand{\E}{\mathop{\mathbb{E}}\displaylimits} % Expectation
+
+\newcommand{\unif}{\mathcal{U}}
+\newcommand{\pt}{\textrm{pt}}
+\newcommand{\sample}{\textrm{sample}}
+\newcommand{\test}{\textrm{test}}
+\newcommand{\free}{\mathcal{F}}
+\newcommand{\plane}{\mathcal{P}}
+\newcommand{\lines}{\mathcal{L}}
+\newcommand{\clines}{\mathcal{CL}}
+\newcommand{\pl}{\mathbf{p}}
+\newcommand{\individual}{\textrm{individual}}
+\newcommand{\blocks}{\textrm{blocks}}
+\newcommand{\liness}{\textrm{lines}}
+\newcommand{\lp}{\mathcal{LP}}
+\newcommand{\Pl}{\ensuremath{\mathrm{Pl}}}
+\newcommand{\Ln}{\ensuremath{\mathrm{Lines}}}
+\newcommand{\mode}{\mathfrak{m}}
+\newcommand{\ECC}{\ensuremath{\textsc{ECC}}}
+\newcommand{\EC}{\ensuremath{\textsc{EC}}}
+\newcommand{\ENC}{\ensuremath{\textsc{ENC}}}
+\newcommand{\cktval}{\ensuremath{\textsc{CKTVAL}}}
+
+\newcommand{\eq}{\mathrm{eq}}
+\newcommand{\var}{\mathrm{var}}
+
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\Matrix}{\mathrm{M}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Aut}{\mathrm{Aut}}
+
+\newcommand{\game}{\mathfrak{G}}
+\newcommand{\sampler}{\mathcal{S}}
+\newcommand{\decider}{\mathcal{D}}
+\newcommand{\verifier}{\mathcal{V}}
+
+
+\newcommand{\type}{\mathcal{T}}
+\newcommand{\lt}{\mathcal{L}}
+\newcommand{\rt}{\mathcal{R}}
+\newcommand{\checker}{\mathcal{C}}
+
+
+\newcommand{\gamestyle}[1]{\ensuremath{\textsc{#1}}\xspace}
+\newcommand{\qld}{\gamestyle{QLD}}
+\newcommand{\ms}{\gamestyle{MS}}
+\newcommand{\pauli}{\gamestyle{P}}
+%\newcommand{\bp}{\gamestyle{BP}}
+\newcommand{\ora}{\gamestyle{Orac}}
+\newcommand{\pcp}{\gamestyle{PCP}}
+\newcommand{\ar}{\gamestyle{AR}}
+\newcommand{\intro}{\gamestyle{Intro}}
+
+\newcommand{\labelstyle}[1]{\ensuremath{\textsc{#1}}\xspace}
+\newcommand{\EPR}{\labelstyle{EPR}}
+\newcommand{\aux}{\labelstyle{aux}}
+\newcommand{\ancilla}{\labelstyle{anc}}
+\newcommand{\msc}{\labelstyle{MC}}
+\newcommand{\msv}{\labelstyle{MV}}
+\newcommand{\vertex}[1]{\labelstyle{V#1}}
+\newcommand{\edge}[1]{\labelstyle{N#1}}
+\newcommand{\basis}{\labelstyle{W}}
+\newcommand{\xpt}{\labelstyle{X}}
+\newcommand{\zpt}{\labelstyle{Z}}
+\newcommand{\rxpt}{\labelstyle{R}_\xpt}
+\newcommand{\rzpt}{\labelstyle{R}_\zpt}
+\newcommand{\dir}[1]{\labelstyle{V#1}}
+\newcommand{\coord}{\labelstyle{I}}
+\newcommand{\intercept}{\labelstyle{U}}
+\newcommand{\plf}{\labelstyle{Pl}}
+\newcommand{\lnf}{\labelstyle{Ln}}
+\newcommand{\ptf}{\labelstyle{Pt}}
+\newcommand{\full}{\labelstyle{full}}
+\newcommand{\opt}{\labelstyle{opt}}
+\newcommand{\partition}{\mathcal{B}}
+
+\newcommand{\tvarstyle}[1]{\mathsf{#1}}
+\newcommand{\tvar}{\ensuremath{\tvarstyle{t}}}
+\newcommand{\lvar}{\ensuremath{\tvarstyle{u}}}
+\newcommand{\rvar}{\ensuremath{\tvarstyle{v}}}
+\newcommand{\pvar}{\ensuremath{\tvarstyle{p}}}
+\newcommand{\ovar}{\ensuremath{\tvarstyle{o}}}
+\newcommand{\trole}{\ensuremath{v}} % used in intro types
+
+\newcommand{\types}{\labelstyle{T}}
+
+\newcommand{\decode}{\labelstyle{Decode}}
+
+%\newcommand{\alice}{\labelstyle{Alice}}
+%\newcommand{\bob}{\labelstyle{Bob}}
+\newcommand{\alice}{\labelstyle{A}}
+\newcommand{\bob}{\labelstyle{B}}
+
+\newcommand{\oracle}{\labelstyle{Oracle}}
+\newcommand{\ab}{\{\alice, \bob\}}
+
+\newcommand{\typestyle}[1]{\ensuremath{\textsc{#1}}\xspace}
+\newcommand{\Type}{\typestyle{Type}}
+\newcommand{\Plane}{\typestyle{Plane}}
+\renewcommand{\line}{\mathbf{\ell}}
+\newcommand{\Llane}{\typestyle{Line}}
+\newcommand{\Point}{\typestyle{Point}}
+\newcommand{\HPoint}{\typestyle{HPoint}}
+\newcommand{\Line}{\typestyle{Line}}
+\newcommand{\ALine}{\typestyle{ALine}}
+\newcommand{\DLine}{\typestyle{DLine}}
+\newcommand{\Pair}{\typestyle{Pair}}
+\newcommand{\Constraint}{\typestyle{Constraint}}
+\newcommand{\Variable}{\typestyle{Variable}}
+\newcommand{\Pauli}{\typestyle{Pauli}}
+\newcommand{\Sample}{\typestyle{Sample}}
+\newcommand{\Read}{\typestyle{Read}}
+\newcommand{\MeasureX}{\typestyle{MeasureX}}
+\newcommand{\Hide}[1]{\typestyle{Hide}_{#1}}
+\newcommand{\HideX}[1]{\typestyle{HideX}_{#1}}
+\newcommand{\Target}[1]{\typestyle{Target}_{#1}}
+\newcommand{\Oracle}{\typestyle{Oracle}}
+\newcommand{\Introspect}{\typestyle{Intro}}
+\newcommand{\Intro}{\typestyle{Intro}}
+\newcommand{\Simple}{\typestyle{Simple}}
+\newcommand{\Eval}{\typestyle{Eval}}
+\newcommand{\Agg}{\typestyle{Agg}}
+\newcommand{\Input}{\typestyle{Input}}
+\newcommand{\Skip}{\typestyle{Skip}}
+\newcommand{\Alice}{\typestyle{Alice}}
+\newcommand{\Bob}{\typestyle{Bob}}
+\newcommand{\Edge}{\typestyle{Alice}}
+\newcommand{\Vertex}{\typestyle{Bob}}
+\newcommand{\Anchor}{\typestyle{Anchor}}
+\renewcommand{\Game}{\typestyle{Game}}
+\newcommand{\AB}{\{\alice, \bob\}}
+\newcommand{\ctrl}{\labelstyle{c}}
+\newcommand{\target}{\labelstyle{t}}
+
+\newcommand{\abc}[1][\delta]{\otimes I_\bob \simeq_{#1} I_\alice \otimes}
+
+\newcommand{\ldc}{k} % number of copies of classical ld tests
+
+\newcommand{\class}[1]{\ensuremath{\mathsf{#1}}\xspace}
+\newcommand{\NP}{\class{NP}} %
+\newcommand{\IP}{\class{IP}} %
+\newcommand{\EXP}{\class{EXP}} %
+\newcommand{\NEXP}{\class{NEXP}} %
+\newcommand{\QMA}{\class{QMA}} %
+\newcommand{\QMIP}{\class{QMIP}} %
+\WithSuffix\newcommand\QMIP*{\ensuremath{\class{QMIP}^*}} %
+\newcommand{\PSPACE}{\class{PSPACE}} %
+\newcommand{\PCP}{\class{PCP}} %
+\newcommand{\MIP}{\class{MIP}} %
+\newcommand{\MIPco}{\class{MIP}^{\mathrm{co}}} %
+\newcommand{\RE}{\class{RE}} %
+\newcommand{\coRE}{\class{coRE}}
+\newcommand{\NEEXP}{\class{NEEXP}} %
+\newcommand{\NEEEXP}{\class{NEEEXP}}
+\WithSuffix\newcommand\MIP*{\ensuremath{\class{MIP}^*}} %
+\newcommand{\QIP}{\class{QIP}} %
+
+
+\newcommand{\Ent}{\mathscr{E}}
+\newcommand{\compr}{\textsc{Compr}}
+\newcommand{\halt}{\textsc{Halt}}
+\newcommand{\machine}{\cal{M}}
+\renewcommand{\cal}[1]{\mathcal{#1}}
+\newcommand{\Kleene}{\cal{K}}
+\newcommand{\qldparams}{\mathsf{qldparams}}
+\mathchardef\mhyphen="2D
+\newcommand{\Fqldparams}{\F_2\mhyphen\mathsf{qldparams}}
+\newcommand{\introparams}{\mathsf{introparams}}
+\newcommand{\ldparams}{\mathsf{ldparams}}
+\newcommand{\tmldparams}{\mathsf{tmldparams}}
+\newcommand{\pcpparams}{\mathsf{pcpparams}}
+
+\newcommand{\TMtoSAT}{\mathrm{TMtoSAT}}
+\newcommand{\TMtoLD}{\mathrm{TMtoLD}}
+\newcommand{\BoundedHalting}{\mathrm{BH}}
+\newcommand{\timecomplexity}{\mathsf{TIME}}
+\newcommand{\TIME}{\mathsf{TIME}}
+\newcommand{\answer}{\mathsf{ANS}}
+\newcommand{\MS}{\mathrm{MS}}
+
+\newcommand{\accept}{\typestyle{Accept}}
+\newcommand{\reject}{\typestyle{Reject}}
+
+\newcommand{\anch}{\gamestyle{Anch}}
+\newcommand{\ans}{\gamestyle{ANS}}
+%%%%%%%self testing macros%%%%%%%%%%
+
+\newcommand{\local}{\mathrm{local}}
+%\newcommand{\aux}{\mathrm{aux}}
+
+
+\newcommand{\G}{\mG}
+\newcommand{\XZ}{\mathcal{B}}
+\newcommand{\hilb}{\mathcal{H}}
+
+
+%\newcommand{\tmstyle}[1]{\ensuremath{\textsf{#1}}}
+\newcommand{\tmstyle}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\Compress}{\tmstyle{Compress}}
+\newcommand{\ComputeRepetitions}{\tmstyle{ComputeRepetitions}}
+\newcommand{\ComputeSampler}{\tmstyle{ComputeSampler}}
+\newcommand{\RawIntroSampler}{\tmstyle{RawIntroSampler}}
+\newcommand{\ComputeIntroSampler}{\tmstyle{IntroSampler}}
+\newcommand{\RawIntroDecider}{\tmstyle{RawIntroDecider}}
+\newcommand{\ComputeIntroDecider}{\tmstyle{IntroDecider}}
+\newcommand{\ComputeIntroVerifier}{\tmstyle{IntroVerifier}}
+\newcommand{\ComputeOracleVerifier}{\tmstyle{OracleVerifier}}
+\newcommand{\ComputeAnsVerifier}{\tmstyle{AnsRedVerifier}}
+\newcommand{\ComputeParrepVerifier}{\tmstyle{RepeatedVerifier}}
+\newcommand{\ComputePCPVerifier}{\tmstyle{PCPVerifier}}
+\newcommand{\ComputeFixedPoint}{\tmstyle{ComputeFixedPoint}}
+\newcommand{\detype}{\tmstyle{Detype}}
+
+\newenvironment{gamespec}{
+  \begin{mdframed}[style=figstyle]}{
+  \end{mdframed}}
+
+\newcommand{\zero}{\mathrm{zero}}
+
+%%%%%%%From NW19:%%%%%%%%%%
+\newcommand{\polymeas}[3]{\mathrm{PolyMeas}(#1,#2,#3)}
+\newcommand{\simulpolymeas}[4]{\mathrm{PolyMeas}(#1,#2,#3, #4)}
+
+\newcommand{\eval}{\mathrm{eval}}
+
+%\newcommand{\coin}{o}
+\newcommand{\succinctdecider}{\ensuremath{\mathsf{SuccinctDecider}}}
+\newcommand{\circuit}{\mathcal{C}}
+\newcommand{\formula}{\mathcal{F}}
+\newcommand{\bin}{\mathrm{binary}}
+\newcommand{\pcpeval}{\Xi}
+\newcommand{\pcpverifier}{\mathcal{M}_\ar}
+\newcommand{\qlen}{Q}
+\DeclareMathOperator{\ev}{eval}
+
+\newcommand{\hx}{\hat{x}}
+\newcommand{\hz}{\hat{z}}
+\newcommand{\htvar}{\hat{\tvar}}
+\newcommand{\soundness}{\mathrm{sound}}
+
+\newcommand{\rep}{\gamestyle{Rep}}
+\newcommand{\sep}{\gamestyle{Sep}}
+
+\newcommand{\binary}[1]{\mathrm{binary}_{#1}}
+\newcommand{\num}[1]{\mathrm{number}_{#1}}
+\newcommand{\canbasis}[1]{\mathrm{basis}(#1)}
+\newcommand{\canH}[3]{H_{\mathrm{canon}, #1, #2, #3}}
+\newcommand{\canlilh}[3]{h_{\mathrm{canon}, #1, #2, #3}}
+\newcommand{\canin}[3]{\pi_{\mathrm{canon},#1,#2,#3}}
+\newcommand{\canenc}[4]{g_{\mathrm{canon},#1,#2,#3,#4}}
+
+
+% \usepackage{showlabels}
+% \renewcommand{\showlabelfont}{\tiny\ttfamily\color{red}}
+
+\bibliographystyle{alpha}
+
+\newif\ifnotes\notestrue
+%\newif\ifnotes\notesfalse
+
+\input{marginnotes}
+\begin{document}
+
+\title{Meshulam's example}
+
+\author[1]{Michael Chapman}
+\author[2]{Thomas Vidick}
+\author[3]{Henry Yuen}
+\affil[1]{}
+\affil[2]{}
+\affil[3]{}
+
+\date{\today}
+\maketitle
+
+
+Let $S=\{x_1,...,x_k\}$ be a set of formal generators. Let $x_i\mapsto A_i$ be the mapping of the generators to permutation matrices acting on $\binom{[k]}{2}\times \field^{k+1}$ as follows. For every pair $j,j'$ where $j<j'$,  and for every $i\neq j$ the matrix $A_i$  acts on $(\{j,j'\},b_1,...,b_{k+1})$ by flipping $b_i$. The matrix $A_j$ flips $b_j$, and conditionally flips $b_{k+1}$ given that $b_{j'}=1$.
+
+Let $B_1,...,B_k$ be a collection of commuting order $2$ unitaries in $U(d')$, where $d'\geq d:=2^{k+1}\binom{k}{2}$. Assume further that $\complex^d$ was embedded in $\complex^{d'}$ and that $P_d$ is the (orthogonal) projection to the copy of $\complex^d$ in $\complex^{d'}$. Let $\Vert A\Vert^2_F=Tr(A^*A)$ be the Frobenius norm of $A$ and $\Vert A\Vert^2_{hs}=\frac{1}{\dim A}\Vert A\Vert^2_F$ be the Hilbert--Schmidt norm.\footnote{It is common to call $\Vert \cdot \Vert_F$ either the Frobenius or the Hilbert--Schmidt norm, and $\Vert \cdot \Vert_{hs}$ their normalized versions. The reason we call the normalized version Hilbert--Schmidt and the un-normalized Frobenius is because it became common in stability theory --- see Lubotzky.....} Furthermore, let $\mB_{j,j'}$ be the strings with fixed pair $\{j,j'\}$ as prefix, $V_{j,j'}$ the linear subspace spanned by $\mB_{j,j'}$ in $\complex^d$, and $P_{j,j'}$ the projection onto this subspace. Note that 
+\[
+\Vert A\Vert_{hs}^2=\Expectation_{e_i} [\Vert Ae_i\Vert_2^2]\ ,\quad \Vert A\Vert_{F}^2=\sum_{e_i}\Vert Ae_i\Vert_2^2.
+\]
+Now, for every  $j<j'$ and $i<i'$, if $(i,i')\neq (j,j')$, then the restriction of $(A_jA_{j'})^2$ to $V_{i,i'}$ is the identity. On the other hand, the squared Hilbert--Schmidt distance between $(A_jA_{j'})^2$ and $\Id_{j,j'}$ is $2$. Therefore, for every  $j<j'$,
+\[
+\begin{split}
+  \Vert A_jA_{j'}A_jA_{j'}-\Id_{d}\Vert_{hs}^2  =\Expectation_{i<i'}[\Vert P_{i,i'}A_jA_{j'}A_jA_{j'}P_{i,i'}-\Id_{i,i'}\Vert_{hs}^2 ]=\frac{1}{\binom{k}{2}}\Vert P_{j,j'}A_jA_{j'}A_jA_{j'}P_{j,j'}-\Id_{j,j'}\Vert_{hs}^2=\nicefrac{2}{\binom{k}{2}}.
+\end{split}
+\]
+On the other hand, for every orthogonal projection $P$ on $\textrm{Span}\{e_1,...,e_t\}$, such that the $PA_iP$'s act as permutations on $\{e_1,...,e_t\}$ (and in particular $A_i$ commutes with $P$),  we have
+\[
+\begin{split}
+    \Vert P(A_j-B_j)\Vert_F^2&=\Vert P(A_j-B_j)P\Vert_F^2+\Vert P(A_j-B_j)(I-P)\Vert_F^2\\
+    &=\Vert P(\Id-A_jB_j)P\Vert_F^2+\Vert PB_j(I-P)\Vert_F^2.
+\end{split}
+\]
+Now, for every $1\leq i\leq t$, 
+\[
+1-|e_i^*A_jB_je_i|^2\leq |1-e_i^*A_jB_je_i|^2\leq \Vert e_i^*(I-A_jB_j)P\Vert_2^2,
+\]
+and
+\[
+\begin{split}
+ 1-|e_i^*A_jB_je_i|^2&=\sum_{r\neq i}|e_i^*A_jB_je_r|^2\\   
+ &\geq \Vert e_i^*A_jB_j(\Id-P)\Vert_2^2.
+\end{split}
+\]
+Since $A_j$ permutes $\{e_1,...,e_t\}$, we have
+\[
+\begin{split}
+ \Vert PB_j(I-P)\Vert_F^2&=   \Vert PA_jB_j(I-P)\Vert_F^2\\
+ &=\sum_{i=1}^t \Vert e_i^*A_jB_j(\Id-P)\Vert_2^2\\
+ &\leq \sum_{i=1}^t\Vert e_i^*(I-A_jB_j)P\Vert_2^2\\
+ &=\Vert P(I-A_jB_j)P\Vert_F^2.
+\end{split}
+\]
+All in all, 
+\[
+ \Vert P(A_j-B_j)\Vert_F^2\leq 2 \Vert P(A_j-B_j)P\Vert_F^2.
+\]
+Thus,
+\begin{align*}
+    \Vert PA_jA_{j'}A_jA_{j'}P-P\Vert_F&=\Vert PA_jA_{j'}A_jA_{j'}P-PB_jB_{j'}B_jB_{j'}P\Vert_F\\
+    &\leq \Vert P(A_j-B_j)B_{j'}B_jB_{j'}P\Vert_F+\Vert PA_j(A_{j'}-B_{j'})B_jB_{j'}P\Vert_F\\
+    &+\Vert PA_jA_{j'}(A_{j}-B_{j})B_{j'}P\Vert_F+\Vert PA_jA_{j'}A_j(A_{j'}-B_{j'})P\Vert_F\\
+    &= 2\Vert P(A_j-B_j)\Vert_F+2\Vert P(A_{j'}-B_{j'})\Vert_F\\
+    &\leq 2\sqrt{2}\Vert P(A_j-B_j)P\Vert_F+2\sqrt{2}\Vert P(A_{j'}-B_{j'})P\Vert_F
+\end{align*}
+Combining what we have, we get
+\[
+\begin{split}
+  \nicefrac{2}{\binom{k}{2}}&=\max_{j<j'} \Vert A_jA_{j'}A_jA_{j'}-\Id_d\Vert_{hs}^2\\
+  &= \frac{1}{d^2}\Expectation_{j<j'}\Vert A_jA_{j'}A_jA_{j'}-\Id_d\Vert_F^2\\
+  &=\frac{1}{d^2}\Expectation_{j<j'}\Vert P_{j,j'}A_jA_{j'}A_jA_{j'}P_{j,j'}-P_{j,j'}\Vert_F^2\\
+  &\leq\frac{1}{d^2}\Expectation_{j<j'}(2\sqrt{2}\Vert P_{j,j'}(A_j-B_j)P_{j,j'}\Vert_F+2\sqrt{2}\Vert P_{j,j'}(A_{j'}-B_{j'})P_{j,j'}\Vert_F)^2\\
+  &\leq \frac{1}{d^2}\Expectation_{j<j'}16\Vert P_{j,j'}(A_j-B_j)P_{j,j'}\Vert^2_F+16\Vert P_{j,j'}(A_{j'}-B_{j'})P_{j,j'}\Vert_F^2\\
+  &=\frac{16}{d^2\binom{k}{2}}\sum_{j}\underbrace{\sum_{j'\neq j}\Vert P_{j,j'}(A_j-B_j)P_{j,j'}\Vert^2_F}_{\leq \Vert P_d(A_j-B_j)P_d\Vert_F^2}\\
+  &\leq \frac{16k}{\binom{k}{2}}\Expectation_j\Vert P_d(A_j-B_j)P_d\Vert_F^2.
+\end{split}
+\]
+This means that 
+\[
+\Expectation_j\Vert P_d(A_j-B_j)P_d\Vert_F^2\geq \frac{1}{8k},
+\]
+and we are done.
+\noteswarning
+
+
+
+
+
+
+
+
+
+
+\bibliography{qld}
+
+\notesendofpaper
+
+\end{document}

@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+  \documentclass[11pt]{article}
 \usepackage{booktabs}
 \usepackage{fullpage}
 \usepackage{titlesec}
@@ -6,6 +6,7 @@
 \usepackage{amsmath,amsfonts,amsthm,mathrsfs,xspace,graphicx}
 \usepackage[backref,colorlinks,citecolor=blue,bookmarks=true]{hyperref}
 \usepackage{mathpazo}
+\usepackage{nicefrac}
 \usepackage{endnotes}
 \usepackage{color}
 \usepackage{float}
@@ -504,13 +505,13 @@ Equipped with the new definition we give examples. We first show a general metho
 \section{Introduction}
 
 \paragraph{Motivation.}
-A linear error-correcting code $\code$ is a $k$-dimensional subspace of the vector space $\F^n$ over a finite field $\F$ that has certain combinatorial properties. The foremost of these is the \emph{minimal distance} $d$, which is defined as the smallest Hamming weight (number of nonzero coordinates) $|c|$ of a nonzero vector  $c\in\code$. A finer property which concerns us here is the \emph{soundness} of the code, a parameter that is connected to the notion of \emph{local testability}. A code can be (non-uniquely) specified through a \emph{parity-check matrix} $h\in\F^{m\times n}$ as $\code = \ker h$. The rows of $h$ are thought of as constraints (``parity checks'') that uniquely identify elements of $\code$ within $\F^n$. A code is called locally testable \emph{with soundness $\rho$} if for every $x\in \F^n$, $\frac{1}{m}|hx|\geq \rho\, d(x,\code)$, where $d(x,\code)$ denotes the minimum of $|x-c|$ over $c\in \code$. The terminology ``locally testable'' comes from an interpretation of $\frac{1}{m}|hx|$ as the probability of rejection of a natural ``tester'' for $\code$, i.e.\ an algorithm that on input $x$ checks a randomly chosen row $h_i$ of $h$ and accepts if and only if the parity $h_i\cdot x=0$.\footnote{Note that in principle a code can have a small minimal distance $d$, and still be locally testable with soundness $\rho>0$. In general one would like to design families of codes of increasing length $n$, such that $d$ is a linear function of $n$ and $\rho$ is bounded below by a constant independent of $n$.}  Thus a code is called locally testable if words that are far from the code have a high probability of being rejected according to this tester. This notion plays a central role in applications of codes to complexity theory~\cite{}, and continues to be actively studied, see e.g.~\cite{} for a recent breakthrough on the topic. 
+A linear error-correcting code $\code$ is a $k$-dimensional subspace of the vector space $\F^n$ over a finite field $\F$ that has certain combinatorial properties. The foremost of these is the \emph{minimal distance} $d$, which is defined as the smallest Hamming weight (number of nonzero coordinates) $|c|$ of a nonzero vector  $c\in\code$. A finer property which concerns us here is the \emph{soundness} of the code, a parameter that is connected to the notion of \emph{local testability}. A code can be (non-uniquely) specified through a \emph{parity-check matrix} $h\in\F^{m\times n}$ as $\code = \ker h$. The rows of $h$ are thought of as constraints (``parity checks'') that uniquely identify elements of $\code$ within $\F^n$. A code is called locally testable \emph{with soundness $\rho$} if for every $x\in \F^n$, $\frac{1}{m}|hx|\geq \rho\, d(x,\code)$, where $d(x,\code)$ denotes the minimum of $|x-c|$ over $c\in \code$. The terminology ``locally testable'' comes from an interpretation of $\frac{1}{m}|hx|$ as the probability of rejection of a natural ``tester'' for $\code$, i.e.\ an algorithm that on input $x$ checks a randomly chosen row $h_i$ of $h$ and accepts if and only if the parity $h_i\cdot x=0$.\footnote{Note that in principle a code can have a small minimal distance $d$, and still be locally testable with soundness $\rho>0$. In general one would like to design families of codes of increasing length $n$, such that $d$ is a linear function of $n$ and $\rho$ is bounded below by a constant independent of $n$.}  Thus a code is called locally testable if words that are far from the code have a high probability of being rejected according to this tester. This notion plays a central role in applications of codes to complexity theory~\cite{babai1991non,PCP_thm}, and continues to be actively studied, see e.g.~\cite{LTC_DELLM,LTC_Panteleev_Kalachev} for a recent breakthrough on the topic. 
 
 We make an observation that connects the study of locally testable codes to questions of stability in group theory and motivates our work. Let $\code=\ker h$ be a linear code as above, and suppose for simplicity that $\F=\F_2$ is the binary field. Consider the finitely presented group 
 \begin{equation}\label{eq:gh-intro}
  G(h) \,=\, \langle S:R\rangle \,=\, \big\langle x_1,\ldots,x_n \,:\, x_j^2=e\;\; \forall 1\leq j\leq n\;,\quad \prod_{1\leq j \leq n} x_j^{h_{ij}} = e \;\; \forall 1\leq i\leq m\,\big\rangle\;.
 \end{equation}
-Here we do not assume that the generators $x_j$ commute, and the product is taken in (say) increasing order of indices from left to right. We observe that $1$-dimensional representations, i.e.\ maps from $S=\{x_1,\ldots,x_n\}$ to $\{-1,1\}$ that satisfy all relations $R$, are in one-to-one correspondence with elements of $\code$. Moreover, \emph{approximate} $1$-dimensional representations, i.e.\ maps from  $S=\{x_1,\ldots,x_n\}$ to $\{-1,1\}$ that satisfy a fraction $1-\eps$ of all relations for small $\eps$, can be identified with words $x\in\F_2^n$ such that $\frac{1}{m}|hx|\leq C\eps$ for some constant $C$ depending on the ratio $m/n$.\footnote{In principle we could allow the map to range over $U(\C)$ instead of $\{-1,1\}$. In general we will allow this; but for the purposes of this introduction it is simpler to restrict to the $\{-1,1\}$-valued case (which corresponds to considering the relations $x_j^2=e$ as ``hard'' constraints that always need to be satisfied).} In particular, and somewhat loosely speaking, we notice that $\code$ is locally testable with soundness $\rho$ if and only if approximate $1$-dimensional representations are always close to $1$-dimensional representations. 
+Here we do not assume that the generators $x_j$ commute, and the product is taken in (say) increasing order of indices from left to right. We observe that $1$-dimensional representations, i.e.\ maps from $S=\{x_1,\ldots,x_n\}$ to $\{-1,1\}$ that satisfy all relations $R$, are in one-to-one correspondence with elements of $\code$. Moreover, \emph{approximate} $1$-dimensional representations, i.e.\ maps from  $S=\{x_1,\ldots,x_n\}$ to $\{-1,1\}$ that satisfy a fraction $1-\eps$ of all relations for small $\eps$, can be identified with words $x\in\F_2^n$ such that $\frac{1}{m}|hx|\leq C\eps$ for some constant $C$ depending on the ratio $m/n$.\footnote{In principle we could allow the map to range over $U(\C)$ instead of $\{-1,1\}$. In general we will allow this; but for the purposes of this introduction it is simpler to restrict to the $\{-1,1\}$-valued case (which corresponds to considering the relations $x_j^2=e$ as ``hard'' constraints that always need to be satisfied).} In particular, and somewhat loosely speaking, we notice that $\code$ is locally testable with soundness $\rho$ if and only if approximate $1$-dimensional representations of $G(h)$ are always close to $1$-dimensional representations. 
 
 \paragraph{Group stability.}
 This observation, which at first may seem quite anodyne or even forced, opens a universe of questions. The problem of relating approximate representations of a group to exact representations of it is termed \emph{stability} in group theory, and has a long history. There are of course many flavors of the problem, depending on how one defines closeness (should it be the operator norm or the Hilbert-Schmidt norm? Should closeness hold for every relation, or every pair of group elements, or is it sufficient that it holds on average? Etc.) We will review some relevant results in this area below. For now, we can mention Voiculescu's famous counter-example~\cite{voiculescu1983asymptotically} about approximately commuting unitaries, which was motivated by a question of Halmost on pairs of approximately commuting Hermitian operators~\cite{halmos1976some}. Using the terminology of stability, Voiculeschu showed that the presentation $\Z^2 = \langle x,y:[x,y]=e\rangle$ is \emph{not} stable with respect to the operator norm. However, much more recently Glebsky~\cite{glebsky2010almost} showed that the same presentation \emph{is} stable with respect to the normalized Hilbert-Schmidt norm. 
@@ -522,6 +523,7 @@ stability of approximate \emph{$1$-dimensional} representations of the presentat
 Let $G = \langle S:R\rangle $ be a finitely presented group and $\mu_R$ a distribution on $R$. An $(\eps,\mu_R)$-almost homomorphism of $G$ is a homomorphism $\phi:\mF(S)\to\mU(\C^d)$ for some $d\geq 1$ such that
 \[ \Es{r\sim \mu_R} \big\|  \phi(r) - \Id \big \|_f^2 \,\leq\, \eps\;.\]
 Here, $\phi(r)$ denotes the product of $\phi(s)$ for $s$ appearing in $r$, in the specified order. 
+{\color{red} YOU ALREADY SAY THAT YOU ARE GIVEN A HOMOMOTPHISM FROM THE FREE GROUP. SO $\phi(r)$ IS WELL DEFINED... NO NEED FOR THE REMARK "Here ...." AT THE END}.
 \end{definition}
 
 As already mentioned this definition makes two importance choices: firstly, to measure closeness in the Hilbert-Schmidt norm, and secondly, to measure it on average over the choice of a relation. Next we give our definition for a finitely presented group to be stable.  
@@ -542,7 +544,7 @@ while stability has previously (for the more part) been studied as a question ab
 
 Can such ``efficient'' presentations still be stable? The naive approach, of extending an $\eps$-approximate homomorphism of $G(h)=\langle S:R\rangle$ into an $\eps'$-approximate homomorphism of the multiplication table presentation of $\Z_2^k$, leads to $\eps'=\Omega(k\eps)$ and hence a logarithmic dependence of the modulus of stability on the group size. Is it possible to do better? Glebsky's result for the case of $\Z^2$  mentioned earlier suggests that it is, in some cases, possible; but in what generality?  
 
-Our main results are presentations of $\Z_2^k$, and of slightly more complex $2$-groups built on them (e.g. the \emph{Pauli}, or \emph{Weyl-Heisenberg}, group ubiquitous in quantum information theory), that are \emph{efficiently stable}: the size of the presentation is quasi-polynomial, as opposed to exponential, in $k$, and yet the modulus of stability only depends poly-logarithmically on $k$. These presentations are constructed from specific error-correcting codes, the Reed-Muller codes based on polynomials, which are known to have good local testability properties~\cite{}. Our main result on group stability can be stated as follows (see Theorem~\ref{thm:z2-stab} for the precise statement).
+Our main results are presentations of $\Z_2^k$, and of slightly more complex $2$-groups built on them (e.g. the \emph{Pauli}, or \emph{Weyl-Heisenberg}, group ubiquitous in quantum information theory), that are \emph{efficiently stable}: the size of the presentation is quasi-polynomial, as opposed to exponential, in $k$, and yet the modulus of stability only depends poly-logarithmically on $k$. These presentations are constructed from specific error-correcting codes, the Reed-Muller codes based on polynomials, which are known to have good local testability properties~\cite{babai1991non}. Our main result on group stability can be stated as follows (see Theorem~\ref{thm:z2-stab} for the precise statement).
 
 \begin{theorem*}[Main, informal]
 For every integer $k$ there is a presentation $\Z_2^k = \langle S_k:R_k\rangle$ such that $|S_k|,|R_k| = 2^{\poly\log(k)}$ and furthermore this presentation is $\delta(\eps)=\poly(\log k,\eps)$-stable. 
@@ -567,7 +569,7 @@ To summarize, approximate stability results for $G(h)$ enable one to obtain stru
 \paragraph{Related works on stability.} The general question of group stability was first formulated by Ulam~\cite{ulam1960collection}, and later studied by Kazhdan for the case of the operator norm~\cite{kazhdan1982e}. 
 
 Stability of finite groups, with respect to the multiplication table representation, is shown in~\cite{gowers2017inverse}. 
-One can also consider representations in permutations, see~\cite{glebsky2009almost,becker2022stability}. 
+One can also consider representations in permutations, see~\cite{glebsky2009almost,becker2022stability}.  Specifically, the analogous problem of efficient stability in permutations is still open. See the open problems section of \cite{CL_part2}. Both stability in permutations and in unitaries equipped with the Hilbert--Schmidt metric are closely related to the notions of sofic and hyperlinear groups, cf. \cite{glebsky2009almost,becker2020group}. 
 
 \tnote{more? open questions?}
 
@@ -629,7 +631,7 @@ If the measure $\mu$ is omitted then it is understood to be the uniform measure 
 
 We now give our definition of stability.
 
-\begin{definition}[Efficient stability]\label{def:eff-stab}
+\begin{definition}[{\color{red}Efficient} stability]\label{def:eff-stab}
 Let $G = \langle S:R\rangle $ be a finitely presented group. Let $\mC$ be a class of tracial von Neumann algebras. Let $\mu_S$ be a distribution on $S$ and $\mu_R$ a distribution on $R$. For $\delta:[0,1]\to[0,1]$ such that $\lim_{t\to 0}\delta(t)=0$ we say that the presentation $G=\langle S:R\rangle$ is $(\delta,\mu_S,\mu_R,\mC)$-stable if for every $(\cM,\tau)$ in $\mC$, every $(\eps,\mu_R)$-almost homomorphism of $G$ is $(\delta(\eps),\mu_S)$-close to a unitary representation of $G$ on some $(\mN,\tau^\mN)\in \mC$. We refer to the function $\delta$ as the ``modulus of stability'' of the presentation.
 \end{definition}
 
@@ -677,7 +679,7 @@ Let  $(\mM,\tau^\mM)$ be a tracial von Neumann algebra, $P\in\mM_\infty$ a proje
 \end{lemma}	
 
 \begin{proof}
-If $\eps\geq \frac{1}{2}$ the conclusion is trivial (for a suitably large implicit constant in the $O(\cdot)$ notation in \eqref{eq:pull-back}), so assume $\eps<\frac{1}{2}$. 
+If $\eps\geq \frac{1}{2}$ the conclusion is trivial (for a suitably large implicit constant in the $O(\cdot)$ notation in \eqref{eq:pull-back} {\color{red} THERE IS NO O NOTATION HERE}), so assume $\eps<\frac{1}{2}$. 
 Define 
 \[\tilde{Q}_a = w^* T_a w  + \frac{1}{|\mA|}\big(\Id_\mM - w^* w\big) \in \mM\;.\]
 Then $\{\tilde{Q}_a\}$ is a POVM on $\mM$. Moreover, 
@@ -727,7 +729,7 @@ projective measurement $\{P_u\}_{u\in \Z_2^k}$ on $\mM$ such that
 \end{corollary} 
 
 \begin{proof}
-Any $\phi$ as in the corollary statement is an $(\eps,U_R)$-almost homomorphism of $\Z_2^k$ into $(\mM,\tau)$ for the multiplication table presentation. Applying Theorem~\ref{thm:gh}, $\phi$ is $O(\eps)$-close to a homomorphism from $\Z_2^k$ to some $(\mN,\tau^\mN)$. Because $\Z_2^k$ is Abelian, such a homomorphism is given by commuting unitaries $(U_x)_{x\in\Z_2^k}$ on $\mM$. Moreover, since $\Z_2^k$ is a $2$-group, each $U_x$ satisfies $U_x^2=\Id$, hence $U_x=U_x^*$.
+Any $\phi$ as in the corollary statement is an $(\eps,U_R)$-almost homomorphism of $\Z_2^k$ into $(\mM,\tau)$ for the multiplication table presentation. Applying Theorem~\ref{thm:gh}, $\phi$ is $O(\eps)$-close to a homomorphism from $\Z_2^k$ to some $(\mN,\tau^\mN)$. Because $\Z_2^k$ is Abelian, such a homomorphism is given by commuting unitaries $(U_x)_{x\in\Z_2^k}$ on $\mM$ {\color{red} THIS SHOULD BE $\mN$... THE REST OF THE PROOF REQUIRES MORE EXPLANATIONS}. Moreover, since $\Z_2^k$ is a $2$-group, each $U_x$ satisfies $U_x^2=\Id$, hence $U_x=U_x^*$.
 
 For every $u\in  \Z_2^k$ let $Q_u = \Es{x} (-1)^{u\cdot x} U_x$. Then each $Q_u$ is a projection such that $\sum_u Q_u=\Id$. Using Lemma~\ref{lem:pull-back}, we find a projective measurement $\{P_u\}$ on $\mM$ that satisfies the conclusions of the corollary. 
 \end{proof}
@@ -746,8 +748,44 @@ We call this presentation ``efficient'' because it has a number of generators an
 For every $k$, there is a $\delta_k = O_k(\eps)$ such that the presentation~\eqref{eq:z2-efficient} is $\delta_k$-stable. Furthermore, the close representation can be taken on the same algebra.% \hnote{Is there a reason to do $O_k(\eps)$ instead of writing out what the dependence of $k$ is in this lemma? I feel like this is an important aspect of the result (which motivates the later results...)}\tnote{Yes, the motivation was to first hide it, and then expand in the comment (which makes it clear that some $O_k(\eps)$ will always be true for a finite group, and that we care precisely about the $k$-dependence, which at first one might not ``notice''. Some of the stuff here I did not fine-tune too much the presentation of, because I thought we'll do that once we agree with the rough outline of the results and work on an intro and possible reorganization if needed. I agree it's not optimal now.}
 \end{lemma}
 
-As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on the diameter of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This is nearly tight, as shown in~\cite{chao2017overlapping}.\tnote{Insert Henry's lower bound write-up around here?} In the next section we will obtain presentations of $\Z_2^k$ that have a much better size/modulus tradeoff.
+As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on the diameter of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This turns up to be  tight:
+\begin{claim}
+    Let $\mu_R$ be the uniform distribution over the commutation relations in the presentation $\langle S\colon R\rangle$ from \eqref{eq:z2-efficient}, and $\mu_S$ the marginal distribution from $\mu_R$, which is the uniform one on $S=\{x_1,...,x_k\}$. There is a $(\nicefrac{2}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\langle S\colon R\rangle$ which is at least $\nicefrac{c}{k}$ far from any homomorphism. Namely, the modulus of stability of \eqref{eq:z2-efficient} is $\Omega(k\eps)$.
+\end{claim}
 
+\begin{proof}
+Let $\{A_i\}_{i=1}^k$ be permutations acting on the set $\field^{k+1}$ of length $k+1$ bits as follows: For every $i\neq 1$, $A_i$ flips the $i^{\rm th}$ bit. The permutation $A_1$ always flips the $1^{\rm st}$ bit, and  flips the $(k+1)^{\rm th}$ bit conditioned on the $2^{\rm nd}$ bit being $1$. Namely, each $A_i$ is a NOT gate applied to  the $i^{\rm th}$ bit, while $A_1$ is a NOT gate applied on the first bit composed with a CNOT gate applied to the $(k+1)^{\rm th}$ bit. The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\complex^{\field^{k+1}}$ with its standard normalized trace.
+
+Let $\{B_i\}_{i=1}^k$ be a collection of unitaries in $(\mN,\tau')$ --- where $\mN$ is $P\mM_\infty P$  for some projection $P$ of finite trace and $\tau'=\frac{\tau_\infty}{\tau_\infty(P)}$ --- which satisfy all the relations in $R$. Namely, each $B_i$ is an order $2$ unitary and they all commute. For every $x\in \Z_2^k$ let  $B_x=\prod_{i=1}^kB_i^{x_i}$. Now, we can apply on this representation of $\Z_2^k$ the same operation as we did in the proof of Corollary \ref{cor:lin-test}: For every $u\in \Z_2^k$ we define $Q_u=\Expectation_x(-1)^{u\cdot x}B_X$. Then, again, $\{Q_u\}$ is a projective measurement on $\mN$. By Lemma \ref{lem:pull-back}, for every partial isometry $w\in P\mM_\infty \Id_\mM$ we have a projective measurement $\{P_u\}_{u\in \Z_2^k}$  on $\mM=M_{2^{k+1}}(\complex)$ such that 
+\[
+\sum_{u\in \Z_2^k}\Vert P_u -w^*Q_uw\Vert_\tau^2\leq 56\theta,
+\]
+where $\theta=\max\{\tau(\Id_\mM-w^*w),\tau'(P-ww^*)\}$.
+Let $C_x=\sum_{u\in \Z_2^k}(-1)^{u\cdot x}P_u$ for every $x\in \Z_2^k$. Then {\color{red} WHY REALLY? WE SHOULD HAVE EXPLAINED THE FOLLOWING CONSEQUENCE ALREADY IN COROLLARY \ref{cor:lin-test} --- WE CAN PROBABLY PIN DOWN THE CONSTANT HERE AS WELL.}
+\[
+\begin{split}
+ \Expectation_{x\in \Z_2^k}\Vert C_x-w^*B_xw\Vert_\tau^2\leq O(\theta).
+\end{split}
+\]
+But, for every $x,y\in \Z_2^k$, we have
+\[
+\begin{split}
+    \Vert C_x-w^*B_xw\Vert_\tau&=\Vert C_yC_{x+y}-w^*B_yB_{x+y}w\Vert_\tau\\
+    &=\Vert C_yC_{x+y}-C_yw^*B_{x+y}w+C_yw^*B_{x+y}w-w^*B_yww^*B_{x+y}w +w^*B_yww^*B_{x+y}w-w^*B_yB_{x+y}w\Vert_\tau\\
+    &\leq \Vert C_{x+y}-w^*B_{x+y}w\Vert_\tau+\Vert C_y-w^*B_yw\Vert_\tau+\underbrace{\Vert ww^*-P\Vert_{\tau'}}_{IS\ THIS\ TRUE? Maybe\ up\ to\ a\ factor?}
+\end{split}
+\]
+\end{proof}
+
+\begin{remark}
+    This construction was used by Kozlov--Meshulam \cite{kozlov2019quantitative} to upper bound the Cheeger constant of the $k$-dimensional hypercube --- see Section 4.1 therein.
+\end{remark}
+
+\begin{remark}
+    
+\end{remark}
+
+In the next section we will obtain presentations of $\Z_2^k$ that have a much better size/modulus tradeoff.
 To formulate the last example we recall the definition of the Pauli matrices
 	\begin{equation}\label{eq:def-pauli-1} \sigma^X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\;,\qquad \sigma^Z = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}\;,
 	\end{equation}

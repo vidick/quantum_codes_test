@@ -1053,7 +1053,7 @@ Fix integers $m,t,d \in \N$ and let $q=2^t$. Let $\code_{\bRM}$ be the $[q^{m+1}
 \begin{figure}[!htbp]
   \centering
   \begin{gamespec}
-Given access to some $g\in \F_2^{n}$, where $n=q^{m+1}$, identify $g$ with a function $g:(\F_2^t)^m \times \F_2^t \to \F_2$. Perform one of the following tests with probability~$\tfrac{1}{2}$ each. 
+Given access to some $g\in \F_2^{N}$, where $n=N^{m+1}$, identify $g$ with a function $g:(\F_2^t)^m \times \F_2^t \to \F_2$. Perform one of the following tests with probability~$\tfrac{1}{2}$ each. 
 \begin{enumerate}
 	\item \textbf{Low-degree test:}
 		Let $u \in \F_q^m$ be a uniformly random point and $j\in \{1,\ldots,m\}$ chosen uniformly at random. Let $\ell$ be the line through $u$ in the $j$-th direction. Let $e_j=(0,\ldots,0,1,0,\ldots,0)\in \F_q^m$, where the unique $1$ is in the $j$-th position. Choose a uniformly random $v\in \ell$ and $\gamma\in \F_q$ and check that 
@@ -1067,25 +1067,27 @@ Given access to some $g\in \F_2^{n}$, where $n=q^{m+1}$, identify $g$ with a fun
   \label{fig:bRM-tester}
 \end{figure}
 
-Let $G_\bRM = G(h_\bRM)$ be the group that is presented from $h_\bRM$ (recall from \Cref{sec:pres-code} that codes give rise to group presentations). We do not know if $G_\bRM = \Z_2^K$, with $K=t(d+1)^m$. Instead we modify the presentation $G(h_\bRM)$ by adding pairwise commutation relations in a similar manner as Lemma~\ref{lem:com-code}. Let 
+Let $G_\bRM = G(h_\bRM)$ be the group that is presented from $h_\bRM$ (recall from \Cref{sec:pres-code} that codes give rise to group presentations through the general construction~\eqref{eq:def-gh-pres}). We do not know if $G_\bRM = \Z_2^K$, with $K=t(d+1)^m$. Instead we modify the presentation $G(h_\bRM)$ by adding pairwise commutation relations in a similar manner as the presentation from Lemma~\ref{lem:com-code}. Let 
 \[ G(h_\bRM) \,=\, \big\langle x_1,\ldots,x_N \;:\; \{R^\sq_k\}\,,\; \{R^\ld_k\}\,,\; \{R^\had_{k}\} \big\rangle\;,\]
-where  $R^\sq_k$ ranges overal all relations of the form $x_i^2=e$ for $i\in \{1,\ldots,N\}$, $R^\ld_k$ ranges over all relations implied by the ``low-degree test'' in Figure~\ref{fig:bRM-tester} and $R^\had_{k}$ ranges over all the relations implied by the ``Hadamard test.'' For $k=(i,j)\in\{1,\ldots,N\}$ such that $i<j$ let $R^\com_k$ be the relation $[x_i,x_j]=e$.
+where  $R^\sq_k$ ranges overal all relations of the form $x_i^2=e$ for $i\in \{1,\ldots,N\}$, $R^\ld_k$ ranges over all relations implied by the ``low-degree test'' in Figure~\ref{fig:bRM-tester} and $R^\had_{k}$ ranges over all the relations implied by the ``Hadamard test.'' For $k=(i,j)\in\{1,\ldots,N\}^2$ such that $i<j$ let $R^\com_k$ be the relation $[x_i,x_j]=e$.
 Then we define
 \begin{equation}\label{eq:z2k-eff}
  G' \,=\,\big\langle x_1,\ldots,x_N \;:\; \{R^\sq_k\}\,,\; \{R^\ld_k\}\,,\; \{R^\had_{k}\}\, , \; \{ R^\com_k\}\big\rangle\;.
 \end{equation}
 From Lemma~\ref{lem:com-code} it follows that $G'=\Z_2^K$. Our main result is an efficient stability result for this presentation. To state this we need to introduce distributions $\mu_S$ and $\mu_R$ on the generators and relations of $G'$. The distribution $\mu_R$ is obtained as follows. With probability $1/4$ each, a relation from $\{R^\sq_k\}$, $\{R^\ld_k\}$ or $\{R^\had_k\}$ is chosen uniformly at random. With probability $1/4$, a random commutation relation from $R^\com_k$ is chosen according to the uniform mixture of the following two distributions:
 \begin{enumerate}
-\item For the first distribution, we select $u\in \F_q^m$ uniformly at random, $j\in\{1,\ldots,m\}$ uniformly at random, and $i\neq i'\in\{0,\ldots,d\}$ uniformly at random. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random and check commutation between $x_{u+t_i e_j,\alpha}$ and $x_{u+t_{i'} e_j,\beta}$, where we interpret the subscripts  $u+t_i e_j,\alpha$ and $u+t_{i'} e_j,\beta$ as corresponding to some integer in $[N]$. 
+\item For the first distribution, we select $u\in \F_q^m$ uniformly at random, $j\in\{1,\ldots,m\}$ uniformly at random, and $i\neq i'\in\{0,\ldots,d\}$ uniformly at random. Then select $\alpha,\beta\in \F_2^t$ uniformly at random and check commutation between $x_{u+t_i e_j,\alpha}$ and $x_{u+t_{i'} e_j,\beta}$, where we interpret the subscripts  $u+t_i e_j,\alpha$ and $u+t_{i'} e_j,\beta$ as corresponding to some integer in $[N]= (\F_2^t)^m \times \F_2^t$ (as sets!). 
 
 \item For the second distribution, we first select $j\in\{1,\ldots,m\}$ and $u_{m-j+2},\ldots,u_m \in \F_2^t$ uniformly at random. Then select $v,v' \in (\F_2^t)^m$ uniformly at random, conditioned on the last $(j-1)$ coordinates matching $u_{m-j+2},\ldots,u_m$. Finally, select $\alpha,\beta\in \F_2^t$ uniformly at random and check commutation between $x_{v,\alpha}$ and $x_{v',\beta}$. 
 \end{enumerate}
-Having defined $\mu_R$, we define $\mu_S$ as in Remark~\ref{rk:mus}. It is easy to check that in this way we obtain that $\mu_S$ is the uniform distribution over $[N] = (\F_2^t)^m \times \F_2^t$. 
+Having defined $\mu_R$, we define $\mu_S$ as in Remark~\ref{rk-mus}. It is easy to check that in this way we obtain that $\mu_S$ is the uniform distribution over $[N] $. The following is our main technical result. 
 
 \begin{theorem}\label{thm:z2-stab}
 Let $\mC$ be the class of all tracial von Neumann algebras. 
 The presentation of  $\Z_2^K$ given in~\eqref{eq:z2k-eff}, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with $\delta(\eps)=\poly(m,d,t) \cdot\poly(\eps,q^{-1})$. 
 \end{theorem}
+
+We briefly explain a possible setting of parameters in Theorem~\ref{thm:z2-stab}. For any integer $t\geq 1$, fix $q=2^t$ and let $d=m=c t^c$ for some constant $c>0$. Then $K=t(d+1)^m = 2^{\Theta((\log q)^c \log\log q)}$ and $N=q^{m+1}= 2^{\Theta((\log q)^{c+1} \log\log q)}$. Moreover, the number of relations in~\eqref{eq:z2k-eff} is $O(N^2)$, which scakes as $2^{\poly\log K}$; and the maximum length of a relation is $d=O(\log K)$. Finally, with this choice of parameters the function $\delta(\eps)$ scales as $\poly(\log K)\cdot \poly(\eps)$. We have thus obtained a presentation of $\Z_2^K$ of size only mildly superpolynomial in $K$, and with soundness that depends polylogarithmically on $K$. 
 
 
 \begin{proof}

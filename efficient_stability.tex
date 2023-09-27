@@ -677,7 +677,7 @@ Let  $(\mM,\tau^\mM)$ be a tracial von Neumann algebra, $P\in\mM_\infty$ a proje
 \end{lemma}	
 
 \begin{proof}
-If $\eps\geq \frac{1}{2}$ the conclusion is trivial (for a suitably large implicit constant in the $O(\cdot)$ notation in \eqref{eq:pull-back} {\color{red} THERE IS NO O NOTATION HERE}), so assume $\eps<\frac{1}{2}$. 
+If $\eps\geq \frac{1}{2}$ the conclusion is trivial, so assume $\eps<\frac{1}{2}$. 
 Define 
 \[\tilde{Q}_a = w^* T_a w  + \frac{1}{|\mA|}\big(\Id_\mM - w^* w\big) \in \mM\;.\]
 Then $\{\tilde{Q}_a\}$ is a POVM on $\mM$. Moreover, 
@@ -727,16 +727,25 @@ projective measurement $\{P_u\}_{u\in \Z_2^k}$ on $\mM$ such that
 \end{corollary} 
 
 \begin{proof}
-Any $\phi$ as in the corollary statement is an $(\eps,U_R)$-almost homomorphism of $\Z_2^k$ into $(\mM,\tau)$ for the multiplication table presentation. Applying Theorem~\ref{thm:gh}, $\phi$ is $O(\eps)$-close to a homomorphism from $\Z_2^k$ to some $(\mN,\tau^\mN)$. Because $\Z_2^k$ is Abelian, such a homomorphism is given by commuting unitaries $(U_x)_{x\in\Z_2^k}$ on $\mM$ {\color{red} THIS SHOULD BE $\mN$... THE REST OF THE PROOF REQUIRES MORE EXPLANATIONS}. Moreover, since $\Z_2^k$ is a $2$-group, each $U_x$ satisfies $U_x^2=\Id$, hence $U_x=U_x^*$.
+Any $\phi$ as in the corollary statement is an $(\eps,U_R)$-almost homomorphism of $\Z_2^k$ into $(\mM,\tau)$ for the multiplication table presentation. Applying Theorem~\ref{thm:gh}, $\phi$ is $O(\eps)$-close to a homomorphism from $\Z_2^k$ to some $(\mN,\tau^\mN)$. Because $\Z_2^k$ is Abelian, such a homomorphism is given by commuting unitaries $(U_x)_{x\in\Z_2^k}$ on $\mN$. Moreover, since $\Z_2^k$ is a $2$-group, each $U_x$ satisfies $U_x^2=\Id$, hence $U_x=U_x^*$.
 
-For every $u\in  \Z_2^k$ let $Q_u = \Es{x} (-1)^{u\cdot x} U_x$. Then each $Q_u$ is a projection such that $\sum_u Q_u=\Id$, and $U_x = \sum_u (-1)^{u\cdot x} Q_u$. Furthermore, it holds that 
+For every $u\in  \Z_2^k$ let $Q_u = \Es{x} (-1)^{u\cdot x} U_x$. Then each $Q_u$ is a projection on $\mN$ such that $\sum_u Q_u=\Id$, and $U_x = \sum_u (-1)^{u\cdot x} Q_u$. Furthermore, by the conclusion of Theorem~\ref{thm:gh} it holds that 
 \begin{equation}\label{eq:lin-test-1}
    \Es{x\in \Z_2^k} \Big\| \phi(x) - w^*\Big(\sum_u (-1)^{u\cdot x} Q_u\Big)w  \Big\|_{\tau}^2 \,=\, O(\eps)\;,
 \end{equation}
 for some partial isometry $w\in P\mM_\infty I_\mM$ as in Definition~\ref{def:close}.
 Using Lemma~\ref{lem:pull-back}, we find a projective measurement $\{P_u\}$ on $\mM$ that satisfies 
-\[ \sum_u \big\| P_u - w^* Q_u w \big\|_\tau^2 \,=\, O(\eps)\;.\]
-Combined with~\eqref{eq:lin-test-1} and the triangle inequality, this shows the corollary. 
+\begin{equation}\label{eq:lin-test-1b}
+ \sum_u \big\| P_u - w^* Q_u w \big\|_\tau^2 \,=\, O(\eps)\;.
+\end{equation}
+Thus
+\begin{align}
+\Es{x\in \Z_2^k}  \Big\| \sum_u (-1)^{u\cdot x} \big(P_u - w^* Q_u w\big) \Big\|_\tau^2
+&=\Es{x\in \Z_2^k} \sum_{u,v} (-1)^{(u+v)\cdot x} \tau\big(\big(P_u - w^* Q_u w\big)\big(P_v - w^* Q_v w\big)\big) \notag\\
+&= \sum_u \big\| P_u - w^* Q_u w\big\|_\tau^2\notag\\
+&= O(\eps)\;,\label{eq:lin-test-2}
+\end{align}
+where the second line uses $\Es{x} (-1)^{w\cdot x} = 0$ if $w\neq 0$, and $1$ otherwise, and the last line is by~\eqref{eq:lin-test-1b}. Plugging back into~\eqref{eq:lin-test-1} and using the triangle inequality shows the corollary.  
 \end{proof}
 
 The multiplication table presentation of $\Z_2^k$ is not very \emph{efficient}, in the sense that it has as many generators as the group size, and quadratically as many relations. There is a much more efficient presentation of $\Z_2^k$, given by
@@ -853,24 +862,24 @@ This follows from Lemma~\ref{lem:eff-z2} and Theorem~\ref{thm:dls-gap}.
 
 In this section we present our main result, which is an ``efficient'' stable presentation of $\Z_2^k$. Most of the technical work required to show this result is done in~\cite{ji2020mip}. Here, we introduce the language required to reformulate their result in the framework of this paper. 
 
-As a first step, we introduce a general method for translating any binary linear error-correcting code into a presentation of $\Z_2^k$. 
+As a first step, we introduce a general method for translating any binary linear error-correcting code into a presentation of $\Z_2^k$. Later we apply this method to the specific case of the Reed-Muller code (composed with the Hadamard code to obtain a binary code). However, the general method may be of independent interest. 
 
 \subsection{Presentations from codes}
 \label{sec:pres-code}
 
-For $q$ a prime power we let $\F_q$ denote the finite field with $q$ elements, and write $\F$ when $q=2$. 
-For $n,k,d$ integer, a linear $[n,k,d]_q$ code $\code$ is a $k$-dimensional subspace of $\F_q^n$ such that for all $x\in \code$ such that $x\neq 0$, the Hamming weight $|x|$ (i.e.\ the number of nonzero coordinates of $x$) is at least $d$. The parameter $n$ is called the \emph{length} of the code, $k$ its \emph{dimension} and $d$ its \emph{distance}. A code can be specified by a \emph{parity check matrix} $h\in \F_q^{m\times n}$ such that $\code = \ker h$. 
+For $q$ a prime power we let $\F_q$ denote the finite field with $q$ elements. 
+For $n,k,d$ integer, a $[n,k,d]_q$ linear code $\code$ is a $k$-dimensional subspace of $\F_q^n$ such that for all $x\in \code$ such that $x\neq 0$, the Hamming weight $|x|$ (i.e.\ the number of nonzero coordinates of $x$) is at least $d$. The parameter $n$ is called the \emph{length} of the code, $k$ its \emph{dimension} and $d$ its \emph{distance}. A code can be specified by a \emph{parity check matrix} $h\in \F_q^{m\times n}$ such that $\code = \ker h$. 
 
 For the remainder of this section we specialize the discussion to the case where $q=2$. 
-A parity check matrix for a code of dimension $k$ implies a presentation in the following way. Introduce $n$ generators $S=\{x_1,\ldots,x_n\}$. Each of the generators is required to be an involution: $x_i^2=e$. For each row $i\in \{1,\ldots,m\}$ of the parity check matrix $h$, introduce a relation 
-\[ R_i\,:\; \prod_{1\leq j \leq n} x_j^{h_{ij}}=e \]
+We make the simple but key observation that a parity check matrix for a code of dimension $k$ implies a finite group presentation in the following way. Introduce $n$ generators $S=\{x_1,\ldots,x_n\}$. Each of the generators is required to be an involution: $x_i^2=e$. For each row $i\in \{1,\ldots,m\}$ of the parity check matrix $h$, introduce a relation 
+\[ R_i\,:\; \prod_{1\leq j \leq n} x_j^{h_{ij}}=e\;, \]
 that ``verifies'' the parity check associated with the $i$-th row of $h$. Finally, to guarantee that $R_i$ is independent of the order in which the $x_j$ are multiplied, whenever $j\neq j'$ are such that $h_{ij}$ and $h_{ij'}$ are both nonzero we require that $x_j$ and $x_{j'}$ commute. This can be written succinctly using a relation 
 \[ R'_{ijj'}\,:\; [x_j,x_{j'}]^{h_{ij} h_{ij'}}=e\;.\]
 The presentation obtained in this way defines a group $G=G(h)$ as 
 \begin{equation}\label{eq:def-gh-pres}
  G(h) \,=\, \big\langle x_1,\ldots,x_n \,:\, x_j^2=e\,,\; R_i\,,\; R'_{ijj'}\,,\quad \forall 1\leq i\leq m,\, 1\leq j< j' \leq n\big\rangle\;.
 \end{equation}
-Note that we made the dependence of $G(h)$ on $h$ explicit. This is because in general, the group defined in this way may depend on $h$, and not only on $\code$. If however we further impose all pairwise commutation relations then we obtain the following. 
+Note that we made the dependence of $G(h)$ on $h$ explicit. This is because in general, the group defined in this way may depend on $h$, and not only on $\code$. If however we further impose \emph{all} pairwise commutation relations then we obtain the following. 
 
 \begin{lemma}\label{lem:com-code}
 Let $R''_{jj'}$ be the commutation relation $[x_j,x_{j'}]=e$. Then
@@ -878,11 +887,11 @@ Let $R''_{jj'}$ be the commutation relation $[x_j,x_{j'}]=e$. Then
 \end{lemma}
 
 \begin{proof}
-The group defined by the right-hand side is obviously Abelian and a $2$-group, so it is of the form $\Z_2^{k'}$ for some $k'$. In fact, it is equal to the quotient of $\Z_2^n$ by the subgroup generated by the $\prod_{1\leq j \leq k} x_j^{h_{ij}}$. So it is $\Z_2^k$ where $k=n-\dim\textrm{im}\ h = \dim\ker h=\dim \code$.  
+The group defined by the right-hand side is obviously Abelian and a $2$-group, so it is of the form $\Z_2^{k'}$ for some $k'$. In fact, it is equal to the quotient of $\Z_2^n$ by the subgroup generated by the $\prod_{1\leq j \leq n} x_j^{h_{ij}}$. So it is $\Z_2^k$ where $k=n-\dim\textrm{im}\ h = \dim\ker h=\dim \code$.  
 \end{proof}
 
 \begin{remark}\label{rk:non-abelian}
-There exists matrices $h$ such that $G(h)$ is not $\Z_2^k$, and in fact is not Abelian. For an example, see~\cite[Example 2.16]{paddock2022arkhipov}.  
+There exists matrices $h$ such that $G(h)$ is not $\Z_2^k$, and in fact is not Abelian. For an example, see~\cite[Example 2.16]{paddock2022arkhipov}. For that example, $n=12$, $k=7$, and the parity check matrix $h$ can be described explicitly as follows: the $7$ rows of $h$ are indexed by the vertices of the complete bipartite graph $K_{3,4}$, the $12$ columns are indexed by the $12$ edges of $K_{3,4}$, and the entry $(i,j)$ of $h$ is $1$ if and only if the edge $j$ is incident on vertex $i$. As shown in~\cite{paddock2022arkhipov}, $G(h)$ is not Abelian. 
 \end{remark}
 
 
@@ -893,7 +902,7 @@ For readability it is convenient to reformulate the parity check matrix as a \em
 Let $\code$ be an $[n,k,d]_q$ linear code and $r\in \N$.
 %An \emph{$r$-local linear tester for $\code$} is a pair $M = ((v_S)_{S \subseteq [n]},\nu)$ where $\nu$ is a distribution over subsets $S\subseteq [n]$ of size at most $r$, and for each such subset a vector $v_S\in\F_q^S$, such that $u\in \code$ if and only if for all $S$ in the support of $\nu$, $v_S\cdot u_S=0$ where $u_S$ denotes the restriction of $u$ to coordinates in $S$.\footnote{Generally one imposes stronger ``soundness'' conditions on the tester. However, we will not need to be more specific than this. \hnote{This is probably a very vague comment that only makes sense to those who already know LTCs :)}} \hnote{Given that we've already talked about parity check matrices, it seems easier to define a local linear tester for a code $\code$ as a pair $(h,\nu)$ where $h \in \F^{m \times n}$ is a parity matrix for $\code$ and $\nu$ is a distribution over $\{1,\ldots,m\}$.}\tnote{Yes ok. I didn't change now but I'm in favor}
 %\hnote{ok, here's the parity check version} Let $\code$ be an $[n,k,d]_q$ linear code and $r\in \N$. 
-An \emph{$r$-local linear tester for $\code$} is a pair $M = (h,\nu)$ where $h \in \F^{m \times n}$ is a parity check matrix for $\code$ and $\nu$ is a distribution over $\{1,\ldots,m\}$. 
+An \emph{$r$-local linear tester for $\code$} is a pair $M = (h,\nu)$ where $h \in \F^{m \times n}$ is a parity check matrix for $\code$, whose every row has Hamming weight at most $r$, and $\nu$ is a distribution over $\{1,\ldots,m\}$. 
 \end{definition}
 
 We end this section with an example, the \emph{Hadamard code}. This code can be defined for any  $t\geq 1$ and it is a $[T,t,T/2]_2$ linear code, where $T=2^t$. For simplicity we write  $\code_\had$ to denote this code, omitting $t$. As a linear space, $\code_\had$ is the span of all $(x_i)_{x\in \field^t} \in \field^T$, for $i\in \{1,\ldots,t\}$.  
@@ -919,11 +928,11 @@ The corresponding $3$-local linear tester is $M_\had = (h_\had,\nu)$ where $\nu$
 Since each pair of coordinates $(x,y)$ appears together in at least one parity check, we can apply Lemma~\ref{lem:com-code} to deduce that $G(h_\had)=\Z_2^t$. 
 \end{remark}
 
-We state our first stability result for a code-based presentation, the presentation $G(h_\had)$ defined as~\eqref{eq:def-gh-pres} where $h_\had$ is defined above. To state the result we need to specify distributions $\mu_S$ and $\mu_R$. We let $\mu_S$ be uniform over the $2^t$ generators, and $\mu_R$ the uniform distribution over the relations $R_{i}$. (Here, there is no need to place any weight on the relations $x_i^2=e$, or on the commutation relations $R'_{ijj'}$.)  
+We state our first stability result for a code-based presentation, the presentation $G(h_\had)$ defined as~\eqref{eq:def-gh-pres} where $h_\had$ is defined above. To state the result we need to specify distributions $\mu_S$ and $\mu_R$. We let $\mu_S$ be uniform over the $2^t$ generators, and $\mu_R$ the uniform distribution over the relations $R_{i}$. (Here, there is no need to place any weight on the relations $x_i^2=e$, or on the commutation relations $R'_{ijj'}$, because it can be seen that they follow from the other relations.)  
 
 \begin{lemma}\label{lem:had-stab}
 Let $\mC$ be the class of all tracial von Neumann algebras. 
-The presentation $\Z_2^t= G(h_\had)$, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with $\delta(\eps)=O(\eps)$. 
+The presentation $\Z_2^t= G(h_\had)$, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mu_S,\mu_R,\mC)$ stable with $\delta(\eps)=O(\eps)$. 
 \end{lemma}
 
 \begin{proof}
@@ -936,6 +945,7 @@ This an immediate consequence of Theorem~\ref{thm:gh}, because $G(h_\had)$ is th
 \subsection{The Reed-Muller code over $\F_q$}
 \label{sec:rmq}
 
+We introduce a family of codes that will lead to interesting presentations $G(h)$, whose stability we are able to analyze.
 Fix integers $m,t \in \N$ and let $q=2^t$ and $M = 2^m$. Let $\mP(q,m,d)$ be the vector space over $\F_q$ that consists of all $m$-variate polynomials $f$ over $\F_q$ of individual degree at most $d$, that is all functions of the form
 \[
 	f(x_1,\ldots,x_m) = \sum_{\alpha \in \{0,1,\ldots,d\}^m} c_\alpha\,
@@ -965,7 +975,7 @@ Fix $d+1$ distinct values $t_0,\ldots,t_d \in \F_q$. Then for all $u,v \in \F_q$
 These are defined so that any polynomial $f:\F_q\to\F_q$ of degree at most $d$ satisfies
 %\[ f(v)\,=\, \sum_{i=0}^{d} \alpha_{u,v,i} \, f(u+i)\;.\]
 that for all $v \in \F_q$, 
-\[ f(v)\,=\, \sum_{i=0}^{d} \alpha_{u,v,i} \, f(v+t_i)\;.\]
+\[ f(v)\,=\, \sum_{i=0}^{d} \alpha_{u,v,i} \, f(u+t_i)\;.\]
 
 The tester verifies this relation along a randomly chosen \emph{axis-aligned direction}.  For all points $u \in \F_q^m$ and $j \in \{1,\ldots,m\}$, we say that the line through $u$ parallel to the $j$-th axis is the set of points $\{ u + te_j : t \in \F_q \}$ where $e_j=(0,\ldots,0,1,0,\ldots,0)\in \F_q^m$, where the unique $1$ is in the $j$-th position. 
 
@@ -984,7 +994,7 @@ Given access to some $g\in \F_q^n$, where $n=q^m$, identify $g$ with a function 
   \label{fig:RM-tester}
 \end{figure}
 
-A parity check matrix $h_{\RM} \in \F^{S \times q^m}$ for $\code_{\RM}$ where $S = q^m \times m \times q$ is as follows. Identify the rows with triples $(u,j,t) \in \F_q^m \times \{1,\ldots,m\} \times \F_q$. The $(u,j,t)$-th row of $h_{\RM}$ is the vector in $\F_q^m$ that for $i \in \{0,\ldots,d\}$ has the value $\alpha_{u,v,i}$ for $v = u + t e_j$ in the coordinate indexed by $u + t_i e_j$, the value $-1$ in the coordinate indexed by $u + te_j$, and the value $0$ everywhere else. 
+A parity check matrix $h_{\RM} \in \F^{S \times q^m}$ for $\code_{\RM}$, where $S = q^m \times m \times q$, is as follows. Identify the rows with triples $(u,j,t) \in \F_q^m \times \{1,\ldots,m\} \times \F_q$. The $(u,j,t)$-th row of $h_{\RM}$ is the vector in $\F_q^m$ that for $i \in \{0,\ldots,d\}$ has the value $\alpha_{u,v,i}$ for $v = u + t e_j$ in the coordinate indexed by $u + t_i e_j$, the value $-1$ in the coordinate indexed by $u + te_j$, and the value $0$ everywhere else. 
 
 Rubinfeld and Sudan~\cite{rubinfeld1996robust} (building on the work of Babai, Fortnow, and Lund~\cite{babai1991non}) showed that $h_{\RM}$ is indeed a parity check matrix for $\code_{\RM}$. Furthermore, they showed that the parity check matrix gives rise to a $(d+2)$-local tester for $\code_{\RM}$. 
 
@@ -1004,12 +1014,12 @@ Rubinfeld and Sudan~\cite{rubinfeld1996robust} (building on the work of Babai, F
 
 %For $q=2^t$ and $a\in \F_q$ we let $\kappa(a)\in\F_2^t$ denote binary representation of $a$, taken in a fixed but usually left implicit self-dual basis of $\F_{q}$ over $\F_2$. 
 
-Let $\kappa: \F_q \to \F_2^t$ denote an invertible linear map such that $\kappa(a)$ is the $\F_2$-representation of $a \in \F_q$ over some (implicitly specified) self-dual basis of $\F_q$ over $\F_2$. We extend $\kappa$ and its inverse $\kappa^{-1}$ to vectors over $\F_q$ coordinate-wise. We let $\tr(\cdot):\F_q\to\F_2$ denote the trace over $\F_2$. Because we chose a self-dual basis for the binary representation, the trace satisfies $\tr(ab)=\kappa(a)\cdot\kappa(b)$  where the right-hand side means the $\F_2$-inner product of the vectors $\kappa(a), \kappa(b)$. For more details on the $\kappa$ map and its properties, see~\cite[Section 3.3]{ji2020mip}.
+Let $\kappa: \F_q \to \F_2^t$ denote an invertible linear map such that $\kappa(a)$ is the $\F_2$-representation of $a \in \F_q$ over some (implicitly specified) self-dual basis of $\F_q$ over $\F_2$. We extend $\kappa$ and its inverse $\kappa^{-1}$ to vectors over $\F_q$ coordinate-wise. We let $\tr(\cdot):\F_q\to\F_2$ denote the trace over $\F_2$. Because we chose a self-dual basis for the binary representation, the trace satisfies $\tr(ab)=\kappa(a)\cdot\kappa(b)$  where the right-hand side means the $\F_2$-inner product of the vectors $\kappa(a), \kappa(b)$. For more details on the map $\kappa$ and its properties, see~\cite[Section 3.3]{ji2020mip}.
 
 Let $q=2^t$ and $\code$ an $[n,k,d]_q$ linear code. Let $\code_{\Had}$ be the Hadamard code over $\F_2^t$ (introduced at the end of Section~\ref{sec:pres-code}). 
 Let $\code'$ be the $[qn,tk,d']$ linear code over $\F_2$ defined as follows. Given $a\in (\F_2^t)^{k}$, first map $a\mapsto a'=\kappa^{-1}(a) \in \F_q^{k}$. Then encode $a'$ to $b'=\code(a')\in \F_q^n$. Finally, return $b=\code_\Had(\kappa(b'))\in(\F_2^q)^n$, where $\code_\Had$ is applied component-wise. Using that $\code_\Had$ has distance $q/2$, it is easy to verify that this code has distance $d'\geq dq/2$.
 
-Given an $r$-local $M=(h,\nu)$ for $\code$, there is a natural $r$-local tester $M'$ for $\code'$ which can be described as follows. Index coordinates of $\code'$ by pairs $(i,\alpha)\in [n]\times\F_2^t$, fixing a bijection between $[qn]$ and $[n]\times \F_2^t$.  We describe an $r$-local tester $M' = (h',\nu')$ for $\code'$. Informally, $h'$ contains two type of checks. First, the $A$-checks consist in the repetition of $n$ copies of the checks for the Hadamard code, one for each Hadamard-code encoding of an $\F_q$-symbol from $\code$. Second, the $B$-checks implement the checks of $\code$ specified by $M$, directly on the Hadamard encoding. More precisely, define $h'$ to be the block matrix $h'=\begin{pmatrix} A \\ B \end{pmatrix}$ where 
+Given an $r$-local tester $M=(h,\nu)$ for $\code$, there is a natural $\max(r,3)$-local tester $M'$ for $\code'$ which can be described as follows. Index coordinates of $\code'$ by pairs $(i,\alpha)\in [n]\times\F_2^t$, fixing a bijection between $[qn]$ and $[n]\times \F_2^t$.  We describe an $r$-local tester $M' = (h',\nu')$ for $\code'$. Informally, $h'$ contains two type of checks. First, the $A$-checks consist in the repetition of $n$ copies of the checks for the Hadamard code, one for each Hadamard-code encoding of an $\F_q$-symbol from $\code$. Second, the $B$-checks implement the checks of $\code$ specified by $M$, directly on the Hadamard encoding. More precisely, define $h'$ to be the block matrix $h'=\begin{pmatrix} A \\ B \end{pmatrix}$ where 
 \begin{itemize}
 	\item $A \in \F^{nq^2 \times nq}$ is itself a block-diagonal matrix where the diagonal blocks are the $q^2 \times q$ parity check matrix for the Hadamard code. 
 	In other words, $A$ can be viewed as $I_{n\times n} \otimes h_\had$ where $h_\had \in \F_2^{q^2 \times q}$ is the parity check matrix for the Hadamard code. 

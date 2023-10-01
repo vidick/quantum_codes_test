@@ -18,3 +18,7 @@
 *.brf
 
 *.dvi
+
+*.fdb_latexmk
+
+*.fls

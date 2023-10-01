@@ -725,6 +725,7 @@ where the second line is by the triangle inequality, the fourth line is due to t
 
 
 \subsection{Examples}
+\label{sec:examples}
 
 As a first example we spell out the application of Theorem~\ref{thm:gh} to the case of $G=\Z_2^k$. 
 Below, when we write $\Es{i\in \mX}$ where $\mX$ is a finite set, we mean the expectation over $i$ chosen uniformly at random from $\mX$, i.e.\ $\frac{1}{|\mX|} \sum_{i\in \mX}$. 
@@ -1315,12 +1316,12 @@ where $\eta = \poly(m,d,r) \cdot\poly(\eps,q^{-1},e^{-\Omega(r/m^2)})$. Choosing
 \section{Testing entanglement}
 \label{sec:quantum}
 
-In this section we give an application of our stability results to the problem of entanglement testing in quantum information. We first introduce the language of nonlocal games. Then we associate a nonlocal game to any presentation of $\Z_2^t$. Finally, we show that, if the presentation is stable, then the game is a robust  entanglement test. 
+In this section we give an application of our stability results to the problem of entanglement testing in quantum information. We first introduce the language of nonlocal games. Then we associate a nonlocal game to any presentation of $\Z_2^k$. Finally, we show that, if the presentation is stable, then the game is a robust  entanglement test. 
 	
 \subsection{Nonlocal games}
 \label{sec:nl-games}
 
-We give standard definitions on nonlocal games. 
+We give standard definitions on nonlocal games. For background from a computer science point of view, see~\cite{cleve2004consequences}; for the operator algebra perspective, see e.g.~\cite{kim2018synchronous}.
 
 \begin{definition}[Game]
 A game is a tuple $(\mX,\mu,\mA,D)$ where $\mX$ is a finite set, $\mu$ a distribution on $\mX\times \mX$, $\mA=(\mA(x))_{x\in\mX}$ a collection of finite sets, and 
@@ -1329,15 +1330,15 @@ such that $D$ is symmetric, i.e. $D(x,y,a,b)=D(y,x,b,a)$ whenever both terms are
 \[\mu(x) := \sum_{x'\in \mX} \frac{1}{2}\big(\mu(x,x')+\mu(x',x')\big)\;.\]
 \end{definition}
 
-The interpretation of $G=(\mX,\mu,\mA,D)$ as a nonlocal game is the following. In the ``game'', a referee is imagined to sample a pair of ``questions'' $(x,y)\sim \mu$. The question $x$ is sent to a first player, ``Alice,'' and the question $y$ is sent to a second player, ``Bob.'' Each player is tasked with responding with an answer $a\in \mA(x)$ for Alice, and $b\in \mA(y)$ for Bob. The referee accepts the players' answers if and only if $D(x,y,a,b)=1$. 
+The interpretation of $G=(\mX,\mu,\mA,D)$ as a nonlocal game is the following. In the ``game,'' a referee is imagined to sample a pair of ``questions'' $(x,y)\sim \mu$. The question $x$ is sent to a first player, ``Alice,'' and the question $y$ is sent to a second player, ``Bob.'' Each player is tasked with responding with an answer, $a\in \mA(x)$ for Alice and $b\in \mA(y)$ for Bob. The referee accepts the players' answers if and only if $D(x,y,a,b)=1$. 
 
-Nonlocal games provide a framework to study different kinds of bipartite correlations: depending on the level of coordination allowed between Alice and Bob, they may have varying chances of success in the game. 
+Nonlocal games provide a framework to study different kinds of bipartite correlations: depending on the level of coordination allowed between Alice and Bob, they may have varying chances of success in the game. A ``classical'' strategy consists of functions $f_A:\mX\to\mA$ for Alice and $f_B:\mX\to\mA$ for Bob; any such pair of functions leads to a probability of success in the game which can be computed in the obvious manner. 
 
-In quantum mechanics, a local strategy for the players (meaning that each player is required to determine their answer locally, without exchanging information with the other player) is specified by the following. 
+An important motivation for studying nonlocal games is that in quantum mechanics, local strategies for the players (meaning strategies that do not require any communication between the players to determine their answer, given their question) are a larger set than the above-described classical strategies. Specifically, a \emph{quantum local} (or \emph{quantum} for short) strategy is specified by the following. 
 
 \begin{definition}[Synchronous strategy]
 If $G=(\mX,\mu,\mA,D)$ is a game and $(\mM,\tau)$ a tracial von Neumann algebra, a \emph{synchronous strategy $\strategy$ for $G$ on $(\mM,\tau)$} is, for every $x\in \mX$, a projective measurement $(P^x_a)_{a\in \mA(x)}$ on $\mM$. The value of a strategy $\strategy$ in $G$ is 
-\[ \omega(G;\strategy)\,=\, \sum_{(x,y)\in\mX\times\mX}\frac{1}{2}\big(\mu(x,y)+\mu(y,x)\big) \sum_{(a,b)\in\mA(x)\times\mA(y)} D(x,y,a,b)\, \tau\big(P^x_a \,P^y_b\big) \;.\footnote{Note the symmetrization of $\mu$. This is to avoid explicitly requiring $\mu$ to be permutation-invariant in the definition of a game.}\]
+\[ \omega(G;\strategy)\,=\, \sum_{(x,y)\in\mX\times\mX}\frac{1}{2}\big(\mu(x,y)+\mu(y,x)\big) \sum_{(a,b)\in\mA(x)\times\mA(y)} D(x,y,a,b)\, \tau\big(P^x_a \,P^y_b\big) \;.\footnote{Note the symmetrization of $\mu$. This is to avoid explicitly requiring $\mu$ to be permutation-invariant in the definition of a game. We will often abuse notation and write $\Es{(x,y)\sim \mu}$ when taking expectations under the symmetrized distribution. }\]
 We say that $\strategy$ is \emph{perfect} if $\omega(G;\strategy)=1$.
 \end{definition}
 	
@@ -1346,8 +1347,8 @@ The name \emph{synchronous} stems from the fact that whenever an identical pair 
 It will be convenient to have a measure of closeness for strategies. The following definition parallels Definition~\ref{def:close}. 
 
 	\begin{definition}[Closeness for strategies]\label{def:close-meas}
-Let $\{A^i_a\}\subseteq \mM$ and $\{B^i_a\}\subseteq \mN$ be two families of projective measurements on  tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$ respectively, indexed by the same set $i\in \mI$ and with the same set of outcomes $a,b\in\mA$. For $\delta\geq0$ and $\mu$ a measure on $\mI$ we say that $\{A^i\}$ and $\{B^i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau_\infty/\tau_\infty(P)$, and a partial isometry $w\in P \mM_\infty \Id_\mM$ such that 
-\[ \Es{i\sim\mu} \sum_{a\in\mA} \big\| A^i_a - w^* B^i_a w \big\|_2^2 \,\leq\,\delta\]
+Let $\{A^i_a\}\subseteq \mM$ and $\{B^i_a\}\subseteq \mN$ be two families of projective measurements on  tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$ respectively, indexed by the same set $i\in \mI$ and with the same sets of outcomes $a,b\in\mA(i)$. For $\delta\geq0$ and $\mu$ a measure on $\mI$ we say that $\{A^i\}$ and $\{B^i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau_\infty/\tau_\infty(P)$, and a partial isometry $w\in P \mM_\infty \Id_\mM$ such that 
+\[ \Es{i\sim\mu} \sum_{a\in\mA(i)} \big\| A^i_a - w^* B^i_a w \big\|_{\tau^\cM}^2 \,\leq\,\delta\]
 and 
 \[\max\big\{ \tau^\mM(\Id_\mM-w^*w)\,,\; \tau^\mN(P-ww^*)\big\} \,\leq\, \delta\;.\]
 If the measure $\mu$ is omitted then it is understood to be the uniform measure on $\mI$.
@@ -1368,16 +1369,15 @@ Using the triangle inequality,
 \begin{align}
 \Es{i} \sum_a \tau\big(|P^i_a - w^* Q^i_a w|\big) &\leq\, \Es{i}\sum_a \Big(\tau\big(|(P^i_a-(P^i_a)^2)|\big) + \tau\big(|P_a(P^i_a-w^*Q^i_aw)|\big) \notag\\
 &\qquad\qquad+ \tau\big(|(P^i_a-w^*Q^i_aw)w^*Q^i_aw|\big) \notag \\
- \label{eq:lem:l1-l2}
-&\qquad +\tau\big(| (w^*Q^i_aw^*wQ^i_aw-w^*Q^i_aw)|\big)\Big)\;.
+&\qquad \qquad+\tau\big(| (w^*Q^i_aw^*wQ^i_aw-w^*Q^i_aw)|\big)\Big)\;. \label{eq:lem:l1-l2}
 \end{align}
 The first term on the right-hand side is zero, because $P^i$ is assumed projective. The terms in the middle are bounded using H\"older's inequality:
 \begin{align*}
-\Es{i}\sum_a  \tau\big(|P^i_a(P^i_a-w^*Q^i_aw)|\big) &\leq \Es{i} \sum_a \|P^i_a\|_2 \, \, \|P^i_a-w^*Q^i_aw\|_2\\
-&\leq \Big(\Es{i}\sum_a \|P^i_a\|^2_2\Big)^{1/2}\Big( \Es{i}\sum_a  \|P^i_a-w^*Q^i_aw\|_2^2 \Big)^{1/2}\\
+\Es{i}\sum_a  \tau\big(|P^i_a(P^i_a-w^*Q^i_aw)|\big) &\leq \Es{i} \sum_a \|P^i_a\|_\tau \, \, \|P^i_a-w^*Q^i_aw\|_\tau\\
+&\leq \Big(\Es{i}\sum_a \|P^i_a\|^\tau_2\Big)^{1/2}\Big( \Es{i}\sum_a  \|P^i_a-w^*Q^i_aw\|_\tau^2 \Big)^{1/2}\\
 &\leq \sqrt{\eps}
 \end{align*}
-by closeness. The second term of~\eqref{eq:lem:l1-l2} is bounded in a similar fashion.
+by closeness. The third term of~\eqref{eq:lem:l1-l2} is bounded in a similar fashion.
 Finally the last term of~\eqref{eq:lem:l1-l2} can be bounded as 
 \begin{align*}
 \Es{i}\sum_a \tau\big(| w^*Q^i_aw^*wQ^i_aw-w^*Q^i_aw|\big) &= \Es{i}\sum_a \tau\big( (w^*Q^i_a(I - w^*w)Q^i_aw)\big)\\
@@ -1397,14 +1397,14 @@ Let $G=(\mX,\mu,\mA,D)$ be a game and $\strategy=\{P^x_a\}$ and $\strategy'=\{Q^
 
 \begin{proof}
 By definition, there exists a projection $P \in \mM_\infty$ and a partial isometry $w \in P \mM_\infty I_\mM$ such that $\mN = P \mM_\infty P$ and
-\begin{align*}
-\omega(G;\strategy') &= \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( Q^x_a \, Q^y_b \big)\\
-&=  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\\
-&\qquad\qquad+  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big) \\
-&\qquad\qquad+ \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big(Q^x_a  Q^y_b (P-ww^*)\big)~.
-\end{align*}
+\begin{align}
+\omega(G;\strategy') &= \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( Q^x_a \, Q^y_b \big)\notag\\
+&=  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\notag\\
+&\qquad\qquad+  \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big) \notag\\
+&\qquad\qquad+ \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big(Q^x_a  Q^y_b (P-ww^*)\big)~.\label{eq:cv-0}
+\end{align}
 Here we used the fact that $Q^x_a \in \mN$ so $P Q^x_a P = Q^x_a$ for all $x,a$. 
-The second and third term on the right-hand side can be bounded as
+The second term on the right-hand side can be bounded as
 %\begin{align*}
 %\Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y)  \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|
 %&=\Big| \tau\Big(  (P - w\, w^* )\Big( \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big)\Big)\Big|\\
@@ -1413,21 +1413,21 @@ The second and third term on the right-hand side can be bounded as
 %\end{align*}
 %where the first inequality is by H\"older's inequality and the last inequality uses the definition of closeness to bound the first term. To bound the second term on the right-hand side, we write it as $\|A\circ B\|$, with $\circ$ the Hadamard product, and use  $\|A\circ B\| \leq \max_{i,j} |A_{i,j}|\|B\|$. Here $A = \sum_{a,b} D(a,b) P_{a,b}$, with $P_{a,b} = \sum_{i,j} \ket{u_{i,a}} \bra{v_{j,b}}$ with $\ket{u_{i,a}}$ a basis for the range of $Q^x_a$ and $\ket{v_{j,b}}$ for the range of $Q^y_b$, and $B=\sum_{a,b} Q^y_b ww^* Q^x_a = ww^*$.  \hnote{not quite sure about this proof... is the Hadamard product well defined in infinite dimensions? What is $D(a,b)$? A bit confused...}
 %\hnote{here's an alternate proof:}
-\begin{align*}
-\Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) & \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|\\
-&\leq \Es{(x,y)\sim\mu} \Big | \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b w w^* Q^x_a (P - w\, w^* ) \big) \Big | \\
-&\leq \sqrt{ \tau((P - ww^*)^2)} \cdot \sqrt{\Es{(x,y)\sim\mu} \tau\big( \big| \sum_{a,b} D(a,b,x,y)   Q^x_a w w^* Q^y_b \big|^2 \big) } \\
-&\leq \sqrt{\eps}\sqrt{ \Es{(x,y)\sim\mu} \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b ww^* Q^x_a w w^* Q^y_b \big) } \\
-&\leq \sqrt{\eps}\sqrt{ \Es{(x,y)\sim\mu}  \sum_{a,b}  \tau\big(Q^y_b ww^* Q^x_a w w^* Q^y_b \big) }  \\
-&=\sqrt{\eps}\sqrt{ \Es{(x,y)\sim\mu}  \sum_{b}  \tau\big(Q^y_b ww^* \big) } \\
-&\leq \sqrt{\eps}\;.
+\begin{align}
+\Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) & \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|\notag\\
+&\leq \Es{(x,y)\sim\mu} \Big | \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b w w^* Q^x_a (P - w\, w^* ) \big) \Big | \notag\\
+&\leq \sqrt{ \tau((P - ww^*)^2)} \cdot \sqrt{\Es{(x,y)\sim\mu} \tau\big( \big| \sum_{a,b} D(a,b,x,y)   Q^x_a w w^* Q^y_b \big|^2 \big) } \notag\\
+&\leq \sqrt{\eps}\sqrt{ \Es{(x,y)\sim\mu} \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b ww^* Q^x_a w w^* Q^y_b \big) } \notag\\
+&\leq \sqrt{\eps}\sqrt{ \Es{(x,y)\sim\mu}  \sum_{a,b}  \tau\big(Q^y_b ww^* Q^x_a w w^* Q^y_b \big) } \notag \\
+&=\sqrt{\eps}\sqrt{ \Es{(x,y)\sim\mu}  \sum_{b}  \tau\big(Q^y_b ww^* \big) } \notag\\
+&\leq \sqrt{\eps}\;.\label{eq:cv-1}
 %&=\Big| \tau\Big(  (P - w\, w^* )\Big( \Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big)\Big)\Big|\\
 %&\leq \tau(P-ww^*) \Big\|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big\|\\
 %&\leq \eps\;,
-\end{align*}
-The third line is due to Cauchy-Schwarz and Jensen's inequality, where $|A|^2=A^*A$. The fourth line uses that $P - ww^*$ is a positive operator with operator norm at most $1$ for the first term, and that for fixed $x,y$, the measurements $\{ Q^x_a \}_a$ and $\{Q^y_b\}_b$ are projective. The fifth line is due to $D(x,y,a,b) \in \{0,1\}$. The sixth line is due to $\sum_a Q^x_a = I_\mN$. The seventh line is due to $\sum_a Q^y_b = I_\mN$.
+\end{align}
+The third line is due to Cauchy-Schwarz and Jensen's inequality, where $|A|^2=A^*A$. The fourth line uses that $P - ww^*$ is a positive operator with operator norm at most $1$ for the first term, and that for fixed $x,y$, the measurements $\{ Q^x_a \}_a$ and $\{Q^y_b\}_b$ are projective. The fifth line is due to $D(x,y,a,b) \in \{0,1\}$. The sixth line is due to $\sum_a Q^x_a = I_\mN$. The seventh line is due to $\sum_a Q^y_b = I_\mN$. The third time on the right-hand side of~\eqref{eq:cv-0} is bounded in the same manner. 
 
-For $x\in \mX$ such that $\mu(x)\neq 0$, denote by $\mu_x$ the (symmetrized) conditional distribution $\mu_x(y)=\frac{1}{2}(\mu(x,y)+\mu(y,x))/\mu(x)$. Then using the above
+For $x\in \mX$ such that $\mu(x)\neq 0$, denote by $\mu_x$ the (symmetrized) conditional distribution $\mu_x(y)=\frac{1}{2}(\mu(x,y)+\mu(y,x))/\mu(x)$. Then using~\eqref{eq:cv-0} and the preceding bounds,
 \begin{align*}
 \big|\omega(G;\strategy) - \omega(G;\strategy')\big|
  &\leq 2\sqrt{\eps}+ \Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) \big( \tau\big( P^x_a \, P^y_b \big)-\tau\big( w^* Q^x_a w\, w^* Q^y_b w\big)\big)\Big|\\
@@ -1436,23 +1436,27 @@ For $x\in \mX$ such that $\mu(x)\neq 0$, denote by $\mu_x$ the (symmetrized) con
 &\leq 2\sqrt{\eps}+2\Es{x\sim\mu} \sum_{a}  \tau\big(\big| P^x_a-w^*Q^x_aw\big|\big) \\
 &\leq 2\sqrt{\eps}+2(\eps + 2\sqrt{\eps}) \leq 8\sqrt{\eps}\;,
 \end{align*}
-where the third line uses $\tau(AB)\leq\tau(|A|)\|B\|$ and the last line is by~\eqref{eq:l1-l2}.% and Jensen's inequality.
+where the third line uses $\tau(AB)\leq\tau(|A|)\|B\|$ and the last line is by Lemma~\ref{lem:l1-l2}.% and Jensen's inequality.
 \end{proof}
 	
 \subsection{Some simple games}
 
-We introduce games commonly used in the literature, that will serve as building blocks. For details on the implementation of these games we refer to~\cite{de2022spectral}.
+We introduce games previously used in the literature, that will serve as building blocks. For details on the implementation of these games we refer to~\cite{de2022spectral}.
 
 \paragraph{Commutation game.}
-We call \emph{commutation game} the game $G_{\cc}=(\mX_\cc,\mu_\cc,\mA_\cc,D_\cc)$defined in~\cite[Section 3.1]{de2022spectral}. For convenience we change the notation slightly and denote $x_{X,0}, x_{Z,0} \in \mX_{\cc}$ the two special questions, $x_{\cc,1}$ and $x_{\cc,2}$ respectively. 
+We call \emph{commutation game} the game $G_{\cc}=(\mX_\cc,\mu_\cc,\mA_\cc,D_\cc)$ defined in~\cite[Section 3.1]{de2022spectral}. For convenience we change the notation slightly and denote $x_{X,0}, x_{Z,0} \in \mX_{\cc}$ the two special questions, $x_{\cc,1}$ and $x_{\cc,2}$ respectively. 
 
 \paragraph{Anti-commutation game.}
-We call \emph{anti-commutation game} the game $G_\ac=(\mX\ac,\mu_\ac,\mA_\ac,D_\ac)$ defined in~\cite[Section 3.2]{de2022spectral}. For convenience we change the notation slightly and  denote $x_{X,1}, x_{Z,1} \in \mX_{\ac}$ the two special questions, $x_{\ac,1}$ and $x_{\ac,2}$ respectively. 
+We call \emph{anti-commutation game} the game $G_\ac=(\mX_\ac,\mu_\ac,\mA_\ac,D_\ac)$ defined in~\cite[Section 3.2]{de2022spectral}. For convenience we change the notation slightly and  denote $x_{X,1}, x_{Z,1} \in \mX_{\ac}$ the two special questions, $x_{\ac,1}$ and $x_{\ac,2}$ respectively. 
 
 \paragraph{Braiding game.}
-Finally we introduce a game, which we denote $G_{\dlS}$, that is built from the previous two games and is a specific instantiation of a more general class of games analyzed in~\cite[Section 3.4]{de2022spectral}.  Using notation from~\cite{de2022spectral}, the game $G_{\dlS}$ is obtained by making the following choices. The game can be constructed from any $G\in\F_2^{k\times n}$. Let 
-\[ S_X=S_Z=\{G e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k\;,\]
-and let $\mu_{\dlS}$ be the uniform distribution over $\Omega=S_X\times S_Z$. Let $\alpha,\beta$ be the coordinate projections on $\Omega$. Let $\Omega_+ = \{(a,b)\in \Omega:a\cdot b=0\}$ and $\Omega_-=\{(a,b)\in\Omega:a\cdot b=1\}$. Then $G_{\dlS}=(\mX_{\dlS},\mu_{\dlS},\mA_{\dlS},D_{\dlS})$ has question set $\mX_{\dlS} = \{PX,PZ\} \cup (\mX_{\cc}\times \Omega_+) \cup (\mX_{\ac} \times \Omega_-)$ and is as described in~\cite[Section 3.4]{de2022spectral}. For clarity we recall the game, using our notation, in Figure~\ref{fig:dlS}. 
+Finally we introduce a game, which we denote $G_{\dlS}$, that is built from the previous two games and is a based on a more general class of games analyzed in~\cite[Section 3.4]{de2022spectral}.  Using notation from~\cite{de2022spectral}, the game $G_{\dlS}$ is obtained by making the following choices. The game can be constructed from any $E\in\F_2^{k\times n}$. Let 
+\begin{equation}\label{eq:dls-sets}
+ S_X\,=\,S_Z\,=\,\{E e_i:\,i\in\{1,\ldots,n\}\}\subseteq \field^k\;,
+\end{equation}
+and let $\mu_{\dlS}$ be the uniform distribution over $\Omega=S_X\times S_Z$. Let $\alpha,\beta$ be the coordinate projections on $\Omega$. Let $\Omega_+ = \{(a,b)\in \Omega:a\cdot b=0\}$ and $\Omega_-=\{(a,b)\in\Omega:a\cdot b=1\}$. Then $G_{\dlS}=(\mX_{\dlS},\mu_{\dlS},\mA_{\dlS},D_{\dlS})$ has question set 
+\[ \mX_{\dlS} = \{X,Z\} \cup (\mX_{\cc}\times \Omega_+) \cup (\mX_{\ac} \times \Omega_-) \cup (\{X\}\times S_X) \cup (\{Z\}\times S_Z)\;.\]
+The game itself is based on the game described in~\cite[Section 3.4]{de2022spectral}, with a small modification (the addition of the consistency test). For clarity we recall the entire game in Figure~\ref{fig:dlS}. 
 
 \begin{figure}[!htbp]
   \centering
@@ -1476,21 +1480,23 @@ We recall the following result from~\cite{de2022spectral} about this game. (The 
 
 For a projective measurement $P = \{P_a\}_{a \in \F_2^k}$, we use $\widehat{P}(b)$ to denote the observable
 \[\widehat{P}(b) \,=\, \sum_a (-1)^{a\cdot b} P_a\;.\]
-For binary outcome measurements $P = \{ P_0, P_1\}$, we write $\widehat{P}$ to denote $P_0 - P_1$. 
+For binary outcome measurements $P = \{ P_0, P_1\}$, we write $\widehat{P}$ to denote $P_0 - P_1$. Recall the notation $\sigma^W$ for the Pauli observables introduced in Section~\ref{sec:examples}.
 
 \begin{definition}[Qubit test]
 Let $k\in \N$ and $\delta:[0,1]\to\R_+$. 
 A \emph{$(k,\delta(\eps))$-qubit test} is a synchronous game $G=(\mX,\mu,\mA,D)$ such there are two sets $S_X,S_Z\subseteq \field^k$ that each span $\field^k$ and an injection $\phi:(\{X\}\times S_X) \cup (\{Z\}\times S_Z) \to \mX$ such that $\mA(\phi({X},a))=\mA(\phi({Z},b))=\field$ for all $a\in S_X$, $b\in S_Z$ and such that the following holds:
 \begin{itemize}
-\item (Completeness:) There is a synchronous strategy $\strategy = \{P^{x}\}_{x \in \mX}$ for $G$ on $\mM=M_{2^{k}}(\C)$ that succeeds with probability $1$ in $G$ and is such that $\widehat{P}^{\phi({W},a)} = \sigma^W(a)$ for every $W\in\{X,Z\}$ and $a\in S_W$. 
+\item (Completeness:) There is a synchronous strategy $\strategy = \{P^{x}\}_{x \in \mX}$ for $G$ on $\mM=M_{2^{k}}(\C)\otimes \mH$, for some Hilbert space $\mH$, that succeeds with probability $1$ in $G$ and is such that $\widehat{P}^{\phi({W},a)} = \sigma^W(a)$ for every $W\in\{X,Z\}$ and $a\in S_W$. 
 \item (Soundness:) Let $\mu'$ denote the (renormalized) restriction of (the marginal of) $\mu$ to the image of $\phi$ in $\mX$.
 Any synchronous strategy  $\strategy = \{P^{x}\}_{x \in \mX}$ on $(\mM,\tau)$ for $G$ that succeeds with probability $1-\eps$ for some $\eps\geq 0$ is $(\delta(\eps),\tilde{\mu})$-close to a strategy on some algebra $(M_{2^{k}}(\C)\otimes \mN,\tr\otimes \tau')$ where $(\mN,\tau')$ is a tracial sub-algebra of $\mM_\infty$ and such that
 \[\widehat{P}^{\phi({W},a)} = \sigma^W(a)\otimes \Id_\mN\;.\]
 \end{itemize}
 \end{definition}
 
+The terminology ``qubit test'' is motivated by the notion of a \emph{qubit} as introduced in~\cite{chao2017overlapping}. Informally, a qubit is a copy of the space $\C^2$ together with a pair of anticommuting observables $X,Z$ acting on it. A qubit test is then a test that forces any successful strategy for the players in it to ``contain'', as a subset of its measurement operators, a representation of (generators of) the algebra of $k$ qubits. 
+
 \begin{theorem}[Corollary 3.9 in~\cite{de2022spectral}]\label{thm:dls-braid}
-The game $G_{\dlS}$ is a $(k,O(\eps))$-qubit test, where the sets $S_X$ and $S_Z$ are both equal to $\F_2^k$ and $\phi((X,a))=(X,a)$ and $\phi((Z,b))=(Z,b)$.  
+Suppose that $E\in \F_2^{k\times n}$ is such that the rows of $E$ span an $[n,k,d]_2$ linear code. The game $G_{\dlS}$ is a $(k,O(\eps))$-qubit test, where the sets $S_X$ and $S_Z$ are as in~\eqref{eq:dls-sets} and $\phi((X,a))=(X,a)$ and $\phi((Z,b))=(Z,b)$ and the $O(\eps)$ hides a (quadratic) dependence on $d/n$.  
 \end{theorem}
 
 The goal in the remaining sections is to design a qubit test where the size of the question set is $\polylog(k)$, as opposed to $\Omega(k^2)$ here. 
@@ -1511,11 +1517,11 @@ where $|h_{j\cdot}|$ denotes the Hamming weight of the $j$-th row of $h$. For an
 We show the following. For $\code$ an $[n,k,d]_2$ linear code and $M=(h,\nu)$ an $r$-local tester for $\code$, recall the presentation~\eqref{eq:def-gh-pres} of $G(h)$. We define a distribution $\mu$ on the relations defining that presentation as follows. First, sample a uniformly random $j\in\{1,\ldots,m\}$ and uniformly random $i,i'\in\{1,\ldots,n\}$, conditioned on $h_{ji}=h_{ji'}=1$ and $i\neq i'$. Then, with probability $1/3$ we return the relation $x_i^2=e$, with probability $1/3$ we return the relation $R_i$, and with probability $1/3$ we return $R'_{jii'}$. 
 
 \begin{proposition}\label{prop:rep-game}
-Let $\code$ be an $[n,k,d]_2$ linear code, $M=(h,\nu)$ an $r$-local tester for $\code$, and $\mu$ the distribution defined above. Let $\strategy = \{P^{x}\}_{x \in \mX}$ be a strategy for $G_{\code,m}$ on $(\mN,\tau^\mN)$ such that $\omega^*(G_{\code,M},\strategy)\geq 1-\eps$. Then $\phi:x_i\mapsto {\widehat{P}}^{(\var,i)}$, for $i\in\{1,\ldots,n\}$, is an $(O(r\eps),\mu)$-homomorphism of the presentation~\eqref{eq:def-gh-pres} of $G(h)$.
+Let $\code$ be an $[n,k,d]_2$ linear code, $M=(h,\nu)$ an $r$-local tester for $\code$, and $\mu$ the distribution defined above. Let $\strategy = \{P^{x}\}_{x \in \mX}$ be a strategy for $G_{\code,M}$ on $(\mN,\tau^\mN)$ such that $\omega^*(G_{\code,M};\strategy)\geq 1-\eps$. Then $\phi:x_i\mapsto {\widehat{P}}^{(\var,i)}$, for $i\in\{1,\ldots,n\}$, is an $(O(r\eps),\mu)$-homomorphism of the presentation~\eqref{eq:def-gh-pres} of $G(h)$.
 \end{proposition}
 
 \begin{proof}
-Let $\strategy$ be a synchronous strategy for the braiding test  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$ in $G_{\code,M}$. For $i\in\{1,\ldots,n\}$ let 
+Let $\strategy$ be a synchronous strategy for $G_{\code,M}$  in  $(\mM,\tau)$ that succeeds with probability at least $1-\eps$. For $i\in\{1,\ldots,n\}$ let 
 \[ \phi(x_i)\,=\,{\widehat{P}}^{(\var,i)}\,=\, P^{(\var,i)}_0-P^{(\var,i)}_1\;.\]
 Then by definition $\phi(x_i)^2=\Id$ for all $i$. Recalling~\eqref{eq:def-gh-pres}, it remains to verify the relations $R_j$ and $R'_{jii'}$, for $1\leq i<i'\leq n$ and $1\leq j \leq m$. To show these relations, first express the assumption that $\strategy$ succeeds in $G_{\code,M}$ as
 \begin{align}
@@ -1525,7 +1531,7 @@ For an equation $j$ and variables $i,i'$, let
 \[ R^{(\eq,j)}_{ii'} = \sum_a (-1)^{a_i+a_{i'}} P^{(\eq,j)}_a\qquad\text{and}\qquad R^{(\eq,j)}_{i} = \sum_a (-1)^{a_i}P^{(\eq,j)}_a\;,\]
 so that, using that $\{P^{(\eq,j)}_a\}$ is a projective measurement, 
 \[R^{(\eq,j)}_{ii'} \,=\, R^{(\eq,j)}_{i}R^{(\eq,j)}_{i'}\,=\,R^{(\eq,j)}_{i'}R^{(\eq,j)}_{i}\;.\]
-Using this we compute  
+Using this we compute
 \begin{align*}
 \Es{(j,i,i')\sim\mu} \|R'_{jii'}-\Id\|_\tau^2 &= \Es{(j,i,i')} \big\| \widehat{P}^{(\var,i)}\widehat{P}^{(\var,i')} - \widehat{P}^{(\var,i')}\widehat{P}^{(\var,i)}\big\|_\tau^2\\
 &= \Es{(j,i,i')} \big\| \big(\widehat{P}^{(\var,i)} - R^{(\eq,j)}_{i}\big)\widehat{P}^{(\var,i')} + R^{(\eq,j)}_{i}\big(\widehat{P}^{(\var,i')}-R^{(\eq,j)}_{i'}\big)  \\
@@ -1534,7 +1540,7 @@ Using this we compute
 &= 2\Big(4-2\Big(\Es{(j,i,i')} \tau\big( \widehat{P}^{(\var,i)}  R^{(\eq,j)}_{i}\big) +\tau\big(\widehat{P}^{(\var,i')}  R^{(\eq,j)}_{i'}\big)\Big)\Big)\\
 &=2\Big(8-8 \Es{j\in\{1,\ldots,m\}} \Es{i:h_{ji}=1}\sum_{a} \tau\big( \widehat{P}^{(\var,i)}_{a_i}  P^{(\eq,j)}_{a}\big)\Big)\;.
 \end{align*}
-Here the third line is the Cauchy-Schwarz inequality and uses that $\widehat{P}^{(\var,i)}$ and $R^{(\eq,j)}_{i}$ are observables, hence square to identity; the fourth line expands the norms and also uses this fact; and the fifth line uses that for observables $A=A0-A_1$ and $B=B_0-B_1$, $AB=\Id-2(A_0B_0+A_1B_1)$. The last line also uses that the marginal of $(j,i,i')\sim\mu$ on $(j,i)$ or $(j,i')$ are identical and match the distribution indicated in the last line. Using~\eqref{eq:rep-game-1} we deduce that  
+Here we abused notation slightly and denoted $\Es{(j,i,i')}$ the expectation for a relation $R'_{jii'}$ sampled according to $\mu$, conditioned on such a relation being sampled. The third line is the Cauchy-Schwarz inequality and uses that $\widehat{P}^{(\var,i)}$ and $R^{(\eq,j)}_{i}$ are observables, hence square to identity; the fourth line expands the norms and also uses this fact; and the fifth line uses that for observables $A=A0-A_1$ and $B=B_0-B_1$, $AB=\Id-2(A_0B_0+A_1B_1)$. The last line also uses that the marginal of $(j,i,i')\sim\mu$ on $(j,i)$ or $(j,i')$ are identical and match the distribution indicated in the last line. Using~\eqref{eq:rep-game-1} we deduce that  
 \[ \Es{(j,i,i')\sim\mu} \|R'_{jii'}-\Id\|_\tau^2 \,\leq\, 16\eps\;.\]
 Now we consider the relations $R_j$. For $j\in\{1,\ldots,m\}$ we denote $i_1,\ldots,i_r$ the indices such that $h_{ji}=1$ (assume for simplicity of notation that there are exactly $r$). Then 
 \begin{align*}

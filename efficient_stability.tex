@@ -496,7 +496,7 @@
 
 
 \begin{abstract}
-We introduce a notion of \emph{efficient stability} for finite presentations of groups. Informally, a finite presentation using generators $S$ and relations $R$ is \emph{stable} if any map from $S$ to unitaries (say, in some finite von Neumann algebra) that approximately satisfies the relations (in the tracial norm) is close to the restriction of a representation of $G$ to the subset $S$. This notion and variants thereof have been extensively studied in recent years, in part motivated by connections to property testing in computer science. The novelty in our work is the focus on \emph{efficiency} which, informally, places an onus on small presentations (of size, say, logarithmic in the group size) and aims to achieve non-trivial tradeoffs between it and the stability---as, intuitively, more generators and relations place more constraints on the approximate homomorphism, making stability easier to achieve---whereas we wish to minimize the number of variables and constraints. \hnote{This is pretty wordy for an abstract... sometime later this week I can try to shorten it if someone hasn't already done it.}
+We introduce a notion of \emph{efficient stability} for finite presentations of groups. Informally, a finite presentation using generators $S$ and relations $R$ is \emph{stable} if any map from $S$ to unitaries (say, in some finite von Neumann algebra) that approximately satisfies the relations (in the tracial norm) is close to the restriction of a representation of $G$ to the subset $S$. This notion and variants thereof have been extensively studied in recent years, in part motivated by connections to property testing in computer science. The novelty in our work is the focus on \emph{efficiency} which, informally, places an onus on small presentations (of size, say, logarithmic in the group size) and aims to achieve non-trivial tradeoffs between it and the stability---as, intuitively, more generators and relations place more constraints on the approximate homomorphism, making stability easier to achieve---whereas we wish to minimize the number of variables and constraints. \hnote{This is pretty wordy for an abstract... sometime later this week I can try to shorten it if someone hasn't already done it.}\mnote{I like the abstract as is...}
 
 Equipped with the new definition we give examples. We first show a general method for constructing candidate stable presentations of $\Z_2^k$ from linear error-correcting codes that have an additional property known as \emph{local testability}. While we cannot show that the method always leads to stable presentations, we leverage recent results in the study of nonlocal games in quantum information theory (Ji et al., Discrete Analysis 2021) to show that a specific instantiation of our construction, based on the Reed-Muller family of codes, leads to a stable presentation of $\Z_2^k$ of size $\poly\log(k)$ only. As an application we combine this result with recent work of de la Salle (arXiv:2204.07084) to re-derive a key building block in the recent disproof of Connes' Embedding Problem via complexity theory (Ji et al., arXiv:2001.04383), the Pauli Braiding Test of Natarajan and Vidick (IEEE FOCS'18). 
 \end{abstract}
@@ -526,7 +526,6 @@ stability of approximate \emph{$1$-dimensional} representations of the presentat
 \begin{definition}[Almost homomorphism]\label{def:approx-hom-intro}
 Let $G = \langle S:R\rangle $ be a finitely presented group and $\mu_R$ a distribution on $R$. An $(\eps,\mu_R)$-almost homomorphism of $G$ is a homomorphism $\phi:\mF(S)\to\mU(\C^d)$ for some $d\geq 1$ such that
 \[ \Es{r\sim \mu_R} \big\|  \phi(r) - \Id \big \|_f^2 \,\leq\, \eps\;.\]
-{\color{red} YOU ALREADY SAY THAT YOU ARE GIVEN A HOMOMOTPHISM FROM THE FREE GROUP. SO $\phi(r)$ IS WELL DEFINED... NO NEED FOR THE REMARK "Here ...." AT THE END}\tnote{Ok I erased it. Michael, can you mark your comments using the command ``$\backslash$mnote$\{\cdots\}$'', {\huge AND NOT USE CAPS PLEASE}}.
 \end{definition}
 
 As already mentioned this definition makes two importance choices: firstly, to measure closeness in the Hilbert-Schmidt norm, and secondly, to measure it on average over the choice of a relation. Next we give our definition for a finitely presented group to be stable; see Definition~\ref{def:eff-stab} for the general setting. 
@@ -639,7 +638,7 @@ If the measure $\mu$ is omitted then it is understood to be the uniform measure 
 
 We now give our definition of stability.
 
-\begin{definition}[{\color{red}Efficient} stability]\label{def:eff-stab}
+\begin{definition}[Stability]\label{def:eff-stab}
 Let $G = \langle S:R\rangle $ be a finitely presented group. Let $\mC$ be a class of tracial von Neumann algebras. Let $\mu_S$ be a distribution on $S$ and $\mu_R$ a distribution on $R$. For $\delta:[0,1]\to[0,1]$ such that $\lim_{t\to 0}\delta(t)=0$ we say that the presentation $G=\langle S:R\rangle$ is $(\delta,\mu_S,\mu_R,\mC)$-stable if for every $(\cM,\tau)$ in $\mC$, every $(\eps,\mu_R)$-almost homomorphism of $G$ is $(\delta(\eps),\mu_S)$-close to a unitary representation of $G$ on some $(\mN,\tau^\mN)\in \mC$. We refer to the function $\delta$ as the ``modulus of stability'' of the presentation.
 \end{definition}
 
@@ -701,9 +700,9 @@ Then $\{\tilde{Q}_a\}$ is a POVM on $\mM$. Moreover,
 &\geq 1- \eps- \tau_\infty\big( P- w w^*\big)\;,
 \end{align*}
 where the third line uses that $T_aPT_a=T_a$, $\sum_a T_a = \Id_\mN$ and the definition of $\eps$ for the first term, and for the second the fact that for $A\in\mM$, $\tau^\mM(A)=\tau_\infty(A)$ by definition of $\tau_\infty$ and the identification of $\mM$ with a ``corner'' in $\mM_\infty$, the fourth line uses cyclicity of the trace for the second, and the last uses $\|ww^*\|,\|\sum_a T_a\|_\infty\leq 1$. By assumption, 
-\begin{align*}
-\tau_\infty\big( P- w w^*\big) \,\leq\, \eps\, \tau_\infty(P)\,\leq \frac{\eps}{1-\eps}\;,
-\end{align*}
+\begin{align}
+\tau_\infty\big( P- w w^*\big) \,\leq\, \eps\, \tau_\infty(P)\,\leq \frac{\eps}{1-\eps}\;,\label{eq:bound_on_P-ww*_in_trace_infty}
+\end{align}
 where the last inequality is because by definition, $\tau^N(P)=1$, thus
 \[1-\eps \,\leq\, \tau^\mN(ww^*) \,=\, \frac{\tau_\infty(ww^*)}{\tau_\infty(P)}\,=\, \frac{\tau_\infty(w^*w)}{\tau_\infty(P)}  \,\leq\, \frac{1}{\tau_\infty(P)}\]
 since $\tau_\infty(w^* w) = \tau^\mM(w^* w)$ and $w^*w\leq I_\mM$. Overall, 
@@ -781,27 +780,55 @@ As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on th
 \end{claim}
 
 \begin{proof}
-Let $\{A_i\}_{i=1}^k$ be permutations acting on the set $\field^{k+1}$ of length $k+1$ bits as follows: For every $i\neq 1$, $A_i$ flips the $i^{\rm th}$ bit. The permutation $A_1$ always flips the $1^{\rm st}$ bit, and  flips the $(k+1)^{\rm th}$ bit conditioned on the $2^{\rm nd}$ bit being $1$. Namely, each $A_i$ is a NOT gate applied to  the $i^{\rm th}$ bit, while $A_1$ is a NOT gate applied on the first bit composed with a CNOT gate applied to the $(k+1)^{\rm th}$ bit. The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\complex^{\field^{k+1}}$ with its standard normalized trace.
+Let $\{A_i\}_{i=1}^k$ be permutations acting on the set $\field^{k+1}$ of length $k+1$ bits as follows: For every $i\neq 1$, $A_i$ flips the $i^{\rm th}$ bit. The permutation $A_1$ always flips the $1^{\rm st}$ bit, and  flips the $(k+1)^{\rm th}$ bit conditioned on the $2^{\rm nd}$ bit being $1$. Namely, each $A_i$ is a NOT gate applied to  the $i^{\rm th}$ bit, while $A_1$ is a NOT gate applied on the first bit composed with a CNOT gate applied to the $(k+1)^{\rm th}$ bit. The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\complex^{\field^{k+1}}$ with its standard normalized trace $\tau^\cM$.
 
-Let $\{B_i\}_{i=1}^k$ be a collection of unitaries in $(\mN,\tau')$ --- where $\mN$ is $P\mM_\infty P$  for some projection $P$ of finite trace and $\tau'=\frac{\tau_\infty}{\tau_\infty(P)}$ --- which satisfy all the relations in $R$. Namely, each $B_i$ is an order $2$ unitary and they all commute. For every $x\in \Z_2^k$ let  $B_x=\prod_{i=1}^kB_i^{x_i}$. Now, we can apply on this representation of $\Z_2^k$ the same operation as we did in the proof of Corollary \ref{cor:lin-test}: For every $u\in \Z_2^k$ we define $Q_u=\Expectation_x(-1)^{u\cdot x}B_X$. Then, again, $\{Q_u\}$ is a projective measurement on $\mN$. By Lemma \ref{lem:pull-back}, for every partial isometry $w\in P\mM_\infty \Id_\mM$ we have a projective measurement $\{P_u\}_{u\in \Z_2^k}$  on $\mM=M_{2^{k+1}}(\complex)$ such that 
+Let $\{B_i\}_{i=1}^k$ be a collection of unitaries in $(\mN,\tau^\mN)$ --- where $\mN$ is $P\mM_\infty P$  for some projection $P$ of finite trace and $\tau^\mN=\frac{\tau_\infty}{\tau_\infty(P)}$ --- which satisfy all the relations in $R$. Namely, each $B_i$ is an order $2$ unitary and they all commute. For every $x\in \Z_2^k$ let  $B_x=\prod_{i=1}^kB_i^{x_i}$. Now, we can apply on this representation of $\Z_2^k$ the same operation as we did in the proof of Corollary \ref{cor:lin-test}: For every $u\in \Z_2^k$ we define $Q_u=\Expectation_x(-1)^{u\cdot x}B_X$. Then, again, $\{Q_u\}$ is a projective measurement on $\mN$. By Lemma \ref{lem:pull-back}, for every partial isometry $w\in P\mM_\infty \Id_\mM$ we have a projective measurement $\{P_u\}_{u\in \Z_2^k}$  on $\mM=M_{2^{k+1}}(\complex)$ such that 
 \[
 \sum_{u\in \Z_2^k}\Vert P_u -w^*Q_uw\Vert_\tau^2\leq 56\theta,
 \]
 where $\theta=\max\{\tau(\Id_\mM-w^*w),\tau'(P-ww^*)\}$.
-Let $C_x=\sum_{u\in \Z_2^k}(-1)^{u\cdot x}P_u$ for every $x\in \Z_2^k$. Then {\color{red} WHY REALLY? WE SHOULD HAVE EXPLAINED THE FOLLOWING CONSEQUENCE ALREADY IN COROLLARY \ref{cor:lin-test} --- WE CAN PROBABLY PIN DOWN THE CONSTANT HERE AS WELL.}
+Let $C_x=\sum_{u\in \Z_2^k}(-1)^{u\cdot x}P_u$ for every $x\in \Z_2^k$. Then, as in \eqref{eq:lin-test-2}, we have
 \[
 \begin{split}
- \Expectation_{x\in \Z_2^k}\Vert C_x-w^*B_xw\Vert_\tau^2\leq O(\theta).
+ \Expectation_{x\in \Z_2^k}\Vert C_x-w^*B_xw\Vert_\tau^2\leq 56\theta.
 \end{split}
 \]
 But, for every $x,y\in \Z_2^k$, we have
+\begin{align}
+      \Vert C_x-w^*B_xw\Vert_\tau&=\Vert C_yC_{x+y}-w^*B_yB_{x+y}w\Vert_\tau \notag\\
+    &=\Vert C_yC_{x+y}-C_yw^*B_{x+y}w+C_yw^*B_{x+y}w-w^*B_yww^*B_{x+y}w \notag\\ &+w^*B_yww^*B_{x+y}w-w^*B_yB_{x+y}w\Vert_\tau\notag \\
+    &\leq \Vert C_{x+y}-w^*B_{x+y}w\Vert_\tau+\Vert C_y-w^*B_yw\Vert_\tau+\Vert w^*B_y(ww^*-P)B_{x+y}w\Vert_{\tau}.\label{eq:lower_bound_stab_standard_pres}
+\end{align}
+Now, 
+\begin{align}
+    \Vert w^*B_y(ww^*-P)B_{x+y}w\Vert_{\tau}^2&=\tau^\mM(w^*B_{x+y}(ww^*-P)B_yww^*B_y(ww^*-P)B_{x+y}w)\notag\\
+    &\leq \tau^\infty(w^*B_{x+y}(ww^*-P)B_yww^*B_y(ww^*-P)B_{x+y}w)\notag\\
+     &\leq \tau^\infty((ww^*-P)B_yww^*B_y(ww^*-P)B_{x+y}ww^*B_{x+y})\notag\\
+     &\leq \tau^\infty((ww^*-P)B_yww^*B_y(ww^*-P))\notag\\
+     &\leq \tau^\infty(\underbrace{(ww^*-P)^2}_{P-ww^*}B_yww^*B_y)\notag\\
+     &\leq \frac{\theta}{1-\theta}.\label{eq:lower_bound_stab_standard_pres1}
+\end{align}
+where, the first line is by definition, the second line is by the fact $\mM$ is a corner and the evaluated operator is positive, the third and fifth lines are by the cyclicity of the trace, the fourth and sixth lines use von Neumann's trace inequality and the fact $B_{x+y}ww^*B_{x+y}$ and $B_{y}ww^*B_{y}$ are contractions, as well as \eqref{eq:bound_on_P-ww*_in_trace_infty}.
+Combining \eqref{eq:lower_bound_stab_standard_pres} and \eqref{eq:lower_bound_stab_standard_pres1}, we deduce that 
+\begin{align}
+    \Vert C_x-w^*B_xw\Vert_\tau^2&=\Expectation_{y}\Vert C_x-w^*B_xw\Vert_\tau^2\notag\\
+    &\leq 3\Expectation_{y} \Vert C_{x+y}-w^*B_{x+y}w\Vert_\tau^2+\Vert C_y-w^*B_yw\Vert_\tau^2+\Vert w^*B_y(ww^*-P)B_{x+y}w\Vert_{\tau}^2\notag\\
+    &\leq 3(56\theta +56\theta +\frac{\theta}{1-\theta}).
+\end{align}
+But, by denoting $C_j=C_{e_j}$, we have
+\begin{align*}
+       \sqrt{2}=\Vert A_1A_2A_1A_2-\underbrace{\Id_\mM}_{C_1C_2C_1C_2}\Vert_\tau
+       \leq 2\Vert A_1-C_1\Vert_\tau+2\Vert A_2-C_2\Vert_\tau,
+\end{align*}
+where the inequality uses the fact the $A_i$'s and $C_i$'s are unitaries together with the triangle inequality, and the equality is a straightforward calculation of their action on the computational basis elements --- which are bit strings of length $k+1$. Hence,
 \[
-\begin{split}
-    \Vert C_x-w^*B_xw\Vert_\tau&=\Vert C_yC_{x+y}-w^*B_yB_{x+y}w\Vert_\tau\\
-    &=\Vert C_yC_{x+y}-C_yw^*B_{x+y}w+C_yw^*B_{x+y}w-w^*B_yww^*B_{x+y}w +w^*B_yww^*B_{x+y}w-w^*B_yB_{x+y}w\Vert_\tau\\
-    &\leq \Vert C_{x+y}-w^*B_{x+y}w\Vert_\tau+\Vert C_y-w^*B_yw\Vert_\tau+\underbrace{\Vert ww^*-P\Vert_{\tau'}}_{IS\ THIS\ TRUE? Maybe\ up\ to\ a\ factor?}
-\end{split}
+\Expectation \Vert A_i-C_i\Vert_\tau ^2\geq \frac{1}{k}(\Vert A_1-C_1\Vert_\tau^2+\Vert A_2-C_2\Vert_\tau^2)\geq \frac{1}{4k}.
 \]
+Combining everything, we get
+\begin{align*}
+    \Expectation \Vert A_i-w^*B_iw\Vert_\tau ^2&\geq \Expectation \Vert A_i-C_i\Vert_\tau ^2-\Expectation \Vert C_i-w^*B_iw\Vert_\tau ^2\\
+    &\geq \frac{1}{4k}-336\theta-\frac{3\theta}{1-\theta}.
+\end{align*}
 \end{proof}
 
 \begin{remark}
@@ -809,7 +836,7 @@ But, for every $x,y\in \Z_2^k$, we have
 \end{remark}
 
 \begin{remark}
-    
+The infinity norm example. Ref to Appendix.    
 \end{remark}
 
 In the next section we will obtain presentations of $\Z_2^k$ that have a much better size/modulus tradeoff.

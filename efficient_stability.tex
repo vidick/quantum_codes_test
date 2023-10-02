@@ -603,7 +603,7 @@ In this section we give definitions associated with the notion of ``efficient st
 
   Here we call \emph{tracial von Neumann algebra} a pair $(\mM,\tau)$ of a von Neumann algebra $\mM$ together with a normal faithful tracial state $\tau$ on $\mM$, which we often refer to as the \emph{trace}. The main example of interest is $\mM=M_n(\C)$, the algebra of $n\times n$ complex matrices, with $\tau$ the dimension-normalized trace, which we denote $\tr(M)=\frac{1}{n}\Tr(M)$. 	We write $\|x\|_\tau=\tau(x^*x)^{1/2}$ to denote the $2$-norm on $\mM$ with respect to $\tau$. 
 	
-	Let $B(\ell_2)$ be the von Neumann algebra of bounded operators on $\ell_2$, the Hilbert space of convergent sequences in $\C^\Z$ equipped with the usual Euclidean norm (for which we let $(e_i)_{i \in \Z}$ denote the standard basis). We denote $\mM_\infty = \mM \overline{\otimes} B(\ell_2)$, where the overline denotes closure for the operator topology. $\mM_\infty$ is a von Neumann algebra equipped with the (infinite) trace $\tau_\infty = \tau \otimes \Tr$, with $\Tr(x)=\sum_{i\in \Z} e_i^T X e_i$ the trace on $B(\ell_2)$. We generally identify $\mM$ with the ``corner'' $\mM\otimes e_{1,1}\subset \mM_\infty$. 
+	Let $B(\ell_2)$ be the von Neumann algebra of bounded operators on $\ell_2$, the Hilbert space of convergent sequences in $\C^\Z$ equipped with the usual Euclidean norm (for which we let $(e_i)_{i \in \Z}$ denote the standard basis). We denote $\mM_\infty = \mM \overline{\otimes} B(\ell_2)$, where the overline denotes closure for the operator topology. $\mM_\infty$ is a von Neumann algebra equipped with the (infinite) trace $\tau_\infty = \tau \otimes \Tr$, with $\Tr(X)=\sum_{i\in \Z} e_i^T X e_i$ the trace on $B(\ell_2)$. We generally identify $\mM$ with the ``corner'' $\mM\otimes \Id_{1}\subset \mM_\infty$, where $\Id_1$ is the projection on the $1^{\rm st}$ coordinate in $\complex^\Z$.
 
 \subsection{Efficiently stable presentations}
 
@@ -706,7 +706,9 @@ where the third line uses that $T_aPT_a=T_a$, $\sum_a T_a = \Id_\mN$ and the def
 where the last inequality is because by definition, $\tau^N(P)=1$, thus
 \[1-\eps \,\leq\, \tau^\mN(ww^*) \,=\, \frac{\tau_\infty(ww^*)}{\tau_\infty(P)}\,=\, \frac{\tau_\infty(w^*w)}{\tau_\infty(P)}  \,\leq\, \frac{1}{\tau_\infty(P)}\]
 since $\tau_\infty(w^* w) = \tau^\mM(w^* w)$ and $w^*w\leq I_\mM$. Overall, 
-\[ \sum_a \tau^\mM \big( \tilde{Q}_a^2 \big) \,\geq\, 1-\eps-\frac{\eps}{1-\eps}\,\geq\, 1-3\eps\;.\]
+\begin{equation}\label{eq:square_greater_1-3eps}
+    \sum_a \tau^\mM \big( \tilde{Q}_a^2 \big) \,\geq\, 1-\eps-\frac{\eps}{1-\eps}\,\geq\, 1-3\eps\;.
+\end{equation}
 To conclude we apply~\cite[Theorem 1.2]{de2021orthogonalization} to obtain a projective measurement $\{Q_a\}$ on $\mM$ such that 
 \begin{equation*}
 \sum_a \big\|{Q}_a - \tilde{Q}_a \big\|^2_\tau \,=\, 27\eps\;.
@@ -722,6 +724,45 @@ Finally,
 where the second line is by the triangle inequality, the fourth line is due to the fact that $I_\mM - w^* w$ is positive and has operator norm at most $1$, and the last line is by $\tau^\mM(I_\mM - w^* w ) \leq \eps$.
 \end{proof}
 
+
+\begin{claim}\label{claim:L^1_dist_on_reps)_implies_L^infty_dist}
+    Let $\phi_1\colon G\to \mU(\mM)$ and $\phi_2\colon G\to \mU(\mN)$ be representations of a finite group $G\cong \langle S\colon R\rangle$, where $\mN=PM_\infty P$  with  $\tau_\infty(P)<\infty$, and equipped with the appropriate trace. Let $w\in P\mM_\infty \Id_\mM$ be a partial isometry from $\mM$ to $\mN$, and assume both
+    \[
+    \Expectation_{x\in G}\Vert \phi_1(x)-w^*\phi_2(x)w\Vert_\tau ^2\leq \eps\quad \textrm{and}\quad \max\{\tau^\mM(\Id_\mM-w^*w),\tau^\mN(P-ww^*)\}\leq \eps.
+    \]
+    Then 
+    \[
+        \forall x\in G\ \colon\ \Vert \phi_1(x)-w^*\phi_2(x)w\Vert_\tau ^2\leq 12\eps.
+    \]
+    Namely, an $L^1$ bound on the distance between two representations implies an $L^\infty$ bound on their distance. In particular, the average distance along every generating set $S$ of $G$ is bounded by the expected distance over all of $G$.
+\end{claim}
+\begin{proof}
+    The following idea is standard, and can be traced back, for example, to \cite{blum1990self}. As before, we can assume $\eps<\frac{1}{2}$, otherwise the claim is trivial. For every $x,y\in G$, we have 
+    \begin{align}
+      \Vert \phi_1(x)-w^*\phi_2(x)w\Vert_\tau&=\Vert \phi_1(y)\phi_1(y^{-1}x)-w^*\phi_2(y)\phi_2(y^{-1}x)w\Vert_\tau \notag\\
+    &=\Vert \phi_1(y)\phi_1(y^{-1}x)-\phi_1(y)w^*\phi_2(y^{-1}x)w+\phi_1(y)w^*\phi_2(y^{-1}x)w \notag\\ 
+    &-w^*\phi_2(y)ww^*\phi_2(y^{-1}x)w+w^*\phi_2(y)ww^*\phi_2(y^{-1}x)w-w^*\phi_2(y)\phi_2(y^{-1}x)w\Vert_\tau\notag \\
+    &\leq \Vert \phi_1(y^{-1}x)-w^*\phi_2(y^{-1}x)w\Vert_\tau+\Vert \phi_1(y)-w^*\phi_2(y)w\Vert_\tau\notag\\
+    &+\Vert w^*\phi_2(y)(ww^*-P)\phi_2(y^{-1}x)w\Vert_{\tau}.\label{eq:lower_bound_stab_standard_pres}
+\end{align}
+Now, the third summand in the last line of \eqref{eq:lower_bound_stab_standard_pres} can be bounded using  the  methods which appeared in the proof of Lemma \ref{lem:pull-back}:
+\begin{align}
+    \Vert w^*\phi_2(y^{-1}x)(ww^*-P)\phi_2(y)w\Vert_{\tau}^2&=\tau^\mM(w^*\phi_2^{-1}(y^{-1}x)(ww^*-P)\phi_2^{-1}(y)ww^*\phi_2(y)(ww^*-P)\phi_2(y^{-1}x)w)\notag\\
+    &\leq \tau^\infty(w^*\phi_2^{-1}(y^{-1}x)(ww^*-P)\phi_2^{-1}(y)ww^*\phi_2(y)(ww^*-P)\phi_2(y^{-1}x)w)\notag\\
+     &\leq \tau^\infty((ww^*-P)\phi_2^{-1}(y)ww^*\phi_2(y)(ww^*-P)\phi_2(y^{-1}x)ww^*\phi_2^{-1}(y^{-1}x))\notag\\
+     &\leq \tau^\infty((ww^*-P)\phi_2^{-1}(y)ww^*\phi_2(y)(ww^*-P))\notag\\
+     &\leq \tau^\infty(\underbrace{(ww^*-P)^2}_{P-ww^*}\phi_2^{-1}(y)ww^*\phi_2(y))\notag\\
+     &\leq \frac{\eps}{1-\eps}\ \ ,\label{eq:lower_bound_stab_standard_pres1}
+\end{align}
+where we use the cyclicity of the trace, the fact $\mM$ is a corner and the evaluated operator is positive, the fact $\phi_2(y^{-1}x)ww^*\phi_2^{-1}(y^{-1}x)$ and $\phi_2^{-1}(y)ww^*\phi_2(y)$ are  contractions, as well as \eqref{eq:bound_on_P-ww*_in_trace_infty}.
+Combining \eqref{eq:lower_bound_stab_standard_pres} and \eqref{eq:lower_bound_stab_standard_pres1}, we deduce that 
+\begin{align*}
+    \Vert \phi_1(x)-w^*\phi_2(x)w\Vert_\tau^2&=\Expectation_{y\in G}\Vert \phi_1(x)-w^*\phi_2(x)w\Vert_\tau^2\\
+    &\leq 3\Expectation_{y\in G} [\Vert \phi_1(y^{-1}x)-w^*\phi_2(y^{-1}x)w\Vert_\tau^2+\Vert \phi_1(y)-w^*\phi_2(y)w\Vert_\tau^2\\
+    &+\Vert w^*\phi_2(y)(ww^*-P)\phi_2(y^{-1}x)w\Vert_\tau^2 ]\\
+    &\leq 3(\eps +\eps +\frac{\eps}{1-\eps})\leq 12\eps.
+\end{align*}
+\end{proof}
 
 \subsection{Examples}
 \label{sec:examples}
@@ -768,6 +809,7 @@ where $[x_i,x_j]=x_ix_jx_i^{-1}x_j^{-1}$ is the group commutator.
 We call this presentation ``efficient'' because it has a number of generators and relations that is far smaller than those of the multiplication table presentation (in this case, polylogarithmic in the group size). The following lemma shows that this presentation is also stable; however the soundness now depends on $k$. 
 
 
+
 \begin{lemma}[Lemma 3.8 in~\cite{slofstra2019set}]\label{lem:eff-z2}
 Let $\mC$ be the class of tracial von Neumann algebra. Let $\mu_R$ be the equal mixture of the uniform distribution on all words $[x_i,x_j]$ ($i\neq j$) and the uniform distribution on all words $x_i^2$. Let $\mu_S$ be the uniform distribution on $\{x_1,\ldots,x_k\}$. Then 
   for every $k$, there is a $\delta_k = O_k(\eps)$ such that the presentation~\eqref{eq:z2-efficient} is $(\delta_k,\mu_S,\mu_R,\mC)$-stable. Furthermore, the close representation can be taken on the same algebra.% \hnote{Is there a reason to do $O_k(\eps)$ instead of writing out what the dependence of $k$ is in this lemma? I feel like this is an important aspect of the result (which motivates the later results...)}\tnote{Yes, the motivation was to first hide it, and then expand in the comment (which makes it clear that some $O_k(\eps)$ will always be true for a finite group, and that we care precisely about the $k$-dependence, which at first one might not ``notice''. Some of the stuff here I did not fine-tune too much the presentation of, because I thought we'll do that once we agree with the rough outline of the results and work on an intro and possible reorganization if needed. I agree it's not optimal now.}
@@ -775,58 +817,63 @@ Let $\mC$ be the class of tracial von Neumann algebra. Let $\mu_R$ be the equal 
 
 As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on both the diameter of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}, and its \emph{Dehn function} --- namely, the minimal volume of a Van Kampen diagram with perimeters of length $3$. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This turns up to be  tight:
 \begin{claim}
-    Let $\mu_R$ be the uniform distribution over the commutation relations in the presentation $\langle S\colon R\rangle$ from \eqref{eq:z2-efficient}, and $\mu_S$ the marginal distribution from $\mu_R$, which is the uniform one on $S=\{x_1,...,x_k\}$. There is a $(\nicefrac{2}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\langle S\colon R\rangle$ which is at least $\nicefrac{c}{k}$ far from any homomorphism. Namely, the modulus of stability of \eqref{eq:z2-efficient} is $\Omega(k\eps)$.
+    Let $\mu_R$ be the uniform distribution over the commutation relations in the presentation $\langle S\colon R\rangle$ from \eqref{eq:z2-efficient}, and $\mu_S$ the marginal distribution from $\mu_R$, which is the uniform one on $S=\{x_1,...,x_k\}$. There is a $(\nicefrac{1}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\langle S\colon R\rangle$ which is at least $\nicefrac{c}{k}$ far from any homomorphism. Namely, the modulus of stability of \eqref{eq:z2-efficient} is $\Omega(k\eps)$.
 \end{claim}
 
 \begin{proof}
 Let $\{A_i\}_{i=1}^k$ be permutations acting on the set $\field^{k+1}$ of length $k+1$ bits as follows: For every $i\neq 1$, $A_i$ flips the $i^{\rm th}$ bit. The permutation $A_1$ always flips the $1^{\rm st}$ bit, and  flips the $(k+1)^{\rm th}$ bit conditioned on the $2^{\rm nd}$ bit being $1$. Namely, each $A_i$ is a NOT gate applied to  the $i^{\rm th}$ bit, while $A_1$ is a NOT gate applied on the first bit composed with a CNOT gate applied to the $(k+1)^{\rm th}$ bit. The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\complex^{\field^{k+1}}$ with its standard normalized trace $\tau^\cM$.
 
-Let $\{B_i\}_{i=1}^k$ be a collection of unitaries in $(\mN,\tau^\mN)$ --- where $\mN$ is $P\mM_\infty P$  for some projection $P$ of finite trace and $\tau^\mN=\frac{\tau_\infty}{\tau_\infty(P)}$ --- which satisfy all the relations in $R$. Namely, each $B_i$ is an order $2$ unitary and they all commute. For every $x\in \Z_2^k$ let  $B_x=\prod_{i=1}^kB_i^{x_i}$. Now, we can apply on this representation of $\Z_2^k$ the same operation as we did in the proof of Corollary \ref{cor:lin-test}: For every $u\in \Z_2^k$ we define $Q_u=\Expectation_x(-1)^{u\cdot x}B_X$. Then, again, $\{Q_u\}$ is a projective measurement on $\mN$. By Lemma \ref{lem:pull-back}, for every partial isometry $w\in P\mM_\infty \Id_\mM$ we have a projective measurement $\{P_u\}_{u\in \Z_2^k}$  on $\mM=M_{2^{k+1}}(\complex)$ such that 
+Now, all of the $A_i$'s are order $2$ unitaries, thus satisfying the order $2$ relations in \eqref{eq:z2-efficient} with probability $1$. Furthermore, 
 \[
-\sum_{u\in \Z_2^k}\Vert P_u -w^*Q_uw\Vert_\tau^2\leq 56\theta,
+\Expectation_{i\neq j\in [k]}\left[\Vert A_iA_jA_iA_j-\Id_\mM\Vert_\tau^2\right]=\frac{1}{\binom{k}{2}}\Vert A_1A_2A_1A_2-\Id_\mM\Vert_\tau^2=\nicefrac{2}{\binom{k}{2}}.
 \]
-where $\theta=\max\{\tau(\Id_\mM-w^*w),\tau'(P-ww^*)\}$.
-Let $C_x=\sum_{u\in \Z_2^k}(-1)^{u\cdot x}P_u$ for every $x\in \Z_2^k$. Then, as in \eqref{eq:lin-test-2}, we have
+Thus, the map $x_i\mapsto A_i$ is a $(\nicefrac{1}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\Z_2^k$ with respect to \eqref{eq:z2-efficient}. 
+On the other hand, let $\{B_i\}_{i=1}^k$ be order $2$ unitaries which pairwise commute in $\mN=P\mM_\infty P $, and assume  there is a partial isometry $w\in P\mM_\infty\Id_\mM$ such that 
+\[
+\Expectation_{i\in [k]} \Vert A_i-w^* B_iw\Vert_\tau^2\ ,\  \tau^\mM(\Id_\mM-w^*w)\leq  \eps.
+\]
+This is a slightly weaker condition than for the $B_i$'s to be $(\eps,\mu_S)$-close to the $A_i$'s, as in Definition \ref{def:close}. 
+Recall that $\mM_\infty$ acts on the Hilbert space $\complex^{\field^{k+1}}\otimes \complex^\Z$. Let $\{e_v\otimes e_t\mid v\in \field^{k+1},t\in \Z\}$ be the standard basis of this Hilbert space.
+
+Then, by Lemma \ref{lem:pull-back} and Claim \ref{claim:L^1_dist_on_reps)_implies_L^infty_dist}, there are order $2$ unitaries $\{C_i\}_{i=1}^k$ in $\mM$, which pairwise commute and satisfy
+\begin{equation*}
+    \forall i\in [k]\ \colon \ \ \Vert C_i-w^*B_iw\Vert_\tau^2\leq 12\eps.
+\end{equation*}
+By the same argument as in \eqref{eq:square_greater_1-3eps}, we have 
+\[
+\tau^\mM((w^*B_iw)^2)\geq 1-3\eps,
+\]
+and thus
 \[
 \begin{split}
- \Expectation_{x\in \Z_2^k}\Vert C_x-w^*B_xw\Vert_\tau^2\leq 56\theta.
+    12\eps&\geq \Vert C_i-w^*B_iw\Vert_\tau^2\\
+    &=\underbrace{\tau^\mM(C_i^2)}_{=1}+\tau^\mM((w^*B_iw)^2)-2\tau^\mM(C_iw^*B_iw)\\
+    &\geq 2-3\eps-2\tau^\mM(C_iw^*B_iw),
 \end{split}
 \]
-But, for every $x,y\in \Z_2^k$, we have
+which implies
+\begin{equation}\label{eq:C_close_to_B}
+    \tau^\mM(C_iw^*B_iw)\geq 1-8\eps.
+\end{equation}
+But, 
 \begin{align}
-      \Vert C_x-w^*B_xw\Vert_\tau&=\Vert C_yC_{x+y}-w^*B_yB_{x+y}w\Vert_\tau \notag\\
-    &=\Vert C_yC_{x+y}-C_yw^*B_{x+y}w+C_yw^*B_{x+y}w-w^*B_yww^*B_{x+y}w \notag\\ &+w^*B_yww^*B_{x+y}w-w^*B_yB_{x+y}w\Vert_\tau\notag \\
-    &\leq \Vert C_{x+y}-w^*B_{x+y}w\Vert_\tau+\Vert C_y-w^*B_yw\Vert_\tau+\Vert w^*B_y(ww^*-P)B_{x+y}w\Vert_{\tau}.\label{eq:lower_bound_stab_standard_pres}
+    \sqrt{2}&=\Vert A_1A_2A_1A_2-\Id_\mM\Vert_\tau\notag\\
+    &=\Vert A_1A_2A_1A_2-C_1C_2C_1C_2\Vert_\tau\notag\\
+    &\leq 2\Vert A_1-C_1\Vert_\tau +2\Vert A_2-C_2\Vert_\tau,\label{eq:A_close_to_C}
 \end{align}
-Now, 
-\begin{align}
-    \Vert w^*B_y(ww^*-P)B_{x+y}w\Vert_{\tau}^2&=\tau^\mM(w^*B_{x+y}(ww^*-P)B_yww^*B_y(ww^*-P)B_{x+y}w)\notag\\
-    &\leq \tau^\infty(w^*B_{x+y}(ww^*-P)B_yww^*B_y(ww^*-P)B_{x+y}w)\notag\\
-     &\leq \tau^\infty((ww^*-P)B_yww^*B_y(ww^*-P)B_{x+y}ww^*B_{x+y})\notag\\
-     &\leq \tau^\infty((ww^*-P)B_yww^*B_y(ww^*-P))\notag\\
-     &\leq \tau^\infty(\underbrace{(ww^*-P)^2}_{P-ww^*}B_yww^*B_y)\notag\\
-     &\leq \frac{\theta}{1-\theta}.\label{eq:lower_bound_stab_standard_pres1}
-\end{align}
-where, the first line is by definition, the second line is by the fact $\mM$ is a corner and the evaluated operator is positive, the third and fifth lines are by the cyclicity of the trace, the fourth and sixth lines use von Neumann's trace inequality and the fact $B_{x+y}ww^*B_{x+y}$ and $B_{y}ww^*B_{y}$ are contractions, as well as \eqref{eq:bound_on_P-ww*_in_trace_infty}.
-Combining \eqref{eq:lower_bound_stab_standard_pres} and \eqref{eq:lower_bound_stab_standard_pres1}, we deduce that 
-\begin{align}
-    \Vert C_x-w^*B_xw\Vert_\tau^2&=\Expectation_{y}\Vert C_x-w^*B_xw\Vert_\tau^2\notag\\
-    &\leq 3\Expectation_{y} \Vert C_{x+y}-w^*B_{x+y}w\Vert_\tau^2+\Vert C_y-w^*B_yw\Vert_\tau^2+\Vert w^*B_y(ww^*-P)B_{x+y}w\Vert_{\tau}^2\notag\\
-    &\leq 3(56\theta +56\theta +\frac{\theta}{1-\theta}).
-\end{align}
-But, by denoting $C_j=C_{e_j}$, we have
-\begin{align*}
-       \sqrt{2}=\Vert A_1A_2A_1A_2-\underbrace{\Id_\mM}_{C_1C_2C_1C_2}\Vert_\tau
-       \leq 2\Vert A_1-C_1\Vert_\tau+2\Vert A_2-C_2\Vert_\tau,
-\end{align*}
-where the inequality uses the fact the $A_i$'s and $C_i$'s are unitaries together with the triangle inequality, and the equality is a straightforward calculation of their action on the computational basis elements --- which are bit strings of length $k+1$. Hence,
+where the inequality uses the triangle inequality and the fact $\{A_i\},\{C_i\}$ are unitaries, and the first equality is a by checking that $(A_1A_2)^2$ has no fixed points when acting on the set $\field^{k+1}$. Thus, for $i=1,2$, we have
 \[
-\Expectation \Vert A_i-C_i\Vert_\tau ^2\geq \frac{1}{k}(\Vert A_1-C_1\Vert_\tau^2+\Vert A_2-C_2\Vert_\tau^2)\geq \frac{1}{4k}.
+\begin{split}
+    \tau^\mM(A_iw^*B_iw)&=\tau^\mM(A_iC_i)+\tau^\mM(A_i(w^*B_iw-C_i))
+\end{split}
 \]
-Combining everything, we get
+Hence,
 \begin{align*}
-    \Expectation \Vert A_i-w^*B_iw\Vert_\tau ^2&\geq \Expectation \Vert A_i-C_i\Vert_\tau ^2-\Expectation \Vert C_i-w^*B_iw\Vert_\tau ^2\\
-    &\geq \frac{1}{4k}-336\theta-\frac{3\theta}{1-\theta}.
+    k\eps&\geq \sum_{i=1}^k \Vert A_i-w^*B_iw\Vert_\tau ^2\\
+&\geq \Vert A_1-w^*B_1w\Vert_\tau ^2+\Vert A_2-w^*B_2w\Vert_\tau ^2\\
+&\geq4-2\eps-2\tau^
+\mM(A_1w^*B_1w)-2\tau^\mM(A_2w^*B_2w)\\
+&=4-2\eps-2\tau^\mM(C_1w^*B_1w)-2\tau^\mM((A_1-C_1)w^*B_1w)
 \end{align*}
 \end{proof}
 

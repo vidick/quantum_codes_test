@@ -26,7 +26,7 @@
 \usepackage{multirow}
 \usepackage[section]{placeins}
 \usepackage[affil-it]{authblk}
-
+\usepackage{comment}
 
 \mdfdefinestyle{figstyle}{ %
   linecolor=black!7, %
@@ -816,19 +816,21 @@ Let $\mC$ be the class of tracial von Neumann algebra. Let $\mu_R$ be the equal 
 \end{lemma}
 
 As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on both the diameter of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}, and its \emph{Dehn function} --- namely, the minimal volume of a Van Kampen diagram with perimeters of length $3$. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This turns up to be  tight:
-\begin{claim}
-    Let $\mu_R$ be the uniform distribution over the commutation relations in the presentation $\langle S\colon R\rangle$ from \eqref{eq:z2-efficient}, and $\mu_S$ the marginal distribution from $\mu_R$, which is the uniform one on $S=\{x_1,...,x_k\}$. There is a $(\nicefrac{1}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\langle S\colon R\rangle$ which is at least $\nicefrac{c}{k}$ far from any homomorphism. Namely, the modulus of stability of \eqref{eq:z2-efficient} is $\Omega(k\eps)$.
+\begin{claim}\label{claim:lower_bound_on_stability_rate_standard_presentation_Z_2^k}
+    Let $\mu_R$ be the uniform distribution over the commutation relations in the presentation $\langle S\colon R\rangle$ from \eqref{eq:z2-efficient}, and $\mu_S$ the marginal distribution from $\mu_R$, which is the uniform one on $S=\{x_1,...,x_k\}$. There is a $(\nicefrac{1}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\langle S\colon R\rangle$ which is at least $\nicefrac{1}{16k}$ far from any homomorphism. Namely, the modulus of stability of \eqref{eq:z2-efficient} is $\Omega(k\eps)$.
 \end{claim}
 
 \begin{proof}
-Let $\{A_i\}_{i=1}^k$ be permutations acting on the set $\field^{k+1}$ of length $k+1$ bits as follows: For every $i\neq 1$, $A_i$ flips the $i^{\rm th}$ bit. The permutation $A_1$ always flips the $1^{\rm st}$ bit, and  flips the $(k+1)^{\rm th}$ bit conditioned on the $2^{\rm nd}$ bit being $1$. Namely, each $A_i$ is a NOT gate applied to  the $i^{\rm th}$ bit, while $A_1$ is a NOT gate applied on the first bit composed with a CNOT gate applied to the $(k+1)^{\rm th}$ bit. The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\complex^{\field^{k+1}}$ with its standard normalized trace $\tau^\cM$.
+Let $\{A_i\}_{i=1}^k$ be permutations acting on the set $\field^{k+1}$ of length $k+1$ bits as follows: For every $i\neq 1$, $A_i$ flips the $i^{\rm th}$ bit. The permutation $A_1$ always flips the $1^{\rm st}$ bit, and  flips the $(k+1)^{\rm th}$ bit conditioned on the $2^{\rm nd}$ bit being $1$. Namely, each $A_i$ is a NOT gate applied to  the $i^{\rm th}$ bit, while $A_1$ is a NOT gate applied on the first bit composed with a CNOT gate applied to the $(k+1)^{\rm th}$ bit. The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\complex^{\field^{k+1}}$ with its standard normalized trace $\tau^\cM(X)=\frac{1}{2^{k+1}}\Tr(X)$.
 
 Now, all of the $A_i$'s are order $2$ unitaries, thus satisfying the order $2$ relations in \eqref{eq:z2-efficient} with probability $1$. Furthermore, 
 \[
 \Expectation_{i\neq j\in [k]}\left[\Vert A_iA_jA_iA_j-\Id_\mM\Vert_\tau^2\right]=\frac{1}{\binom{k}{2}}\Vert A_1A_2A_1A_2-\Id_\mM\Vert_\tau^2=\nicefrac{2}{\binom{k}{2}}.
 \]
 Thus, the map $x_i\mapsto A_i$ is a $(\nicefrac{1}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\Z_2^k$ with respect to \eqref{eq:z2-efficient}. 
-On the other hand, let $\{B_i\}_{i=1}^k$ be order $2$ unitaries which pairwise commute in $\mN=P\mM_\infty P $, and assume  there is a partial isometry $w=PU\Id_\mM\in P\mU(\mM_\infty)\Id_\mM$ such that 
+
+Recall that given our von Neumann algebra $\mM$, the algebra $\mM_\infty$ acts on the Hilbert space $\complex^{\field^{k+1}}\otimes \complex^\Z$. Let $\{e_v\otimes e_t\mid v\in \field^{k+1},t\in \Z\}$ be the standard basis of this Hilbert space.
+Let $\{B_i\}_{i=1}^k$ be order $2$ unitaries which pairwise commute in $\mN=P\mM_\infty P $, and assume  there is a partial isometry $w=PU\Id_\mM\in P\mU(\mM_\infty)\Id_\mM$ and  $0<\eps\leq \sqrt{2}-1$ such that 
 \[
 \Expectation_{i\in [k]} \Vert A_i-w^* B_iw\Vert_\tau^2\ ,\  \tau^\mM(\Id_\mM-w^*w)\leq  \eps.
 \]
@@ -836,57 +838,75 @@ This is a slightly weaker condition than for the $B_i$'s to be $(\eps,\mu_S)$-cl
 \[
 \Expectation_{i\in [k]} \Vert A_i-\Id_\mM  B_i\Id_\mM\Vert_\tau^2\ ,\  \tau^\mM(\Id_\mM-\Id_\mM P\Id_\mM)\leq  \eps.
 \]
-
-Recall that $\mM_\infty$ acts on the Hilbert space $\complex^{\field^{k+1}}\otimes \complex^\Z$. Let $\{e_v\otimes e_t\mid v\in \field^{k+1},t\in \Z\}$ be the standard basis of this Hilbert space.
-
-Then, by Lemma \ref{lem:pull-back} and Claim \ref{claim:L^1_dist_on_reps)_implies_L^infty_dist}, there are order $2$ unitaries $\{C_i\}_{i=1}^k$ in $\mM$, which pairwise commute and satisfy
-\begin{equation*}
-    \forall i\in [k]\ \colon \ \ \Vert C_i-w^*B_iw\Vert_\tau^2\leq 12\eps.
-\end{equation*}
-By the same argument as in \eqref{eq:square_greater_1-3eps}, we have 
-\[
-\tau^\mM((w^*B_iw)^2)\geq 1-3\eps,
-\]
-and thus
+Thus, 
 \[
 \begin{split}
-    12\eps&\geq \Vert C_i-w^*B_iw\Vert_\tau^2\\
-    &=\underbrace{\tau^\mM(C_i^2)}_{=1}+\tau^\mM((w^*B_iw)^2)-2\tau^\mM(C_iw^*B_iw)\\
-    &\geq 2-3\eps-2\tau^\mM(C_iw^*B_iw),
+    \Vert \Id_\mM-\Id_\mM P\Id_\mM\Vert_\tau^2 &=\tau^{\mM}(\Id_\mM\underbrace{-2\Id_\mM P\Id_\mM+\Id_\mM P^2\Id_\mM}_{=-\Id_\mM P\Id_\mM})\leq \eps.
 \end{split}
 \]
-which implies
-\begin{equation}\label{eq:C_close_to_B}
-    \tau^\mM(C_iw^*B_iw)\geq 1-8\eps.
-\end{equation}
-But, 
-\begin{align}
-    \sqrt{2}&=\Vert A_1A_2A_1A_2-\Id_\mM\Vert_\tau\notag\\
-    &=\Vert A_1A_2A_1A_2-C_1C_2C_1C_2\Vert_\tau\notag\\
-    &\leq 2\Vert A_1-C_1\Vert_\tau +2\Vert A_2-C_2\Vert_\tau,\label{eq:A_close_to_C}
-\end{align}
-where the inequality uses the triangle inequality and the fact $\{A_i\},\{C_i\}$ are unitaries, and the first equality is a by checking that $(A_1A_2)^2$ has no fixed points when acting on the set $\field^{k+1}$. Thus, for $i=1,2$, we have
-\[
-\begin{split}
-    \tau^\mM(A_iw^*B_iw)&=\tau^\mM(A_iC_i)+\tau^\mM(A_i(w^*B_iw-C_i))
-\end{split}
-\]
-Hence,
+Hence, 
 \begin{align*}
-    k\eps&\geq \sum_{i=1}^k \Vert A_i-w^*B_iw\Vert_\tau ^2\\
-&\geq \Vert A_1-w^*B_1w\Vert_\tau ^2+\Vert A_2-w^*B_2w\Vert_\tau ^2\\
-&\geq4-2\eps-2\tau^
-\mM(A_1w^*B_1w)-2\tau^\mM(A_2w^*B_2w)\\
-&=4-2\eps-2\tau^\mM(C_1w^*B_1w)-2\tau^\mM((A_1-C_1)w^*B_1w)
+    \sqrt{2}&=\Vert A_1A_2A_1A_2-\Id_\mM\Vert_\tau\\
+    &\leq \Vert A_1A_2A_1A_2-\Id_\mM P\Id_\mM\Vert_\tau+\eps\\
+    &=\Vert A_1A_2A_1A_2-\Id_\mM B_1B_2B_1B_2\Id_\mM\Vert_\tau+\eps\\
+    &\leq \Vert \Id_\mM(A_1-B_1)A_2A_1A_2\Vert_\tau+\Vert \Id_\mM B_1(A_2-B_2)A_1A_2\Vert_\tau\\
+    &+\Vert \Id_\mM B_1B_2(A_1-B_1)A_2\Vert_\tau+\Vert \Id_\mM B_1B_2B_1(A_2-B_2)\Id_\mM\Vert_\tau+\eps\\
+    &=(\heartsuit)+\eps
 \end{align*}
+Since the $A_i$'s are unitaries in $\mM$, and by abusing notation and denoting $\Vert X \Vert_\tau=\tau_\infty(X^*X)$, we have 
+\begin{align*}
+    (\heartsuit)&= \Vert \Id_\mM(A_1-B_1)\Id_\mM\Vert_\tau+\Vert \Id_\mM B_1(A_2-B_2)\Id_\mM\Vert_\tau\\
+    &+\Vert \Id_\mM B_1B_2(A_1-B_1)\Id_\mM\Vert_\tau+\Vert \Id_\mM B_1B_2B_1(A_2-B_2)\Id_\mM\Vert_\tau\\
+    &\leq \Vert (A_1-B_1)\Id_\mM\Vert_\tau+\Vert (A_2-B_2)\Id_\mM\Vert_\tau
+    +\Vert (A_1-B_1)\Id_\mM\Vert_\tau+\Vert (A_2-B_2)\Id_\mM\Vert_\tau\\
+    &=(\spadesuit).
+\end{align*}
+But,
+\begin{align*}
+     \Vert (A_1-B_1)\Id_\mM\Vert_\tau^2=  \Vert \Id_\mM(A_1-B_1)\Id_\mM\Vert_\tau^2+\Vert (\Id_\infty-\Id_\mM)(A_1-B_1)\Id_\mM\Vert_\tau^2,
+\end{align*}
+and since $(\Id_\infty -\Id_\mM)A_1=0$ and $\Id_\mM A_1=A_1\Id_\mM$, we have
+\begin{align*}
+    \Vert (\Id_\infty-\Id_\mM)(A_1-B_1)\Id_\mM\Vert_\tau^2= \Vert (\Id_\infty-\Id_\mM)B_1\Id_\mM\Vert_\tau^2=\Vert (\Id_\infty-\Id_\mM)B_1A_1\Id_\mM\Vert_\tau^2.
+\end{align*}
+Now, for every $v\in \field^{k+1}$, we have
+\[
+1-|(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\leq |1-(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\leq \Vert \Id_\mM(\Id_\infty-B_1A_1)e_v\otimes e_1\Vert_2^2.
+\]
+On the other hand, since $B_1A_1$ is a contraction, 
+\begin{align*}
+    1-|(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2
+    &\geq \Vert B_1A_1 e_v\otimes e_1\Vert_2^2-|(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\\
+    &=\sum_{(v',j')\neq (v,1)}|(e_{v'}\otimes e_j)^*B_1A_1e_v\otimes e_1|^2\\
+    &\geq \Vert (\Id_\infty-\Id_\mM)B_1A_1 e_v\otimes e_1\Vert_2^2.
+\end{align*}
+Therefore, by averaging the combined inequalities over $v\in \field^{k+1}$, we get
+\[
+\Vert (\Id_\infty -\Id_\mM)B_1A_1\Id_\mM\Vert_\tau^2\leq  \Vert \Id_\mM(\Id_\infty-B_1A_1)\Id_\mM\Vert_\tau^2=\Vert A_1-\Id_\mM B_1\Id_\mM\Vert_\tau^2.
+\]
+\begin{comment}
+=\frac{1}{2^{k+1}}\sum_{\substack{v\in \field^{k+1}}} \sum_{\substack{v'\in \field^{k+1}\\ j'\neq 1}} \vert (e_{v'}\otimes e_j)^*B_1 e_v\otimes e_1\vert^2.
+\end{comment}
+Plugging all of this back to $(\spadesuit)$, we get
+\begin{align*}
+    (\sqrt{2}-\eps)^2&\leq (\spadesuit)^2\\
+    &\leq 8\Vert(A_1-B_1)\Id_\mM\Vert^2+8\Vert(A_2-B_2)\Id_\mM\Vert^2\\
+    &\leq 16 \Vert \Id_\mM (A_1-B_1)\Id_\mM\Vert^2+16 \Vert \Id_\mM (A_2-B_2)\Id_\mM\Vert^2\\
+    &\leq 16k \eps,
+\end{align*}
+and since we assumed $\eps<\sqrt{2}-1$ we deduce that 
+\[
+\eps>\frac{1}{16k}.
+\]
+This finishes the claim.
 \end{proof}
 
 \begin{remark}
-    This construction was used by Kozlov--Meshulam \cite{kozlov2019quantitative} to upper bound the Cheeger constant of the $k$-dimensional hypercube --- see Section 4.1 therein.
+    This construction (viewed in a different way) was used by Kozlov--Meshulam \cite{kozlov2019quantitative} to upper bound the Cheeger constant of the $k$-dimensional hypercube --- see Section 4.1 therein.
 \end{remark}
 
 \begin{remark}
-Henry's infinity norm example. Ref to Appendix.    
+As was discussed in the introduction \mnote{Here we should refer to the discussion on the difference between $L^1$ and $L^\infty$ definitions},  it is more common to use the $L^\infty$ analogue of stability. A slight modification of the example given in  the proof of Claim \ref{claim:lower_bound_on_stability_rate_standard_presentation_Z_2^k} provides a lower bound also in that setup. The idea is as follows: In the construction we provided, the pair $(1,2)$ played a special role, since $A_1$ was a CNOT conditioned on the second bit. We can thus define the analogous construction for every pair $(i,j)$ where $1\leq i<j\leq k$. By tensoring all of these constructions along the pairs $(i,j)$, we get $k$ permutations acting on $\binom{[k]}{2}\times \field^{k+1}$, which in turn provide a lower bound in the $L^\infty$ setup. The proof is similar to the above, and since this is a slight digression from our main theme, we omit it from the text. 
 \end{remark}
 
 In the next section we will obtain presentations of $\Z_2^k$ that have a much better size/modulus tradeoff.

@@ -812,7 +812,7 @@ We call this presentation ``efficient'' because it has a number of generators an
 
 \begin{lemma}[Lemma 3.8 in~\cite{slofstra2019set}]\label{lem:eff-z2}
 Let $\mC$ be the class of tracial von Neumann algebra. Let $\mu_R$ be the equal mixture of the uniform distribution on all words $[x_i,x_j]$ ($i\neq j$) and the uniform distribution on all words $x_i^2$. Let $\mu_S$ be the uniform distribution on $\{x_1,\ldots,x_k\}$. Then 
-  for every $k$, there is a $\delta_k = O_k(\eps)$ such that the presentation~\eqref{eq:z2-efficient} is $(\delta_k,\mu_S,\mu_R,\mC)$-stable. Furthermore, the close representation can be taken on the same algebra.% \hnote{Is there a reason to do $O_k(\eps)$ instead of writing out what the dependence of $k$ is in this lemma? I feel like this is an important aspect of the result (which motivates the later results...)}\tnote{Yes, the motivation was to first hide it, and then expand in the comment (which makes it clear that some $O_k(\eps)$ will always be true for a finite group, and that we care precisely about the $k$-dependence, which at first one might not ``notice''. Some of the stuff here I did not fine-tune too much the presentation of, because I thought we'll do that once we agree with the rough outline of the results and work on an intro and possible reorganization if needed. I agree it's not optimal now.}
+  for every $k$, there is a $\delta_k = O_k(\eps)$ such that the presentation~\eqref{eq:z2-efficient} is $(\delta_k,\mu_S,\mu_R,\mC)$-stable. Furthermore, the close representation can be taken on the same algebra.
 \end{lemma}
 
 As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on both the diameter of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}, and its \emph{Dehn function} --- namely, the minimal volume of a Van Kampen diagram with perimeters of length $3$. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This turns up to be  tight:
@@ -959,7 +959,7 @@ Similarly to Lemma~\ref{lem:eff-z2} we can state an ``efficient'' version of the
 \begin{lemma}\label{lem:eff-pauli}
   Let $\mC$ be the class of tracial von Neumann algebra. Let $\mu_R$ be the equal mixture of the uniform distribution on all words $ [x_i,x_j]$, $[z_i,z_j]$, $[x_i,z_j]$ ($i\neq j$), the uniform distibution over all $[x_i,z_i]$, $[x_i,J]$, $[z_i,J]$, $x_i^2$ and $z_i^2$, and $J^2$. Let $\mu_S$ be the marginal of $\mu_R$, as described in Remark~\ref{rk-mus}. Then 
   for every $k$, there is a $\delta'_k = O_k(\eps)$ such that the presentation~\eqref{eq:z2-efficient} is $(\delta_k,\mu_S,\mu_R,\mC)$-stable.
-\hnote{again, I think it would be instructive to put in the dependence on $k$.}
+\hnote{what's the dependence on $k$?}
 \end{lemma}
 
 \begin{proof}
@@ -1009,8 +1009,6 @@ For readability it is convenient to reformulate the parity check matrix as a \em
 
 \begin{definition}[$r$-local linear tester]\label{def:code-test}
 Let $\code$ be an $[n,k,d]_q$ linear code and $r\in \N$.
-%An \emph{$r$-local linear tester for $\code$} is a pair $M = ((v_S)_{S \subseteq [n]},\nu)$ where $\nu$ is a distribution over subsets $S\subseteq [n]$ of size at most $r$, and for each such subset a vector $v_S\in\F_q^S$, such that $u\in \code$ if and only if for all $S$ in the support of $\nu$, $v_S\cdot u_S=0$ where $u_S$ denotes the restriction of $u$ to coordinates in $S$.\footnote{Generally one imposes stronger ``soundness'' conditions on the tester. However, we will not need to be more specific than this. \hnote{This is probably a very vague comment that only makes sense to those who already know LTCs :)}} \hnote{Given that we've already talked about parity check matrices, it seems easier to define a local linear tester for a code $\code$ as a pair $(h,\nu)$ where $h \in \F^{m \times n}$ is a parity matrix for $\code$ and $\nu$ is a distribution over $\{1,\ldots,m\}$.}\tnote{Yes ok. I didn't change now but I'm in favor}
-%\hnote{ok, here's the parity check version} Let $\code$ be an $[n,k,d]_q$ linear code and $r\in \N$. 
 An \emph{$r$-local linear tester for $\code$} is a pair $M = (h,\nu)$ where $h \in \F^{m \times n}$ is a parity check matrix for $\code$, whose every row has Hamming weight at most $r$, and $\nu$ is a distribution over $\{1,\ldots,m\}$. 
 \end{definition}
 
@@ -1020,7 +1018,6 @@ An $r$-local linear tester $M=(h,\nu)$ for $\code$ induces a pair of distributio
 We end this section with an example, the \emph{Hadamard code}. This code can be defined for any  $t\geq 1$ and it is a $[T,t,T/2]_2$ linear code, where $T=2^t$. For simplicity we write  $\code_\had$ to denote this code, omitting $t$. As a linear space, $\code_\had$ is the span of all $(x_i)_{x\in \field^t} \in \field^T$, for $i\in \{1,\ldots,t\}$.  
 
 A parity check matrix for $\code_\had$ is the matrix $h_\had\in \F_2^{T^2\times T}$ defined as follows. Identify the rows of $h_\had$ with pairs $(x,y)\in \F_2^t\times \F_2^t$, and the columns of $h_\had$ with $\F_2^t$. Then the $(x,y)$-th row of $h_\had$ has nonzero entries at positions $x,y$ and $x+y$ only. 
-%The corresponding $3$-local linear tester is $M_\had=((v_S),\nu)$ where $\nu$ is uniform over triples $\{x,y,x+y\}$ for $(x,y)\in \F_2^t\times \F_2^t$ and $v_S = (1,1,1)^T$ for all $S$ in the support of $\nu$. \hnote{here's the parity check version:} 
 The corresponding $3$-local linear tester is $M_\had = (h_\had,\nu)$ where $\nu$ is the uniform distribution over $\F_2^t \times \F_2^t$. This tester can be described algorithmically, see Figure~\ref{fig:test-had}. 
 
 \begin{figure}[!htbp]
@@ -1049,7 +1046,6 @@ The presentation $\Z_2^t= G(h_\had)$, together with the distributions $\mu_S$ an
 
 \begin{proof}
 This an immediate consequence of Theorem~\ref{thm:gh}, because $G(h_\had)$ is the multiplication table presentation for $\Z_2^t$.
-%\hnote{Sorry, I'm missing something here. That theorem has to do with exhaustive presentations. Is $G(h_\had)$ an exhaustive presentation -- is this because checking $g(x) + g(y) = g(x+y)$ is checking all group relations? If so this could be pointed out explicitly.}\tnote{Yes, that's the point :)}
 \end{proof}
 
 
@@ -1076,11 +1072,7 @@ where $\{c_\alpha\}$ is a collection of coefficients in $\F_q$. It is easy to ve
 The resulting code is called the \emph{Reed-Muller code} $\code_\RM$ with parameters $q,m,d$. For $m=1$ then one obtains the \emph{Reed-Solomon code} $\code_\RS$. A useful feature is that $\code_\RM$ can be seen as the $m$-fold tensor product of $\code_\RS$, i.e.\ $\code_\RM = \code_\RS^{\otimes m}$ as vector spaces over $\F_q$. 
 
 We define a local linear tester $M_{\RM}$ for the code $\code_\RM$ over $\F_q$. The tester is described as an algorithmic procedure in Figure~\ref{fig:RM-tester}. %From this description it is straightforward to deduce a description of the tester as a distribution $\nu$ on subsets of $\F_q^n$, where $n=q^m$, together with vectors $v_S\in \F_q^S$ for every $S$ in the support of $\nu$. 
-The description makes use of interpolation coefficients, which are defined as follows. %For $u,v\in \F_q$ and $i\in\{0,\ldots,d\}$ \hnote{Since multiplying $\F_q$ by $\{0,1,\ldots,d\}$ doesn't necessarily make sense I think we need to interpolate with respect to some fixed $d+1$ points $t_0,\ldots,t_d \in \F_q$.} let 
-%\begin{equation}\label{eq:interp-coeff}
-% \alpha_{u,v,i} = \frac{\prod_{\substack{i'=0\\i'\neq i}}^{d} \big(v-(u+i')\big)}{\prod_{\substack{i'=0\\i'\neq i}}^{d} \big(u+i-(u+i')\big)}\;.
-%\end{equation}
-Fix $d+1$ distinct values $t_0,\ldots,t_d \in \F_q$. Then for all $u,v \in \F_q$ and $i \in \{0,\ldots,d\}$ define the interpolation coefficients
+The description makes use of interpolation coefficients, which are defined as follows. Fix $d+1$ distinct values $t_0,\ldots,t_d \in \F_q$. Then for all $u,v \in \F_q$ and $i \in \{0,\ldots,d\}$ define the interpolation coefficients
  \begin{equation}\label{eq:interp-coeff}
  \alpha_{u,v,i} = \prod_{\substack{i'=0\\i'\neq i}}^{d}  \frac{v - (u + t_{i'})}{t_i - t_{i'}}~.
  \end{equation}
@@ -1260,7 +1252,6 @@ where the first inequality follows from the triangle inequality, the second is b
 For $u\in \F_q^m$ let $\{P^{u}_\beta\}_{\beta \in \F_q}$ be the projective measurement obtained from Claim~\ref{claim:z2-stab-2}. For $\alpha\in \F_q$, let  
 \[ U_{u,\alpha} = \sum_{\beta\in\F_q} (-1)^{\tr(\alpha\beta)} P^u_{\beta}\;.\]
 %where $\omega_q = e^{2i\pi/q}$. (\tnote{added:}To define $\omega_q^\beta$ for $\beta\in \F_q$, we use the representative of $\beta$ in $\{0,\ldots,q-1\}$.)
-%\hnote{There is a minor inconsistency in what follows. These unitaries are indexed by $(u,\alpha)\in \F_q^m \times \F_q$, but above the generators $s_{u,\alpha}$ are indexed by $\F_q^m \times (\F_2)^t$. Of course it's fine, but the types need to be consistent. Above, it seems like $\alpha$ means something in $\F_2^t$, and $\beta$ means something in $\F_q$. Perhaps this can be the convention?}\tnote{I prefer to have $a,b\in\F_2^t$ and $\alpha,\beta\in \F_q$. I tried to change for that, including ``above''}
 Then $U_{u,\alpha} \in \mU(\mM)$. 
 
 %We observe that
@@ -1287,7 +1278,6 @@ and
  \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_{u,\alpha}, U_{v,\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;,
 \end{equation}
 where the expectation is over a uniformly random $u$ and $j$, and a uniformly random $v$ conditioned on its last $(j-1)$ coordinates matching those of $u$, and $[U,V]=UVU^* V^*$ is the group commutator. 
-%\hnote{should we clarify what it means to raise a unitary to a power in a finite field? I assume there's some canonical identification of elements of $\F_q$ with $\{0,1,2,\ldots,q-1\}$?}\tnote{I got confused by this. I added a comment above. What we need is that $(\omega_q^\alpha)^\beta = \omega_q^{\alpha \beta}$, for the field multiplication $\alpha \beta$. This will not be satisfied by an arbitrary choice of representative, right?} \hnote{Yeah I'm not sure this works... the multiplication over $\F_q$ for $q = 2^t$ does not look like multiplication in $\Z_q$; it's some more complicated linear transformation that has to do with irreducible polynomials and stuff...} \hnote{why do we need to package everything into a unitary, though? The low degree test/tensor codes stuff only needs line/points measurements}\tnote{The unitary is the best way to make use of the commutation relations; I wasn't able to control the errors without them. I redid it, without $\omega$'s, doing everything as if it was $\Z_2^t$ instead of $\F_q$.}
 \end{claim}
 
 \begin{proof}
@@ -1511,8 +1501,7 @@ The second term on the right-hand side can be bounded as
 %&\leq \tau(P-ww^*) \Big\|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) Q^y_b ww^* Q^x_a \Big\|\\
 %&\leq \eps\;,
 %\end{align*}
-%where the first inequality is by H\"older's inequality and the last inequality uses the definition of closeness to bound the first term. To bound the second term on the right-hand side, we write it as $\|A\circ B\|$, with $\circ$ the Hadamard product, and use  $\|A\circ B\| \leq \max_{i,j} |A_{i,j}|\|B\|$. Here $A = \sum_{a,b} D(a,b) P_{a,b}$, with $P_{a,b} = \sum_{i,j} \ket{u_{i,a}} \bra{v_{j,b}}$ with $\ket{u_{i,a}}$ a basis for the range of $Q^x_a$ and $\ket{v_{j,b}}$ for the range of $Q^y_b$, and $B=\sum_{a,b} Q^y_b ww^* Q^x_a = ww^*$.  \hnote{not quite sure about this proof... is the Hadamard product well defined in infinite dimensions? What is $D(a,b)$? A bit confused...}
-%\hnote{here's an alternate proof:}
+%where the first inequality is by H\"older's inequality and the last inequality uses the definition of closeness to bound the first term. To bound the second term on the right-hand side, we write it as $\|A\circ B\|$, with $\circ$ the Hadamard product, and use  $\|A\circ B\| \leq \max_{i,j} |A_{i,j}|\|B\|$. Here $A = \sum_{a,b} D(a,b) P_{a,b}$, with $P_{a,b} = \sum_{i,j} \ket{u_{i,a}} \bra{v_{j,b}}$ with $\ket{u_{i,a}}$ a basis for the range of $Q^x_a$ and $\ket{v_{j,b}}$ for the range of $Q^y_b$, and $B=\sum_{a,b} Q^y_b ww^* Q^x_a = ww^*$.  
 \begin{align}
 \Big|\Es{(x,y)\sim\mu} \sum_{a,b} D(a,b,x,y) & \tau\big( w^* Q^x_a (P - w\, w^* ) Q^y_b w\big)\Big|\notag\\
 &\leq \Es{(x,y)\sim\mu} \Big | \tau\big( \sum_{a,b} D(a,b,x,y)   Q^y_b w w^* Q^x_a (P - w\, w^* ) \big) \Big | \notag\\

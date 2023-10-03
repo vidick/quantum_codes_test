@@ -828,11 +828,15 @@ Now, all of the $A_i$'s are order $2$ unitaries, thus satisfying the order $2$ r
 \Expectation_{i\neq j\in [k]}\left[\Vert A_iA_jA_iA_j-\Id_\mM\Vert_\tau^2\right]=\frac{1}{\binom{k}{2}}\Vert A_1A_2A_1A_2-\Id_\mM\Vert_\tau^2=\nicefrac{2}{\binom{k}{2}}.
 \]
 Thus, the map $x_i\mapsto A_i$ is a $(\nicefrac{1}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\Z_2^k$ with respect to \eqref{eq:z2-efficient}. 
-On the other hand, let $\{B_i\}_{i=1}^k$ be order $2$ unitaries which pairwise commute in $\mN=P\mM_\infty P $, and assume  there is a partial isometry $w\in P\mM_\infty\Id_\mM$ such that 
+On the other hand, let $\{B_i\}_{i=1}^k$ be order $2$ unitaries which pairwise commute in $\mN=P\mM_\infty P $, and assume  there is a partial isometry $w=PU\Id_\mM\in P\mU(\mM_\infty)\Id_\mM$ such that 
 \[
 \Expectation_{i\in [k]} \Vert A_i-w^* B_iw\Vert_\tau^2\ ,\  \tau^\mM(\Id_\mM-w^*w)\leq  \eps.
 \]
-This is a slightly weaker condition than for the $B_i$'s to be $(\eps,\mu_S)$-close to the $A_i$'s, as in Definition \ref{def:close}. 
+This is a slightly weaker condition than for the $B_i$'s to be $(\eps,\mu_S)$-close to the $A_i$'s, as in Definition \ref{def:close}. Furthermore, we can assume without loss of generality that $U=\Id_\infty$, otherwise we replace $\mN$ by $U^*\mN U$ and $P$ by $U^* PU$. Thus, we are given that 
+\[
+\Expectation_{i\in [k]} \Vert A_i-\Id_\mM  B_i\Id_\mM\Vert_\tau^2\ ,\  \tau^\mM(\Id_\mM-\Id_\mM P\Id_\mM)\leq  \eps.
+\]
+
 Recall that $\mM_\infty$ acts on the Hilbert space $\complex^{\field^{k+1}}\otimes \complex^\Z$. Let $\{e_v\otimes e_t\mid v\in \field^{k+1},t\in \Z\}$ be the standard basis of this Hilbert space.
 
 Then, by Lemma \ref{lem:pull-back} and Claim \ref{claim:L^1_dist_on_reps)_implies_L^infty_dist}, there are order $2$ unitaries $\{C_i\}_{i=1}^k$ in $\mM$, which pairwise commute and satisfy

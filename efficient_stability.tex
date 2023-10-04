@@ -872,32 +872,31 @@ and since $(\Id_\infty -\Id_\mM)A_1=0$ and $\Id_\mM A_1=A_1\Id_\mM$, we have
 \begin{align*}
     \Vert (\Id_\infty-\Id_\mM)(A_1-B_1)\Id_\mM\Vert_\tau^2= \Vert (\Id_\infty-\Id_\mM)B_1\Id_\mM\Vert_\tau^2=\Vert (\Id_\infty-\Id_\mM)B_1A_1\Id_\mM\Vert_\tau^2.
 \end{align*}
-\tnote{I couldn't follow the last equality above, what allows you to insert $A_1$? An alternate way of going about it is to first show
+%\tnote{I couldn't follow the last equality above, what allows you to insert $A_1$? An alternate way of going about it is to first show
+%\begin{align*}
+%\big\|\tau(\Id_\mM)-\tau(\Id_\mM B_1^* \Id_\mM B_1 \Id_\mM)\big|
+%&=\big\|\tau(\Id_\mM A_1^* \Id_\mM A_1 \Id_\mM )-\tau(\Id_\mM B_1^* \Id_\mM B_1 \Id_\mM)\big|\\
+%&\leq \big| \tau(\Id_\mM (A_1-B_1)^* \Id_\mM A_1\Id_\mM )\big| + \big|\tau(\Id_\mM B_1^*\Id_\mM (A_1-B_1)\Id_\mM )\big|\\
+%&\leq 2 \big\| \Id_\mM (A_1-B_1)\Id_\mM\big\|_\tau\;,
+%\end{align*}
+%by Cauchy-Schwwarz. Then, 
+%\begin{align*}
+%  \Vert (A_1-B_1)\Id_\mM\Vert_\tau^2 &= \tau\big(\Id_\mM (A_1-B_1)^*(A_1-B_1)\Id_\mM\big)\\
+%  &= \tau(\Id_\mM) + \tau(\Id_\mM B_1^*B_1 \Id_\mM) - \tau(\Id_\mM A_1^* B_1 \Id_\mM) - \tau(\Id_\mM B_1^* A_1 \Id_\mM)\\
+%  &\leq \tau(\Id_\mM) + \tau(\Id_\mM B_1^*\Id_\mM B_1 \Id_\mM) - \tau(\Id_\mM A_1^* \Id_\mM B_1 \Id_\mM) - \tau(\Id_\mM B_1^* \Id_\mM A_1 \Id_\mM) + 2 \big\| \Id_\mM (A_1-B_1)\Id_\mM\big\|_\tau\\
+%  &\leq 3\Vert \Id_\mM (A_1-B_1)\Id_\mM\Vert_\tau\;,
+%\end{align*}
+%where the third line uses the previous set of equations to relate the second terms, and $A_1\Id_\mM=A_1$ for the last terms.
+%This is worse than your bound because of the missing square on the last line, which is due to the first bunch of equations. %I think it gives a similar trade-off in the end? 
+%}
+Here the second equality is because by definition, 
 \begin{align*}
-\big\|\tau(\Id_\mM)-\tau(\Id_\mM B_1^* \Id_\mM B_1 \Id_\mM)\big|
-&=\big\|\tau(\Id_\mM A_1^* \Id_\mM A_1 \Id_\mM )-\tau(\Id_\mM B_1^* \Id_\mM B_1 \Id_\mM)\big|\\
-&\leq \big| \tau(\Id_\mM (A_1-B_1)^* \Id_\mM A_1\Id_\mM )\big| + \big|\tau(\Id_\mM B_1^*\Id_\mM (A_1-B_1)\Id_\mM )\big|\\
-&\leq 2 \big\| \Id_\mM (A_1-B_1)\Id_\mM\big\|_\tau\;,
-\end{align*}
-by Cauchy-Schwwarz. Then, 
-\begin{align*}
-  \Vert (A_1-B_1)\Id_\mM\Vert_\tau^2 &= \tau\big(\Id_\mM (A_1-B_1)^*(A_1-B_1)\Id_\mM\big)\\
-  &= \tau(\Id_\mM) + \tau(\Id_\mM B_1^*B_1 \Id_\mM) - \tau(\Id_\mM A_1^* B_1 \Id_\mM) - \tau(\Id_\mM B_1^* A_1 \Id_\mM)\\
-  &\leq \tau(\Id_\mM) + \tau(\Id_\mM B_1^*\Id_\mM B_1 \Id_\mM) - \tau(\Id_\mM A_1^* \Id_\mM B_1 \Id_\mM) - \tau(\Id_\mM B_1^* \Id_\mM A_1 \Id_\mM) + 2 \big\| \Id_\mM (A_1-B_1)\Id_\mM\big\|_\tau\\
-  &\leq 3\Vert \Id_\mM (A_1-B_1)\Id_\mM\Vert_\tau\;,
-\end{align*}
-where the third line uses the previous set of equations to relate the second terms, and $A_1\Id_\mM=A_1$ for the last terms.
-This is worse than your bound because of the missing square on the last line, which is due to the first bunch of equations. I think it gives a similar trade-off in the end? 
-}
-\mnote{ By definition, 
-\begin{align*}
-    \Vert(\Id_\infty-\Id_\mM)B_1\Id_\mM\Vert_\tau^2=\sum_{\substack{v'\in \field^{k+1} \\ j\neq 1}}\sum_{v\in \field^{k+1}} |(e_{v'}\otimes e_j)^*B_1e_v\otimes e_1|^2=\diamondsuit
+    \Vert(\Id_\infty-\Id_\mM)B_1\Id_\mM\Vert_\tau^2=\sum_{\substack{v'\in \field^{k+1} \\ j\neq 1}}\sum_{v\in \field^{k+1}} |(e_{v'}\otimes e_j)^*B_1e_v\otimes e_1|^2=\diamondsuit\;,
 \end{align*}
 but since $A_1$ permutes the basis of $\{e_v\otimes e_1\}$, we have
 \begin{align*}
-    \diamondsuit=\sum_{\substack{v'\in \field^{k+1} \\ j\neq 1}}\sum_{v\in \field^{k+1}} |(e_{v'}\otimes e_j)^*B_1A_1e_v\otimes e_1|^2=\Vert (\Id_\infty-\Id_\mM)B_1A_1\Id_\mM\Vert_\tau^2.
-\end{align*}}
-
+    \diamondsuit=\sum_{\substack{v'\in \field^{k+1} \\ j\neq 1}}\sum_{v\in \field^{k+1}} |(e_{v'}\otimes e_j)^*B_1A_1e_v\otimes e_1|^2=\Vert (\Id_\infty-\Id_\mM)B_1A_1\Id_\mM\Vert_\tau^2\;.
+\end{align*}
 Now, for every $v\in \field^{k+1}$, we have
 \[
 1-|(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\leq |1-(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\leq \Vert \Id_\mM(\Id_\infty-B_1A_1)e_v\otimes e_1\Vert_2^2.
@@ -907,11 +906,11 @@ On the other hand, since $B_1A_1$ is a contraction,
     1-|(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2
     &\geq \Vert B_1A_1 e_v\otimes e_1\Vert_2^2-|(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\\
     &=\sum_{(v',j')\neq (v,1)}|(e_{v'}\otimes e_j)^*B_1A_1e_v\otimes e_1|^2\\
-    &\geq \Vert (\Id_\infty-\Id_\mM)B_1A_1 e_v\otimes e_1\Vert_2^2.
+    &\geq \Vert (\Id_\infty-\Id_\mM)B_1A_1 e_v\otimes e_1\Vert_2^2\;.
 \end{align*}
 Therefore, by averaging the combined inequalities over $v\in \field^{k+1}$, we get
 \[
-\Vert (\Id_\infty -\Id_\mM)B_1A_1\Id_\mM\Vert_\tau^2\leq  \Vert \Id_\mM(\Id_\infty-B_1A_1)\Id_\mM\Vert_\tau^2=\Vert A_1-\Id_\mM B_1\Id_\mM\Vert_\tau^2.
+\Vert (\Id_\infty -\Id_\mM)B_1A_1\Id_\mM\Vert_\tau^2\leq  \Vert \Id_\mM(\Id_\infty-B_1A_1)\Id_\mM\Vert_\tau^2=\Vert A_1-\Id_\mM B_1\Id_\mM\Vert_\tau^2\;.
 \]
 \begin{comment}
 =\frac{1}{2^{k+1}}\sum_{\substack{v\in \field^{k+1}}} \sum_{\substack{v'\in \field^{k+1}\\ j'\neq 1}} \vert (e_{v'}\otimes e_j)^*B_1 e_v\otimes e_1\vert^2.
@@ -935,11 +934,10 @@ This finishes the proof.
 \end{remark}
 
 \begin{remark}
-As was discussed in the introduction \mnote{Here we should refer to the discussion on the difference between $L^1$ and $L^\infty$ definitions},  it is more common to use the $L^\infty$ analogue of stability. A slight modification of the example given in  the proof of Claim \ref{claim:lower_bound_on_stability_rate_standard_presentation_Z_2^k} provides a lower bound also in that setup. The idea is as follows: In the construction we provided, the pair $(1,2)$ played a special role, since $A_1$ was a CNOT conditioned on the second bit. We can thus define the analogous construction for every pair $(i,j)$ where $1\leq i<j\leq k$. By tensoring all of these constructions along the pairs $(i,j)$, we get $k$ permutations acting on $\binom{[k]}{2}\times \field^{k+1}$, which in turn provide a lower bound in the $L^\infty$ setup. The proof is similar to the above, and since this is a slight digression from our main theme, we omit it from the text. 
+As was discussed in the introduction \mnote{Here we should refer to the discussion on the difference between $L^1$ and $L^\infty$ definitions},  it is more common to use the $L^\infty$ analogue of stability. A slight modification of the example given in  the proof of Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k} provides a lower bound also in that setup. The idea is as follows: In the construction we provided, the pair $(1,2)$ played a special role, since $A_1$ was a CNOT conditioned on the second bit. We can thus define the analogous construction for every pair $(i,j)$ where $1\leq i<j\leq k$. By tensoring all of these constructions along the pairs $(i,j)$, we get $k$ permutations acting on $\binom{[k]}{2}\times \field^{k+1}$, which in turn provide a lower bound in the $L^\infty$ setup. The proof is similar to the above, and since this is a slight digression from our main theme, we omit it from the text. 
 \end{remark}
 
-In the next section we will obtain presentations of $\Z_2^k$ that have a much better size/modulus tradeoff.
-To formulate the last example we recall the definition of the Pauli matrices
+In the next section we will obtain presentations of $\Z_2^k$ that have a much better size/modulus tradeoff than the one given in~\eqref{eq:z2-efficient}. In the meantime we give one last example. To formulate it we recall the definition of the Pauli matrices
 	\begin{equation}\label{eq:def-pauli-1} \sigma^X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\;,\qquad \sigma^Z = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}\;,
 	\end{equation}
 	and more generally for $a,b\in \Z_2^k$ let 

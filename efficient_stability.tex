@@ -889,6 +889,15 @@ by Cauchy-Schwwarz. Then,
 where the third line uses the previous set of equations to relate the second terms, and $A_1\Id_\mM=A_1$ for the last terms.
 This is worse than your bound because of the missing square on the last line, which is due to the first bunch of equations. I think it gives a similar trade-off in the end? 
 }
+\mnote{ By definition, 
+\begin{align*}
+    \Vert(\Id_\infty-\Id_\mM)B_1\Id_\mM\Vert_\tau^2=\sum_{\substack{v'\in \field^{k+1} \\ j\neq 1}}\sum_{v\in \field^{k+1}} |(e_{v'}\otimes e_j)^*B_1e_v\otimes e_1|^2=\diamondsuit
+\end{align*}
+but since $A_1$ permutes the basis of $\{e_v\otimes e_1\}$, we have
+\begin{align*}
+    \diamondsuit=\sum_{\substack{v'\in \field^{k+1} \\ j\neq 1}}\sum_{v\in \field^{k+1}} |(e_{v'}\otimes e_j)^*B_1A_1e_v\otimes e_1|^2=\Vert (\Id_\infty-\Id_\mM)B_1A_1\Id_\mM\Vert_\tau^2.
+\end{align*}}
+
 Now, for every $v\in \field^{k+1}$, we have
 \[
 1-|(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\leq |1-(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\leq \Vert \Id_\mM(\Id_\infty-B_1A_1)e_v\otimes e_1\Vert_2^2.

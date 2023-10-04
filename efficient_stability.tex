@@ -815,28 +815,31 @@ Let $\mC$ be the class of tracial von Neumann algebra. Let $\mu_R$ be the equal 
   for every $k$, there is a $\delta_k = O_k(\eps)$ such that the presentation~\eqref{eq:z2-efficient} is $(\delta_k,\mu_S,\mu_R,\mC)$-stable. Furthermore, the close representation can be taken on the same algebra.
 \end{lemma}
 
-As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on both the diameter of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}, and its \emph{Dehn function} --- namely, the minimal volume of a Van Kampen diagram with perimeters of length $3$. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This turns up to be  tight:
-\begin{claim}\label{claim:lower_bound_on_stability_rate_standard_presentation_Z_2^k}
-    Let $\mu_R$ be the uniform distribution over the commutation relations in the presentation $\langle S\colon R\rangle$ from \eqref{eq:z2-efficient}, and $\mu_S$ the marginal distribution from $\mu_R$, which is the uniform one on $S=\{x_1,...,x_k\}$. There is a $(\nicefrac{1}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\langle S\colon R\rangle$ which is at least $\nicefrac{1}{16k}$ far from any homomorphism. Namely, the modulus of stability of \eqref{eq:z2-efficient} is $\Omega(k\eps)$.
-\end{claim}
+As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on both the diameter of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}, and its \emph{Dehn function} --- namely, the minimal volume of a Van Kampen diagram with perimeters of length $3$. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This turns up to be  tight, as the next lemma shows. 
+
+\begin{lemma}\label{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k}
+    Let $\mu_R$ and $\mu_S$ be as in Lemma~\ref{lem:eff-z2}. % be the uniform distribution over the commutation relations in the presentation $\langle S\colon R\rangle$ from \eqref{eq:z2-efficient}, and $\mu_S$ the marginal distribution from $\mu_R$, which is the uniform one on $S=\{x_1,...,x_k\}$. 
+    There is a $(\nicefrac{1}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\langle S\colon R\rangle$ which is at least $\nicefrac{1}{16k}$ far from any homomorphism. Namely, the modulus of stability of \eqref{eq:z2-efficient} is $\Omega(k\eps)$.\tnote{Is the `namely'' part immediate? Meaning, why could it not be $\Omega(\sqrt{\eps})$, which for large $\eps$ is better? Maybe you can get an example for a larger range of $\eps$ --- here $\eps$ depends on the size of the presentation. But maybe we can also just leave it at the first sentence.}
+\end{lemma}
 
 \begin{proof}
-Let $\{A_i\}_{i=1}^k$ be permutations acting on the set $\field^{k+1}$ of length $k+1$ bits as follows: For every $i\neq 1$, $A_i$ flips the $i^{\rm th}$ bit. The permutation $A_1$ always flips the $1^{\rm st}$ bit, and  flips the $(k+1)^{\rm th}$ bit conditioned on the $2^{\rm nd}$ bit being $1$. Namely, each $A_i$ is a NOT gate applied to  the $i^{\rm th}$ bit, while $A_1$ is a NOT gate applied on the first bit composed with a CNOT gate applied to the $(k+1)^{\rm th}$ bit. The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\complex^{\field^{k+1}}$ with its standard normalized trace $\tau^\cM(X)=\frac{1}{2^{k+1}}\Tr(X)$.
+Let $\{A_i\}_{i=1}^k$ be permutations acting on the set $\field^{k+1}$ as follows: For every $i\neq 1$, $A_i$ flips the $i^{\rm th}$ bit. The permutation $A_1$ always flips the $1^{\rm st}$ bit, and  flips the $(k+1)^{\rm th}$ bit conditioned on the $2^{\rm nd}$ bit being $1$. Namely, each $A_i$ is a NOT gate applied from the $2^{\rm nd}$ to  the $i^{\rm th}$ bit, while $A_1$ is a NOT gate applied on the first bit composed with a CNOT gate applied to the $(k+1)^{\rm th}$ bit. The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\complex^{\field^{k+1}}$ with its standard normalized trace $\tau^\cM(X)=\frac{1}{2^{k+1}}\Tr(X)$.
 
-Now, all of the $A_i$'s are order $2$ unitaries, thus satisfying the order $2$ relations in \eqref{eq:z2-efficient} with probability $1$. Furthermore, 
+Now, all of the $A_i$'s are order $2$ unitaries, thus satisfy the order $2$ relations in \eqref{eq:z2-efficient} perfectly. Furthermore, 
 \[
-\Expectation_{i\neq j\in [k]}\left[\Vert A_iA_jA_iA_j-\Id_\mM\Vert_\tau^2\right]=\frac{1}{\binom{k}{2}}\Vert A_1A_2A_1A_2-\Id_\mM\Vert_\tau^2=\nicefrac{2}{\binom{k}{2}}.
+\Expectation_{i\neq j\in [k]}\left[\Vert A_iA_jA_iA_j-\Id_\mM\Vert_\tau^2\right]=\frac{1}{\binom{k}{2}}\Vert A_1A_2A_1A_2-\Id_\mM\Vert_\tau^2=\nicefrac{2}{\binom{k}{2}},
 \]
+because $A_1A_2A_1A_2$ is the permutation that flips the $(k+1)$-st bit. 
 Thus, the map $x_i\mapsto A_i$ is a $(\nicefrac{1}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\Z_2^k$ with respect to \eqref{eq:z2-efficient}. 
 
 Recall that given our von Neumann algebra $\mM$, the algebra $\mM_\infty$ acts on the Hilbert space $\complex^{\field^{k+1}}\otimes \complex^\Z$. Let $\{e_v\otimes e_t\mid v\in \field^{k+1},t\in \Z\}$ be the standard basis of this Hilbert space.
 Let $\{B_i\}_{i=1}^k$ be order $2$ unitaries which pairwise commute in $\mN=P\mM_\infty P $, and assume  there is a partial isometry $w=PU\Id_\mM\in P\mU(\mM_\infty)\Id_\mM$ and  $0<\eps\leq \sqrt{2}-1$ such that 
 \[
-\Expectation_{i\in [k]} \Vert A_i-w^* B_iw\Vert_\tau^2\ ,\  \tau^\mM(\Id_\mM-w^*w)\leq  \eps.
+\Expectation_{i\in [k]} \Vert A_i-w^* B_iw\Vert_\tau^2\ ,\qquad  \tau^\mM(\Id_\mM-w^*w)\leq  \eps.
 \]
 This is a slightly weaker condition than for the $B_i$'s to be $(\eps,\mu_S)$-close to the $A_i$'s, as in Definition \ref{def:close}. Furthermore, we can assume without loss of generality that $U=\Id_\infty$, otherwise we replace $\mN$ by $U^*\mN U$ and $P$ by $U^* PU$. Thus, we are given that 
 \[
-\Expectation_{i\in [k]} \Vert A_i-\Id_\mM  B_i\Id_\mM\Vert_\tau^2\ ,\  \tau^\mM(\Id_\mM-\Id_\mM P\Id_\mM)\leq  \eps.
+\Expectation_{i\in [k]} \Vert A_i-\Id_\mM  B_i\Id_\mM\Vert_\tau^2\ ,\qquad  \tau^\mM(\Id_\mM-\Id_\mM P\Id_\mM)\leq  \eps.
 \]
 Thus, 
 \[
@@ -869,6 +872,23 @@ and since $(\Id_\infty -\Id_\mM)A_1=0$ and $\Id_\mM A_1=A_1\Id_\mM$, we have
 \begin{align*}
     \Vert (\Id_\infty-\Id_\mM)(A_1-B_1)\Id_\mM\Vert_\tau^2= \Vert (\Id_\infty-\Id_\mM)B_1\Id_\mM\Vert_\tau^2=\Vert (\Id_\infty-\Id_\mM)B_1A_1\Id_\mM\Vert_\tau^2.
 \end{align*}
+\tnote{I couldn't follow the last equality above, what allows you to insert $A_1$? An alternate way of going about it is to first show
+\begin{align*}
+\big\|\tau(\Id_\mM)-\tau(\Id_\mM B_1^* \Id_\mM B_1 \Id_\mM)\big|
+&=\big\|\tau(\Id_\mM A_1^* \Id_\mM A_1 \Id_\mM )-\tau(\Id_\mM B_1^* \Id_\mM B_1 \Id_\mM)\big|\\
+&\leq \big| \tau(\Id_\mM (A_1-B_1)^* \Id_\mM A_1\Id_\mM )\big| + \big|\tau(\Id_\mM B_1^*\Id_\mM (A_1-B_1)\Id_\mM )\big|\\
+&\leq 2 \big\| \Id_\mM (A_1-B_1)\Id_\mM\big\|_\tau\;,
+\end{align*}
+by Cauchy-Schwwarz. Then, 
+\begin{align*}
+  \Vert (A_1-B_1)\Id_\mM\Vert_\tau^2 &= \tau\big(\Id_\mM (A_1-B_1)^*(A_1-B_1)\Id_\mM\big)\\
+  &= \tau(\Id_\mM) + \tau(\Id_\mM B_1^*B_1 \Id_\mM) - \tau(\Id_\mM A_1^* B_1 \Id_\mM) - \tau(\Id_\mM B_1^* A_1 \Id_\mM)\\
+  &\leq \tau(\Id_\mM) + \tau(\Id_\mM B_1^*\Id_\mM B_1 \Id_\mM) - \tau(\Id_\mM A_1^* \Id_\mM B_1 \Id_\mM) - \tau(\Id_\mM B_1^* \Id_\mM A_1 \Id_\mM) + 2 \big\| \Id_\mM (A_1-B_1)\Id_\mM\big\|_\tau\\
+  &\leq 3\Vert \Id_\mM (A_1-B_1)\Id_\mM\Vert_\tau\;,
+\end{align*}
+where the third line uses the previous set of equations to relate the second terms, and $A_1\Id_\mM=A_1$ for the last terms.
+This is worse than your bound because of the missing square on the last line, which is due to the first bunch of equations. I think it gives a similar trade-off in the end? 
+}
 Now, for every $v\in \field^{k+1}$, we have
 \[
 1-|(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\leq |1-(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\leq \Vert \Id_\mM(\Id_\infty-B_1A_1)e_v\otimes e_1\Vert_2^2.
@@ -898,7 +918,7 @@ and since we assumed $\eps<\sqrt{2}-1$ we deduce that
 \[
 \eps>\frac{1}{16k}.
 \]
-This finishes the claim.
+This finishes the proof.
 \end{proof}
 
 \begin{remark}
@@ -958,7 +978,7 @@ Similarly to Lemma~\ref{lem:eff-z2} we can state an ``efficient'' version of the
 
 \begin{lemma}\label{lem:eff-pauli}
   Let $\mC$ be the class of tracial von Neumann algebra. Let $\mu_R$ be the equal mixture of the uniform distribution on all words $ [x_i,x_j]$, $[z_i,z_j]$, $[x_i,z_j]$ ($i\neq j$), the uniform distibution over all $[x_i,z_i]$, $[x_i,J]$, $[z_i,J]$, $x_i^2$ and $z_i^2$, and $J^2$. Let $\mu_S$ be the marginal of $\mu_R$, as described in Remark~\ref{rk-mus}. Then 
-  for every $k$, there is a $\delta'_k = O_k(\eps)$ such that the presentation~\eqref{eq:z2-efficient} is $(\delta_k,\mu_S,\mu_R,\mC)$-stable.
+ the presentation~\eqref{eq:z2-efficient} is $(O(k\eps),\mu_S,\mu_R,\mC)$-stable.
 \hnote{what's the dependence on $k$?}
 \end{lemma}
 

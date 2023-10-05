@@ -487,7 +487,7 @@
 \author[3]{Henry Yuen}
 \affil[1]{}
 \affil[2]{ Faculty of Mathematics and Computer Science, Weizmann Institute of Science, Israel}
-\affil[3]{}
+\affil[3]{Department of Computer Science, Columbia University, USA}
 
 \date{\today}
 \maketitle
@@ -531,14 +531,11 @@ Let $G = \langle S:R\rangle $ be a finitely presented group and $\mu_R$ a distri
 As already mentioned this definition makes two importance choices: firstly, to measure closeness in the Hilbert-Schmidt norm, and secondly, to measure it on average over the choice of a relation. Next we give our definition for a finitely presented group to be stable; see Definition~\ref{def:eff-stab} for the general setting. 
 
 \begin{definition}[Stability]\label{def:eff-stab-intro}
-Let $G = \langle S:R\rangle $ be a finitely presented group, $\mu_S$ a distribution on $S$ and $\mu_R$ a distribution on $R$. For $\delta:[0,1]\to[0,1]$ such that $\lim_{t\to 0}\delta(t)=0$ and an integer $d\geq 1$ we say that the presentation $G=\langle S:R\rangle$ is $(\delta,\mu_S,\mu_R,d)$-stable if for every $(\eps,\mu_R)$-almost homomorphism $\phi: \mF(S) \to \mU(\C^d)$ there is a unitary representation $\psi: G \to \mU(\C^d)$ \hnote{there's some mismatch, is it $\mU(\C^d)$ or $\mU_d(\C)$?}\tnote{Let's use the former, I made the correction here} such that
+Let $G = \langle S:R\rangle $ be a finitely presented group, $\mu_S$ a distribution on $S$ and $\mu_R$ a distribution on $R$. For $\delta:[0,1]\to[0,1]$ such that $\lim_{t\to 0}\delta(t)=0$ and an integer $d\geq 1$ we say that the presentation $G=\langle S:R\rangle$ is $(\delta,\mu_S,\mu_R,d)$-stable if for every $(\eps,\mu_R)$-almost homomorphism $\phi: \mF(S) \to \mU(\C^d)$ there is a unitary representation $\psi: G \to \mU(\C^d)$ such that
 \[ \Es{s\sim \mu_S} \big\|  \phi(s) - \psi(s) \big \|_f^2 \,\leq\, \delta(\eps)\;.\]
 We refer to any function $\delta$ satisfying the above as a ``modulus of stability'' of the presentation.
 \end{definition}
 
-%\begin{remark}
-%\hnote{promoted this from footnote to remark}\tnote{Can we cancel this change? It's a remark below, see Remark~\ref{rk-mus}. But in the intro, it doesn't seem so crucial to highlight. \hnote{Agreed that it's not so crucial; perhaps nix it from the intro?}} It is natural, and will always be the case for us, to take $\mu_S$ as the ``marginal'' of $\mu_R$, i.e.\ the distribution on $S$ obtained by sampling $r\sim\mu_R$ and returning a uniformly random $s$ that appears in $r$, when $r$ is considered as a multi-set.
-%\end{remark}
 
 In this paper we also consider a version of \emph{flexible} stability, i.e.\ the representation $\psi$ is allowed to range in $U_{d'}(\C)$ for some $d'\neq d$; see Definition~\ref{def:eff-stab} for the general definition. This requires a more careful definition of closeness; for now we restrict our attention to the simpler definition. % and for the purposes of this introduction we restrict ourselves to the simpler definition. 
 
@@ -557,7 +554,7 @@ Can such ``efficient'' presentations of $G(h)$ still be stable? The naive approa
 The main result of this paper is to exhibit presentations of $\Z_2^k$ (and of slightly more complex $2$-groups built on them, e.g. the \emph{Pauli}, or \emph{Weyl-Heisenberg}, group ubiquitous in quantum information theory) that are \emph{efficiently stable}: the size of the presentation is quasi-polynomial in $k$ (as opposed to exponential), yet the modulus of stability only depends poly-logarithmically on $k$. These presentations are constructed from specific error-correcting codes, namely the Reed-Muller polynomial codes, which are known to have good local testability properties~\cite{babai1991non}. Our main result on group stability can be stated as follows (see Theorem~\ref{thm:z2-stab} for the precise statement).
 
 \begin{theorem*}[Main, informal]
-For every integer $k\geq 1$ there is a presentation $\Z_2^k = \langle S_k:R_k\rangle$ such that $|S_k|,|R_k| = 2^{\poly\log(k)}$ and furthermore this presentation is $(\delta,\mu_{S_k},\mu_{R_k},d)$-stable for all $d \in \N$, where $\delta(\eps)=\poly(\log k,\eps)$, $\mu_{S_k}$ is uniform over the generators and $\mu_{R_k}$ is some distribution over the relations. %\hnote{Spelled the conditions out because if we just let $\mu_S,\mu_R$ be anything, then we get a trivial statement if $\mu_S$, say, is just supported on one generator and $\mu_R$ is just on one relation.}
+For every integer $k\geq 1$ there is a presentation $\Z_2^k = \langle S_k:R_k\rangle$ such that $|S_k|,|R_k| = 2^{\poly\log(k)}$ and furthermore this presentation is $(\delta,\mu_{S_k},\mu_{R_k},d)$-stable for all $d \in \N$, where $\delta(\eps)=\poly(\log k,\eps)$, $\mu_{S_k}$ is uniform over the generators and $\mu_{R_k}$ is some distribution over the relations. 
 \end{theorem*}
 
 Most of the technical legwork required to prove the theorem is due to prior work in the study of nonlocal games in quantum computing, and in particular~\cite{ji2020quantum} (we explain this connection below). Our contribution in the present work is to make an explicit connection with stability and show how the former results can be ``imported'' to obtain new stability results such as the one stated in our main theorem above. 

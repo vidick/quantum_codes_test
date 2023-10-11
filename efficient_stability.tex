@@ -660,29 +660,34 @@ Fixing a distribution $\mu_R$ on $R$ only, there is a natural induced distributi
 
 Definition~\ref{def:eff-stab} specifies what it means for a presentation to be stable, but not when the presentation is \emph{efficiently} stable. 
 As mentioned in the introduction, the goal is to optimise the tradeoff between the encoding length of the presentation and the resulting modulus of stability. We now choose a complexity measurement for presentations:
-\begin{definition}
-    Let $G=\langle S\colon R\rangle$ be a finite presentation. The \emph{length} of the presentation will be $\log|S|\cdot \sum_{r\in R}|r|,$ where $|r|$ is the length of the word $r\in \mF(S)$ written in the basis $S$.
+\begin{definition}[Length of a presentation]\label{def:length_of_pres}
+    Let $G=\langle S\colon R\rangle$ be a finite presentation. The \emph{length} of the presentation  will be  $$\ell(G)=|S|+ \sum_{r\in R}|r|,$$ where $|r|$ is the length of the word $r\in \mF(S)$ written in the basis $S$.\footnote{Another popular notion of length is the bit length of the encoding of $\langle S\colon R\rangle$, where exponents in $r\in R$ can be written in binary. Up to a factor of $\log |S|$, our notion is stricter than that. See \cite{babai1997short}.}
 \end{definition}
-This is because we prefer to keep the notion of efficiency qualitative; furthermore, we do suggest a natural parameter setting which we will call ``efficient'', and which is good for certain applications.
+
+The search for the shortest possible presentations of finite groups, and in particular of finite simple groups, contained many twists and turns. Clearly, the shortest presentation of some groups, e.g. $G=\Z_2^k$, needs to be of size at least $\poly\log|G|$. On the other hand, it turns out that there are finite simple groups with minimal presentation length $\poly\log\log|G|$, which was a big surprise (see \cite{guralnick2008presentations} and the references therein). Also, all finite groups (without ${}^2G_2(q)$ composition factors) have a presentation of length $O(\log^3(|G|))$. Thus, we can say that a presentation is ``efficient'', if its length is not much larger than the shortest possible one. This can be phrased in various ways, and certain choices of parameters can be applied in different ways. Our exact choice of tradeoff parameters between length and modulus of stability, which we shall refer to as efficiently stable,  is motivated by natural examples which we outline next.
+
 
 
 \subsection{General results}
 
-Many results about various notions of stability are known. \tnote{insert more discussion here, or in the introduction} We give two results that are most relevant to our work. First of all, 
+As was shortly reviewed in the introduction, and specifically in the related works subsection, many results about various notions of stability are known.  Here, we give two results that are most relevant to our work. First of all, 
 for a finite group $G$ we can always write $G=\langle S:R\rangle$ where $S = G$ and $R=\{ g\cdot h \cdot (gh)^{-1} =e \}$. We refer to this presentation as the \emph{multiplication table presentation}\tnote{was ``exhaustive''; edited terminology}. If we let $\mu_S$ and $\mu_R$ be the uniform distribution on $S$ and on $R$ respectively then Definition~\ref{def:eff-stab} reduces to a widely used notion of \emph{flexible (Hilbert-Schmidt) stability}. In particular, for finite groups the following result is known~\cite{gowers2017inverse,de2019operator}. We adopt the formulation from~\cite[Theorem 1.4]{de2022spectral}.
 
 \begin{theorem}\label{thm:gh}
-Let $G$ be a finite group and $\mC$ the class of all tracial von Neumann algebras. Let $\mu_S$ and $\mu_R$ be the uniform distribution on $S=G$ and $R=\{ g\cdot h \cdot (gh)^{-1}=e \}$ respectively. Then $G=\langle S:R\rangle$ is $(O(\eps),\mu_S,\mu_R,\mC)$-stable.
+Let $G$ be a finite group and $\mC$ the class of all tracial von Neumann algebras. Let $\mu_S$ and $\mu_R$ be the uniform distribution on $S=G$ and $R=\{ g\cdot h \cdot (gh)^{-1}=e \}$ respectively. Then $G=\langle S:R\rangle$ is $(c\eps,\mu_S,\mu_R,\mC)$-stable, where $c>0$ is a universal constant independent of $G$.
 \end{theorem}
 
 Next we state for later use a result from~\cite{de2022spectral} which allows to combine stability results. The results in~\cite{de2022spectral} are rather general and apply to direct products and certain central extensions of a class of finite groups. Here, we will only use the following specialization to the case of the central extension of $\Z_2^k \times \Z_2^k$ by $\{-1,1\}$ given by $\gamma(a,b)=(-1)^{a\cdot b}$, with $a\cdot b$ the inner product modulo $2$. For a measure $\mu$ on $\Z_2^k$, define its inverse spectral gap 
-\[ \kappa = \max_{a\neq 0} \frac{1}{1-\Es{b\sim\mu}(-1)^{a\cdot b}}\;.\] 
+\[ \kappa = \max_{a\neq 0} \frac{1}{1-\Es{b\sim\mu}(-1)^{a\cdot b}}\;.\footnote{Note that this is indeed the inverse of the spectral gap of the random walk operator on $\Z_2^k$ induced by $\mu$. Equivalently, by viewing $\mu$ as an element of the group ring $\complex[\Z_2^k]$, it acts on it from the left, and thus has a spectral decomposition and a spectral gap.}\] 
 
 \begin{theorem}[\cite{de2022spectral} Corollary 2.6]\label{thm:dls-gap}
 Let $\mu$ be a measure on $\Z_2^k$ with inverse spectal gap $\kappa$. Let $\phi_X,\phi_Z: \Z_2^k \to \mU(\mM)$ be two homomorphisms such that
 \[ \Es{a,b\sim \mu} \big\| \phi_X(a)\phi_Z(b)-(-1)^{a\cdot b} \phi_Z(b)\phi_X(a)\big\|_\tau^2 \,\leq\,\eps\;.\]
 Then there is an $\mN=P\mM_\infty P$ and homomorphisms $U_X,U_Z:\Z_2^k\to\mU(\mN)$ and $\delta=O(\kappa^2\eps)$ such that $\phi_X$ and $U_X$ are $(\delta,\mu)$-close, $\phi_Z$ and $U_Z$ are $(\delta,\mu)$-close, and moreover $U_X(a)U_Z(b)=(-1)^{a\cdot b}U_Z(b)U_X(a)$ for all $a,b\in\Z_2^k$.
 \end{theorem}
+\begin{corollary}
+    Theorem \ref{thm:dls-gap} essentially tells us the following: if we are given an almost homomorphism of the Pauli group \eqref{eq:defn_Pauli_as_Heisenberg}, then we can fix it to a homomorphism in two steps. First, fix its restriction to the $X$ and $Z$ observables independently. Then, apply the theorem to get a homomorphism from the whole Pauli group. This idea is spelled out in detail in the proof sketch of Corollary \ref{cor:Pauli-brading_is_stable}.
+\end{corollary}
 
 
 
@@ -690,7 +695,7 @@ Then there is an $\mN=P\mM_\infty P$ and homomorphisms $U_X,U_Z:\Z_2^k\to\mU(\mN
 	\label{sec:measurements}
 	
 	Before giving some examples, we introduce the notion of a \emph{positive operator-valued measure} (POVM), or more simply \emph{measurement}. This is a notion that comes from quantum mechanics and will be useful to formulate some of our statements.  
-  If $\mM$ is a tracial von Neumann algebra, a measurement on $\mM$ with outcome set $\mA$ is a finite collection of positive semidefinite operators $\{P_a\}_{a\in \mA}$ such that $\sum_a P_a = \Id_\mM$. A POVM is \emph{projective} if for all $a$, $P_a$ is a projection. 
+  If $\mM$ is a tracial von Neumann algebra, a measurement on $\mM$ with outcome set $\mA$ is a finite collection of positive semidefinite operators $\{P_a\}_{a\in \mA}$ such that $\sum_a P_a = \Id_\mM$. A measurement is \emph{projective} if for all $a$, $P_a$ is a projection. 
 	
 	In our results we will make use of the following elementary but powerful result, which allows us to ``pull back'' projective measurements through an isometry. The result is an application of \emph{orthonormalization}, which transforms a nearly-orthogonal measurement to a nearby orthogonal measurement. See e.g.~\cite{kempe2011parallel,ji2020quantum} or~\cite[Theorem 1.2]{de2021orthogonalization} for the version that we use here. 
 	
@@ -699,12 +704,20 @@ Let  $(\mM,\tau^\mM)$ be a tracial von Neumann algebra, $P\in\mM_\infty$ a proje
 \[ \eps = \max\big\{ \tau^\mM\big(\Id_\mM - w^* w\big)\,,\;\tau^\mN\big( P- w w^*\big)\big\}\;.\] 
  Then for any projective measurement $\{T_a\}_{a \in \mA}$ on $\mN$, where $\mA$ is a finite set, there is a projective measurement $\{Q_a\}_{a \in \mA}$ on $\mM$ such that 
 \begin{equation}
-\label{eq:pull-back} \sum_{a \in \mA} \big\| Q_a - w^* T_a w\big\|_{\tau^\mM}^2 \,\leq \ 56\eps\;.
+\label{eq:pull-back} \sum_{a \in \mA} \big\| Q_a - w^* T_a w\big\|_{\tau}^2 \,\leq \ 56\eps\;.
 \end{equation}
 \end{lemma}	
 
 \begin{proof}
-If $\eps\geq \frac{1}{2}$ the conclusion is trivial, so assume $\eps<\frac{1}{2}$. 
+If $\eps\geq \frac{1}{2}$ the conclusion is straightforward. This is because, whatever projective measurement $\{Q_a\}_{a\in \mA}$ one chooses, we have
+\[
+\|Q_a-w^*T_aw\|_\tau^2\leq 2\|Q_a\|_\tau^2+2\|w^*T_aw\|_\tau^2,
+\] 
+and 
+\[
+\sum_{a\in \mA} \|Q_q\|_\tau^2,\ \sum_{a\in \mA} \|w^*T_aw\|_\tau^2\leq 1.
+\]
+So, assume $\eps<\frac{1}{2}$. 
 Define 
 \[\tilde{Q}_a = w^* T_a w  + \frac{1}{|\mA|}\big(\Id_\mM - w^* w\big) \in \mM\;.\]
 Then $\{\tilde{Q}_a\}$ is a POVM on $\mM$. Moreover, 
@@ -716,7 +729,7 @@ Then $\{\tilde{Q}_a\}$ is a POVM on $\mM$. Moreover,
 &\geq 1 - \eps -  \tau_\infty\Big(\big( P - w w^*\big)\Big(\sum_a  T_a w w^* T_a\Big)\Big)\\ 
 &\geq 1- \eps- \tau_\infty\big( P- w w^*\big)\;,
 \end{align*}
-where the third line uses that $T_aPT_a=T_a$, $\sum_a T_a = \Id_\mN$ and the definition of $\eps$ for the first term, and for the second the fact that for $A\in\mM$, $\tau^\mM(A)=\tau_\infty(A)$ by definition of $\tau_\infty$ and the identification of $\mM$ with a ``corner'' in $\mM_\infty$, the fourth line uses cyclicity of the trace for the second, and the last uses $\|ww^*\|,\|\sum_a T_a\|_\infty\leq 1$. By assumption, 
+where the third line uses that $T_aPT_a=T_a$, $\sum_a T_a = \Id_\mN$ and the definition of $\eps$ for the first term, and for the second the fact that for $A\in\mM$, $\tau^\mM(A)=\tau_\infty(A)$ by definition of $\tau_\infty$ and the identification of $\mM$ with a ``corner'' in $\mM_\infty$, the fourth line uses cyclicity of the trace for the second, and the last uses $\|ww^*\|_\infty,\|\sum_a T_a\|_\infty\leq 1$.\footnote{The notation $\|\cdot\|_\infty$ refers to the operator norm.} By assumption, 
 \begin{align}
 \tau_\infty\big( P- w w^*\big) \,\leq\, \eps\, \tau_\infty(P)\,\leq \frac{\eps}{1-\eps}\;,\label{eq:bound_on_P-ww*_in_trace_infty}
 \end{align}
@@ -819,32 +832,34 @@ Thus
 where the second line uses $\Es{x} (-1)^{w\cdot x} = 0$ if $w\neq 0$, and $1$ otherwise, and the last line is by~\eqref{eq:lin-test-1b}. Plugging back into~\eqref{eq:lin-test-1} and using the triangle inequality shows the corollary.  
 \end{proof}
 
-The multiplication table presentation of $\Z_2^k$ is not very \emph{efficient}, in the sense that it has as many generators as the group size, and quadratically as many relations. There is a much more efficient presentation of $\Z_2^k$, given by
+The multiplication table presentation of $\Z_2^k$ is quite long,  in the sense of Definition \ref{def:length_of_pres}. It has as many generators as the group size, and quadratically as many relations, which gives a length of $O(2^{2k})$. 
+There are much shorter presentations of $\Z_2^k$, for example the straightforward
 
 \begin{equation}\label{eq:z2-efficient}
  \Z_2^k = \langle x_1,\ldots,x_k : [x_i,x_j]=e, x_i^2=e \; \forall i\neq j \rangle\;,
 \end{equation}
 where $[x_i,x_j]=x_ix_jx_i^{-1}x_j^{-1}$ is the group commutator. 
-We call this presentation ``efficient'' because it has a number of generators and relations that is far smaller than those of the multiplication table presentation (in this case, polylogarithmic in the group size). The following lemma shows that this presentation is also stable; however the soundness now depends on $k$. 
+Its length is $O(k^2)$, which is polylogarithmic in the group size instead compared to the polynomial length of the multiplication table presentation. By \cite{hadwin2018stability}, every presentation of a finite group has \textbf{some} modulus of stability.
+The following two lemmas show that, though the presentation \eqref{eq:z2-efficient} has a linear modulus of stability, it deteriorates by a constant factor $k$. In some sense, these two examples are on opposite sides of the efficient stability tradeoof: \eqref{eq:z2-efficient} is short but has a bad modulus of stability, while the multiplication table presentation is very long, while having an essentially optimal modulus of stability. As we keep recalling, the goal of this paper is to provide an example of a somewhat short presentation of $\Z_2^k$, which has a good enough modulus of stability to deduce the main technical results needed for MIP*=RE \cite{ji2020mip}.
 
 
 
 \begin{lemma}[Lemma 3.8 in~\cite{slofstra2019set}]\label{lem:eff-z2}
-Let $\mC$ be the class of tracial von Neumann algebra. Let $\mu_R$ be the equal mixture of the uniform distribution on all words $[x_i,x_j]$ ($i\neq j$) and the uniform distribution on all words $x_i^2$. Let $\mu_S$ be the uniform distribution on $\{x_1,\ldots,x_k\}$. Then 
+Let $\mC$ be the class of tracial von Neumann algebras. Let $\mu_R$ be the equal mixture of the uniform distribution on all words $[x_i,x_j]$ ($i\neq j$) and the uniform distribution on all words $x_i^2$. Let $\mu_S$ be the uniform distribution on $\{x_1,\ldots,x_k\}$. Then 
   for every $k$, there is a $\delta_k = O_k(\eps)$ such that the presentation~\eqref{eq:z2-efficient} is $(\delta_k,\mu_S,\mu_R,\mC)$-stable. Furthermore, the close representation can be taken on the same algebra.
 \end{lemma}
 
-As one would naturally expect, the dependence of $\delta_k$ on $k$ depends on both the diameter of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}, and its \emph{Dehn function} --- namely, the minimal volume of a Van Kampen diagram with perimeters of length $3$. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, applying Corollary~\ref{cor:lin-test} it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This turns up to be  tight, as the next lemma shows. 
+As one would expect, the dependence of $\delta_k$ on $k$ depends on both the diameter of $\Z_2^k$ for the presentation~\eqref{eq:z2-efficient}, and certain values of its \emph{Dehn function} --- namely, the minimal volume of a Van Kampen diagram with perimeters of length $3$. By expressing each element of $\Z_2^k$ as a product of generators in the natural way, and by applying Corollary~\ref{cor:lin-test}, it is possible to show that $\delta_k=O(k^2\eps)$ in Lemma~\ref{lem:eff-z2}. With more work one can get $\delta_k=O(k\eps)$, see~\cite[Theorem 3.2]{chao2017overlapping}. This turns up to be  tight, as the next lemma shows. 
 
 \begin{lemma}\label{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k}
     Let $\mu_R$ and $\mu_S$ be as in Lemma~\ref{lem:eff-z2}. % be the uniform distribution over the commutation relations in the presentation $\langle S\colon R\rangle$ from \eqref{eq:z2-efficient}, and $\mu_S$ the marginal distribution from $\mu_R$, which is the uniform one on $S=\{x_1,...,x_k\}$. 
     There is a $(\nicefrac{1}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\langle S\colon R\rangle$ which not $(\nicefrac{1}{16k},\mu_S)$-close to any homomorphism (according to Definition~\ref{def:close}). 
 \end{lemma}
 
-\tnote{added this here to clarify:}
+
 Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k} implies that the modulus of stability of \eqref{eq:z2-efficient} is $\Omega(k\eps)$ as $\eps\to 0$. This is because for any $\eps>0$ such that $\eps\leq 1/\binom{k}{2}$ we can create an $(\eps,\mu_R)$-almost homomorphism of $\langle S\colon R\rangle$ by taking direct sums of one copy of the almost-homomorphism $\phi$ from Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k}, which ranges into $\mU(\C^{2^{k+1}})$, with $R=\lceil 2^{k+1}/(\binom{k}{2}\eps)\rceil$ copies of the trivial representation of $G(h)$. Clearly, a $\delta$-close homomorphism implies, by restriction, a $\delta R$-close homomorphism to $\phi$. Hence $\delta R \geq 1/(16k)$, which gives $\delta=\Omega(k\eps)$ as claimed.  
 
-\begin{proof}
+\begin{proof}[Proof of Lemma \ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k}]
 Let $\{A_i\}_{i=1}^k$ be permutations acting on the set $\field^{k+1}$ as follows: For every $i\neq 1$, $A_i$ flips the $i^{\rm th}$ bit. The permutation $A_1$ always flips the $1^{\rm st}$ bit, and  flips the $(k+1)^{\rm th}$ bit conditioned on the $2^{\rm nd}$ bit being $1$. Namely, each $A_i$ is a NOT gate applied from the $2^{\rm nd}$ to  the $i^{\rm th}$ bit, while $A_1$ is a NOT gate applied on the first bit composed with a CNOT gate applied to the $(k+1)^{\rm th}$ bit. The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\complex^{\field^{k+1}}$ with its standard normalized trace $\tau^\cM(X)=\frac{1}{2^{k+1}}\Tr(X)$.
 
 Now, all of the $A_i$'s are order $2$ unitaries, thus satisfy the order $2$ relations in \eqref{eq:z2-efficient} perfectly. Furthermore, 
@@ -956,11 +971,11 @@ This finishes the proof.
 \end{remark}
 
 \begin{remark}
-As discussed in the introduction, in the literature on stability it is more common to use a $L^\infty$ analogue of our Definition~\ref{def:eff-stab}, where the notion of almost-homomorphism and closeness are both measured by taking a supremum over relations and generators respectively, as opposed to averaging according to distributions $\mu_R,\mu_S$. 
+As discussed in the introduction (see Remark \ref{rem:L^infty_analogue_defn}), it is more common in the literature on stability to use a $L^\infty$ analogue of Definition~\ref{def:eff-stab}, where the notion of almost-homomorphism and closeness are both measured by taking a supremum over relations and generators respectively, as opposed to averaging according to distributions $\mu_R,\mu_S$. 
 A slight modification of the example given in  the proof of Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k} provides a lower bound also in that setup. The idea is as follows: In the construction we provided, the pair $(1,2)$ played a special role, since $A_1$ was a CNOT conditioned on the second bit. We can thus define the analogous construction for every pair $(i,j)$ where $1\leq i<j\leq k$. By tensoring all of these constructions along the pairs $(i,j)$, we get $k$ permutations acting on $\binom{[k]}{2}\times \field^{k+1}$, which in turn provide a lower bound in the $L^\infty$ setup. The proof is similar to the above, and since this is a slight digression from our main theme, we omit the details. 
 \end{remark}
 
-In the next section we will obtain presentations of $\Z_2^k$ that have a much better size/modulus tradeoff than the one given in~\eqref{eq:z2-efficient}. In the meantime we give one last example. To formulate it we recall the definition of the Pauli matrices
+In the next section we will obtain presentations of $\Z_2^k$ that have a much better length/modulus tradeoff than the one given in~\eqref{eq:z2-efficient} or the multiplication table presentation. In the meantime, we give one last example. To formulate it we recall the definition of the Pauli matrices
 	\begin{equation}\label{eq:def-pauli-1} \sigma^X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\;,\qquad \sigma^Z = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}\;,
 	\end{equation}
 	and more generally for $a,b\in \Z_2^k$ let 
@@ -969,12 +984,13 @@ In the next section we will obtain presentations of $\Z_2^k$ that have a much be
 	\end{equation}
 These are self-adjoint unitary operators called Pauli observables. Each observable $\sigma^X(a)$ (resp. $\sigma^Z(b)$) corresponds to the \emph{Pauli measurement} $\{ \sigma^X_a \}_{a \in \Z_2^k}$ (resp. $\{ \sigma^Z_b \}_{b \in \Z_2^k}$) where (in a slight abuse of notation)  
 	%	We slightly abuse notation and write 
-	\[ \sigma^X_a = \Es{\alpha\in\F_2^k} (-1)^{a\cdot \alpha} \sigma^X(\alpha)\qquad\text{and}\qquad\sigma^Z_b = \Es{\beta\in\F_2^k} (-1)^{b\cdot\beta} \sigma^Z(\beta).\]
+	\[    \sigma^X_a = \Es{\alpha\in\F_2^k} (-1)^{a\cdot \alpha} \sigma^X(\alpha)\qquad\text{and}\qquad\sigma^Z_b = \Es{\beta\in\F_2^k} (-1)^{b\cdot\beta} \sigma^Z(\beta).\]
 	It is easy to verify that $\{\sigma^X_a\}_a$ and $\{\sigma^Z_b\}_b$ are projections summing to identity.	
 	
 For an integer $k\geq 1$,  the Pauli group $\pauli_k$ is the group generated by the Pauli matrices $\sigma^X(a)$, $\sigma^Z(b)$ introduced in~\eqref{eq:def-pauli-2}. It can also be defined more abstractly as follows. Let $\gamma: \Z_2^k\times \Z_2^k \to \{-1,1\}$ be given by $\gamma(a,b)=(-1)^{a\cdot b}$. Then $\pauli_k$ is the central extension of $\Z_2^k\times \Z_2^k$ by $\{-1,1\}$ given by $\gamma$. This group 
 is also known as the Heisenberg group 
-\[ H_{2k+1} = \left \{ \begin{pmatrix} 1 & a & c \\ 0 & I_{k \times k} & b \\ 0 & 0 & 1 \end{pmatrix} \right\}\subseteq {\mathrm{GL}}_{k+2}(\F_2)\;.\]
+\begin{equation}\label{eq:defn_Pauli_as_Heisenberg} H_{2k+1} = \left \{ \begin{pmatrix} 1 & a & c \\ 0 & I_{k \times k} & b \\ 0 & 0 & 1 \end{pmatrix} \right\}\subseteq {\mathrm{GL}}_{k+2}(\F_2)\;.
+\end{equation}
  
 We consider the following presentation for the Pauli group \mnote{This is not the correct presentation. We use only $(a,0)$ and $(0,b)$ as generators (and not all pairs as currently written). Also, the anti commutation relation is in the other direction isn't it? I don't want to mess something because I am not sure which presentation you were aiming for, but this has typos in it for sure. Lastly, the commutation with $J$ should be of pairs $(a,0)$ and $(0,b)$ and not just $a$ and $b$}:
 \begin{align*}
@@ -1002,7 +1018,7 @@ Since this statement already appears in~\cite{natarajan2017quantum} (restricted 
 Define $\phi:\pauli_k \to \mU(\mM)$ by $\phi(J^c (a,b))= (-1)^c \phi_X(a)\phi_Z(b)$, where $c\in \{\pm 1\}$ and $a,b\in \Z_2^k$. Then it is not hard to verify that the assumptions of the corollary imply that  $\phi$ is an $O(\eps)$-almost homomorphism for the multiplication table presentation of $\pauli_k$. Applying Theorem~\ref{thm:gh} we find a unitary representation $\phi'$ of $\pauli_k$ on some $(\mN,\tau^\mN)$ that is $O(\eps)$-close to $\phi$. To conclude we observe that the only irreducible unitary representation of $\pauli_k$ that sends $J$ to $-1$ is the representation by the Pauli matrices; furthermore, all other irreducible representations are $1$-dimensional. From there it is not hard to show that, if we restrict $\phi'$ to its support on the Pauli matrix representation, the result remains $O(\eps)$-close to $\phi$. We omit the details. 
 \end{proof}
 
-Similarly to Lemma~\ref{lem:eff-z2} we can state an ``efficient'' version of the preceding corollary, which applies to the presentation
+Similarly to Lemma~\ref{lem:eff-z2} we can state a short version of the preceding corollary, with a bad modulus of stability, which applies to the presentation
 \begin{align}
  \pauli_k = \big\langle x_1,\ldots,x_k,z_1,\ldots,z_k &: x_i^2=z_i^2=J^2=e,\; [x_i,J]=[z_i,J]=e,\notag\\
 &\qquad  [x_i,x_j]=[z_i,z_j]=[x_i,z_j]=e, [x_i,z_i]=J \quad \forall i\neq j \big\rangle\;.\label{eq:pauli-efficient}
@@ -1032,7 +1048,7 @@ In this section we present our main result, which is an ``efficient'' stable pre
 As a first step, we introduce a general method for translating any binary linear error-correcting code into a presentation of $\Z_2^k$. Later we apply this method to the specific case of the Reed-Muller code (composed with the Hadamard code to obtain a binary code). However, the general method may be of independent interest. 
 
 \subsection{Presentations from codes}
-\label{sec:pres-code}
+\label{sec:pres-code}\mnote{Why the same headline for the subsection as the section itself? Maybe we should change}
 
 For $q$ a prime power we let $\F_q$ denote the finite field with $q$ elements. 
 For $n,k,d$ integer, a $[n,k,d]_q$ linear code $\code$ is a $k$-dimensional subspace of $\F_q^n$ such that for all $x\in \code$ such that $x\neq 0$, the Hamming weight $|x|$ (i.e.\ the number of nonzero coordinates of $x$) is at least $d$. The parameter $n$ is called the \emph{length} of the code, $k$ its \emph{dimension} and $d$ its \emph{distance}. A code can be specified by a \emph{parity check matrix} $h\in \F_q^{m\times n}$ such that $\code = \ker h$. 
@@ -1073,7 +1089,7 @@ An \emph{$r$-local linear tester for $\code$} is a pair $M = (h,\nu)$ where $h \
 An $r$-local linear tester $M=(h,\nu)$ for $\code$ induces a pair of distributions $(\nu_R,\nu_S)$ on the relations and generators of the presentation $G(h)$\eqref{eq:def-gh-pres} in a natural way: For the generators, we let $\nu_S$ be induced from $\nu$ by first sampling $j\sim \nu$ and then a uniformly random $i$ such that $h_{ji}\neq 0$. For the relations, we let $\nu_R$ be the uniform mixture of the distribution $\nu_S$ on relations $x_j^2=e$, the distribution $\nu$ on relations $R_i$, and the distribution $\nu\times \nu_S\times \nu_S$ on relations $R'_{jii'}$.
 
 
-We end this section with an example, the \emph{Hadamard code}. This code can be defined for any  $t\geq 1$ and it is a $[T,t,T/2]_2$ linear code, where $T=2^t$. For simplicity we write  $\code_\had$ to denote this code, omitting $t$. As a linear space, $\code_\had$ is the span of all $(x_i)_{x\in \field^t} \in \field^T$, for $i\in \{1,\ldots,t\}$.  
+We end this section with an example, the \emph{Hadamard code}. This code can be defined for any  $t\geq 1$ and it is a $[T,t,T/2]_2$ linear code, where $T=2^t$. For simplicity we write  $\code_\had$ to denote this code, omitting $t$. The Hadamard code is the subspace of linear functionals from $\field^t$ to $\field$ out of all such functions. As a linear space, $\code_\had$ can be described as  $(a\cdot b)_{a\in \field^t} \in \field^{\field^t}\cong \field^T$, for all $b\in \field^t$, where $ a\cdot b=\sum_{i=1}^t a_ib_i$ is again the dot product modulo $2$.  \mnote{The last definition was more confusing than clarifying. I changed it. }
 
 A parity check matrix for $\code_\had$ is the matrix $h_\had\in \F_2^{T^2\times T}$ defined as follows. Identify the rows of $h_\had$ with pairs $(x,y)\in \F_2^t\times \F_2^t$, and the columns of $h_\had$ with $\F_2^t$. Then the $(x,y)$-th row of $h_\had$ has nonzero entries at positions $x,y$ and $x+y$ only. 
 The corresponding $3$-local linear tester is $M_\had = (h_\had,\nu)$ where $\nu$ is the uniform distribution over $\F_2^t \times \F_2^t$. This tester can be described algorithmically, see Figure~\ref{fig:test-had}. 
@@ -1127,7 +1143,7 @@ where $\{c_\alpha\}$ is a collection of coefficients in $\F_q$. It is easy to ve
   \end{equation*}
 \end{lemma}
 
-The resulting code is called the \emph{Reed-Muller code} $\code_\RM$ with parameters $q,m,d$. For $m=1$ then one obtains the \emph{Reed-Solomon code} $\code_\RS$. A useful feature is that $\code_\RM$ can be seen as the $m$-fold tensor product of $\code_\RS$, i.e.\ $\code_\RM = \code_\RS^{\otimes m}$ as vector spaces over $\F_q$. 
+The resulting code is called the \emph{Reed-Muller code} $\code_\RM$ with parameters $q,m,d$. For $m=1$, one obtains the \emph{Reed-Solomon code} $\code_\RS$. A useful feature is that $\code_\RM$ can be seen as the $m$-fold tensor product of $\code_\RS$, i.e.\ $\code_\RM = \code_\RS^{\otimes m}$ as vector spaces over $\F_q$. 
 
 We define a local linear tester $M_{\RM}$ for the code $\code_\RM$ over $\F_q$. The tester is described as an algorithmic procedure in Figure~\ref{fig:RM-tester}. %From this description it is straightforward to deduce a description of the tester as a distribution $\nu$ on subsets of $\F_q^n$, where $n=q^m$, together with vectors $v_S\in \F_q^S$ for every $S$ in the support of $\nu$. 
 The description makes use of interpolation coefficients, which are defined as follows. Fix $d+1$ distinct values $t_0,\ldots,t_d \in \F_q$. Then for all $u,v \in \F_q$ and $i \in \{0,\ldots,d\}$ define the interpolation coefficients

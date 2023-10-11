@@ -586,7 +586,7 @@ This correspondence enables one to ``embed'' group representations into quantum 
 
 To summarize, approximate stability results for $G(h)$ enable one to obtain structural results about near-optimal strategies in $\game_h$ --- such a result is known as a \emph{rigidity} result in quantum information. A rigidity result about a game called the quantum low-degree test~\cite{natarajan2018low} is at the heart of the proof of $\sf MIP^* = \sf RE$. The analysis of this test requires an efficient stability result for the Weyl-Heisenberg group. Informally, the reason that the stability result needs to be for an efficient presentation of the Weyl-Heisenberg group \mnote{We mix Weyl-Heisenberg with Pauli all the time. In the main text we call them Pauli, and mention that they are a special case of a Heisenberg group. I like the Weyl-Heisenberg name, since we ignore the y operators in this case, and I thought they are formally part of the Pauli group. But, since we already use notations with P throughout, it would be probably easier to change to Pauli here as well. }, as opposed to e.g.\ the multiplication table presentation, is because to obtain the final result it is necessary that the ``complexity'' of the test, or game, is smaller than the ``complexity'' of the object, or group being tested. Of course here we are loose about what we mean by ``complexity,'' and refer to~\cite{ji2021mip,vidickmip} for high-level explanations. The quantum low-degree test is described and analyzed in Section~\ref{sec:pbt}. We end by mentioning an open question: if one was able to obtain $|S_k|,|R_k|=\poly(k)$ while also having $\delta(\eps)=\poly(\eps)$ in the informal theorem stated above, then this result would likely, through the connection we just described, have consequences for the efficient verification of quantum computations in the framework of interactive proof systems---see e.g.~\cite{coladangelo2019verifier,natarajan2023bounding} for a sample of known results in this direction. 
 
-\paragraph{Related works on stability.} The general question of group stability was first formulated by Ulam~\cite{ulam1960collection}, and later studied by Kazhdan for the case of the operator norm~\cite{kazhdan1982e}. See the introduction of \cite{ioana2020stability} for a thorough history of these problems through the lens of approximate commutation (cf.  \cite{von1942approximative,voiculescu1983asymptotically}). A major contribution was done by \cite{hadwin2018stability}, in which they characterized the stable amenable groups according to properties of their space of characters. 
+\paragraph{Related works on stability.} The general question of group stability was first formulated by Ulam~\cite{ulam1960collection}, and later studied  by Kazhdan for the case of the operator norm~\cite{kazhdan1982e}. See the introduction of \cite{ioana2020stability} for a thorough history of these problems through the lens of approximate commutation (cf.  \cite{von1942approximative,voiculescu1983asymptotically,glebsky2010almost}). A major contribution was done by \cite{hadwin2018stability}, in which they characterized the stable amenable groups according to properties of their space of characters. 
 
 Stability of finite groups, with respect to the multiplication table representation, is shown in~\cite{gowers2017inverse}. 
 One can also consider representations in permutations, see~\cite{glebsky2009almost,becker2022stability}.  Specifically, the analogous problem of efficient stability in permutations is still open. See the open problems section of \cite{CL_part2}. Both stability in permutations and in unitaries equipped with the Hilbert--Schmidt metric are closely related to the notions of sofic and hyperlinear groups, cf. \cite{glebsky2009almost,becker2020group}. 
@@ -602,7 +602,6 @@ We start in Section~\ref{sec:efficient} by giving a precise definition of stabil
 
 \paragraph{Acknowledgments.} 
 MC acknowledges with gratitude the Simons Society of Fellows and is supported by a grant from the Simons Foundation (N. 965535). 
-
 TV is supported by a research grant from the Center for New Scientists at the Weizmann Institute of Science, a Simons Investigator award, AFOSR Grant No. FA9550-22-1-0391, and ERC Consolidator Grant VerNisQDevS (101086733). HY is supported by AFOSR award FA9550-21-1-0040, NSF CAREER award CCF-2144219, and the Sloan Foundation.
 
 
@@ -614,7 +613,7 @@ In this section we give definitions associated with the notion of ``efficient st
 
 \subsection{Algebra background and notation}
 
-  Here we call \emph{tracial von Neumann algebra} a pair $(\mM,\tau)$ of a von Neumann algebra $\mM$ together with a normal faithful tracial state $\tau$ on $\mM$, which we often refer to as the \emph{trace}. The main example of interest is $\mM=M_n(\C)$, the algebra of $n\times n$ complex matrices, with $\tau$ the dimension-normalized trace, which we denote $\tr(M)=\frac{1}{n}\Tr(M)$. 	We write $\|x\|_\tau=\tau(x^*x)^{1/2}$ to denote the $2$-norm on $\mM$ with respect to $\tau$. 
+  Here we call \emph{tracial von Neumann algebra} a pair $(\mM,\tau)$ of a von Neumann algebra $\mM$ together with a normal faithful tracial state $\tau$ on $\mM$, which we often refer to as the \emph{trace}. The main example of interest is $\mM=M_n(\C)$, the algebra of $n\times n$ complex matrices, with $\tau$ the dimension-normalized trace, which we denote $\tr(M)=\frac{1}{n}\Tr(M)$. 	We write $\|x\|_\tau=\tau(x^*x)^{1/2}$ to denote the $2$-norm on $\mM$ with respect to $\tau$ --- which agrees in the case of $M_n(\complex)$ with the Hilbert--Schmidt norm $\|x\|_{hs}$ discussed in the introduction.
 	
 	Let $B(\ell_2)$ be the von Neumann algebra of bounded operators on $\ell_2$, the Hilbert space of convergent sequences in $\C^\Z$ equipped with the usual Euclidean norm (for which we let $(e_i)_{i \in \Z}$ denote the standard basis). We denote $\mM_\infty = \mM \overline{\otimes} B(\ell_2)$, where the overline denotes closure for the operator topology. $\mM_\infty$ is a von Neumann algebra equipped with the (infinite) trace $\tau_\infty = \tau \otimes \Tr$, with $\Tr(X)=\sum_{i\in \Z} e_i^T X e_i$ the trace on $B(\ell_2)$. We generally identify $\mM$ with the ``corner'' $\mM\otimes \Id_{1}\subset \mM_\infty$, where $\Id_1$ is the projection on the $1^{\rm st}$ coordinate in $\complex^\Z$.
 
@@ -634,14 +633,14 @@ Let $G = \langle S:R\rangle $ be a finitely presented group, $\mu$ a distributio
 \end{definition}
 
 We note that this notion depends on the presentation $\langle S:R\rangle$ of $G$, not only on the group itself. 
-When the distribution $\mu$ is uniform over the set $R$, we simply write $\eps$-homomorphism. The definition is consistent with the usual notion of a (unitary) homomorphism, which is recovered when $\eps=0$. 
+When the distribution $\mu$ is uniform over the set $R$, we simply write $\eps$-homomorphism. The definition is consistent with the usual notion of a homomorphism that factors through $G$, which is recovered when $\eps=0$ as long as $\mu_R$ and $\mu_S$ are fully supported. 
 
 A stability result is a statement that $\eps$-homomorphisms are close to homomorphisms. To measure the distance between homomorphisms into different algebras we make the following definition. 
 
 
 \begin{definition}[Closeness for unitaries]\label{def:close}
 Let $\{U_i\}\subseteq \mM$ and $\{V_i\}\subseteq \mN$ be two families of unitaries on  tracial algebras $(\mM,\tau^\mM)$ and $(\mN,\tau^\mN)$ respectively, indexed by the same set $\mI$. For $\delta\geq0$ and $\mu$ a measure on $\mI$ we say that $\{U_i\}$ and $\{V_i\}$ are $(\delta,\mu)$-close if there exists a projection $P\in\mM_\infty$ of finite trace such that $\mN=P\mM_\infty P$ and $\tau^\mN=\tau_\infty/\tau_\infty(P)$, and a partial isometry $w\in P \mM_\infty \Id_\mM$ such that 
-\[ \Es{i\sim\mu} \big\| U_i - w^* V_i w \big\|_{\tau^\mM}^2 \,\leq\,\delta\]
+\[ \Es{i\sim\mu} \big\| U_i - w^* V_i w \big\|_{\tau}^2 \,\leq\,\delta,\ \footnote{We denote the norm by $\|\cdot\|_{\tau}$ and not $\|\cdot\|_{\tau^\mM}$ for clarity of the notations. The von Neumann algebra in which we take the norm should be understood from context, and will usually be $\mM$. }\]
 and 
 \[\max\big\{ \tau^\mM(\Id_\mM-w^*w)\,,\; \tau^\mN(P-ww^*)\big\} \,\leq\, \delta\;.\]
 If $\phi:\mI\to \mU(\mM)$ and $\psi:\mI\to \mU(\mN)$ then we say that $\phi$ and $\psi$ are $(\delta,\mu)$ close if the families $\{\phi(i)\}$ and $\{\psi(i)\}$ are. 
@@ -652,14 +651,19 @@ If the measure $\mu$ is omitted then it is understood to be the uniform measure 
 We now give our definition of stability.
 
 \begin{definition}[Stability]\label{def:eff-stab}
-Let $G = \langle S:R\rangle $ be a finitely presented group. Let $\mC$ be a class of tracial von Neumann algebras. Let $\mu_S$ be a distribution on $S$ and $\mu_R$ a distribution on $R$. For $\delta:[0,1]\to[0,1]$ such that $\lim_{t\to 0}\delta(t)=0$ we say that the presentation $G=\langle S:R\rangle$ is $(\delta,\mu_S,\mu_R,\mC)$-stable if for every $(\cM,\tau)$ in $\mC$, every $(\eps,\mu_R)$-almost homomorphism of $G$ is $(\delta(\eps),\mu_S)$-close to a unitary representation of $G$ on some $(\mN,\tau^\mN)\in \mC$. We refer to the function $\delta$ as the ``modulus of stability'' of the presentation.
+Let $G = \langle S:R\rangle $ be a finitely presented group. Let $\mC$ be a class of tracial von Neumann algebras. Let $\mu_S$ be a distribution on $S$ and $\mu_R$ a distribution on $R$. Let $\delta:[0,1]\to[0,1]$ be a function satisfying $\lim_{t\to 0}\delta(t)=0$. The presentation $G=\langle S:R\rangle$ is $(\delta,\mu_S,\mu_R,\mC)$-stable if for every $(\cM,\tau)$ in $\mC$, every $(\eps,\mu_R)$-almost homomorphism of $G$ is $(\delta(\eps),\mu_S)$-close to a unitary representation of $G$ on some $(\mN,\tau^\mN)\in \mC$. We refer to the function $\delta$ as the \emph{modulus of stability} of the presentation.\footnote{Every function that satisfies this condition is a modulus of stability for $G=\langle S\colon R\rangle$, but we occasionally refer that way to the best possible $\delta$ in the definition.}
 \end{definition}
 
 \begin{remark}\label{rk-mus}
-Fixing a distribution $\mu_R$ on $R$ only, there is a natural induced distribution $\mu_S$ on $S$ which is obtained by sampling $r\in R$ from $\mu_R$, and then sampling an $s\in S$ according to the atomic measure induced by $R$ (seen as a multiset). For example, if $r=aba$ then conditioned on having chosen $r$, $a$ is given probability $2/3$ and $b$ is given probability $1/3$. Throughout this text, $\mu_S$ is always chosen as this induced distribution and so we often omit it from the notation. 
+Fixing a distribution $\mu_R$ on $R$ only, there is a natural induced distribution $\mu_S$ on $S$ which is obtained by sampling $r\in R$ from $\mu_R$, and then sampling an $s\in S$ according to the atomic measure induced by $R$ (seen as a multiset). For example, if $r=aba$ then conditioned on having chosen $r$, $a$ is given probability $2/3$ and $b$ is given probability $1/3$. Throughout this text, $\mu_S$ is always chosen as this induced distribution and so we often omit it from the notation.
 \end{remark}
 
-Definition~\ref{def:eff-stab} specifies what it means for a presentation to be stable, but not when the presentation is \emph{efficiently} stable. This is because we prefer to keep the notion of efficiency qualitative; furthermore, what we mean will quickly be clear from the examples. 
+Definition~\ref{def:eff-stab} specifies what it means for a presentation to be stable, but not when the presentation is \emph{efficiently} stable. 
+As mentioned in the introduction, the goal is to optimise the tradeoff between the encoding length of the presentation and the resulting modulus of stability. We now choose a complexity measurement for presentations:
+\begin{definition}
+    Let $G=\langle S\colon R\rangle$ be a finite presentation. The \emph{length} of the presentation will be $\log|S|\cdot \sum_{r\in R}|r|,$ where $|r|$ is the length of the word $r\in \mF(S)$ written in the basis $S$.
+\end{definition}
+This is because we prefer to keep the notion of efficiency qualitative; furthermore, we do suggest a natural parameter setting which we will call ``efficient'', and which is good for certain applications.
 
 
 \subsection{General results}
@@ -737,8 +741,8 @@ Finally,
 where the second line is by the triangle inequality, the fourth line is due to the fact that $I_\mM - w^* w$ is positive and has operator norm at most $1$, and the last line is by $\tau^\mM(I_\mM - w^* w ) \leq \eps$.
 \end{proof}
 
-
-\begin{claim}\label{claim:L^1_dist_on_reps)_implies_L^infty_dist}
+\begin{comment}
+    \begin{claim}\label{claim:L^1_dist_on_reps)_implies_L^infty_dist}
     Let $\phi_1\colon G\to \mU(\mM)$ and $\phi_2\colon G\to \mU(\mN)$ be representations of a finite group $G\cong \langle S\colon R\rangle$, where $\mN=PM_\infty P$  with  $\tau_\infty(P)<\infty$, and equipped with the appropriate trace. Let $w\in P\mM_\infty \Id_\mM$ be a partial isometry from $\mM$ to $\mN$, and assume both
     \[
     \Expectation_{x\in G}\Vert \phi_1(x)-w^*\phi_2(x)w\Vert_\tau ^2\leq \eps\quad \textrm{and}\quad \max\{\tau^\mM(\Id_\mM-w^*w),\tau^\mN(P-ww^*)\}\leq \eps.
@@ -776,6 +780,8 @@ Combining \eqref{eq:lower_bound_stab_standard_pres} and \eqref{eq:lower_bound_st
     &\leq 3(\eps +\eps +\frac{\eps}{1-\eps})\leq 12\eps.
 \end{align*}
 \end{proof}
+\end{comment}
+
 
 \subsection{Examples}
 \label{sec:examples}

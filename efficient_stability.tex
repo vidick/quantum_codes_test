@@ -578,7 +578,7 @@ Can such ``efficient'' presentations of $G(h)$ still be stable? The naive approa
 
 The main result of this paper is to exhibit presentations of $\Z_2^k$ (and of slightly more complex $2$-groups built on them, e.g. the \emph{Pauli}\footnote{This group is commonly referred to as the (multi-dimensional) \emph{Heisenberg} group over $\field$, or  the \emph{Weyl--Heisenberg} group.} group ubiquitous in quantum information theory) that are \emph{efficiently stable}: the size of the presentation is quasi-polynomial in $k$ (as opposed to exponential), yet the modulus of stability only depends poly-logarithmically on $k$. These presentations are constructed from specific error-correcting codes, namely the Reed--Muller polynomial codes, which are known to have good local testability properties~\cite{babai1991non}. Our main result on group stability can be stated as follows (see Theorem~\ref{thm:z2-stab} for the precise statement).
 
-\begin{theorem*}[Main, informal]
+\begin{theorem*}[Main, informal]\label{thm:main-inf}
 For every integer $k\geq 1$ there is a presentation $\Z_2^k = \langle S_k:R_k\rangle$ such that $|S_k|,|R_k| = 2^{\poly\log(k)}$ and furthermore this presentation is $(\delta,\mu_{S_k},\mu_{R_k},d)$-stable for all $d \in \N$, where $\delta(\eps)=\poly(\log k,\eps)$, $\mu_{S_k}$ is uniform over the generators and $\mu_{R_k}$ is some distribution over the relations. 
 \end{theorem*}
 
@@ -603,7 +603,12 @@ To summarize, approximate stability results for $G(h)$ enable one to obtain stru
 Stability of finite groups, with respect to the multiplication table representation, is shown in~\cite{gowers2017inverse}. 
 One can also consider representations in permutations, see~\cite{glebsky2009almost,becker2022stability}.  Specifically, the analogous problem of efficient stability in permutations is still open. See the open problems section of \cite{CL_part2}. Both stability in permutations and in unitaries equipped with the Hilbert--Schmidt metric are closely related to the notions of sofic and hyperlinear groups, cf. \cite{glebsky2009almost,becker2020group}. 
 
-\tnote{more? open questions?}\mnote{If we have open problems, maybe we should collect them at the end? Not sure about that. Did you think of any open problems other than the permutation analogue of the quantum soundness of the low-deg test?}\tnote{There's the obvious open problem of finding an LTC that is not stable (since I'd conjecture it this way), and conversely other examples of codes that are stable. We can also ask how far things can be pushed; in principle we could have stability, in our sense, for a finite pres of an infinite group.}\mnote{Agree about most of the problems you suggested. Regarding the infinite case, there are many stability results for infinite groups... We should be precise in what we mean by efficient in the infinite case. Maybe there is a way of formulating it. Actually, I do not know of any group which is infinite, not free or a product of a free and a finite group, which has linear stability rate...}
+
+\paragraph{Open questions.}\tnote{added this paragraph}
+We leave many questions open. A natural direction is to determine if there are simple sufficient conditions on the matrix $h$ that guarantee that the presentation $G(h)$ is stable. As we discussed, the condition that $\ker h$ is a testable code is equivalent to stability for $1$-dimensional permutations. It thus seems likely that testability is not a sufficient condition in general; can testability be determined by a combinatorial parameter of $h$? More generally, finding other examples of efficient stability seems of intrinsic interest, besides potential applications to property testing and the construction of nonlocal games. In a different direction, an analogue of Theorem~\ref{thm:main-inf} for the case of representations in permutations could have important implications towards showing the existence of non-sofic groups, as is discussed in more depth in the work~\cite{}\tnote{Michael, can you add a reference to the relevant paper of yours/ours?}
+
+
+
 
 
 \paragraph{Outline.}

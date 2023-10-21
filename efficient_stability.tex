@@ -605,7 +605,7 @@ One can also consider representations in permutations, see~\cite{glebsky2009almo
 
 
 \paragraph{Open questions.}\tnote{added this paragraph}
-We leave many questions open. A natural direction is to determine if there are simple sufficient conditions on the matrix $h$ that guarantee that the presentation $G(h)$ is stable. As we discussed, the condition that $\ker h$ is a testable code is equivalent to stability for $1$-dimensional permutations. It thus seems likely that testability is not a sufficient condition in general; can testability be determined by a combinatorial parameter of $h$? More generally, finding other examples of efficient stability seems of intrinsic interest, besides potential applications to property testing and the construction of nonlocal games. In a different direction, an analogue of Theorem~\ref{thm:main-inf} for the case of representations in permutations could have important implications towards showing the existence of non-sofic groups, as is discussed in more depth in the work~\cite{}\tnote{Michael, can you add a reference to the relevant paper of yours/ours?}
+We leave many questions open. A natural direction is to determine if there are simple sufficient conditions on the matrix $h$ that guarantee that the presentation $G(h)$ is stable. As we discussed, the condition that $\ker h$ is a testable code is equivalent to stability for $1$-dimensional permutations. It thus seems likely that testability is not a sufficient condition in general; can testability be determined by a combinatorial parameter of $h$? More generally, finding other examples of efficient stability seems of intrinsic interest, besides potential applications to property testing and the construction of nonlocal games. In a different direction, an analogue of Theorem~\ref{thm:main-inf} for the case of representations in permutations could have important implications towards showing the existence of non-sofic groups, as is discussed in more depth in the works~\cite{CL_part2,BCLV_subgroup_tests}\tnote{Michael, can you add a reference to the relevant paper of yours/ours?}\mnote{Done. But, it seems as if the second paragraph of the 'related works on stability' subsection already hints towards this open problem.}
 
 
 
@@ -870,127 +870,12 @@ As one would expect, the dependence of $\delta_k$ on $k$ depends on both the dia
 
 \begin{lemma}\label{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k}
     Let $\mu_R$ and $\mu_S$ be as in Lemma~\ref{lem:eff-z2}. % be the uniform distribution over the commutation relations in the presentation $\langle S\colon R\rangle$ from \eqref{eq:z2-efficient}, and $\mu_S$ the marginal distribution from $\mu_R$, which is the uniform one on $S=\{x_1,...,x_k\}$. 
-    There is a $(\nicefrac{1}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\langle S\colon R\rangle$ which not $(\nicefrac{1}{16k},\mu_S)$-close to any homomorphism (according to Definition~\ref{def:close}). 
+    Then, for every $1\leq c\leq \frac{k}{2}$, there is a $(\nicefrac{c}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\langle S\colon R\rangle$ which is at least  $(\nicefrac{c}{16k},\mu_S)$-far from any homomorphism (according to Definition~\ref{def:close}). 
 \end{lemma}
 
 
-Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k} implies that the modulus of stability of \eqref{eq:z2-efficient} is $\Omega(k\eps)$ as $\eps\to 0$. This is because for any $\eps>0$ such that $\eps\leq 1/\binom{k}{2}$ we can create an $(\eps,\mu_R)$-almost homomorphism of $\langle S\colon R\rangle$ by taking direct sums of one copy of the almost-homomorphism $\phi$ from Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k}, which ranges into $\mU(\C^{2^{k+1}})$, with $R=\lceil 2^{k+1}/(\binom{k}{2}\eps)\rceil$ copies of the trivial representation of $G(h)$. Clearly, a $\delta$-close homomorphism implies, by restriction, a $\delta R$-close homomorphism to $\phi$. Hence $\delta R \geq 1/(16k)$, which gives $\delta=\Omega(k\eps)$ as claimed.  
+Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k} implies that the modulus of stability of \eqref{eq:z2-efficient} is $\Omega(k\eps)$ whenever $\eps\leq\frac{1}{k-1}$. This is because, for any $0<\eps<\nicefrac{1}{k-1}$, one can add trivial representations of $\Z_2^k$ to copies of the approximate representation described in Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k} (choosing $c=\nicefrac{k}{2}$), such that the resulting map is an $(\eps,\mu_R)$-approximate representation which is at least $(\nicefrac{(k-1)\eps}{32},\mu_S)$-away from any actual representation of $\Z_2^k$. We prove this Lemma in Appendix \ref{appendix:lower_bounds}, which also includes some discussion on the $L^\infty$ variant of it. 
 
-\begin{proof}[Proof of Lemma \ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k}]
-Let $\{A_i\}_{i=1}^k$ be permutations acting on the set $\field^{k+1}$ as follows: For every $i\neq 1$, $A_i$ flips the $i^{\rm th}$ bit. The permutation $A_1$ always flips the $1^{\rm st}$ bit, and  flips the $(k+1)^{\rm th}$ bit conditioned on the $2^{\rm nd}$ bit being $1$. Namely, each $A_i$ is a NOT gate applied from the $2^{\rm nd}$ to  the $i^{\rm th}$ bit, while $A_1$ is a NOT gate applied on the first bit composed with a CNOT gate applied to the $(k+1)^{\rm th}$ bit. The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\complex^{\field^{k+1}}$ with its standard normalized trace $\tau^\cM(X)=\frac{1}{2^{k+1}}\Tr(X)$.
-
-Now, all of the $A_i$'s are order $2$ unitaries, thus satisfy the order $2$ relations in \eqref{eq:z2-efficient} perfectly. Furthermore, 
-\[
-\Expectation_{i\neq j\in [k]}\left[\Vert A_iA_jA_iA_j-\Id_\mM\Vert_\tau^2\right]=\frac{1}{\binom{k}{2}}\Vert A_1A_2A_1A_2-\Id_\mM\Vert_\tau^2=\nicefrac{2}{\binom{k}{2}},
-\]
-because $A_1A_2A_1A_2$ is the permutation that flips the $(k+1)$-st bit. 
-Thus, the map $x_i\mapsto A_i$ is a $(\nicefrac{1}{\binom{k}{2}},\mu_R)$-almost homomorphism of $\Z_2^k$ with respect to \eqref{eq:z2-efficient}. 
-
-Recall that given our von Neumann algebra $\mM$, the algebra $\mM_\infty$ acts on the Hilbert space $\complex^{\field^{k+1}}\otimes \complex^\Z$. Let $\{e_v\otimes e_t\mid v\in \field^{k+1},t\in \Z\}$ be the standard basis of this Hilbert space.
-Let $\{B_i\}_{i=1}^k$ be order $2$ unitaries which pairwise commute in $\mN=P\mM_\infty P $, and assume  there is a partial isometry $w=PU\Id_\mM\in P\mU(\mM_\infty)\Id_\mM$ and  $0<\eps\leq \sqrt{2}-1$ such that 
-\[
-\Expectation_{i\in [k]} \Vert A_i-w^* B_iw\Vert_\tau^2\ ,\qquad  \tau^\mM(\Id_\mM-w^*w)\leq  \eps.
-\]
-This is a slightly weaker condition than for the $B_i$'s to be $(\eps,\mu_S)$-close to the $A_i$'s, as in Definition \ref{def:close}. Furthermore, we can assume without loss of generality that $U=\Id_\infty$, otherwise we replace $\mN$ by $U^*\mN U$ and $P$ by $U^* PU$. Thus, we are given that 
-\[
-\Expectation_{i\in [k]} \Vert A_i-\Id_\mM  B_i\Id_\mM\Vert_\tau^2\ ,\qquad  \tau^\mM(\Id_\mM-\Id_\mM P\Id_\mM)\leq  \eps.
-\]
-Thus, 
-\[
-\begin{split}
-    \Vert \Id_\mM-\Id_\mM P\Id_\mM\Vert_\tau^2 &=\tau^{\mM}(\Id_\mM\underbrace{-2\Id_\mM P\Id_\mM+\Id_\mM P^2\Id_\mM}_{=-\Id_\mM P\Id_\mM})\leq \eps.
-\end{split}
-\]
-Hence, 
-\begin{align*}
-    \sqrt{2}&=\Vert A_1A_2A_1A_2-\Id_\mM\Vert_\tau\\
-    &\leq \Vert A_1A_2A_1A_2-\Id_\mM P\Id_\mM\Vert_\tau+\eps\\
-    &=\Vert A_1A_2A_1A_2-\Id_\mM B_1B_2B_1B_2\Id_\mM\Vert_\tau+\eps\\
-    &\leq \Vert \Id_\mM(A_1-B_1)A_2A_1A_2\Vert_\tau+\Vert \Id_\mM B_1(A_2-B_2)A_1A_2\Vert_\tau\\
-    &+\Vert \Id_\mM B_1B_2(A_1-B_1)A_2\Vert_\tau+\Vert \Id_\mM B_1B_2B_1(A_2-B_2)\Id_\mM\Vert_\tau+\eps\\
-    &=(\heartsuit)+\eps
-\end{align*}
-Since the $A_i$'s are unitaries in $\mM$, and by abusing notation and denoting $\Vert X \Vert_\tau=\tau_\infty(X^*X)$, we have 
-\begin{align*}
-    (\heartsuit)&= \Vert \Id_\mM(A_1-B_1)\Id_\mM\Vert_\tau+\Vert \Id_\mM B_1(A_2-B_2)\Id_\mM\Vert_\tau\\
-    &+\Vert \Id_\mM B_1B_2(A_1-B_1)\Id_\mM\Vert_\tau+\Vert \Id_\mM B_1B_2B_1(A_2-B_2)\Id_\mM\Vert_\tau\\
-    &\leq \Vert (A_1-B_1)\Id_\mM\Vert_\tau+\Vert (A_2-B_2)\Id_\mM\Vert_\tau
-    +\Vert (A_1-B_1)\Id_\mM\Vert_\tau+\Vert (A_2-B_2)\Id_\mM\Vert_\tau\\
-    &=(\spadesuit).
-\end{align*}
-But,
-\begin{align*}
-     \Vert (A_1-B_1)\Id_\mM\Vert_\tau^2=  \Vert \Id_\mM(A_1-B_1)\Id_\mM\Vert_\tau^2+\Vert (\Id_\infty-\Id_\mM)(A_1-B_1)\Id_\mM\Vert_\tau^2,
-\end{align*}
-and since $(\Id_\infty -\Id_\mM)A_1=0$ and $\Id_\mM A_1=A_1\Id_\mM$, we have
-\begin{align*}
-    \Vert (\Id_\infty-\Id_\mM)(A_1-B_1)\Id_\mM\Vert_\tau^2= \Vert (\Id_\infty-\Id_\mM)B_1\Id_\mM\Vert_\tau^2=\Vert (\Id_\infty-\Id_\mM)B_1A_1\Id_\mM\Vert_\tau^2.
-\end{align*}
-%\tnote{I couldn't follow the last equality above, what allows you to insert $A_1$? An alternate way of going about it is to first show
-%\begin{align*}
-%\big\|\tau(\Id_\mM)-\tau(\Id_\mM B_1^* \Id_\mM B_1 \Id_\mM)\big|
-%&=\big\|\tau(\Id_\mM A_1^* \Id_\mM A_1 \Id_\mM )-\tau(\Id_\mM B_1^* \Id_\mM B_1 \Id_\mM)\big|\\
-%&\leq \big| \tau(\Id_\mM (A_1-B_1)^* \Id_\mM A_1\Id_\mM )\big| + \big|\tau(\Id_\mM B_1^*\Id_\mM (A_1-B_1)\Id_\mM )\big|\\
-%&\leq 2 \big\| \Id_\mM (A_1-B_1)\Id_\mM\big\|_\tau\;,
-%\end{align*}
-%by Cauchy-Schwwarz. Then, 
-%\begin{align*}
-%  \Vert (A_1-B_1)\Id_\mM\Vert_\tau^2 &= \tau\big(\Id_\mM (A_1-B_1)^*(A_1-B_1)\Id_\mM\big)\\
-%  &= \tau(\Id_\mM) + \tau(\Id_\mM B_1^*B_1 \Id_\mM) - \tau(\Id_\mM A_1^* B_1 \Id_\mM) - \tau(\Id_\mM B_1^* A_1 \Id_\mM)\\
-%  &\leq \tau(\Id_\mM) + \tau(\Id_\mM B_1^*\Id_\mM B_1 \Id_\mM) - \tau(\Id_\mM A_1^* \Id_\mM B_1 \Id_\mM) - \tau(\Id_\mM B_1^* \Id_\mM A_1 \Id_\mM) + 2 \big\| \Id_\mM (A_1-B_1)\Id_\mM\big\|_\tau\\
-%  &\leq 3\Vert \Id_\mM (A_1-B_1)\Id_\mM\Vert_\tau\;,
-%\end{align*}
-%where the third line uses the previous set of equations to relate the second terms, and $A_1\Id_\mM=A_1$ for the last terms.
-%This is worse than your bound because of the missing square on the last line, which is due to the first bunch of equations. %I think it gives a similar trade-off in the end? 
-%}
-Here the second equality is because by definition, 
-\begin{align*}
-    \Vert(\Id_\infty-\Id_\mM)B_1\Id_\mM\Vert_\tau^2=\sum_{\substack{v'\in \field^{k+1} \\ j\neq 1}}\sum_{v\in \field^{k+1}} |(e_{v'}\otimes e_j)^*B_1e_v\otimes e_1|^2=(\diamondsuit)\;,
-\end{align*}
-but since $A_1$ permutes $\{e_v\otimes e_1\}_{v\in \field^{k+1}}$, we have
-\begin{align*}
-    (\diamondsuit)=\sum_{\substack{v'\in \field^{k+1} \\ j\neq 1}}\sum_{v\in \field^{k+1}} |(e_{v'}\otimes e_j)^*B_1A_1e_v\otimes e_1|^2=\Vert (\Id_\infty-\Id_\mM)B_1A_1\Id_\mM\Vert_\tau^2\;.
-\end{align*}
-Now, for every $v\in \field^{k+1}$, we have
-\[
-1-|(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\leq |1-(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\leq \Vert \Id_\mM(\Id_\infty-B_1A_1)e_v\otimes e_1\Vert_2^2.
-\]
-On the other hand, since $B_1A_1$ is a contraction, 
-\begin{align*}
-    1-|(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2
-    &\geq \Vert B_1A_1 e_v\otimes e_1\Vert_2^2-|(e_v\otimes e_1)^*B_1A_1e_v\otimes e_1|^2\\
-    &=\sum_{(v',j')\neq (v,1)}|(e_{v'}\otimes e_j)^*B_1A_1e_v\otimes e_1|^2\\
-    &\geq \Vert (\Id_\infty-\Id_\mM)B_1A_1 e_v\otimes e_1\Vert_2^2\;.
-\end{align*}
-Therefore, by averaging the combined inequalities over $v\in \field^{k+1}$, we get
-\[
-\Vert (\Id_\infty -\Id_\mM)B_1A_1\Id_\mM\Vert_\tau^2\leq  \Vert \Id_\mM(\Id_\infty-B_1A_1)\Id_\mM\Vert_\tau^2=\Vert A_1-\Id_\mM B_1\Id_\mM\Vert_\tau^2\;.
-\]
-\begin{comment}
-=\frac{1}{2^{k+1}}\sum_{\substack{v\in \field^{k+1}}} \sum_{\substack{v'\in \field^{k+1}\\ j'\neq 1}} \vert (e_{v'}\otimes e_j)^*B_1 e_v\otimes e_1\vert^2.
-\end{comment}
-Plugging all of this back to $(\spadesuit)$, we get
-\begin{align*}
-    (\sqrt{2}-\eps)^2&\leq (\spadesuit)^2\\
-    &\leq 8\Vert(A_1-B_1)\Id_\mM\Vert^2+8\Vert(A_2-B_2)\Id_\mM\Vert^2\\
-    &\leq 16 \Vert \Id_\mM (A_1-B_1)\Id_\mM\Vert^2+16 \Vert \Id_\mM (A_2-B_2)\Id_\mM\Vert^2\\
-    &\leq 16k \eps,
-\end{align*}
-and since we assumed $\eps<\sqrt{2}-1$ we deduce that 
-\[
-\eps>\frac{1}{16k}.
-\]
-This finishes the proof.
-\end{proof}
-
-\begin{remark}
-    This construction (viewed in a different way) was used by Kozlov--Meshulam \cite{kozlov2019quantitative} to upper bound the Cheeger constant of the $k$-dimensional hypercube --- see Section 4.1 therein.
-\end{remark}
-
-\begin{remark}
-As discussed in the introduction (see Remark \ref{rem:L^infty_analogue_defn}), it is more common in the literature on stability to use a $L^\infty$ analogue of Definition~\ref{def:eff-stab}, where the notion of almost-homomorphism and closeness are both measured by taking a supremum over relations and generators respectively, as opposed to averaging according to distributions $\mu_R,\mu_S$. 
-A slight modification of the example given in  the proof of Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k} provides a lower bound also in that setup. The idea is as follows: In the construction we provided, the pair $(1,2)$ played a special role, since $A_1$ was a CNOT conditioned on the second bit. We can thus define the analogous construction for every pair $(i,j)$ where $1\leq i<j\leq k$. By tensoring all of these constructions along the pairs $(i,j)$, we get $k$ permutations acting on $\binom{[k]}{2}\times \field^{k+1}$, which in turn provide a lower bound in the $L^\infty$ setup. The proof is similar to the above, and since this is a slight digression from our main theme, we omit the details. 
-\end{remark}
 
 In the next section we will obtain presentations of $\Z_2^k$ that have a much better length/modulus tradeoff than the one given in~\eqref{eq:z2-efficient} or the multiplication table presentation. In the meantime, we give one last example. To formulate it we recall the definition of the Pauli matrices
 	\begin{equation}\label{eq:def-pauli-1} \sigma^X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\;,\qquad \sigma^Z = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}\;,
@@ -1952,7 +1837,153 @@ Rearranging, this implies that $d$, the dimension of $\mM$, satisfies
 as desired.
 \end{proof}
 
+\appendix
+\section{Lower bounds on the modulus of stability of \eqref{eq:z2-efficient}}\label{appendix:lower_bounds}
+In this Appendix we prove Lemma \ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k}, and deduce some corollaries from it. 
+Before diving into the proof, we first sketch the idea behind it. 
+We provide a method for translating every graph $([k],E\subseteq{\binom{[k]}{2}})$ into a collection of order $2$ unitaries $A_1,...,A_k$ (actually, permutations) that satisfy that
+\begin{equation}\label{eq:commuting_or_not}
+   \forall ij\in \binom{[k]}{2}\ \colon\ \ \|A_iA_j-A_jA_i\|_\tau^2=\begin{cases}
+    2 & ij\in E,\\
+    0 & ij\notin E.
+\end{cases} 
+\end{equation}
+Thus, these unitaries correspond to a $(\nicefrac{|E|}{\binom{k}{2}},\mu_R)$-approximate representation of \eqref{eq:z2-efficient}. For any pair $ij\in E$ we have $\|A_iA_j-A_jA_i\|_\tau^2=2$, and thus the unitaries $A_i$ and $A_j$ would need to be changed  by some constant amount to make them commute. Thus, to fix the $A_i$'s into a genuine representation of $\Z_2^k$, we would need to move them by at least a constant times the proportion of the largest   matching which embeds in $E$. Hence, by choosing a graph which is already a  matching with $c$ edges, we deduce the Lemma. 
 
+We begin by describing our construction. Given a graph $([k],E)$, the permutations $\{A_i\}_{i=1}^k$ act on  the set $\field^{[k]\cup E}$, namely bit strings  indexed by the vertices and edges of the graph. Now, each $A_i$ flips the $i^{\rm th}$ bit. Furthermore, it conditionally flips the  $ij^{\rm th}$  bit for $ij\in E$ where $i<j$, if the $j^{\rm th}$ bit is $1$. Namely, the $A_i$'s act as a NOT gate on the $i^{\rm th}$ bit composed with CNOT gates on all the $ij^{\rm th}$ bits, where $i<j$ and $ij\in E$. Now, all of these permutations are of order $2$. Equation \eqref{eq:commuting_or_not} is deduced by noting that  $A_iA_j=A_jA_i$ when $ij$ is not an edge, and that $A_iA_jA_iA_j$ has no fixed points when $ij$ is an edge --- this is because $A_iA_jA_iA_j$ must flip the $ij^{\rm th}$ bit.  
+The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\complex^{\field^{[k]\cup E}}$ with its standard normalized trace $\tau^\cM(X)=\frac{1}{2^{k+|E|}}\Tr(X)$.
+
+\begin{claim}
+    The map $x_i\mapsto A_i\in \cM$ is a $(\nicefrac{|E|}{\binom{k}{2}},\mu_R)$-approximate representation of the presentation \eqref{eq:z2-efficient} of $\Z_2^k$.
+\end{claim}
+
+\begin{proof}
+    With probability $\frac{1}{2}$, $\mu_R$ samples an involution relation, which is always satisfied by the  $A_i$'s. Furthermore, 
+    \[
+\Expectation_{i\neq j\in [k]}\left[\Vert A_iA_jA_iA_j-\Id_\mM\Vert_\tau^2\right]=\frac{1}{\binom{k}{2}}\sum_{ij\in E}\Vert A_iA_jA_iA_j-\Id_\mM\Vert_\tau^2=\nicefrac{2|E|}{\binom{k}{2}}.
+\]
+Combining these two observations, we deduce the claim.
+\end{proof}
+
+\begin{claim}
+Assume the largest matching in $E$ contains $c$ edges. Then, for every collection $\{B_i\}_{i=1}^k$ of order $2$ unitaries which pairwise commute in $\mN=P\mM_\infty P$, and  every partial isometry $w=PU\Id_\mM\in P\mU(\mM_\infty)\Id_\mM$, we have
+\[
+\Expectation_{i\in [k]} \Vert A_i-w^* B_iw\Vert_\tau^2 \geq  \frac{c}{16k} 
+\]
+or 
+\[
+\tau^\mM(\Id_\mM-w^*w)\geq  \frac{c}{16k}.
+\]
+In particular, there is no genuine representation of $\Z_2^k$ that is $(\frac{c}{16k},\mu_S)$-close to the $A_i$'s.
+\end{claim}
+\begin{proof}
+Recall that given our von Neumann algebra $\mM$, the algebra $\mM_\infty$ acts on the Hilbert space $\complex^{\field^{[k]\cup E}}\otimes \complex^\Z$. Let $\{e_v\otimes e_t\mid v\in \field^{[k]\cup E},t\in \Z\}$ be the standard basis of this Hilbert space.
+Let $\{B_i\}_{i=1}^k$ be order $2$ unitaries which pairwise commute in $\mN=P\mM_\infty P $, and assume  there is a partial isometry $w=PU\Id_\mM\in P\mU(\mM_\infty)\Id_\mM$ and  $0<\eps\leq 3-2\sqrt{2}\approx 0.17$ such that 
+\[
+\Expectation_{i\in [k]} \Vert A_i-w^* B_iw\Vert_\tau^2\ ,\qquad  \tau^\mM(\Id_\mM-w^*w)\leq  \eps.
+\]
+This is a slightly weaker condition than for the $B_i$'s to be $(\eps,\mu_S)$-close to the $A_i$'s, as in Definition \ref{def:close}. Furthermore, we can assume without loss of generality that $U=\Id_\infty$, otherwise we replace $\mN$ by $U^*\mN U$ and $P$ by $U^* PU$. Thus, we are given that 
+\[
+\Expectation_{i\in [k]} \Vert A_i-\Id_\mM  B_i\Id_\mM\Vert_\tau^2\ ,\qquad  \tau^\mM(\Id_\mM-\Id_\mM P\Id_\mM)\leq  \eps.
+\]
+Thus, 
+\[
+\begin{split}
+    \Vert \Id_\mM-\Id_\mM P\Id_\mM\Vert_\tau^2 &=\tau^{\mM}(\Id_\mM\underbrace{-2\Id_\mM P\Id_\mM+\Id_\mM P^2\Id_\mM}_{=-\Id_\mM P\Id_\mM})\leq \eps.
+\end{split}
+\]
+Let $ij\in E$. By \eqref{eq:commuting_or_not}, we have
+\begin{align*}
+    \sqrt{2}&=\Vert A_iA_jA_iA_j-\Id_\mM\Vert_\tau\\
+    &\leq \Vert A_iA_jA_iA_j-\Id_\mM P\Id_\mM\Vert_\tau+\Vert \Id_\mM P\Id_\mM-\Id_\mM\Vert_\tau\\
+    &\leq \Vert A_iA_jA_iA_j-\Id_\mM B_iB_jB_iB_j\Id_\mM\Vert_\tau+\sqrt\eps\\
+    &\leq \Vert \Id_\mM(A_i-B_i)A_jA_iA_j\Vert_\tau+\Vert \Id_\mM B_i(A_j-B_j)A_iA_j\Vert_\tau\\
+    &+\Vert \Id_\mM B_iB_j(A_i-B_i)A_j\Vert_\tau+\Vert \Id_\mM B_iB_jB_i(A_j-B_j)\Id_\mM\Vert_\tau+\sqrt\eps\\
+    &=(\heartsuit)+\sqrt\eps.
+\end{align*}
+Since the $A$'s are unitaries in $\mM$, and by abusing notation and denoting $\Vert X \Vert_\tau=\tau_\infty(X^*X)$, we have 
+\begin{align*}
+    (\heartsuit)&= \Vert \Id_\mM(A_i-B_i)\Id_\mM\Vert_\tau+\Vert \Id_\mM B_i(A_j-B_j)\Id_\mM\Vert_\tau\\
+    &+\Vert \Id_\mM B_iB_j(A_i-B_i)\Id_\mM\Vert_\tau+\Vert \Id_\mM B_iB_jB_i(A_j-B_j)\Id_\mM\Vert_\tau\\
+    &\leq \Vert (A_i-B_i)\Id_\mM\Vert_\tau+\Vert (A_j-B_j)\Id_\mM\Vert_\tau
+    +\Vert (A_i-B_i)\Id_\mM\Vert_\tau+\Vert (A_j-B_j)\Id_\mM\Vert_\tau\\
+    &=(\spadesuit).
+\end{align*}
+But,
+\begin{align*}
+     \Vert (A_i-B_i)\Id_\mM\Vert_\tau^2=  \Vert \Id_\mM(A_i-B_i)\Id_\mM\Vert_\tau^2+\Vert (\Id_\infty-\Id_\mM)(A_i-B_i)\Id_\mM\Vert_\tau^2,
+\end{align*}
+and since $(\Id_\infty -\Id_\mM)A_i=0$ and $\Id_\mM A_i=A_i\Id_\mM$, we have
+\begin{align*}
+    \Vert (\Id_\infty-\Id_\mM)(A_i-B_i)\Id_\mM\Vert_\tau^2= \Vert (\Id_\infty-\Id_\mM)B_i\Id_\mM\Vert_\tau^2=\Vert (\Id_\infty-\Id_\mM)B_iA_i\Id_\mM\Vert_\tau^2.
+\end{align*}
+%\tnote{I couldn't follow the last equality above, what allows you to insert $A_1$? An alternate way of going about it is to first show
+%\begin{align*}
+%\big\|\tau(\Id_\mM)-\tau(\Id_\mM B_1^* \Id_\mM B_1 \Id_\mM)\big|
+%&=\big\|\tau(\Id_\mM A_1^* \Id_\mM A_1 \Id_\mM )-\tau(\Id_\mM B_1^* \Id_\mM B_1 \Id_\mM)\big|\\
+%&\leq \big| \tau(\Id_\mM (A_1-B_1)^* \Id_\mM A_1\Id_\mM )\big| + \big|\tau(\Id_\mM B_1^*\Id_\mM (A_1-B_1)\Id_\mM )\big|\\
+%&\leq 2 \big\| \Id_\mM (A_1-B_1)\Id_\mM\big\|_\tau\;,
+%\end{align*}
+%by Cauchy-Schwwarz. Then, 
+%\begin{align*}
+%  \Vert (A_1-B_1)\Id_\mM\Vert_\tau^2 &= \tau\big(\Id_\mM (A_1-B_1)^*(A_1-B_1)\Id_\mM\big)\\
+%  &= \tau(\Id_\mM) + \tau(\Id_\mM B_1^*B_1 \Id_\mM) - \tau(\Id_\mM A_1^* B_1 \Id_\mM) - \tau(\Id_\mM B_1^* A_1 \Id_\mM)\\
+%  &\leq \tau(\Id_\mM) + \tau(\Id_\mM B_1^*\Id_\mM B_1 \Id_\mM) - \tau(\Id_\mM A_1^* \Id_\mM B_1 \Id_\mM) - \tau(\Id_\mM B_1^* \Id_\mM A_1 \Id_\mM) + 2 \big\| \Id_\mM (A_1-B_1)\Id_\mM\big\|_\tau\\
+%  &\leq 3\Vert \Id_\mM (A_1-B_1)\Id_\mM\Vert_\tau\;,
+%\end{align*}
+%where the third line uses the previous set of equations to relate the second terms, and $A_1\Id_\mM=A_1$ for the last terms.
+%This is worse than your bound because of the missing square on the last line, which is due to the first bunch of equations. %I think it gives a similar trade-off in the end? 
+%}
+Here the second equality is because by definition, 
+\begin{align*}
+    \Vert(\Id_\infty-\Id_\mM)B_i\Id_\mM\Vert_\tau^2=\sum_{\substack{v'\in \field^{[k]\cup E} \\ j\neq 1}}\sum_{v\in \field^{[k]\cup E}} |(e_{v'}\otimes e_j)^*B_1e_v\otimes e_1|^2=(\diamondsuit)\;,
+\end{align*}
+but since $A_i$ permutes $\{e_v\otimes e_1\}_{v\in \field^{[k]\cup E}}$, we have
+\begin{align*}
+    (\diamondsuit)=\sum_{\substack{v'\in \field^{[k]\cup E} \\ j\neq 1}}\sum_{v\in \field^{[k]\cup E}} |(e_{v'}\otimes e_j)^*B_iA_ie_v\otimes e_1|^2=\Vert (\Id_\infty-\Id_\mM)B_iA_i\Id_\mM\Vert_\tau^2\;.
+\end{align*}
+Now, for every $v\in \field^{[k]\cup E}$, we have
+\[
+1-|(e_v\otimes e_1)^*B_iA_ie_v\otimes e_1|^2\leq |1-(e_v\otimes e_1)^*B_iA_ie_v\otimes e_1|^2\leq \Vert \Id_\mM(\Id_\infty-B_iA_i)e_v\otimes e_1\Vert_2^2.
+\]
+On the other hand, since $B_iA_i$ is a contraction, 
+\begin{align*}
+    1-|(e_v\otimes e_1)^*B_iA_ie_v\otimes e_1|^2
+    &\geq \Vert B_iA_i e_v\otimes e_1\Vert_2^2-|(e_v\otimes e_1)^*B_iA_ie_v\otimes e_1|^2\\
+    &=\sum_{(v',j')\neq (v,1)}|(e_{v'}\otimes e_j)^*B_iA_ie_v\otimes e_1|^2\\
+    &\geq \Vert (\Id_\infty-\Id_\mM)B_iA_i e_v\otimes e_1\Vert_2^2\;.
+\end{align*}
+Therefore, by averaging the combined inequalities over $v\in \field^{[k]\cup E}$, we get
+\[
+\Vert (\Id_\infty -\Id_\mM)B_iA_i\Id_\mM\Vert_\tau^2\leq  \Vert \Id_\mM(\Id_\infty-B_iA_i)\Id_\mM\Vert_\tau^2=\Vert A_i-\Id_\mM B_i\Id_\mM\Vert_\tau^2\;.
+\]
+\begin{comment}
+=\frac{1}{2^{k+1}}\sum_{\substack{v\in \field^{k+1}}} \sum_{\substack{v'\in \field^{k+1}\\ j'\neq 1}} \vert (e_{v'}\otimes e_j)^*B_1 e_v\otimes e_1\vert^2.
+\end{comment}
+Plugging all of this back to $(\spadesuit)$, we get
+\begin{align*}
+    (\sqrt{2}-\sqrt\eps)^2&\leq (\spadesuit)^2\\
+    &\leq 8\Vert(A_i-B_i)\Id_\mM\Vert_\tau^2+8\Vert(A_j-B_j)\Id_\mM\Vert_\tau^2\\
+    &\leq 16 \Vert \Id_\mM (A_i-B_i)\Id_\mM\Vert_\tau^2+16 \Vert \Id_\mM (A_j-B_j)\Id_\mM\Vert_\tau^2.
+\end{align*}
+and since we assumed $\eps<3-2\sqrt{2}$, we have $\sqrt{2}-\sqrt\eps\geq 1$ and 
+\[
+16 \Vert \Id_\mM (A_i-B_i)\Id_\mM\Vert_\tau^2+16 \Vert \Id_\mM (A_j-B_j)\Id_\mM\Vert_\tau^2> 1.
+\]
+Now, let $i_1j_1,...,i_cj_c$ be the edges of a maximal  matching in $E$. Then,
+\[
+k\eps \geq \sum_{i\in [k]}\Vert \Id_\mM (A_i-B_i)\Id_\mM\Vert_\tau^2\geq \sum_{t=1}^c\Vert \Id_\mM (A_{i_t}-B_i)\Id_\mM\Vert_\tau^2+ \Vert \Id_\mM (A_j-B_j)\Id_\mM\Vert_\tau^2
+\]
+\end{proof}
+
+\begin{remark}
+    A version of this construction (viewed in a different way) was used by Kozlov--Meshulam \cite{kozlov2019quantitative} to upper bound the Cheeger constant of the $k$-dimensional hypercube --- see Section 4.1 therein.
+\end{remark}
+
+\begin{remark}
+As discussed in the introduction (see Remark \ref{rem:L^infty_analogue_defn}), it is more common in the literature on stability to use a $L^\infty$ analogue of Definition~\ref{def:eff-stab}, where the notion of almost-homomorphism and closeness are both measured by taking a supremum over relations and generators respectively, as opposed to averaging according to distributions $\mu_R,\mu_S$. 
+A slight modification of the example given in  the proof of Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k} provides a lower bound also in that setup. The idea is as follows: In the construction we provided, the pair $(1,2)$ played a special role, since $A_1$ was a CNOT conditioned on the second bit. We can thus define the analogous construction for every pair $(i,j)$ where $1\leq i<j\leq k$. By tensoring all of these constructions along the pairs $(i,j)$, we get $k$ permutations acting on $\binom{[k]}{2}\times \field^{k+1}$, which in turn provide a lower bound in the $L^\infty$ setup. The proof is similar to the above, and since this is a slight digression from our main theme, we omit the details. 
+\end{remark}
 
 
 \bibliography{qld}

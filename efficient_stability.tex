@@ -1852,7 +1852,9 @@ Thus, these unitaries correspond to a $(\nicefrac{|E|}{\binom{k}{2}},\mu_R)$-app
 
 We begin by describing our construction. Given a graph $([k],E)$, the permutations $\{A_i\}_{i=1}^k$ act on  the set $\field^{[k]\cup E}$, namely bit strings  indexed by the vertices and edges of the graph. Now, each $A_i$ flips the $i^{\rm th}$ bit. Furthermore, it conditionally flips the  $ij^{\rm th}$  bit for $ij\in E$ where $i<j$, if the $j^{\rm th}$ bit is $1$. Namely, the $A_i$'s act as a NOT gate on the $i^{\rm th}$ bit composed with CNOT gates on all the $ij^{\rm th}$ bits, where $i<j$ and $ij\in E$. Now, all of these permutations are of order $2$. Equation \eqref{eq:commuting_or_not} is deduced by noting that  $A_iA_j=A_jA_i$ when $ij$ is not an edge, and that $A_iA_jA_iA_j$ has no fixed points when $ij$ is an edge --- this is because $A_iA_jA_iA_j$ must flip the $ij^{\rm th}$ bit.  
 The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\complex^{\field^{[k]\cup E}}$ with its standard normalized trace $\tau^\cM(X)=\frac{1}{2^{k+|E|}}\Tr(X)$.
-
+\begin{remark}
+    A version of this construction (viewed in a different way) was used by Kozlov--Meshulam \cite{kozlov2019quantitative} to upper bound the Cheeger constant of the $k$-dimensional hypercube --- see Section 4.1 therein.
+\end{remark}
 \begin{claim}
     The map $x_i\mapsto A_i\in \cM$ is a $(\nicefrac{|E|}{\binom{k}{2}},\mu_R)$-approximate representation of the presentation \eqref{eq:z2-efficient} of $\Z_2^k$.
 \end{claim}
@@ -1966,19 +1968,19 @@ Plugging all of this back to $(\spadesuit)$, we get
     &\leq 8\Vert(A_i-B_i)\Id_\mM\Vert_\tau^2+8\Vert(A_j-B_j)\Id_\mM\Vert_\tau^2\\
     &\leq 16 \Vert \Id_\mM (A_i-B_i)\Id_\mM\Vert_\tau^2+16 \Vert \Id_\mM (A_j-B_j)\Id_\mM\Vert_\tau^2.
 \end{align*}
-and since we assumed $\eps<3-2\sqrt{2}$, we have $\sqrt{2}-\sqrt\eps\geq 1$ and 
+and since we assumed $\eps<3-2\sqrt{2}$, we have $\sqrt{2}-\sqrt\eps> 1$ and 
 \[
-16 \Vert \Id_\mM (A_i-B_i)\Id_\mM\Vert_\tau^2+16 \Vert \Id_\mM (A_j-B_j)\Id_\mM\Vert_\tau^2> 1.
+ \Vert \Id_\mM (A_i-B_i)\Id_\mM\Vert_\tau^2+ \Vert \Id_\mM (A_j-B_j)\Id_\mM\Vert_\tau^2> \nicefrac{1}{16}.
 \]
 Now, let $i_1j_1,...,i_cj_c$ be the edges of a maximal  matching in $E$. Then,
 \[
-k\eps \geq \sum_{i\in [k]}\Vert \Id_\mM (A_i-B_i)\Id_\mM\Vert_\tau^2\geq \sum_{t=1}^c\Vert \Id_\mM (A_{i_t}-B_i)\Id_\mM\Vert_\tau^2+ \Vert \Id_\mM (A_j-B_j)\Id_\mM\Vert_\tau^2
+k\eps \geq \sum_{i\in [k]}\Vert \Id_\mM (A_i-B_i)\Id_\mM\Vert_\tau^2\geq \sum_{t=1}^c\Vert \Id_\mM (A_{i_t}-B_{i_t})\Id_\mM\Vert_\tau^2+ \Vert \Id_\mM (A_{j_t}-B_{j_t})\Id_\mM\Vert_\tau^2>\nicefrac{c}{16}.
 \]
+This finishes the proof.
 \end{proof}
 
-\begin{remark}
-    A version of this construction (viewed in a different way) was used by Kozlov--Meshulam \cite{kozlov2019quantitative} to upper bound the Cheeger constant of the $k$-dimensional hypercube --- see Section 4.1 therein.
-\end{remark}
+By combining Claims ??? we deduce Lemma \ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k}.
+
 
 \begin{remark}
 As discussed in the introduction (see Remark \ref{rem:L^infty_analogue_defn}), it is more common in the literature on stability to use a $L^\infty$ analogue of Definition~\ref{def:eff-stab}, where the notion of almost-homomorphism and closeness are both measured by taking a supremum over relations and generators respectively, as opposed to averaging according to distributions $\mu_R,\mu_S$. 

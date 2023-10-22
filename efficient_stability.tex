@@ -1856,7 +1856,7 @@ The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\comp
 \begin{remark}
     A version of this construction (viewed in a different way) was used by Kozlov--Meshulam \cite{kozlov2019quantitative} to upper bound the Cheeger constant of the $k$-dimensional hypercube --- see Section 4.1 therein.
 \end{remark}
-\begin{claim}
+\begin{claim}\label{claim:appendix1}
     The map $x_i\mapsto A_i\in \cM$ is a $(\nicefrac{|E|}{\binom{k}{2}},\mu_R)$-approximate representation of the presentation \eqref{eq:z2-efficient} of $\Z_2^k$.
 \end{claim}
 
@@ -1868,7 +1868,7 @@ The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\comp
 Combining these two observations, we deduce the claim.
 \end{proof}
 
-\begin{claim}
+\begin{claim}\label{claim:appendix2}
 Assume the largest matching in $E$ contains $c$ edges. Then, for every collection $\{B_i\}_{i=1}^k$ of order $2$ unitaries which pairwise commute in $\mN=P\mM_\infty P$, and  every partial isometry $w=PU\Id_\mM\in P\mU(\mM_\infty)\Id_\mM$, we have
 \[
 \Expectation_{i\in [k]} \Vert A_i-w^* B_iw\Vert_\tau^2 \geq  \frac{c}{16k} 
@@ -1980,7 +1980,7 @@ k\eps \geq \sum_{i\in [k]}\Vert \Id_\mM (A_i-B_i)\Id_\mM\Vert_\tau^2\geq \sum_{t
 This finishes the proof.
 \end{proof}
 
-By combining Claims ??? we deduce Lemma \ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k}.
+By combining Claims \ref{claim:appendix1} and \ref{claim:appendix2} applied to a graph which is a mathcing with $c$ edges, we deduce Lemma \ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k}.
 
 
 \begin{remark}

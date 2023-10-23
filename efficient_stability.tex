@@ -1857,7 +1857,7 @@ The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\comp
     A version of this construction (viewed in a different way) was used by Kozlov--Meshulam \cite{kozlov2019quantitative} to upper bound the Cheeger constant of the $k$-dimensional hypercube --- see Section 4.1 therein.
 \end{remark}
 \begin{claim}\label{claim:appendix1}
-    The map $x_i\mapsto A_i\in \cM$ is a $(\nicefrac{|E|}{\binom{k}{2}},\mu_R)$-approximate representation of the presentation \eqref{eq:z2-efficient} of $\Z_2^k$.
+    The map $x_i\mapsto A_i\in \cM$ is a $(\nicefrac{|E|}{\binom{k}{2}},\mu_R)$-approximate representation of $\Z_2^k$ with respect to the presentation \eqref{eq:z2-efficient}.
 \end{claim}
 
 \begin{proof}
@@ -1865,7 +1865,7 @@ The von Neumann algebra $\mM$ containing the $A_i$'s is the one acting on $\comp
     \[
 \Expectation_{i\neq j\in [k]}\left[\Vert A_iA_jA_iA_j-\Id_\mM\Vert_\tau^2\right]=\frac{1}{\binom{k}{2}}\sum_{ij\in E}\Vert A_iA_jA_iA_j-\Id_\mM\Vert_\tau^2=\nicefrac{2|E|}{\binom{k}{2}}.
 \]
-Combining these two observations, we deduce the claim.
+By combining these two observations, we deduce the claim.
 \end{proof}
 
 \begin{claim}\label{claim:appendix2}
@@ -1887,9 +1887,9 @@ Let $\{B_i\}_{i=1}^k$ be order $2$ unitaries which pairwise commute in $\mN=P\mM
 \]
 This is a slightly weaker condition than for the $B_i$'s to be $(\eps,\mu_S)$-close to the $A_i$'s, as in Definition \ref{def:close}. Furthermore, we can assume without loss of generality that $U=\Id_\infty$, otherwise we replace $\mN$ by $U^*\mN U$ and $P$ by $U^* PU$. Thus, we are given that 
 \[
-\Expectation_{i\in [k]} \Vert A_i-\Id_\mM  B_i\Id_\mM\Vert_\tau^2\ ,\qquad  \tau^\mM(\Id_\mM-\Id_\mM P\Id_\mM)\leq  \eps.
+\Expectation_{i\in [k]} \Vert A_i-\Id_\mM  B_i\Id_\mM\Vert_\tau^2\ ,\qquad  \tau^\mM(\Id_\mM-\Id_\mM P\Id_\mM)\leq  \eps,
 \]
-Thus, 
+and
 \[
 \begin{split}
     \Vert \Id_\mM-\Id_\mM P\Id_\mM\Vert_\tau^2 &=\tau^{\mM}(\Id_\mM\underbrace{-2\Id_\mM P\Id_\mM+\Id_\mM P^2\Id_\mM}_{=-\Id_\mM P\Id_\mM})\leq \eps.
@@ -1983,11 +1983,72 @@ This finishes the proof.
 By combining Claims \ref{claim:appendix1} and \ref{claim:appendix2} applied to a graph which is a mathcing with $c$ edges, we deduce Lemma \ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k}.
 
 
-\begin{remark}
-As discussed in the introduction (see Remark \ref{rem:L^infty_analogue_defn}), it is more common in the literature on stability to use a $L^\infty$ analogue of Definition~\ref{def:eff-stab}, where the notion of almost-homomorphism and closeness are both measured by taking a supremum over relations and generators respectively, as opposed to averaging according to distributions $\mu_R,\mu_S$. 
-A slight modification of the example given in  the proof of Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k} provides a lower bound also in that setup. The idea is as follows: In the construction we provided, the pair $(1,2)$ played a special role, since $A_1$ was a CNOT conditioned on the second bit. We can thus define the analogous construction for every pair $(i,j)$ where $1\leq i<j\leq k$. By tensoring all of these constructions along the pairs $(i,j)$, we get $k$ permutations acting on $\binom{[k]}{2}\times \field^{k+1}$, which in turn provide a lower bound in the $L^\infty$ setup. The proof is similar to the above, and since this is a slight digression from our main theme, we omit the details. 
-\end{remark}
+\subsection{The $L^\infty$ analogue}
+As discussed in the introduction (see Remark \ref{rem:L^infty_analogue_defn}), it is more common in stability literature to use a $L^\infty$ analogue of Definition~\ref{def:eff-stab}, where the notion of almost-homomorphism and closeness are both measured by taking a supremum over relations and generators respectively, as opposed to averaging according to distributions $\mu_R,\mu_S$. 
+A slight modification of the example given in  this appendix to prove Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k} provides a lower bound also in that setup. The idea is actually quite general, so we frame it in a somewhat general fashion. 
 
+  Let $\langle S\colon R\rangle$ be a presentation of a group $\Gamma$, and let $\mu_S, \mu_R$ be fully supported distributions over the generators and relations respectively.
+  Let $\sigma\in \textrm{Sym}(S)$ be a permutation of the generators. 
+  Then, $\sigma$ extends (by the universal property of the free group) to an automorphism of $\mF(S)$ which we still denote by $\sigma$. 
+  The \emph{automorphism group} of the presentation  $\langle S\colon R\rangle$ is the subgroup of permutations in $\textrm{Sym}(S)$ that preserve $R$. Namely,  
+  \[
+\Phi=\textrm{Aut}(\langle S\colon R\rangle )=\left\{ \sigma \in \textrm{Sym}(S)\mid R=\sigma(R) \right\}.
+  \]
+Assume $R=\bigsqcup R_i$ is the decomposition of $R$ into orbits of $\Phi$, and assume $\mu_R$ is uniform over orbits. Let $\rho\colon \mF(S)\to \mU(\mM)$ be an $(\eps,\mu_R)$-approximate representation of $\Gamma$. Define $\rho'\colon \mF(S)\to \mU(\bigoplus_{\alpha\in \Phi}\mM)$ as follows:
+    \[
+\forall s\in S\ \colon \ \ \rho'(s)=\bigoplus_{\alpha\in \Phi} \rho(\alpha(s)).
+    \]
+    We denote by $\mM_\Phi=\bigoplus_{\alpha\in \Phi}\mM\subseteq \mM_\infty$ and by $\mM_\alpha$ the copy of $\mM$ at the $\alpha\in \Phi$ position.
+    Let $w_i=\mu_R(R_i)$, namely the probability that $\mu_R$ samples a relation from the orbit $R_i$. Then, for every $r\in R_i$, we have 
+    \[
+    \begin{split}
+        w_i\|\rho'(r)-\Id\|_\tau^2&=w_i\Expectation_{\alpha\in \Phi} \|\rho(\alpha(r))-\Id\|_\tau^2\\
+        &=w_i\Expectation_{r'\in R_i} \|\rho(r')-\Id\|_\tau^2\\
+        &\leq \sum_j w_j\Expectation_{r'\in R_j} \|\rho(r')-\Id\|_\tau^2\\
+        &=\Expectation_{r\sim \mu_R}\|\rho(r)-\Id\|_\tau^2\leq \eps.
+    \end{split}
+    \]
+    Hence, 
+    \[
+    \forall r\in R\ \colon\ \ |\rho'(r)-\Id\|_\tau^2\leq \max({\nicefrac{1}{w_i}})\cdot\eps,
+    \]
+which in turn means that $\rho'$ is a $\max({\nicefrac{1}{w_i}})\cdot\eps$-approximate representation in the $L^\infty$ sense. 
+\begin{remark}
+    By applying this construction on the example from the beginning of the appendix, the resulting $\rho'$ is a $\nicefrac{2|E|}{\binom{k}{2}}$-approximate representation in the $L^\infty$ setup of \eqref{eq:z2-efficient}.
+\end{remark}
+Now, assume that for any genuine representation $\varphi\colon \Gamma\to \mU(\mN)$, where $\mN=P\mM_\infty P$, and every isometry $w\in P\mM_\infty \Id_\mM$, we have 
+\[
+\max\left\{\Expectation_{s\sim \mu_S} \|\rho(s)-w^*\varphi(s)w\|_\tau^2\ ,\ \tau^\mM(\Id_\mM-w^*w)\right\}\geq \delta.
+\]
+Let $\varphi'\colon \Gamma\to \mU(\mN)$ be a genuine representation of $\Gamma$ satisfying 
+\[
+\frac{1}{|\Phi|}\Expectation_{s\sim \mu_S} \|\rho'(s)-w^*\varphi'(s)w\|_\tau^2\ ,\ \tau^{\mM_\Phi}(\Id_{\mM_\Phi}-w^*w)\leq  \delta',
+\]
+where we again abuse notation and think of $\|X\|_\tau^2=\tau_\infty(X^*X)$.
+As before, we can assume $w=PI_{\mM_\Phi}$. Then,
+\[
+\begin{split}
+    \Expectation_{\alpha\in \Phi}\Expectation_{s\sim \mu_S} \|\rho(\alpha(s))-\Id_{\mM_\alpha}\varphi'(s)\Id_{\mM_\alpha}\|_\tau^2&=\frac{1}{|\Phi|}\Expectation_{s\sim \mu_S}\sum_{\alpha\in \Phi}\|\Id_{\mM_\alpha}\rho'(s)\Id_{\mM_\alpha}-\Id_{\mM_\alpha}\varphi'(s)\Id_{\mM_\alpha}\|_\tau^2 \\
+    &\leq \frac{1}{|\Phi|}\Expectation_{s\sim \mu_S}\|\rho'(s)-\Id_{\mM_\Phi}\varphi'(s)\Id_{\mM_\Phi}\|_\tau^2\leq \delta'.
+\end{split}
+\]
+In particular, by Markov's inequality, for at least two thirds of the $\alpha\in \Phi$ we have 
+\[
+\Expectation_{s\sim \mu_S} \|\rho(\alpha(s))-\Id_{\mM_\alpha}\varphi'(s)\Id_{\mM_\alpha}\|_\tau^2\leq 3\delta'.
+\]
+Similarly,
+\[
+\begin{split}
+    \delta'&\geq \tau^{\mM_\Phi}(\Id_{\mM_\Phi}-\Id_{\mM_\Phi}P\Id_{\mM_\Phi})\\
+    &=\Expectation_{\alpha\in\Phi}\tau_\infty(\Id_{\mM_\alpha}-\Id_{\mM_\alpha}P\Id_{\mM_\alpha})
+\end{split},
+\]
+and for at least two thirds of the $\alpha\in \Phi$ we have 
+\[
+\tau^{\mM_\alpha}(\Id_{\mM_\alpha}-\Id_{\mM_\alpha}P\Id_{\mM_\alpha})\leq 3\delta'.
+\]
+Hence, $\delta'\geq \frac{\delta}{3}$.
+Since the $L^\infty$ distance between functions is larger than the $L^1$ distance between them (with respect to any fully supported measure $\mu_S$), we conclude that a lower bound of $f(\eps)$ on the modulus of stability of a sufficiently symmetric presentation induces a lower bound of $\frac{\min{w_i}}{3}f(\eps)$.
 
 \bibliography{qld}
 

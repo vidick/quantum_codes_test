@@ -895,15 +895,16 @@ is also known as the Heisenberg group
 \end{equation}
  
 We consider the following presentation for the Pauli group \mnote{This is not the correct presentation. We use only $(a,0)$ and $(0,b)$ as generators (and not all pairs as currently written). Also, the anti commutation relation is in the other direction isn't it? I don't want to mess something because I am not sure which presentation you were aiming for, but this has typos in it for sure. Lastly, the commutation with $J$ should be of pairs $(a,0)$ and $(0,b)$ and not just $a$ and $b$}\tnote{sorry, fixed it}:
-\begin{align*}
- \pauli_k \,=\, \big\langle \{J\}\cup  \{(a,0),(0,b): a,b\in \Z_2^k\} &: (a,0)^2=(0,b)^2=J^2=e,\; [(a,0),J]=[(0,b),J]=e,\\
-&\qquad  (a,0)(0,b) = J^{a\cdot b} (0,b)(a,0) \; \quad \forall a,b\big\rangle\;.
-\end{align*}
+\begin{align}
+ \pauli_k \,=\, \big\langle \{J\}\cup  \{(a,0),(0,b): a,b\in \Z_2^k\} &: (a,0)^2=(0,b)^2=J^2=e,\; [(a,0),J]=[(0,b),J]=e,\notag\\
+ &\quad(a,0)(a',0)=(a+a',0),(0,b)(0,b')=(0,b+b') \notag\\
+&\quad  (a,0)(0,b) = J^{a\cdot b} (0,b)(a,0) \; \quad \forall a,b,a',b'\in \Z_2^k\big\rangle\;.\label{eq:almost_mult_table_pres_of_Pauli}
+\end{align}
 This presentation is not quite the multiplication table presentation (it has $2^{k+1}+1$ generators, whereas $|\pauli_k|=2^{2k+1}$), but it is not far from it.  
 Applying Theorem~\ref{thm:gh} we obtain the following consequence.%, which we again state only for the case of a subclass of approximate homomorphisms and the class of finite-dimensional matrix algebras\tnote{again, not sure what we want ultimately}. 
 
 \begin{corollary}[Pauli braiding test]\label{cor:Pauli-brading_is_stable}
-Let $\phi_X,\phi_Z:\Z_2^k \to \mU(\mM)$ be such that for all $W\in \{X,Z\}$,
+Let $\phi_X,\phi_Z:\Z_2^k \to \mU(\mM)$ be maps such that for all $W\in \{X,Z\}$,
 \[ \Es{a,b\in \Z_2^k} \big\| \phi_W(a)\phi_W(b)-\phi_W(a+b) \big\|_\tau^2 \,\leq\,\eps\;,\]
 and
 \[ \Es{a,b\in \Z_2^k} \big\| \phi_X(a)\phi_Z(b)- (-1)^{a\cdot b} \phi_Z(b)\phi_X(a) \big\|_{\tau}^2 \,\leq\,\eps\;.\]
@@ -912,12 +913,12 @@ partial isometry $w\in P\mM_\infty I_\mM$ such that for all $W\in \{X,Z\}$,
 \[ \Es{W\in \Z_2^k} \big\| \phi_W(a) - w^* \big(\sigma_W(a)\otimes \Id_{\mN'}\big) w \big\|_{\tau}^2 \,=\, O(\eps)\;.\]
 \end{corollary}
 
-
 Since this statement already appears in~\cite{natarajan2017quantum} (restricted to approximate homomorphisms into the finite-dimensional unitaries, and with slightly worse dependence on $\eps$), and we will not need it here, we only sketch the proof. 
 
 \begin{proof}[Proof sketch]
 \mnote{This proof sketch is very confusing. We think of the elements of $P_k$ as $\pm \sigma_X(a)\sigma_Z(b)$, not as $J^{\pm 1}(a,b)$. This is a parametrization of the generators in the specific presentation we provided, and which does not play a role here in the proof. Actually, this is part of what is confusing. The corollary is essentially that almost homomorphisms w.r.t the above presentation of $P_k$ can be translated to almost homs of $P_k$ w.r.t the multiplication table pres without changing the $\eps$ too much. We developed the proper language to make Corollary \ref{cor:Pauli-brading_is_stable} much shorter. We should have just stated that the presentation we gave for $P_k$ is stable, and furthermore, that when $J$ is mapped to $-1$, then the close by representation must be of the form $\Id\otimes P_k$. Anyway, maybe we can discuss this a bit and then I'll do the changes. Didn't want to mess up if this is the way you wanted everything to look like.  }\tnote{You're right. This is partly because I changed the presentation a couple times in the past, and propagated incorrectly. What you suggest for the proof seems to be what I wrote for the sketch though, up to the mismatches in terms of notation, etc. If you can change to your idea that's good for me, thanks}
-Define $\phi:\pauli_k \to \mU(\mM)$ by $\phi(J^c (a,b))= (-1)^c \phi_X(a)\phi_Z(b)$, where $c\in \{\pm 1\}$ and $a,b\in \Z_2^k$. Then it is not hard to verify that the assumptions of the corollary imply that  $\phi$ is an $O(\eps)$-almost homomorphism for the multiplication table presentation of $\pauli_k$. Applying Theorem~\ref{thm:gh} we find a unitary representation $\phi'$ of $\pauli_k$ on some $(\mN,\tau^\mN)$ that is $O(\eps)$-close to $\phi$. To conclude we observe that the only irreducible unitary representation of $\pauli_k$ that sends $J$ to $-1$ is the representation by the Pauli matrices; furthermore, all other irreducible representations are $1$-dimensional. From there it is not hard to show that, if we restrict $\phi'$ to its support on the Pauli matrix representation, the result remains $O(\eps)$-close to $\phi$. We omit the details. 
+
+The idea is the following: The maps $\phi_X,\phi_Z$ induce an $\eps$-approximate representation of the Pauli group with respect to the presentation \eqref{eq:almost_mult_table_pres_of_Pauli}. From that, we can use the canonical form of elements in $\pauli_k$ to create an $O(\eps)$-approximate representation of the multiplication table presentation of $\pauli_k$ --- define $\phi:\pauli_k \to \mU(\mM)$ by $\phi((-1)^c \sigma_X(a)\sigma_Z(b))= (-1)^c \phi_X(a)\phi_Z(b)$, where $c\in \{\pm 1\}$ and $a,b\in \Z_2^k$. Applying Gowers--Hatami (Theorem \ref{thm:gh}), we deduce the corollary.
 \end{proof}
 
 Similarly to Lemma~\ref{lem:eff-z2} we can state a short version of the preceding corollary, with a bad modulus of stability, which applies to the presentation

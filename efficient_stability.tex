@@ -1987,11 +1987,19 @@ By combining Claims \ref{claim:appendix1} and \ref{claim:appendix2} applied to a
 
 \subsection{The $L^\infty$ analogue}
 As discussed in the introduction (see Remark \ref{rem:L^infty_analogue_defn}), it is more common in stability literature to use a $L^\infty$ analogue of Definition~\ref{def:eff-stab}, where the notion of almost-homomorphism and closeness are both measured by taking a supremum over relations and generators respectively, as opposed to averaging according to distributions $\mu_R,\mu_S$. 
-A slight modification of the example given in  this appendix to prove Lemma~\ref{lem:lower_bound_on_stability_rate_standard_presentation_Z_2^k} provides a lower bound also in that setup. The idea is actually quite general, so we frame it in a somewhat general fashion. 
+Let us recall the exact definition. We say that a homomorphism $\rho\colon \mF(S)\to \mU(\mM)$ is an $(\eps,\infty)$-approximate representation if 
+\[
+\forall r\in R\ \colon \ \ \|\rho(r)-\Id_\mM\|_\tau^2\leq \eps.
+\]
+Furthermore, homomorphisms $\rho\colon \mF(S)\to \mU(\mM),\varphi\colon \mF(S)\to \mU(\mN)$ are $(\delta,\infty)$-close if there exists an isometry $w\in P\mM_\infty \Id_\mM$ such that
+\[
+\forall s\in S\colon\ \ \|\rho(s)-w^*\varphi(s)w\|_\tau^2\leq \delta.
+\]
+The goal of this subsection of the appendix is to provide a somewhat general procedure to convert lower bounds on the modulus of stability with respect to $\mu_S,\mu_R$ into a lower bound on the $L^\infty$ modulus of stability.
 
   Let $\langle S\colon R\rangle$ be a presentation of a group $\Gamma$, and let $\mu_S, \mu_R$ be fully supported distributions over the generators and relations respectively.
   Let $\sigma\in \textrm{Sym}(S)$ be a permutation of the generators. 
-  Then, $\sigma$ extends (by the universal property of the free group) to an automorphism of $\mF(S)$ which we still denote by $\sigma$. 
+  Then, $\sigma$ extends (by the universal property of the free group) to an automorphism of $\mF(S)$ which we still denote by $\sigma$ as well. 
   The \emph{automorphism group} of the presentation  $\langle S\colon R\rangle$ is the subgroup of permutations in $\textrm{Sym}(S)$ that preserve $R$. Namely,  
   \[
 \Phi=\textrm{Aut}(\langle S\colon R\rangle )=\left\{ \sigma \in \textrm{Sym}(S)\mid R=\sigma(R) \right\}.
@@ -2000,33 +2008,47 @@ Assume $R=\bigsqcup R_i$ is the decomposition of $R$ into orbits of $\Phi$, and 
     \[
 \forall s\in S\ \colon \ \ \rho'(s)=\bigoplus_{\alpha\in \Phi} \rho(\alpha(s)).
     \]
-    We denote by $\mM_\Phi=\bigoplus_{\alpha\in \Phi}\mM\subseteq \mM_\infty$ and by $\mM_\alpha$ the copy of $\mM$ at the $\alpha\in \Phi$ position.\tnote{Is it canonical what is the trace on $\mM_\Phi$? In the calculation below you assume a uniform weighted average, is it useful to say it?}
-    Let $w_i=\mu_R(R_i)$, namely the probability that $\mu_R$ samples a relation from the orbit $R_i$. Then, for every $r\in R_i$, we have \tnote{For the second line, is it clear that we get uniform over $R_i$?}
+    We denote by $\mM_\Phi=\bigoplus_{\alpha\in \Phi}\mM\subseteq \mM_\infty$ and by $\mM_\alpha$ the copy of $\mM$ at the $\alpha\in \Phi$ position.\tnote{Is it canonical what is the trace on $\mM_\Phi$? In the calculation below you assume a uniform weighted average, is it useful to say it?}\mnote{Adding a clarification:} Note that $\mM_\Phi$ embeds in $\mM_\infty$, e.g. in the coordinates $1,...,|\Phi|$, and inherits a trace from it by defining 
+    \[
+    \tau^{\mM_\Phi}(\bigoplus A_\alpha)=\frac{\tau_\infty(\bigoplus A_\alpha)}{\tau_\infty(\Id_{\mM_\Phi})}=\frac{1}{|\Phi|}\sum_{\alpha\in \Phi}\tau^\mM(A_\alpha)=\Expectation_{\alpha\in \Phi}\tau^\mM(A_\alpha).
+    \]
+    To be consistent, whenever we use $\|X\|_\tau^2$ it means $$\tau_\infty(X^*X)=\tau_\mM(X^*X)=|\Phi|\cdot\tau_{\mM_\Phi}(X^*X).$$
+    Let $w_i=\mu_R(R_i)$, namely the probability that $\mu_R$ samples a relation from the orbit $R_i$. Since we assumed $\mu_R$ is uniform over orbits, and since $\Phi$ acts transitively on each orbit, we know that 
+    \[
+    \forall r\in R_i\ \colon \ \ \Expectation_{\alpha\in \Phi}f(\alpha(r))=\Expectation_{r'\in R_i}f(r)
+    \]
+    for any function $f\colon \mF(S)\to \complex$. Therefore, \tnote{For the second line, is it clear that we get uniform over $R_i$?}
     \[
     \begin{split}
-        w_i\|\rho'(r)-\Id\|_\tau^2&=w_i\Expectation_{\alpha\in \Phi} \|\rho(\alpha(r))-\Id\|_\tau^2\\
-        &=w_i\Expectation_{r'\in R_i} \|\rho(r')-\Id\|_\tau^2\\
-        &\leq \sum_j w_j\Expectation_{r'\in R_j} \|\rho(r')-\Id\|_\tau^2\\
-        &=\Expectation_{r\sim \mu_R}\|\rho(r)-\Id\|_\tau^2\leq \eps.
+       \forall r\in R_i\ \colon \ \  \frac{w_i}{|\Phi|}\|\rho'(r)-\Id_{\mM_\Phi}\|_\tau^2&=w_i\Expectation_{\alpha\in \Phi} \|\rho(\alpha(r))-\Id_\mM\|_\tau^2\\
+        &=w_i\Expectation_{r'\in R_i} \|\rho(r')-\Id_\mM\|_\tau^2\\
+        &\leq \sum_j w_j\Expectation_{r'\in R_j} \|\rho(r')-\Id_\mM\|_\tau^2\\
+        &=\Expectation_{r\sim \mu_R}\|\rho(r)-\Id_\mM\|_\tau^2\leq \eps.
     \end{split}
     \]
     Hence, 
     \[
-    \forall r\in R\ \colon\ \|\rho'(r)-\Id\|_\tau^2\leq \max({\nicefrac{1}{w_i}})\cdot\eps,
+    \forall r\in R\ \colon\ \frac{1}{|\Phi|}\|\rho'(r)-\Id_{\mM_\Phi}\|_\tau^2\leq \max({\nicefrac{1}{w_i}})\cdot\eps,
     \]
-which in turn means that $\rho'$ is a $\max_i\{{\nicefrac{1}{w_i}}\}\cdot\eps$-approximate representation in the $L^\infty$ sense. 
+which in turn means that $\rho'$ is a $(\max_i\{{\nicefrac{1}{w_i}}\}\cdot\eps,\infty)$-approximate representation --- since $$\frac{1}{|\Phi|}\|\cdot\|_\tau^2=\|\cdot\|_{\tau^{\mM_\Phi}}^2,$$
+which is the relevant parameter to consider.
+\begin{corollary}
+    Any $(\eps,\mu_R)$-approximate representation of $\langle S\colon R\rangle$, where $\mu_R$ is uniform over orbits of $\Phi=\textrm{Aut}(\langle S\colon R\rangle)$, can be transformed into a $(\max_i\{{\nicefrac{1}{w_i}}\}\cdot\eps,\infty)$-approximate representation. 
+\end{corollary}
 \begin{remark}
-    By applying this construction on the example from Claim~\ref{claim:appendix1}, the resulting $\rho'$ is a $\nicefrac{2|E|}{\binom{k}{2}}$-approximate representation of \eqref{eq:z2-efficient} in the $L^\infty$ sense.\tnote{Can we expand on this? Any permutation is an automorphism, right? So we end up having two classes of relations, and $w_1=w_2=1/2$. It might just be worth spelling out}
+    By applying this construction on the example from Claim~\ref{claim:appendix1}, the resulting $\rho'$ is a $(\nicefrac{2|E|}{\binom{k}{2}},\infty)$-approximate representation of \eqref{eq:z2-efficient}.\tnote{Can we expand on this? Any permutation is an automorphism, right? So we end up having two classes of relations, and $w_1=w_2=1/2$. It might just be worth spelling out}\mnote{Done:} This is because $\Phi=\textrm{Sym}(S)$, and there are two  orbits --- the commutation relations and the involutions --- where $\mu_R$ is supprted equally on each of them. Namely, $w_{commutation}=w_{involution}=\nicefrac{1}{2}$.
 \end{remark}
-Now, assume that for any genuine representation $\varphi\colon \Gamma\to \mU(\mN)$, where $\mN=P\mM_\infty P$, and every isometry $w\in P\mM_\infty \Id_\mM$, we have 
+Recall that our goal is to translate $L^1$ lower bounds into $L^\infty$ lower bounds. Namely, we would like to deduce that, if every genuine representation of $\Gamma$ is $(\delta,\mu_S)$-far from $\rho$, then every genuine representation of $\Gamma$ is $(\delta',\infty)$-far from $\rho'$, for $\delta'=C\delta$.  Since $\mu_S$ was assumed to be fully supported, the $L^\infty$ distance is lower bounded by the $L^1$-distance, and being $(\delta',\mu_S)$-far from $\rho'$ implies being $(\delta',\infty)$-far from it. Thus, we can forget about the $L^\infty$ notion of distance and lower bound our usual notion of distance.
+
+To that end, assume that every genuine representation of $\Gamma$ is $(\delta,\mu_S)$-far from $\rho$. Namely, for every genuine representation $\varphi\colon \Gamma\to \mU(\mN)$, where $\mN=P\mM_\infty P$, and every isometry $w\in P\mM_\infty \Id_\mM$, we have 
 \[
 \max\left\{\Expectation_{s\sim \mu_S} \|\rho(s)-w^*\varphi(s)w\|_\tau^2\ ,\ \tau^\mM(\Id_\mM-w^*w)\right\}\geq \delta.
 \]
-Let $\varphi'\colon \Gamma\to \mU(\mN)$ be a genuine representation of $\Gamma$ satisfying \tnote{Is the $1/|\Phi|$ in front correct? Or maybe I'm missing how the $\tau_\infty$ is normalized exactly. It just sums over the $\alpha$'s?}\tnote{Also, I'm not sure I understood your starting point. You want to assume that $\varphi'$ is $L_\infty$-close, right? Here you only do $L_1$. Is this what the last sentence of the proof is supposed to justify? If so, perhaps better epxlain here.}
+Let $\varphi'\colon \Gamma\to \mU(\mN)$ be a genuine representation of $\Gamma$ which is $(\delta',\mu_S)$-close to $\rho'$, i.e.\ it satisfies \tnote{Is the $1/|\Phi|$ in front correct? Or maybe I'm missing how the $\tau_\infty$ is normalized exactly. It just sums over the $\alpha$'s?}\tnote{Also, I'm not sure I understood your starting point. You want to assume that $\varphi'$ is $L_\infty$-close, right? Here you only do $L_1$. Is this what the last sentence of the proof is supposed to justify? If so, perhaps better epxlain here.}\mnote{I added an explanation before the analysis, immediately after Remark A.5.}
 \[
 \frac{1}{|\Phi|}\Expectation_{s\sim \mu_S} \|\rho'(s)-w^*\varphi'(s)w\|_\tau^2\ ,\ \tau^{\mM_\Phi}(\Id_{\mM_\Phi}-w^*w)\leq  \delta',
 \]
-where we again abuse notation and think of $\|X\|_\tau^2=\tau_\infty(X^*X)$.
+where  again  $\|X\|_\tau^2=\tau_\infty(X^*X)$.
 As before, we can assume $w=PI_{\mM_\Phi}$. Then,
 \[
 \begin{split}
@@ -2049,9 +2071,15 @@ and for at least two thirds of the $\alpha\in \Phi$ we have
 \[
 \tau^{\mM_\alpha}(\Id_{\mM_\alpha}-\Id_{\mM_\alpha}P\Id_{\mM_\alpha})\leq 3\delta'.
 \]
-Hence, $\delta'\geq \frac{\delta}{3}$.
-Since the $L^\infty$ distance between functions is larger than the $L^1$ distance between them (with respect to any fully supported measure $\mu_S$), we conclude that a lower bound of $f(\eps)$ on the modulus of stability of a sufficiently symmetric presentation induces a lower bound of $\frac{\min{w_i}}{3}f(\eps)$ \tnote{on? (I know, but maybe we should say?)}.
-
+Hence, $\delta'\geq \frac{\delta}{3}$, and we deduce that every genuine representation of $\Gamma\cong \langle S\colon R\rangle$ is at least $(\nicefrac{\delta}{3},\infty)$-away from $\rho'$.
+%Since the $L^\infty$ distance between functions is larger than the $L^1$ distance between them (with respect to any fully supported measure $\mu_S$), we conclude that a lower bound of $f(\eps)$ on the modulus of stability of a sufficiently symmetric presentation induces a lower bound of $\frac{\min{w_i}}{3}f(\eps)$ 
+\tnote{on? (I know, but maybe we should say?)}.
+\begin{corollary}
+    The transformation we described  $\rho\mapsto\rho'$ translates a $(\eps,\mu_R)$-approximate representation into a $((\max{\nicefrac{1}{w_i}})\cdot\eps,\infty)$-approximate representaion, and if every genuine representation of $\Gamma$ is $(\delta,\mu_S)$-far from $\rho$, then every genuine representation is $(\nicefrac{\delta}{3},\infty)$-far from $\rho'$.
+\end{corollary}
+\begin{remark}
+    By applying this corollary to the construction from the beginning of the appendix, we conclude that the $L^\infty$ modulus of stability of the presentation \eqref{eq:z2-efficient} is $\Omega(k\eps)$.
+\end{remark}
 \bibliography{qld}
 
 \notesendofpaper

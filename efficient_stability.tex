@@ -917,8 +917,7 @@ partial isometry $w\in P\mM_\infty I_\mM$ such that for all $W\in \{X,Z\}$,
 Since this statement already appears in~\cite{natarajan2017quantum} (restricted to approximate homomorphisms into the finite-dimensional unitaries, and with slightly worse dependence on $\eps$), and we will not need it here, we only sketch the proof. 
 
 \begin{proof}[Proof sketch]
-\mnote{This proof sketch is very confusing. We think of the elements of $P_k$ as $\pm \sigma_X(a)\sigma_Z(b)$, not as $J^{\pm 1}(a,b)$. This is a parametrization of the generators in the specific presentation we provided, and which does not play a role here in the proof. Actually, this is part of what is confusing. The corollary is essentially that almost homomorphisms w.r.t the above presentation of $P_k$ can be translated to almost homs of $P_k$ w.r.t the multiplication table pres without changing the $\eps$ too much. We developed the proper language to make Corollary \ref{cor:Pauli-brading_is_stable} much shorter. We should have just stated that the presentation we gave for $P_k$ is stable, and furthermore, that when $J$ is mapped to $-1$, then the close by representation must be of the form $\Id\otimes P_k$. Anyway, maybe we can discuss this a bit and then I'll do the changes. Didn't want to mess up if this is the way you wanted everything to look like.  }\tnote{You're right. This is partly because I changed the presentation a couple times in the past, and propagated incorrectly. What you suggest for the proof seems to be what I wrote for the sketch though, up to the mismatches in terms of notation, etc. If you can change to your idea that's good for me, thanks}
-
+%\mnote{This proof sketch is very confusing. We think of the elements of $P_k$ as $\pm \sigma_X(a)\sigma_Z(b)$, not as $J^{\pm 1}(a,b)$. This is a parametrization of the generators in the specific presentation we provided, and which does not play a role here in the proof. Actually, this is part of what is confusing. The corollary is essentially that almost homomorphisms w.r.t the above presentation of $P_k$ can be translated to almost homs of $P_k$ w.r.t the multiplication table pres without changing the $\eps$ too much. We developed the proper language to make Corollary \ref{cor:Pauli-brading_is_stable} much shorter. We should have just stated that the presentation we gave for $P_k$ is stable, and furthermore, that when $J$ is mapped to $-1$, then the close by representation must be of the form $\Id\otimes P_k$. Anyway, maybe we can discuss this a bit and then I'll do the changes. Didn't want to mess up if this is the way you wanted everything to look like.  }\tnote{You're right. This is partly because I changed the presentation a couple times in the past, and propagated incorrectly. What you suggest for the proof seems to be what I wrote for the sketch though, up to the mismatches in terms of notation, etc. If you can change to your idea that's good for me, thanks}
 The idea is the following: The maps $\phi_X,\phi_Z$ induce an $\eps$-approximate representation of the Pauli group with respect to the presentation \eqref{eq:almost_mult_table_pres_of_Pauli}. From that, we can use the canonical form of elements in $\pauli_k$ to create an $O(\eps)$-approximate representation of the multiplication table presentation of $\pauli_k$ --- define $\phi:\pauli_k \to \mU(\mM)$ by $\phi((-1)^c \sigma_X(a)\sigma_Z(b))= (-1)^c \phi_X(a)\phi_Z(b)$, where $c\in \{\pm 1\}$ and $a,b\in \Z_2^k$. Applying Gowers--Hatami (Theorem \ref{thm:gh}), we deduce the corollary.
 \end{proof}
 
@@ -1113,6 +1112,7 @@ Define the distribution $\nu'$ as the uniform mixture of the uniform distributio
 \begin{claim}
 $h'$ is a parity check matrix for $\code'$.
 \end{claim}
+
 
 \begin{proof}
 Let $x\in \F_2^{qn}$ be such that $h'x=0$. Since the $A$-checks enforce that each block of $k$ symbols contains the Hadamard-code encoding of an $\F_q$ symbol, $x$ can be decoded to $x'\in \F_q^n$ such that for each $(i,x)\in \{1,\ldots,n\}\times \F_2^t$, $x_{(i,x)} = \kappa(x'_i)\cdot x$. If the $p$-th row of $h$ enforces the check $v_p\cdot x'=0$, where $v_p\in \F_q^n$, then 
@@ -2000,8 +2000,8 @@ Assume $R=\bigsqcup R_i$ is the decomposition of $R$ into orbits of $\Phi$, and 
     \[
 \forall s\in S\ \colon \ \ \rho'(s)=\bigoplus_{\alpha\in \Phi} \rho(\alpha(s)).
     \]
-    We denote by $\mM_\Phi=\bigoplus_{\alpha\in \Phi}\mM\subseteq \mM_\infty$ and by $\mM_\alpha$ the copy of $\mM$ at the $\alpha\in \Phi$ position.
-    Let $w_i=\mu_R(R_i)$, namely the probability that $\mu_R$ samples a relation from the orbit $R_i$. Then, for every $r\in R_i$, we have 
+    We denote by $\mM_\Phi=\bigoplus_{\alpha\in \Phi}\mM\subseteq \mM_\infty$ and by $\mM_\alpha$ the copy of $\mM$ at the $\alpha\in \Phi$ position.\tnote{Is it canonical what is the trace on $\mM_\Phi$? In the calculation below you assume a uniform weighted average, is it useful to say it?}
+    Let $w_i=\mu_R(R_i)$, namely the probability that $\mu_R$ samples a relation from the orbit $R_i$. Then, for every $r\in R_i$, we have \tnote{For the second line, is it clear that we get uniform over $R_i$?}
     \[
     \begin{split}
         w_i\|\rho'(r)-\Id\|_\tau^2&=w_i\Expectation_{\alpha\in \Phi} \|\rho(\alpha(r))-\Id\|_\tau^2\\
@@ -2012,17 +2012,17 @@ Assume $R=\bigsqcup R_i$ is the decomposition of $R$ into orbits of $\Phi$, and 
     \]
     Hence, 
     \[
-    \forall r\in R\ \colon\ \ |\rho'(r)-\Id\|_\tau^2\leq \max({\nicefrac{1}{w_i}})\cdot\eps,
+    \forall r\in R\ \colon\ \|\rho'(r)-\Id\|_\tau^2\leq \max({\nicefrac{1}{w_i}})\cdot\eps,
     \]
-which in turn means that $\rho'$ is a $\max({\nicefrac{1}{w_i}})\cdot\eps$-approximate representation in the $L^\infty$ sense. 
+which in turn means that $\rho'$ is a $\max_i\{{\nicefrac{1}{w_i}}\}\cdot\eps$-approximate representation in the $L^\infty$ sense. 
 \begin{remark}
-    By applying this construction on the example from the beginning of the appendix, the resulting $\rho'$ is a $\nicefrac{2|E|}{\binom{k}{2}}$-approximate representation in the $L^\infty$ setup of \eqref{eq:z2-efficient}.
+    By applying this construction on the example from Claim~\ref{claim:appendix1}, the resulting $\rho'$ is a $\nicefrac{2|E|}{\binom{k}{2}}$-approximate representation of \eqref{eq:z2-efficient} in the $L^\infty$ sense.\tnote{Can we expand on this? Any permutation is an automorphism, right? So we end up having two classes of relations, and $w_1=w_2=1/2$. It might just be worth spelling out}
 \end{remark}
 Now, assume that for any genuine representation $\varphi\colon \Gamma\to \mU(\mN)$, where $\mN=P\mM_\infty P$, and every isometry $w\in P\mM_\infty \Id_\mM$, we have 
 \[
 \max\left\{\Expectation_{s\sim \mu_S} \|\rho(s)-w^*\varphi(s)w\|_\tau^2\ ,\ \tau^\mM(\Id_\mM-w^*w)\right\}\geq \delta.
 \]
-Let $\varphi'\colon \Gamma\to \mU(\mN)$ be a genuine representation of $\Gamma$ satisfying 
+Let $\varphi'\colon \Gamma\to \mU(\mN)$ be a genuine representation of $\Gamma$ satisfying \tnote{Is the $1/|\Phi|$ in front correct? Or maybe I'm missing how the $\tau_\infty$ is normalized exactly. It just sums over the $\alpha$'s?}\tnote{Also, I'm not sure I understood your starting point. You want to assume that $\varphi'$ is $L_\infty$-close, right? Here you only do $L_1$. Is this what the last sentence of the proof is supposed to justify? If so, perhaps better epxlain here.}
 \[
 \frac{1}{|\Phi|}\Expectation_{s\sim \mu_S} \|\rho'(s)-w^*\varphi'(s)w\|_\tau^2\ ,\ \tau^{\mM_\Phi}(\Id_{\mM_\Phi}-w^*w)\leq  \delta',
 \]
@@ -2043,14 +2043,14 @@ Similarly,
 \begin{split}
     \delta'&\geq \tau^{\mM_\Phi}(\Id_{\mM_\Phi}-\Id_{\mM_\Phi}P\Id_{\mM_\Phi})\\
     &=\Expectation_{\alpha\in\Phi}\tau_\infty(\Id_{\mM_\alpha}-\Id_{\mM_\alpha}P\Id_{\mM_\alpha})
-\end{split},
+\end{split}\;,
 \]
 and for at least two thirds of the $\alpha\in \Phi$ we have 
 \[
 \tau^{\mM_\alpha}(\Id_{\mM_\alpha}-\Id_{\mM_\alpha}P\Id_{\mM_\alpha})\leq 3\delta'.
 \]
 Hence, $\delta'\geq \frac{\delta}{3}$.
-Since the $L^\infty$ distance between functions is larger than the $L^1$ distance between them (with respect to any fully supported measure $\mu_S$), we conclude that a lower bound of $f(\eps)$ on the modulus of stability of a sufficiently symmetric presentation induces a lower bound of $\frac{\min{w_i}}{3}f(\eps)$.
+Since the $L^\infty$ distance between functions is larger than the $L^1$ distance between them (with respect to any fully supported measure $\mu_S$), we conclude that a lower bound of $f(\eps)$ on the modulus of stability of a sufficiently symmetric presentation induces a lower bound of $\frac{\min{w_i}}{3}f(\eps)$ \tnote{on? (I know, but maybe we should say?)}.
 
 \bibliography{qld}
 

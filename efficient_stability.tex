@@ -606,7 +606,7 @@ One can also consider representations in permutations, see~\cite{glebsky2009almo
 
 
 \paragraph{Open questions.}\tnote{added this paragraph}
-We leave many questions open. A natural direction is to determine if there are simple sufficient conditions on the matrix $h$ that guarantee that the presentation $G(h)$ is stable. As we discussed, the condition that $\ker h$ is a testable code is equivalent to stability for $1$-dimensional permutations. It thus seems likely that testability is not a sufficient condition in general; can testability be determined by a combinatorial parameter of $h$? More generally, finding other examples of efficient stability seems of intrinsic interest, besides potential applications to property testing and the construction of nonlocal games. In a different direction, an analogue of Theorem~\ref{thm:main-inf} for the case of representations in permutations could have important implications towards showing the existence of non-sofic groups, as is discussed in more depth in the works~\cite{CL_part2,BCLV_subgroup_tests}\tnote{Michael, can you add a reference to the relevant paper of yours/ours?}\mnote{Done. But, it seems as if the second paragraph of the 'related works on stability' subsection already hints towards this open problem.}
+We leave many questions open. A natural direction is to determine if there are simple sufficient conditions on the matrix $h$ that guarantee that the presentation $G(h)$ is stable. As we discussed, the condition that $\ker h$ is a testable code is equivalent to stability for $1$-dimensional permutations. It thus seems likely that testability is not a sufficient condition in general; can testability be determined by a combinatorial parameter of $h$? More generally, finding other examples of efficient stability seems of intrinsic interest, besides potential applications to property testing and the construction of nonlocal games. In a different direction, as mentioned in the previous paragraph an analogue of Theorem~\ref{thm:main-inf} for the case of representations in permutations could have important implications towards showing the existence of non-sofic groups~\cite{CL_part2,BCLV_subgroup_tests}\tnote{Michael, can you add a reference to the relevant paper of yours/ours?}\mnote{Done. But, it seems as if the second paragraph of the 'related works on stability' subsection already hints towards this open problem.}\tnote{Ok thanks, I reformulated. We could also remove the refs here and only mention them in the previous paragraph. I think it's ok but if you prefer that way you can edit.}
 
 
 
@@ -2009,7 +2009,7 @@ Assume $R=\bigsqcup R_i$ is the decomposition of $R$ into orbits of $\Phi$, and 
     \[
 \forall s\in S\ \colon \ \ \rho'(s)=\bigoplus_{\alpha\in \Phi} \rho(\alpha(s)).
     \]
-    We denote by $\mM_\Phi=\bigoplus_{\alpha\in \Phi}\mM\subseteq \mM_\infty$ and by $\mM_\alpha$ the copy of $\mM$ at the $\alpha\in \Phi$ position.\tnote{Is it canonical what is the trace on $\mM_\Phi$? In the calculation below you assume a uniform weighted average, is it useful to say it?}\mnote{Adding a clarification:} Note that $\mM_\Phi$ embeds in $\mM_\infty$, e.g. in the coordinates $1,...,|\Phi|$, and inherits a trace from it by defining 
+    We denote by $\mM_\Phi=\bigoplus_{\alpha\in \Phi}\mM\subseteq \mM_\infty$ and by $\mM_\alpha$ the copy of $\mM$ at the $\alpha\in \Phi$ position.Note that $\mM_\Phi$ embeds in $\mM_\infty$, e.g. in the coordinates $1,...,|\Phi|$, and inherits a trace from it by defining 
     \[
     \tau^{\mM_\Phi}(\bigoplus A_\alpha)=\frac{\tau_\infty(\bigoplus A_\alpha)}{\tau_\infty(\Id_{\mM_\Phi})}=\frac{1}{|\Phi|}\sum_{\alpha\in \Phi}\tau^\mM(A_\alpha)=\Expectation_{\alpha\in \Phi}\tau^\mM(A_\alpha).
     \]
@@ -2018,7 +2018,7 @@ Assume $R=\bigsqcup R_i$ is the decomposition of $R$ into orbits of $\Phi$, and 
     \[
     \forall r\in R_i\ \colon \ \ \Expectation_{\alpha\in \Phi}f(\alpha(r))=\Expectation_{r'\in R_i}f(r)
     \]
-    for any function $f\colon \mF(S)\to \complex$. Therefore, \tnote{For the second line, is it clear that we get uniform over $R_i$?}
+    for any function $f\colon \mF(S)\to \complex$. Therefore, 
     \[
     \begin{split}
        \forall r\in R_i\ \colon \ \  \frac{w_i}{|\Phi|}\|\rho'(r)-\Id_{\mM_\Phi}\|_\tau^2&=w_i\Expectation_{\alpha\in \Phi} \|\rho(\alpha(r))-\Id_\mM\|_\tau^2\\
@@ -2037,7 +2037,7 @@ which is the relevant parameter to consider.
     Any $(\eps,\mu_R)$-approximate representation of $\langle S\colon R\rangle$, where $\mu_R$ is uniform over orbits of $\Phi=\textrm{Aut}(\langle S\colon R\rangle)$, can be transformed into a $(\max_i\{{\nicefrac{1}{w_i}}\}\cdot\eps,\infty)$-approximate representation. 
 \end{corollary}
 \begin{remark}
-    By applying this construction on the example from Claim~\ref{claim:appendix1}, the resulting $\rho'$ is a $(\nicefrac{2|E|}{\binom{k}{2}},\infty)$-approximate representation of \eqref{eq:z2-efficient}.\tnote{Can we expand on this? Any permutation is an automorphism, right? So we end up having two classes of relations, and $w_1=w_2=1/2$. It might just be worth spelling out}\mnote{Done:} This is because $\Phi=\textrm{Sym}(S)$, and there are two  orbits --- the commutation relations and the involutions --- where $\mu_R$ is supprted equally on each of them. Namely, $w_{commutation}=w_{involution}=\nicefrac{1}{2}$.
+    By applying this construction on the example from Claim~\ref{claim:appendix1}, the resulting $\rho'$ is a $(\nicefrac{2|E|}{\binom{k}{2}},\infty)$-approximate representation of \eqref{eq:z2-efficient}. This is because $\Phi=\textrm{Sym}(S)$, and there are two  orbits --- the commutation relations and the involutions --- where $\mu_R$ is supprted equally on each of them. Namely, $w_{commutation}=w_{involution}=\nicefrac{1}{2}$.
 \end{remark}
 Recall that our goal is to translate $L^1$ lower bounds into $L^\infty$ lower bounds. Namely, we would like to deduce that, if every genuine representation of $\Gamma$ is $(\delta,\mu_S)$-far from $\rho$, then every genuine representation of $\Gamma$ is $(\delta',\infty)$-far from $\rho'$, for $\delta'=C\delta$.  Since $\mu_S$ was assumed to be fully supported, the $L^\infty$ distance is lower bounded by the $L^1$-distance, and being $(\delta',\mu_S)$-far from $\rho'$ implies being $(\delta',\infty)$-far from it. Thus, we can forget about the $L^\infty$ notion of distance and lower bound our usual notion of distance.
 
@@ -2045,7 +2045,7 @@ To that end, assume that every genuine representation of $\Gamma$ is $(\delta,\m
 \[
 \max\left\{\Expectation_{s\sim \mu_S} \|\rho(s)-w^*\varphi(s)w\|_\tau^2\ ,\ \tau^\mM(\Id_\mM-w^*w)\right\}\geq \delta.
 \]
-Let $\varphi'\colon \Gamma\to \mU(\mN)$ be a genuine representation of $\Gamma$ which is $(\delta',\mu_S)$-close to $\rho'$, i.e.\ it satisfies \tnote{Is the $1/|\Phi|$ in front correct? Or maybe I'm missing how the $\tau_\infty$ is normalized exactly. It just sums over the $\alpha$'s?}\tnote{Also, I'm not sure I understood your starting point. You want to assume that $\varphi'$ is $L_\infty$-close, right? Here you only do $L_1$. Is this what the last sentence of the proof is supposed to justify? If so, perhaps better epxlain here.}\mnote{I added an explanation before the analysis, immediately after Remark A.5.}
+Let $\varphi'\colon \Gamma\to \mU(\mN)$ be a genuine representation of $\Gamma$ which is $(\delta',\mu_S)$-close to $\rho'$, i.e.\ it satisfies 
 \[
 \frac{1}{|\Phi|}\Expectation_{s\sim \mu_S} \|\rho'(s)-w^*\varphi'(s)w\|_\tau^2\ ,\ \tau^{\mM_\Phi}(\Id_{\mM_\Phi}-w^*w)\leq  \delta',
 \]
@@ -2074,9 +2074,8 @@ and for at least two thirds of the $\alpha\in \Phi$ we have
 \]
 Hence, $\delta'\geq \frac{\delta}{3}$, and we deduce that every genuine representation of $\Gamma\cong \langle S\colon R\rangle$ is at least $(\nicefrac{\delta}{3},\infty)$-away from $\rho'$.
 %Since the $L^\infty$ distance between functions is larger than the $L^1$ distance between them (with respect to any fully supported measure $\mu_S$), we conclude that a lower bound of $f(\eps)$ on the modulus of stability of a sufficiently symmetric presentation induces a lower bound of $\frac{\min{w_i}}{3}f(\eps)$ 
-\tnote{on? (I know, but maybe we should say?)}.
 \begin{corollary}
-    The transformation we described  $\rho\mapsto\rho'$ translates a $(\eps,\mu_R)$-approximate representation into a $((\max{\nicefrac{1}{w_i}})\cdot\eps,\infty)$-approximate representaion, and if every genuine representation of $\Gamma$ is $(\delta,\mu_S)$-far from $\rho$, then every genuine representation is $(\nicefrac{\delta}{3},\infty)$-far from $\rho'$.
+    The transformation $\rho\mapsto\rho'$ we described  translates a $(\eps,\mu_R)$-approximate representation into a $((\max{\nicefrac{1}{w_i}})\cdot\eps,\infty)$-approximate representaion, and if every genuine representation of $\Gamma$ is $(\delta,\mu_S)$-far from $\rho$, then every genuine representation is $(\nicefrac{\delta}{3},\infty)$-far from $\rho'$.
 \end{corollary}
 \begin{remark}
     By applying this corollary to the construction from the beginning of the appendix, we conclude that the $L^\infty$ modulus of stability of the presentation \eqref{eq:z2-efficient} is $\Omega(k\eps)$.

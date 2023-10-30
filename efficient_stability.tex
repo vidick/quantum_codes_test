@@ -1138,7 +1138,7 @@ Fix integers $m,t,d \in \N$ and let $q=2^t$. Let $\code_{\bRM}$ be the $[q^{m+1}
 \begin{figure}[!htbp]
   \centering
   \begin{gamespec}
-Given access to some $g\in \F_2^{N}$, where $n=N^{m+1}$, identify $g$ with a function $g:(\F_2^t)^m \times \F_2^t \to \F_2$. Perform one of the following tests with probability~$\tfrac{1}{2}$ each. 
+Given access to some $g\in \F_2^{N}$, where $n=q^{m+1}$, identify $g$ with a function $g:(\F_2^t)^m \times \F_2^t \to \F_2$. Perform one of the following tests with probability~$\tfrac{1}{2}$ each. 
 \begin{enumerate}
 	\item \textbf{Low-degree test:}
 		Let $u \in \F_q^m$ be a uniformly random point and $j\in \{1,\ldots,m\}$ chosen uniformly at random. Let $\ell$ be the line through $u$ in the $j$-th direction. Let $e_j=(0,\ldots,0,1,0,\ldots,0)\in \F_q^m$, where the unique $1$ is in the $j$-th position. Choose a uniformly random $v\in \ell$ and $\gamma\in \F_q$ and check that 
@@ -1154,7 +1154,7 @@ Given access to some $g\in \F_2^{N}$, where $n=N^{m+1}$, identify $g$ with a fun
 
 Let $G_\bRM = G(h_\bRM)$ be the group that is presented from $h_\bRM$ (recall from \Cref{sec:pres-code} that codes give rise to group presentations through the general construction~\eqref{eq:def-gh-pres}). We do not know if $G_\bRM = \Z_2^K$, with $K=t(d+1)^m$. Instead we modify the presentation $G(h_\bRM)$ by adding pairwise commutation relations in a similar manner as the presentation from Lemma~\ref{lem:com-code}. Let 
 \[ G(h_\bRM) \,=\, \big\langle x_1,\ldots,x_N \;:\; \{R^\sq_k\}\,,\; \{R^\ld_k\}\,,\; \{R^\had_{k}\} \big\rangle\;,\]
-where  $R^\sq_k$ ranges overal all relations of the form $x_i^2=e$ for $i\in \{1,\ldots,N\}$, $R^\ld_k$ ranges over all relations implied by the ``low-degree test'' in Figure~\ref{fig:bRM-tester} and $R^\had_{k}$ ranges over all the relations implied by the ``Hadamard test.'' For $k=(i,j)\in\{1,\ldots,N\}^2$ such that $i<j$ let $R^\com_k$ be the relation $[x_i,x_j]=e$.
+where  $R^\sq_k$ ranges over all relations of the form $x_i^2=e$ for $i\in \{1,\ldots,N\}$, $R^\ld_k$ ranges over all relations implied by the ``low-degree test'' in Figure~\ref{fig:bRM-tester} and $R^\had_{k}$ ranges over all the relations implied by the ``Hadamard test.'' For $k=(i,j)\in\{1,\ldots,N\}^2$ such that $i<j$ let $R^\com_k$ be the relation $[x_i,x_j]=e$.
 Then we define
 \begin{equation}\label{eq:z2k-eff}
  G' \,=\,\big\langle x_1,\ldots,x_N \;:\; \{R^\sq_k\}\,,\; \{R^\ld_k\}\,,\; \{R^\had_{k}\}\, , \; \{ R^\com_k\}\big\rangle\;.

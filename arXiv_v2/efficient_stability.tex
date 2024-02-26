@@ -1650,20 +1650,20 @@ Let $\mC$ be a class of tracial von Neumann algebras. Let $\code$ be an $[n,k,d]
 \end{theorem}
 
 
+\tnote{removing erroneous dp fact}
+%We will make use of the following simple fact. 
 
-We will make use of the following simple fact. 
 
+%\begin{lemma}[Data-processing]\label{lem:dp}
+%Let $\{P_a\}$ and $\{Q_a\}$ be two POVMs on $(\mM,\tau)$ with the same outcome set $\mA$. Then for any function $f:\mA\to \mB$ for some finite set $\mB$, 
+%\begin{equation}\label{eq:dp}
+%\sum_{b\in \mB} \Big\| \sum_{a\in f^{-1}(b)} (P_a-Q_a) \Big\|_2^2 \,\leq\, \sum_{a\in \mA} \big\| P_a-Q_a\big\|_2^2\;.
+%\end{equation}
+%\end{lemma}
 
-\begin{lemma}[Data-processing]\label{lem:dp}
-Let $\{P_a\}$ and $\{Q_a\}$ be two POVMs on $(\mM,\tau)$ with the same outcome set $\mA$. Then for any function $f:\mA\to \mB$ for some finite set $\mB$, 
-\begin{equation}\label{eq:dp}
-\sum_{b\in \mB} \Big\| \sum_{a\in f^{-1}(b)} (P_a-Q_a) \Big\|_2^2 \,\leq\, \sum_{a\in \mA} \big\| P_a-Q_a\big\|_2^2\;.
-\end{equation}
-\end{lemma}
-
-\begin{proof}
-This follows by expanding the left-hand side and using $\tau(P_aQ_{a'})\geq 0$ for all $a\neq a'$. 
-\end{proof}
+%\begin{proof}
+%This follows by expanding the left-hand side and using $\tau(P_aQ_{a'})\geq 0$ for all $a\neq a'$. 
+%\end{proof}
 
 
 \begin{proof}[Proof of Theorem~\ref{thm:braiding}]
@@ -1692,7 +1692,7 @@ Applying Lemma~\ref{lem:pull-back}, we obtain projective measurements $\{Q^W_u\}
 \begin{equation}\label{eq:main-1}
 \sum_u \big\|Q^W_u - (w^W)^* \tilde{P}_u^W w^W \big\|^2_2 \,=\, O(\delta_1)\;.
 \end{equation}
-For any $i\in\{1,\ldots,n\}$ let $Q^{W,i}_b = \sum_{u:\,u_i=b}  Q^W_u$. Then by Lemma~\ref{lem:dp},
+For any $i\in\{1,\ldots,n\}$ let $Q^{W,i}_b = \sum_{u:\,u_i=b}  Q^W_u$. \tnote{Added comment here to replace erroneous DP fact:}Expanding both terms on the left-hand side and using that $\tau(Q^W_u \tilde{P}^W_{u'})\geq 0$ for all $u,u'$,
 \begin{align*}
 \Es{i}\sum_b \tau\big( Q^{W,i}_b (w^W)^*\tilde{P}^{W,i}_b(w^W) \big)
 &\geq \Es{i}\sum_u \tau\big( Q^{W}_u (w^W)^*\tilde{P}^{W}_u(w^W) \big)\\

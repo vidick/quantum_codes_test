@@ -1,0 +1,214 @@
+1. page 2, footnote 3: “incolution”, “satisfied by out choice”.
+
+Fixed
+
+2. page 4, footnote 5: it should be Definition 2.3.
+
+Fixed
+
+3. page 6: I am sorry to raise this annoying point... When you mention
+[NV18], are you refering to something that is actually correct? Because
+later (page 38) you mention that some of the argument in [NV18] is flawed.
+A comment or a pointer would be welcome here to clarify what is correct
+and what isn’t in [NV18].
+
+We added a clarification
+
+4. page 6, footnote 7: remove “(“, or add “)”.
+
+Fixed
+
+5. page 8, line 1: perhaps you could say square-convergent? (defining ℓ2 as
+the space of convergence sequences in CZ is strange).
+
+Yes
+
+6. page 8, line 3: I do not know what “operator topology” is. I am happy if
+you put any of the standard topologies except the norm, for example the
+weak operator topology.
+
+Fixed
+
+** 7. page 9, Definition 2.3. It would be useful if you commented how your
+definition of almost homomorphims (and therefore of stability) compares
+with the point of view that was studied in [dlS22]. Your notion is more
+general, and essentially coincides with that of [dlS22] for triangular pre-
+sentations, that is presentations where all relators have length 3. Indeed,
+in that case, ...
+
+This is essentially the content of Theorem 2.6. We don't have much more to say: indeed, our notion is more general. 
+
+[T: I didn't find anything interesting/non-trivial to say. We could say that the definition generalizes the Gowers-Hatami one (is dlS any different? dlS seems to consider only product distributions on (g,h), not general \nu like implied in the referee comment, no? So it's a pretty trivial comment, which is anyways already made at thes tart of 2.3, and I didn't feel like repeating it]
+
+8. page 8, 3 lines before Definition 2.2: there is no μS and μR so far.
+
+Corrected
+
+9. page 9, I am not sure I am fully convinced by Remark 2.4, but I will
+be happy if you can prove me wrong. What you write is fine if you only
+consider group presentations where all relations have a uniformly bounded
+length. [...]
+
+You're right, this is a better choice. We changed.
+
+** 10. page 9, after Definition 2.3. You should have a lemma stating that the
+stability is a group property, and quantifying how the modulus of stability
+changes when the presentation and the measure μ changes (making precise
+your discussion after Lemma 2.11).
+
+We added this (see Lemma 2.6). 
+
+11. The statement that appears after Lemma 2.12, saying that formula (1)
+above holds, is stronger than Lemma 2.12, and therefore more interesting.
+It deserves to be highlighted.
+
+This is now highlighted as Corollary 2.18.
+
+12. page 15, line -2: replace Lemma 2.11 by [CRSV17]. Indeed, Lemma 2.11
+does not state how Ok(ε) depends on k.
+
+Changed
+
+13. Page 16 and after: the writing is much less carefull starting there. The
+notation change from line to line between Z/2Z, F and F2. I could not
+understand whether there was a logic. I was often confused when q can
+be arbitrary, and when q = 2. You should really avoid q when you mean
+q = 2 only.
+
+We went over Section 3 and made multiple edits to correct his. We should use F_2 when referring to elements and subspaces associated with a code, and Z_2 when referring to the associated group. 
+
+14. page 16, Lemma 3.1: I am certainly too picky, but you could write that
+these two groups are isomorphic, not equal. More importantly, where did
+you dedine R′′_jj′ ?
+
+R''_jj' is defined in the first line of the lemma :) We changed to "isomorphic".
+
+15. Definition 3.3. Since you talk about parity check, I guess that q = 2 and
+F = F2 here. Right?
+
+Yes. The entire subsection is for q=2. We fixed it her.e 
+
+16. Subsection 3.3 is almost impossibe to read. Line 5, you did not recall
+self-dual basis. In the next paragraph, a code (which was defined as a
+linear subspace) suddently appears to become a linear map. After struggling a lot, I believe I understood that [...]. Is that correct?
+
+Yes, it is correct. You are right that the description involving encoding maps was unnecessarily convoluted. We edited this to give a more direct description inspired by your suggestion; we believe it is better now. 
+
+17. page 19, line -1: what is F? page 20, line 2: what is ℓ?
+
+These parts were removed.
+
+18. page 21, line 1:n=N?
+
+Yes, corrected.
+
+19. page 21, line 8: I did not manage to understand where t1, . . . , td are
+defined.
+
+They are defined right above (21). We clarified this. 
+
+20. page 21, 6 lines before Theorem 4.1: I am not sure why you make this
+definition so complicated. If you took v, v′ ∈ (Ft
+2)m uniformly at random,
+then you would get a distribution that is simpler but comparable with the
+one you define up a factor m. And since in Theorem 4.1 you allow any
+factor poly(m, d, t), this additional factor does not matter.
+
+No, I don't think that this is correct. Uniformly random v,v' match in the last (j-1) coordinates with probability only 2^{-(j-1)t}, which is far too unlikely for our purposes. The exact distribution used is the one that makes the proof of Theorem 4.1 from JNV+22 work. 
+
+21. page 21, theorem 4.1: you should clarify the notion poly(·, ·). Clearly
+you have something else in mind that an arbitrary polynomial function
+(otherwise the theorem would be empty with δ(ε) = 100). Does it mean a
+polynomial without constant factor, a polynomial that is divisible by ab,
+or something else? Is ε 1
+8 + q− 1
+100 a polynomial in ε and q−1? Also, are
+you sure that the modulus δ that you obtain in Theorem 4.1 satisfies the
+assumption limt→0 δ(t) = 0 that you have prescribed in Definition 2.3?
+
+For clarity we removed the notation poly from the theorem statement. Since it is frequently used nevertheless, we added a clarification the first time the notation is used in an ambiguous manner, which is in the informal theorem statement in the introduction. Yes, we are sure that the modulus goes to 0 with epsilon. 
+
+22. page 21, line -4: scakes.
+23. page 21, line -3: maximum length of a relation is d + 2 (not d), I think.
+
+Corrected
+
+24. page 22, proof of Claim 4.2: this proof is ok, but it is much faster than
+the rest of the article, where you usually put all the details. In particular,
+you seem to be implicitely using something like Lemma 1 above. (another
+reason to state it).
+
+We stated the lemma (it is Lemma 2.5) and refer to it. Technically, since we formulated the lemma as you do, it does not apply directly (because we do not have closeness to a representation at this point); but it is indeed the same proof. 
+
+25. page 23: the proof is way too long, I believe. You should use Corollary
+2.10 instead of Lemma 3.5, no?
+
+Oops you're right! Shortened...
+
+26. page 23, Claim 4.4: I am not convinced by your choice to leave the de-
+pendance on u and j implicit.
+
+We left things this way, because keeping all superscripts seems to make a lot of expressions very hard to follow. 
+
+27. page 25: same comment as 25., with Theorem 2.6 instead of Lemma 3.5.
+
+Yes, fixed.
+
+28. page 28, footnote 14: the symmetrization is useless, because [...]
+
+Thanks, fixed.
+
+29. page 29: It is fine to include the proof, but you could say that Lemma 5.5
+is analogous (even a particular case?) of Lemm 5.28 in [JNV+21].
+
+Done.
+
+30. page 32, in (Soundness) of Definition 5.6. are μ′ and ˜μ the same things?
+
+Yes, fixed.
+
+31. page 33, Definition 5.8. Read what you have written, and correct all the
+mistakes [...].
+
+Fixed.
+
+32. page 36, footnote 16: I did not understand this footnote. And if this is a
+hypothesis to the theorem, it should appear in the statement and not in
+a footnote.
+
+It's a hypothesis. We removed the footnote, and clarified that we make this assumption at the start of the subsection. 
+
+33. page 36, line -9: a bit more details could be added about the way (U, V )
+can be completed: this is where you need to tensor with 1H in Definition
+5.6.
+
+Yes, we added some details. 
+
+34. page 38: what is “the work ??”? What is this important application? Is
+it Proposition 5.13? What are the motivations for Corollary 5.12? Does
+it allow to recover all the results claimed in [NV18]? How does Corollary
+5.12 compares with Theorem 7.14 in [JNV+20a].
+
+Sorry for the broken link, we meant [JNV+20a]. Yes we meant Proposition 5.13. The motivation for the corollary is to provide a correct version of the main result from NV18; this is explained at the start of the section. It recovers Theorem 3.2 from [NV18]. We added a clarification. 
+
+The statement is stronger than Theorem 7.14 in [JNV+20a], which involves a game that has a question with long answers. 
+
+** 35. Appendix A: I suggest to spell out explicitely the following general phe-
+nomenon, that is behind the example. If a presentation G = ⟨S : R⟩ if
+(δ, μS , μR)-stable, then it implies that any (ε, μR)-almost representation
+of G is also a (O(δ(ε)), ν)-representation of G, for any other probability
+measure ν on R such that νR,1 ≲ μS (this is immediate from Lemma 1,
+and essentially what you are proving in Claim A.3).
+
+[T: Michael, what do you think? Should we rewrite the proof of Claim A.3 to use the more general route pointed out by the reviewer? Or just point it out but not use it, since it would probably lead to much worse parameters?]
+
+36. page 43: mathcing
+
+Corrected.
+
+37. ref [JNV+22] is a reference to a short paper behind a paywall (and that
+I could not access). Given the importance that this paper plays in the
+present work, I believe you should cite the longer version published in
+Discrete Mathematics
+
+Corrected.

@@ -660,31 +660,42 @@ If $\phi:\mI\to \mU(\mM)$ and $\psi:\mI\to \mU(\mN)$ then we say that $\phi$ and
 If the measure $\mu$ is omitted then it is understood to be the uniform measure on $\mI$.
 \end{definition}
 
-Regarding this definition, we state the following elementary claim. \tnote{added this, which seems useful; I'm surprised we didn't need it before?}
+Regarding this definition, we state the following elementary claim. \tnote{added this, which seems useful; I'm surprised we didn't need it before?}\tnote{I fixed the claim but actually I don't think it is needed..}
 
 \begin{claim}
-Suppose that $\{U_i\}$ and $\{V_i\}$ are $(\delta,\mu)$-close. Then the following hold:
+Suppose that $\{U_i\}$ and $\{V_i\}$ are $(\delta,\mu)$-close. Then the following hold, where $C$ is a universal constant:
 \begin{align}
-\Es{i\sim \mu} \| wU_i w^* - V_i \|_{\tau^\mN} &\leq 3\delta\;,\label{eq:switch-w}\\
-\Es{i\sim \mu} \| U_i^{-1} - w^* V_i^{-1} w \|_{\tau^\mM} &\leq 5\delta\;. \label{eq:switch-inv}
+\Es{i\sim \mu} \| wU_i w^* - V_i \|_{\tau^\mN}^2 &\leq C\delta\;,\label{eq:switch-w}\\
+\Es{i\sim \mu} \| U_i^{-1} - w^* V_i^{-1} w \|_{\tau^\mM}^2 &\leq \delta\;. \label{eq:switch-inv}
 \end{align}
 \end{claim}
 
 \begin{proof}
-For the first inequality, for any $i$ we have by the triangle inequality 
+We first note that by definition
+\begin{align*} 
+1\geq \tau^\mN(ww^*)  
+&= \frac{1}{\tau_\infty(P)}\tau_\infty(ww^*) \\
+&= \frac{1}{\tau_\infty(P)}\tau^\mM(w^*w)  \\
+&\geq \frac{1}{\tau_\infty(P)}(\tau^\mM(I_\mM)-\delta)\;, 
+\end{align*}
+from which it follows that $\tau_\infty(P)\geq 1-\delta$.
+Now for the first inequality, for any $i$ we have by the triangle inequality 
 \begin{align*}
   \| wU_i w^* - V_i \|_{\tau^\mN} &\leq \| w U_i w^* - w w^* V_i w w^* \|_{\tau^\mN} + \|(P-ww^*)V_i ww^* \|_{\tau^\mN} + \|V_i(P-ww^*)\|_{\tau^\mN}\\
-  &\leq \| U_i - w^* V_i w\|_{\tau^\mM} + 2 \|(P-ww^*)\|_{\tau^\mN}\;,
+  &\leq \frac{1}{\tau_\infty(P)}\| U_i - w^* V_i w\|_{\tau^\mM} + 2 \|(P-ww^*)\|_{\tau^\mN}\\
+	&\leq \frac{1}{1-\delta}\| U_i - w^* V_i w\|_{\tau^\mM} + 2\delta \;,
 \end{align*}
 where the second line uses that $w^*$ is a partial isometry. Eq.~\eqref{eq:switch-w} follows. For the second inequality, for any $i$,
 \begin{align*}
-  \| U_i^{-1} - w^* V_i^{-1} w \|_{\tau^\mM} &=  \| 1_\mM -  U_i w^* V_i^{-1} w \|_{\tau^\mM}\\
-  &\leq \|w^* w - w^* w U_i w^* V_i^{-1} w \|_{\tau^\mM} + \|w^*w-1_\mM\|_{\tau^\mM} \\
-&\leq \|P - wU_iw^* V_i^{-1}\|_{\tau^\mN}  + \|w^*w-1_\mM\|_{\tau^\mM} \\
-&= \|V_i - wU_iw^* \|_{\tau^\mN}  + \|w^*w-1_\mM\|_{\tau^\mM} \;,
+  \| U_i^{-1} - w^* V_i^{-1} w \|_{\tau^\mM} &=  \| (U_i^{-1} - w^* V_i^{-1} w)^* \|_{\tau^\mM}\\
+	%\| 1_\mM -  U_i w^* V_i^{-1} w \|_{\tau^\mM}\\
+  %&\leq \|w^* w - w^* w U_i w^* V_i^{-1} w \|_{\tau^\mM} + \|w^*w-1_\mM\|_{\tau^\mM} \\
+%&\leq \|P - wU_iw^* V_i^{-1}\|_{\tau^\mN}  + \|w^*w-1_\mM\|_{\tau^\mM} \\
+&= \|U_i - w^* V_i^{-1} w \|_{\tau^\mN} \;, %+ \|w^*w-1_\mM\|_{\tau^\mM} \;,
 \end{align*}
-where the first inequality is the triangle inequality and the second uses that $w$ is a partial isometry. 
-We conclude by taking the average over $i\sim \mu$ and applying~\eqref{eq:switch-w}.
+%where the first inequality is the triangle inequality and the second uses that $w$ is a partial isometry. 
+since $U_i$ and $V_i$ are unitaries. 
+%We conclude by taking the average over $i\sim \mu$ and applying~\eqref{eq:switch-w}.
 \end{proof}
 
 
@@ -787,10 +798,12 @@ We now give a simple lemma that shows that homomorphisms on $\mathcal{F}(S)$ tha
   \Es{r\sim \mu_R}\|\phi(r)-\Id\|_\tau &\leq \Es{r\sim \mu_R}\|\phi(r)-w^*g(r)w\|_\tau + \|w^*w-I_\mM\|_\tau\\
   &\leq \Es{r\sim \mu_R}\sum_{i=1}^{|r|}\| w^* g(r_i)w -\phi(r_i)\|_\tau + \|w^*w-I_\mM\|_\tau +2\delta \\
   &=  \sum_{s\in S} \sum_{r\in R} \mu(R) \sum_{i=1}^{|r|} 1_{s\in \{r_i,r_i^{-1}\}} \| w^* g(r_i)w -\phi(r_i)\|_\tau +   \|w^*w-I_\mM\|_\tau +2\delta\\
-  &\leq \Big(\sum_{r\in R} \mu_R(r)|r|^2\Big)\Es{s\sim \mu_S }5 \| w^* g(s)w -\phi(s)\|_\tau +    \|w^*w-I_\mM\|_\tau +2\delta\\
+  &\leq \Big(\sum_{r\in R} \mu_R(r)|r|^2\Big)\Es{s\sim \mu_S } \| w^* g(s)w -\phi(s)\|_\tau +    \|w^*w-I_\mM\|_\tau +2\delta\\
   &\leq 8\delta \Big(\sum_{r\in R} \mu_R(r)|r|^2\Big)\;,
   \end{align*}
-  where the factor of $5$ that appeared on the third line accounts for the application of~\eqref{eq:switch-inv} whenever necessary, and for the last line we used $\Es{r\sim \mu_R}|r|^2\geq 1$. 
+  where 
+	%the factor of $5$ that appeared on the third line accounts for the application of~\eqref{eq:switch-inv} whenever necessary, and 
+	for the last line we used $\Es{r\sim \mu_R}|r|^2\geq 1$. 
   \end{proof}
   
   \tnote{changed remark below based on referee comment}
@@ -1911,7 +1924,7 @@ Since $\omega_W = G_\mC e_i$, $(G_\mC^T c)_i = c\cdot \omega_W$. Thus~\eqref{eq:
 
 By instantiating $\code$ using the Reed-Muller code from Section~\ref{sec:eff-z2k} we obtain an efficient qubit test.  Because we do not know if $G(h_\bRM)$ is Abelian, we need to introduce an additional test for the relations $\{R_k^\com\}$ in~\eqref{eq:z2k-eff}. The resulting test is described in Figure~\ref{fig:pbt}. It is a variant of a test first introduced in~\cite{natarajan2018low} (with a flawed analysis). This paper (together with the work on which our analysis relies) corrects this, and Corollary~\ref{cor:qld} below recovers~\cite[Theorem 3.2]{natarajan2018low}, with essentially the same parameters but a slightly different test. (Some of the complexity-theoretic applications of the theorem given in~\cite{natarajan2018low} remain flawed, see~\cite{natarajan2024status} for an explanation.)
 
-In the next section we detail an important application of this test, Proposition~\ref{prop:dim-test}, which is used in the work~\cite{ji2020mip}. (The present proof somewhat simplifies the one given in~\cite{ji2020mip}, but it keeps the same overall strategy.)
+In the next section we detail an important application of this test, Proposition~\ref{prop:dim-test}, which is used in the work~\cite{ji2020mip}. (The present proof somewhat simplifies the one given in~\cite{ji2020mip}, but it keeps the same overall strategy. \tnote{added for revision 2:}We also note that Corollary~\ref{cor:qld} below is qualitatively stronger than~\cite[Theorem 7.14]{ji2020mip} as the latter applies to a slightly different game which in particular has a pair of questions with long answers, of $O(2^m\log q)$ bits, whereas the tester in Figure~\ref{fig:bRM-tester}, which is analysed in the corollary, has short answers, $O(d)$ bits long. The presence of long answers helps the analysis.)
 
 \begin{figure}[!htbp]
   \centering

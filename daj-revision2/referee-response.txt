@@ -10,7 +10,7 @@ statement is stronger than Theorem 7.14 in [JNV+20a], which involves a game
 that has a question with long answers is exactly the kind of thing I was asking.
 Would you agree to add it to the text?
 
-A: [T--wild do]
+A: Ok, we added a sentence right before the statement of Corollary 5.12
 
 In 35, I was just suggesting a different way of phrasing your proof. I guess
 that I was implicitely complaining that you were reproducing again the same
@@ -20,7 +20,7 @@ the idea as a lemma so that you can only refer to it each time you use it. Now
 that you did it in you new Lemma 2.7, you’d better use it rather than reproving
 it. See 21 below.
 
-A: 
+A: [Michael, you had looked at this. Can you check the referee comment 21 and the lemma they propose (see the pdf file for that) and decide if we want to reformulate as they suggest?]
 
 More importantly, the comments 9 10 13 14 19 21 have not been fully ad-
 dressed, or resulted in adding new inaccuracies (see points 2–5, 8, 7, 10, 18). In
@@ -36,7 +36,7 @@ flexible stability, but maybe it’s worth pointing out the stability results
 that are true for the stronger form of non-flexible stability. In particular,
 this seems to be the case for Theorem 4.1. This deserves to be written.
 
-A: [Michael?]
+A: [Michael, are you able to do this? I can do it but I will have to dig out the results one by one as I am not so familiar]
 
 2. page 9, Claim 2.3. There are squares missing. (3) is certainly correct
 (perhaps with a different constant than 3), but I did not follow, in the
@@ -47,7 +47,7 @@ X = Ui − w∗Viw,
 i − w∗V −1
 i w∥.
 
-A:
+A: Thanks, you are correct. Actually the claim was not needed so we removed it. 
 
 3. page 10, Lemma 2.5: δ sould be √δ. The fact that you do not put paren-
 theses is misleading, it could be understood as (Pr

@@ -92,7 +92,7 @@ Yes. The entire subsection is for q=2. We fixed it her.e
 self-dual basis. In the next paragraph, a code (which was defined as a
 linear subspace) suddently appears to become a linear map. After struggling a lot, I believe I understood that [...]. Is that correct?
 
-Yes, it is correct. You are right that the description involving encoding maps was unnecessarily convoluted. We edited this to give a more direct description inspired by your suggestion; we believe it is better now. 
+Yes, it is correct. You are right that the description involving encoding maps was unnecessarily convoluted. We shortened this section as a lot of the description made it sound unnecessarily complicated.
 
 17. page 19, line -1: what is F? page 20, line 2: what is ℓ?
 
@@ -200,7 +200,7 @@ of G is also a (O(δ(ε)), ν)-representation of G, for any other probability
 measure ν on R such that νR,1 ≲ μS (this is immediate from Lemma 1,
 and essentially what you are proving in Claim A.3).
 
-[T: Michael, what do you think? Should we rewrite the proof of Claim A.3 to use the more general route pointed out by the reviewer? Or just point it out but not use it, since it would probably lead to much worse parameters?]
+We are not sure what the referee's remark means. Claim A3 is resolving an open problem that was circulating in the QIT community for a while --- various stable presentations of {0,1}^n are devised, yet it is not clear why the naive presentation is not good for applications. Here, we proved that indeed the modulus of stability of this presentation is Omega(k \cdot epsilon), which is not good enough for most applications. Our construction (which is based on Kozlov and Meshulam) is non-trivial, and we do not see how to deduce this fact immediately from some change of measure argument... If the referee can elaborate more on this point, we would appreciate it very much.
 
 36. page 43: mathcing
 

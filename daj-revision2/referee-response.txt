@@ -55,18 +55,18 @@ i=1 ∥...∥τ ) + 2δ. Put
 parentheses in the sum, or write (r + 1)√δ + P|r|
 i=1 ∥...∥τ .
 
-A:
+A: Corrected
 
 4. page 12, (7): μS is not a probability measure.
 
-A:
+A: This was a typo; we had meant to include the scaling with |r| as in your previous report. 
 
 5. page 12, proof of Lemma 2.7. You are not proving the lemma: your
 definition of almost-homomorphism was in terms of E∥ϕ(r) − 1∥2
 τ , whereas
 you prove something about E∥ϕ(r) − 1∥τ .
 
-A: 
+A: Corrected
 
 6. page 20, line 6: the phrasing “to guarantee that Ri is independent of the
 order...” is misleading. Probably what you mean it that the presentation
@@ -76,40 +76,69 @@ relations R′
 ijj′ . For example, the notion of (ε, μ)-almost homomorphism
 changes is the order changes.
 
-A:
+A: Right, we corrected this
 
 7. This is really unimportant, but I meant that the two groups in the state-
 ment of the lemma are only isomorphic, and I kind of agreed that the two
 groups in the proofs were equal.
 
-A:
+A: [T: He is referring to Lemma 3.1. I don't really get it. We should say that Z_2^k and the presentation are isomorphic, not equal? Then we need to update this all over. Michael?]
 
 8. page 20, Definition 3.3 and above. You write “we state the definition for
 the case of a general prime power q” but then there is no q, just 2. So
 both occurancies of 2 should be replaced by q.
+
+A: Right, corrected
+
 9. page 22, line 1-2: you should write down the assumption you have on d
 (for d ≥ q, the dimension you write is clearly incorrect).
+
+A: added
+
 10. page 24, line 8. You could say more clearly that you fix ti one and for all,
 and that the way they are chosen has no impact on the statements (it was
 not clear to me whether they are allowed to change or not, and how they
 are chosen).
+
+A: Yes, added
+
 11. page 24, line 3 after Figure 3: is the formula for M correct? I count
 qm ×m×q ×q +qm ×2t ×2t = (m+1)qm+2, so either I did not understand
 what the tester implied by the figure means, or there is a typo.
+
+A: You are right, this hadn't been updated from an earlier change. We fixed it. 
+
 12. page 24, line -7: k = t(d + 1)m?
+
+A: [T: This is what we write, what is the question?]
+
 13. page 25, Theorem 4.1. There is a typo in the formula for δ(ε) (your
 formula gives δ(ε) ≥ C; this form of the theorem is of course true, but not
 very impressive).
+
+A: Yes, the brackets had been closed in the wrong way in the latex; thanks. 
+
 14. page 25, line 1 in the proof of Theorem 4.1: μS = μR.
+
+A: Corrected
+
 15. page 25, Claim 4.2: do you need Claim 4.2? Corollary 2.15 that you use
 later does not require that ϕ takes its values in the hermitian unitaries.
+
+A: You're right, these relations are supserseded by the "Hadamard" relations and were not necessary. We removed them from the presentation, removed Claim 4.2, and adapted the rest of the text. 
+
 16. page 26, Claim 4.4: why the √ε? Claim 4.3 exactly says that ϕ is
 (δ, μS )-close to U with δ = O(ε), and Lemma 2.7 (or its proof) says that
 E∥[Uu,α, Uv,α′ ] − [ϕ(su,α), ϕ(sv,α′ )]∥2 ≤ 16δ for any probability measure
 on pairs whose marginals are μS .
+
+Yes this was a typo in the last line of the proof, we corrected it.
+
 17. page 28, line 3: what you write is not true for a fixed u, but it is true on
 average over u.
-2
+
+A: Corrected
+
 18. page 29, line -5– -1: the conventions for the notation poly here (given
 in footnote 7) do not match those of [JNV+22]. For example, on the
 last line of page 23 of [JNV+22], you have an expression of the form

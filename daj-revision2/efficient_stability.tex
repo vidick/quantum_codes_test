@@ -712,7 +712,7 @@ For a set of generators $S$ and an element $r\in\mF(S)$, we let $|r|$ denote the
 
 \begin{lemma}\label{lem:g-phi}
 Let $G=\langle S:R\rangle$ and $\mu_S$ a distribution on $S$.  Let $\phi:\mathcal{F}(S)\to \mathcal{U}(\cM)$ and $g:G\to \mathcal{U}(\mN)$ a representation such that $g$ is $(\delta,\mu_S)$ close to $\phi$. Then for any $r\in\mathcal{F}(S)$, it holds that 
-\[ \|\phi(r)-w^*g(r)w\|_\tau \,\leq\, \sum_{i=1}^{|r|}  \| w^* g(r_i)w -\phi(r_i)\|_\tau + 2\delta\;,\]
+\[ \|\phi(r)-w^*g(r)w\|_\tau \,\leq\, (|r|+1)\sqrt{\delta} + \sum_{i=1}^{|r|}  \| w^* g(r_i)w -\phi(r_i)\|_\tau\;,\]
 where $r_i$ denotes the $i$-the element of $r$ (which is an element of $S\cup S^{-1}$).
 \end{lemma}
 
@@ -721,9 +721,9 @@ where $r_i$ denotes the $i$-the element of $r$ (which is an element of $S\cup S^
   Using the triangle inequality, 
   \begin{align*}  
     \|\phi(r)-w^*g(r)w\|_\tau &\leq \sum_{i=1}^{|r|} \| w^*{g}(r_{\leq i}) w{\phi}(r_{>i})-w^* {g}(r_{<i})w\phi(r_{\geq i}))\|_\tau  + \|(w^*w-I_\cM)\phi(r)\|_\tau \\
-    &\leq \sum_{i=1}^{|r|} \| w^*g(r_{<i})w(w^* g(r_i)w -\phi(r_i))\phi(r_{>i})\|_\tau \\
-    &\qquad + \|w^* g(r_{<i}) (ww^*-P) g(r_i)w \phi(r_{>i})\|_{\tau^\mN} + \|w^*w-I_\cM\|_\tau \\ 
-    &\leq \sum_{i=1}^{|r|}\| w^* g(r_i)w -\phi(r_i)\|_\tau + \|ww^*-P\|_{\tau^{\mN}} + \|w^*w-I_\mM\|_\tau\;.
+    &\leq \sum_{i=1}^{|r|} \Big(\| w^*g(r_{<i})w(w^* g(r_i)w -\phi(r_i))\phi(r_{>i})\|_\tau \\
+    &\qquad + \|w^* g(r_{<i}) (ww^*-P) g(r_i)w \phi(r_{>i})\|_{\tau^\mN} \Big)+ \|w^*w-I_\cM\|_\tau \\ 
+    &\leq \sum_{i=1}^{|r|}\| w^* g(r_i)w -\phi(r_i)\|_\tau + |r|\|ww^*-P\|_{\tau^{\mN}} + \|w^*w-I_\mM\|_\tau\;.
     \end{align*}
     Here, for the last inequality we used that $g(r_i)$, $\phi(r_i)$ are unitaries, and $w$ an isometry, so either of them contracts the norm.  
 \end{proof}
@@ -753,7 +753,9 @@ Using the definition of $\phi$, followed by the triangle inequality,
 \end{align*}
 %Let $S''=S\cup S'$ and $R''=R\cup R'$. Let $\mu_R''$ be the equal mixture of $\mu_R$ and $\mu_{R'}$.
  From the above it follows that $\phi$ is an $(\eps',\mu_R)$-almost homomorphism of $\langle S:R\rangle$ where 
-\[\eps' \leq  L \eps (\min_{r'}\mu_{R'}(r'))^{-1} \;.\]
+\begin{equation}\label{eq:sg-1a}
+\eps' \leq  L^2 \eps (\min_{r'}\mu_{R'}(r'))^{-1} \;.
+\end{equation}
 %In particular, $\phi$ is an $(\eps',\mu_R)$-almost homomorphism of $\langle S:R\rangle$. 
 %Note that because $G=\langle S:R\rangle$ is stable, then $G=\langle S'':R''\rangle$ is also stable. This is
 Applying the assumption, $\phi$ is $(\delta(\eps'),\mu_S)$-close to a unitary representation $g$ of $G$ on some $(\mathcal{N}, \tau^\mN)\in \mC$. 
@@ -761,22 +763,22 @@ For $s'\in S'$, write $s' = w'$ where $w'\in\mathcal{F}(S)$ is a word in the gen
 
 Using the same reasoning as in the first part, it follows that 
 \begin{equation}\label{eq:sg-1}
-   \|\phi'(w''(s')^{-1})-I\|_\tau \leq LL' \eps (\min_{r'}\mu_{R'}(r'))^{-1}\;,
+   \|\phi'(w''(s')^{-1})-I\|_\tau \leq (LL')^2 \eps (\min_{r'}\mu_{R'}(r'))^{-1}\;,
 \end{equation}
 where $L'=\Delta(DD')$ with $D=\max_{s'\in S'}|w'|$ and $\Delta$ the Dehn function of $\langle S:R\rangle$.
  But $\phi'(w''(s')^{-1}) = \phi'(w'')\phi'((s')^{-1})=\phi(w')\phi'(s')^{-1}$. Using Lemma~\ref{lem:g-phi} we deduce that 
 \begin{align}
- \|\phi(w')-g(w')\| &\leq \sum_{i=1}^{|w'|}  \| w^* g(w'_i)w -\phi(w'_i)\|_\tau + 2\eps'\notag\\
- &\leq \delta(\eps')  (\min_{s\in S} \mu(s))^{-1} + 2\eps'\;.\label{eq:sg-2}
+ \|\phi(w')-g(w')\| &\leq \sum_{i=1}^{|w'|}  \| w^* g(w'_i)w -\phi(w'_i)\|_\tau + (|w'|+1)\sqrt{\eps'}\notag\\
+ &\leq \delta(\eps')^{1/2}  (\min_{s\in S} \mu(s))^{-1} + (|w'|+1)\sqrt{\eps'}\;.\label{eq:sg-2}
 \end{align}
-It follows from~\eqref{eq:sg-1} and~\eqref{eq:sg-2} that $\phi'$ is $\delta'(\eps)$-close to $g$, where 
-\begin{align*}
-\delta'(\eps) &\leq \delta(\eps')  (\min_{s\in S} \mu(s))^{-1}  + 2\eps'  +  LL' \eps (\min_{r'}\mu_R'(r'))^{-1}\\
-&\leq  \delta\big(L(\min_{r'}\mu_{R'}(r'))^{-1}\eps\big)  (\min_{s\in S} \mu(s))^{-1}  + \big(2 L (\min_{r'}\mu_{R'}(r'))^{-1} +  LL'  (\min_{r'}\mu_R'(r'))^{-1}\big)\eps
-\;.
+It follows from~\eqref{eq:sg-1},~\eqref{eq:sg-2} and~\eqref{eq:sg-1a} that $\phi'$ is $\delta'(\eps)$-close to $g$, where $\delta'(\eps)$ scales as claimed in the lemma. 
+%\begin{align*}
+%\delta'(\eps) &\leq \delta(\eps')  (\min_{s\in S} \mu(s))^{-2}  + (L')^2 \eps'  +  (LL')^2 \eps (\min_{r'}\mu_R'(r'))^{-2}\\
+%&\leq  \delta\big(L(\min_{r'}\mu_{R'}(r'))^{-1}\eps\big)  (\min_{s\in S} \mu(s))^{-1}  + \big(2 L (\min_{r'}\mu_{R'}(r'))^{-1} +  LL'  (\min_{r'}\mu_R'(r'))^{-1}\big)\eps
+%\;.
 %\\
 %&\leq \big(LL' (\min_{s\in S} \mu(s))^{-1}(\min_{r'}\mu_R'(r'))^{-1}\big) \eps\;.
-\end{align*}
+%\end{align*}
 \end{proof}
 
 We now give a simple lemma that shows that homomorphisms on $\mathcal{F}(S)$ that are $(\delta,\mu_S)$ close to representations are naturally almost homomorphisms, for any presentation $\langle S:R\rangle$ and a distribution on $R$ that is naturally defined from the distribution $\mu_S$.
@@ -784,9 +786,9 @@ We now give a simple lemma that shows that homomorphisms on $\mathcal{F}(S)$ tha
 
 
 \begin{lemma}\label{lem:l1}
-  Let $G=\langle S:R\rangle$ be a finite presentation, and $\mu_R$ a distribution on $R$. For a relation $r\in R$, let $|r|$ denote its length as a word in $\mathcal{F}(S)$. Define the following measure on $S$
+  Let $G=\langle S:R\rangle$ be a finite presentation, and $\mu_R$ a distribution on $R$. For a relation $r\in R$, let $|r|$ denote its length as a word in $\mathcal{F}(S)$. Let $\mu_S$ be the probability measure on $S$ defined by
   \begin{equation}\label{eq:mus}
-     \mu_S \,=\, \frac{1}{\sum_{r\in R} \mu_R(r)|r|^2} \sum_{r\in R} \mu_R(r) \sum_{i=1}^{|r|} \delta_{r_i}\;,
+     \mu_S \,=\, \frac{1}{\sum_{r\in R} \mu_R(r)|r|^2} \sum_{r\in R} |r|\mu_R(r) \sum_{i=1}^{|r|} \delta_{r_i}\;,
   \end{equation}
   where $\delta_{r_i}$ assigns probability $1$ to the $i$-th element of $r$, or its inverse, depending which lies in $S$. Then for any tracial von Neumann algebra $(\cM,\tau)$ and homomorphism $\phi:\mathcal{F}(S)\to \mathcal{U}(\cM)$, if $\phi$ is $(\delta,\mu_S)$ close to a representation of $G$ then $\phi$ is also an $(O(\delta),\mu_R)$-almost homomorphism. (Here the constant implicit in the $O(\cdot)$ depends linearly on $\Es{r\sim \mu_R}|r|^2$.)
   \end{lemma}
@@ -795,15 +797,15 @@ We now give a simple lemma that shows that homomorphisms on $\mathcal{F}(S)$ tha
     Let $\phi:\mathcal{F}(S)\to \mathcal{U}(\cM)$ be as in the lemma, and let $g$ be a $(\delta,\mu_S)$ close representation of $G$.
    Using the triangle inequality and $g(r)=1_\mN$ and then Lemma~\ref{lem:g-phi}, 
   \begin{align*}
-  \Es{r\sim \mu_R}\|\phi(r)-\Id\|_\tau &\leq \Es{r\sim \mu_R}\|\phi(r)-w^*g(r)w\|_\tau + \|w^*w-I_\mM\|_\tau\\
-  &\leq \Es{r\sim \mu_R}\sum_{i=1}^{|r|}\| w^* g(r_i)w -\phi(r_i)\|_\tau + \|w^*w-I_\mM\|_\tau +2\delta \\
-  &=  \sum_{s\in S} \sum_{r\in R} \mu(R) \sum_{i=1}^{|r|} 1_{s\in \{r_i,r_i^{-1}\}} \| w^* g(r_i)w -\phi(r_i)\|_\tau +   \|w^*w-I_\mM\|_\tau +2\delta\\
-  &\leq \Big(\sum_{r\in R} \mu_R(r)|r|^2\Big)\Es{s\sim \mu_S } \| w^* g(s)w -\phi(s)\|_\tau +    \|w^*w-I_\mM\|_\tau +2\delta\\
-  &\leq 8\delta \Big(\sum_{r\in R} \mu_R(r)|r|^2\Big)\;,
+  \Es{r\sim \mu_R}\|\phi(r)-\Id\|_\tau^2 &\leq \Es{r\sim \mu_R} 2\|\phi(r)-w^*g(r)w\|^2_\tau + 2\|w^*w-I_\mM\|^2_\tau\\
+  &\leq \Es{r\sim \mu_R}\sum_{i=1}^{|r|}4|r|\| w^* g(r_i)w -\phi(r_i)\|_\tau^2 + O\Big(\Es{r\sim \mu_R}|r|^2\Big)\delta \\
+  &=  \sum_{s\in S} \sum_{r\in R} \mu(R) \sum_{i=1}^{|r|} 1_{s\in \{r_i,r_i^{-1}\}} 4|r|\| w^* g(r_i)w -\phi(r_i)\|_\tau^2 +  O\Big(\Es{r\sim \mu_R}|r|^2\Big)\delta \\
+  &\leq 4\Big(\sum_{r\in R} \mu_R(r)|r|^2\Big)\Es{s\sim \mu_S } \| w^* g(s)w -\phi(s)\|_\tau^2 +   O\Big(\Es{r\sim \mu_R}|r|^2\Big)\delta \\
+  &=  O\Big(\sum_{r\in R} \mu_R(r)|r|^2\Big)\delta\;,
   \end{align*}
   where 
 	%the factor of $5$ that appeared on the third line accounts for the application of~\eqref{eq:switch-inv} whenever necessary, and 
-	for the last line we used $\Es{r\sim \mu_R}|r|^2\geq 1$. 
+	for we used $\Es{r\sim \mu_R}|r|^2\geq 1$. 
   \end{proof}
   
   \tnote{changed remark below based on referee comment}
@@ -1109,7 +1111,7 @@ For $n,k,d$ integer, an $[n,k,d]_q$ linear code $\code$ is a $k$-dimensional sub
 For the remainder of this section we specialize the discussion to the case where $q=2$. 
 We make the simple but key observation that a parity check matrix for a code of dimension $k$ implies a finite group presentation in the following way. Introduce $n$ generators $S=\{x_1,\ldots,x_n\}$. Each of the generators is required to be an involution: $x_i^2=e$. For each row $i\in \{1,\ldots,m\}$ of the parity check matrix $h$, introduce a relation 
 \[ R_i\,:\; \prod_{1\leq j \leq n} x_j^{h_{ij}}=e\;, \]
-that ``verifies'' the parity check associated with the $i$-th row of $h$. Finally, to guarantee that $R_i$ is independent of the order in which the $x_j$ are multiplied, whenever $j\neq j'$ are such that $h_{ij}$ and $h_{ij'}$ are both nonzero we require that $x_j$ and $x_{j'}$ commute. This can be written succinctly using a relation 
+that ``verifies'' the parity check associated with the $i$-th row of $h$. Finally, to guarantee that the choice of order in which the $x_j$ are multiplied in $R_i$ will not affect the resulting group, whenever $j\neq j'$ are such that $h_{ij}$ and $h_{ij'}$ are both nonzero we require that $x_j$ and $x_{j'}$ commute. This can be written succinctly using a relation 
 \[ R'_{ijj'}\,:\; [x_j,x_{j'}]^{h_{ij} h_{ij'}}=e\;.\]
 The presentation obtained in this way defines a group $G=G(h)$, already introduced in~\eqref{eq:gh-intro} and which with the present notation reads
 \begin{equation}\label{eq:def-gh-pres}
@@ -1135,8 +1137,8 @@ For readability it is convenient to reformulate the parity check matrix as a \em
  Specifically we give the following definition. (For the sake of later use, we state the definition for the case of a general prime power $q$.)
 
 \begin{definition}[$r$-local linear tester]\label{def:code-test}
-Let $\code$ be an $[n,k,d]_2$ linear code and $r\in \N$.
-An \emph{$r$-local linear tester for $\code$} is a pair $M = (h,\nu)$ where $h \in \F_2^{m \times n}$ is a parity check matrix for $\code$, whose every row has Hamming weight at most $r$, and $\nu$ is a distribution over $\{1,\ldots,m\}$. 
+Let $\code$ be an $[n,k,d]_q$ linear code and $r\in \N$.
+An \emph{$r$-local linear tester for $\code$} is a pair $M = (h,\nu)$ where $h \in \F_q^{m \times n}$ is a parity check matrix for $\code$, whose every row has Hamming weight at most $r$, and $\nu$ is a distribution over $\{1,\ldots,m\}$. 
 \end{definition}
 
 An $r$-local linear tester $M=(h,\nu)$ for $\code$ induces a pair of distributions $(\nu_R,\nu_S)$ on the relations and generators of the presentation $G(h)$~\eqref{eq:def-gh-pres} in a natural way: For the generators, we let $\nu_S$ be induced from $\nu$ by first sampling $j\sim \nu$ and then a uniformly random $i$ such that $h_{ji}\neq 0$. For the relations, we let $\nu_R$ be the uniform mixture of the distribution $\nu_S$ on relations $x_j^2=e$, the distribution $\nu$ on relations $R_i$, and the distribution $\nu\times \nu_S\times \nu_S$ on relations $R'_{jii'}$.
@@ -1181,7 +1183,7 @@ This an immediate consequence of Theorem~\ref{thm:gh}, because $G(h_\had)$ is th
 \label{sec:rmq}
 
 We introduce a family of codes that will lead to interesting presentations $G(h)$, whose stability we are able to analyze.
-Fix integers $m,t \in \N$ and let $q=2^t$ and $M = 2^m$. Let $\mP(q,m,d)$ be the vector space over $\F_q$ that consists of all $m$-variate polynomials $f$ over $\F_q$ of individual degree at most $d$, that is all functions of the form
+Fix integers $m,t \in \N$ and let $q=2^t$ and $M = 2^m$. \tnote{added:}Let $1\leq d < q$. Let $\mP(q,m,d)$ be the vector space over $\F_q$ that consists of all $m$-variate polynomials $f$ over $\F_q$ of individual degree at most $d$, that is all functions of the form
 \[
 	f(x_1,\ldots,x_m) = \sum_{\alpha \in \{0,1,\ldots,d\}^m} c_\alpha\,
   x_1^{\alpha_1} \cdots x_m^{\alpha_m}\;,
@@ -1199,7 +1201,7 @@ where $\{c_\alpha\}$ is a collection of coefficients in $\F_q$. It is easy to ve
 The resulting code is called the \emph{Reed-Muller code} $\code_\RM$ with parameters $q,m,d$. For $m=1$, one obtains the \emph{Reed-Solomon code} $\code_\RS$. A useful feature is that $\code_\RM$ can be seen as the $m$-fold tensor product of $\code_\RS$, i.e.\ $\code_\RM = \code_\RS^{\otimes m}$ as vector spaces over $\F_q$. 
 
 We define a local linear tester $M_{\RM}$ for the code $\code_\RM$ over $\F_q$. The tester is described as an algorithmic procedure in Figure~\ref{fig:RM-tester}. %From this description it is straightforward to deduce a description of the tester as a distribution $\nu$ on subsets of $\F_q^n$, where $n=q^m$, together with vectors $v_S\in \F_q^S$ for every $S$ in the support of $\nu$. 
-The description makes use of interpolation coefficients, which are defined as follows. Fix $d+1$ distinct values $t_0,\ldots,t_d \in \F_q$. Then for all $u,v \in \F_q$ and $i \in \{0,\ldots,d\}$ define the interpolation coefficients
+The description makes use of interpolation coefficients, which are defined as follows. Fix $d+1$ distinct values $t_0,\ldots,t_d \in \F_q$. \tnote{adding:}(These are fixed once and for all, and their choice does not impact any subsequent statement.) Then for all $u,v \in \F_q$ and $i \in \{0,\ldots,d\}$ define the interpolation coefficients
  \begin{equation}\label{eq:interp-coeff}
  \alpha_{u,v,i} = \prod_{\substack{i'=0\\i'\neq i}}^{d}  \frac{v - (u + t_{i'})}{t_i - t_{i'}}~.
  \end{equation}
@@ -1315,7 +1317,7 @@ Given access to some $g\in \F_2^{N}$, where $N=q^{m+1}$, identify $g$ with a fun
 \end{figure}
 
 This notation is used in Figure~\ref{fig:bRM-tester}, in which we give an algorithmic description of the natural local tester associated with $\code_{\bRM}$. This tester is obtained by composing, following the template described in Section~\ref{sec:code-comp}, the local tester for the Reed-Muller code over $\F_q$ described in Figure~\ref{fig:RM-tester} with the local tester for the Hadamard code.
-Let $(h_\bRM,\nu)$ be the tester that is implied by the figure. Then $h_\bRM\in \F_2^{M\times N}$, where $N=q^{m+1}$ and $M=mq^m\cdot q^{m+2}$, and $\nu$ is the distribution on $[M]$ implied by the description. 
+Let $(h_\bRM,\nu)$ be the tester that is implied by the figure. Then $h_\bRM\in \F_2^{M\times N}$, where $N=q^{m+1}$ and $M=q^m\cdot m \cdot q \cdot q +  q^{m}\cdot q \cdot q = (m+1)q^{m+2}$, and $\nu$ is the distribution on $[M]$ implied by the description. 
 
 %Let $N=q^{m+1}$ and $h_{\bRM}\in \F_2^{M\times N}$ the parity check matrix for $\code_{\bRM}$ obtained from the composition of the $(d+2)$-local tester for $\code_\RM$ with the $3$-local tester for $\code_\had$. Then $h_\bRM$ has $M=  q^{m+2}(1+m)$ rows, such that each row has at most $(d+2)$ nonzero entries. 
 %\Cref{fig:bRM-tester} presents an algorithmic interpretation of the local tester corresponding to the parity check matrix $h_{\bRM}$. 
@@ -1323,14 +1325,14 @@ Let $(h_\bRM,\nu)$ be the tester that is implied by the figure. Then $h_\bRM\in 
  %Explicitly, $h_\bRM$ is the parity check matrix that arises from the tester described in Figure~\ref{fig:bRM-tester}. 
 
 
-Let $G_\bRM = G(h_\bRM)$ be the group that is presented from $h_\bRM$ (recall from \Cref{sec:pres-code} that codes $\code_\bRM=\ker h_\bRM$ give rise to group presentations through the general construction~\eqref{eq:def-gh-pres}). We do not know if $G_\bRM = \Z_2^k$, with $k=t(d+1)^m$. Instead we modify the presentation $G(h_\bRM)$ by adding pairwise commutation relations, as in~\eqref{eq:wtgh-intro}. Let 
-\[ G(h_\bRM) \,=\, \big\langle x_1,\ldots,x_N \;:\; \{R^\sq_k\}\,,\; \{R^\ld_k\}\,,\; \{R^\had_{k}\} \big\rangle\;,\]
-where  $R^\sq_k$ ranges over all relations of the form $x_i^2=e$ for $i\in \{1,\ldots,N\}$, $R^\ld_k$ ranges over all relations implied by the ``low-degree test'' in Figure~\ref{fig:bRM-tester} and $R^\had_{k}$ ranges over all the relations implied by the ``Hadamard test.'' For $k=(i,j)\in\{1,\ldots,N\}^2$ such that $i<j$ let $R^\com_k$ be the relation $[x_i,x_j]=e$, where $[a,b]=aba^{-1}b^{-1}$ is the group commutator.
-Then we define
+Let $G_\bRM = G(h_\bRM)$ be the group that is presented from $h_\bRM$ (recall from \Cref{sec:pres-code} that codes $\code_\bRM=\ker h_\bRM$ give rise to group presentations through the general construction~\eqref{eq:def-gh-pres}). We do not know if $G_\bRM = \Z_2^k$, with $k=t(d+1)^m$. Instead we modify the presentation $G(h_\bRM)$ by adding pairwise commutation relations, as in~\eqref{eq:wtgh-intro}. Let \tnote{Removed $\{R^\sq_k\}$ below following reviewer suggestion}
+\[ G(h_\bRM) \,=\, \big\langle x_1,\ldots,x_N \;:\;  \{R^\ld_k\}\,,\; \{R^\had_{k}\} \big\rangle\;,\]
+where  $R^\ld_k$ ranges over all relations implied by the ``low-degree test'' in Figure~\ref{fig:bRM-tester} and $R^\had_{k}$ ranges over all the relations implied by the ``Hadamard test.'' For $k=(i,j)\in\{1,\ldots,N\}^2$ such that $i<j$ let $R^\com_k$ be the relation $[x_i,x_j]=e$, where $[a,b]=aba^{-1}b^{-1}$ is the group commutator.
+Then we define 
 \begin{equation}\label{eq:z2k-eff}
-\tilde{G}:=\widetilde{G(h_\bRM) } \,=\,\big\langle x_1,\ldots,x_N \;:\; \{R^\sq_k\}\,,\; \{R^\ld_k\}\,,\; \{R^\had_{k}\}\, , \; \{ R^\com_k\}\big\rangle\;.
+\tilde{G}:=\widetilde{G(h_\bRM) } \,=\,\big\langle x_1,\ldots,x_N \;:\;  \{R^\ld_k\}\,,\; \{R^\had_{k}\}\, , \; \{ R^\com_k\}\big\rangle\;.
 \end{equation}
-From Lemma~\ref{lem:com-code} it follows that $\tilde{G}=\Z_2^k$. Our main result is an efficient stability result for this presentation. To state this we need to introduce distributions $\mu_S$ and $\mu_R$ on the generators and relations of $\tilde{G}$. The distribution $\mu_R$ is obtained as follows. With probability $1/4$ each, a relation from $\{R^\sq_k\}$, $\{R^\ld_k\}$ or $\{R^\had_k\}$ is chosen uniformly at random. With probability $1/4$, a random commutation relation from $R^\com_k$ is chosen according to the uniform mixture of the following two distributions:
+From Lemma~\ref{lem:com-code} it follows that $\tilde{G}=\Z_2^k$. Our main result is an efficient stability result for this presentation. To state this we need to introduce distributions $\mu_S$ and $\mu_R$ on the generators and relations of $\tilde{G}$. The distribution $\mu_R$ is obtained as follows. With probability $1/3$ each, a relation from $\{R^\ld_k\}$ or $\{R^\had_k\}$ is chosen uniformly at random. With probability $1/3$, a random commutation relation from $R^\com_k$ is chosen according to the uniform mixture of the following two distributions:
 \begin{enumerate}
 \item For the first distribution, we select $u\in \F_q^m$ uniformly at random, $j\in\{1,\ldots,m\}$ uniformly at random, and $i\neq i'\in\{0,\ldots,d\}$ uniformly at random. Then select $\alpha,\beta\in \F_2^t$ uniformly at random and check commutation between $x_{u+t_i e_j,\alpha}$ and $x_{u+t_{i'} e_j,\beta}$, where we interpret the subscripts  $u+t_i e_j,\alpha$ and $u+t_{i'} e_j,\beta$ as corresponding to some integer in $[N]= (\F_2^t)^m \times \F_2^t$ (as sets!). 
 
@@ -1340,7 +1342,7 @@ Having defined $\mu_R$, we define $\mu_S$ as in Remark~\ref{rk-mus}. It is easy 
 
 \begin{theorem}\label{thm:z2-stab}
 Let $\mC$ be the class of all tracial von Neumann algebras. 
-The presentation of  $\Z_2^k$ given in~\eqref{eq:z2k-eff}, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with \tnote{edited, referee did not like $\poly$}$\delta(\eps)= C (mdt)^{c_1 (\eps/q)^{c_2}}$, where $C,c_1,c_2$ are universal positive constants.  
+The presentation of  $\Z_2^k$ given in~\eqref{eq:z2k-eff}, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with \tnote{edited, referee did not like $\poly$}$\delta(\eps)= C (mdt)^{c_1} (\eps/q)^{c_2}$, where $C,c_1,c_2$ are universal positive constants.  
 \end{theorem}
 
 We briefly explain a possible setting of parameters in Theorem~\ref{thm:z2-stab}. For any integer $t\geq 1$, fix $q=2^t$ and let $d=m=c t^c$ for some constant $c>0$. Then $k=t(d+1)^m = 2^{\Theta((\log q)^c \log\log q)}$ and $N=q^{m+1}= 2^{\Theta((\log q)^{c+1} \log\log q)}$. Moreover, the number of relations in~\eqref{eq:z2k-eff} is $O(N^2)$, which scales as $2^{\poly\log k}$; and the maximum length of a relation is $d+2=O(\log k)$. Finally, with this choice of parameters the function $\delta(\eps)$ scales as $\poly(\log k)\cdot \poly(\eps)$. We have thus obtained a presentation of $\Z_2^k$ of size only mildly superpolynomial in $k$, and with soundness that depends polylogarithmically on $k$. 
@@ -1348,30 +1350,31 @@ We briefly explain a possible setting of parameters in Theorem~\ref{thm:z2-stab}
 
 \begin{proof}
 Let $(\mM,\tau)$ be a tracial von Neumann algebra and $\phi$ be an $(\eps,\mu_S)$-homomorphism of $\langle S:R\rangle$ on $(\mM,\tau)$. 
- Here, $S = \{s_{u,a}: u\in (\F_2^t)^m, a\in \F_2^t\}$. We sometimes enumerate the items of $S$ as $S=\{x_i: i\in\{1,\ldots,N\}\}$, where $N=2^{tm+t}$ and we fixed an arbitrary bijection between $(\F_2^t)^m\times \F_2^t$ and $\{1,\ldots,N\}$. Let $R$ be the set of all relations in~\eqref{eq:z2k-eff}, i.e.\ $R= \{R_k^\sq\}\cup \{R^\ld_k\}\cup\{R^\had_k\}\cup\{R^\com_k\}$. 
+ Here, $S = \{s_{u,a}: u\in (\F_2^t)^m, a\in \F_2^t\}$. We sometimes enumerate the items of $S$ as $S=\{x_i: i\in\{1,\ldots,N\}\}$, where $N=2^{tm+t}$ and we fixed an arbitrary bijection between $(\F_2^t)^m\times \F_2^t$ and $\{1,\ldots,N\}$. Let $R$ be the set of all relations in~\eqref{eq:z2k-eff}, i.e.\ $R=  \{R^\ld_k\}\cup\{R^\had_k\}\cup\{R^\com_k\}$. 
 
 The proof strategy is to perform a reduction to~\cite[Theorem 4.1]{ji2022quantum}. Towards this, the main technical work in the proof consists in using the unitaries $\phi(s_{u,a})$ in order to define a synchronous strategy in the tensor code test from~\cite{ji2022quantum}, where the underlying code is the Reed-Solomon code with degree $d$ over $\F_q$. To define the synchronous strategy, we need ``points,'' ``lines,'' and ``pair'' measurements (see~\cite{ji2022quantum} for the terminology). Each of these is a family of projective measurements that obey certain constraints. 
 
 The proof consists of a sequence of claims, which examine the constraints imposed on the $\phi(s_{u,a})$ by each of the four collections of relations in~\eqref{eq:z2k-eff} in turn.% each time using a set of relations to evidence a particular structure among these unitaries. Eventually, this will allow us to define the required families of projective measurements from them. 
-We first exploit the relations $R_k^\sq$ to show that we may assume without loss of generality that $\phi$ sends each element of $S$ to a Hermitian involution. 
+%We first exploit the relations $R_k^\sq$ to show that we may assume without loss of generality that $\phi$ sends each element of $S$ to a Hermitian involution. 
 
-\begin{claim}\label{claim:z2-stab-1}
-There is an $\eps^{(1)}=O(d^2\eps)$ and an $(\eps^{(1)},\mu_S)$-homomorphism $\phi^{(1)}$ of $\langle S:R\rangle$ on $(\mM,\tau)$ such that $\phi^{(1)}(x)$ is a Hermitian involution for all $x\in S$, and furthermore
-\begin{equation}\label{eq:z2-stab-1a}
- \Es{x\sim\mu_S} \big\| \phi(x) - \phi^{(1)}(x) \big\|_\tau^2 \,\leq\, \eps^{(1)}\;.
-\end{equation}
-\end{claim}
+%\begin{claim}\label{claim:z2-stab-1}
+%There is an $\eps^{(1)}=O(d^2\eps)$ and an $(\eps^{(1)},\mu_R)$-homomorphism $\phi^{(1)}$ of $\langle S:R\rangle$ on $(\mM,\tau)$ such that $\phi^{(1)}(x)$ is a Hermitian involution for all $x\in S$, and furthermore
+%\begin{equation}\label{eq:z2-stab-1a}
+% \Es{x\sim\mu_S} \big\| \phi(x) - \phi^{(1)}(x) \big\|_\tau^2 \,\leq\, \eps^{(1)}\;.
+%\end{equation}
+%\end{claim}
 
-\begin{proof}
-Using elementary calculations (see e.g.~\cite[Lemma 3.6]{slofstra2019set}) we see that for any complex $\alpha$, 
-\[ \big| \sgn\Re\alpha-\alpha\big| \,\leq\, \Big(1+\frac{1}{\sqrt{2}}\Big) \big|\alpha^2 -1 \big|\;.\]
-For any $i\in \{1,\ldots,N\}$ let $\phi^{(1)}(x_i) = \sgn\Re (\phi(x_i))$. Then the claim follows since 
-\[ \Es{i\in\{1,\ldots,N\}} \big\| \phi(x_i)^2-\Id \big\|_\tau^2 \,\leq\, 4\eps\;,\]
-by assumption and the definition of $\mu_R$, which places weight $\frac{1}{4}$ on the relations in $R_k^\sq$. Since $\mu_S$ is uniform on $S$,~\eqref{eq:z2-stab-1a} follows. Furthermore, 
-because all relations in $R$ have length $O(d)$, and $\mu_S$ is defined from $\mu_R$ as in Remark~\ref{rk-mus}, the same argument as used in the proof of Lemma~\ref{lem:l1} shows that $\phi^{(1)}$ is an $O(d^2\eps)$-homomorphism of $\langle S:R\rangle$.
-\end{proof}
+%\begin{proof}
+%Using elementary calculations (see e.g.~\cite[Lemma 3.6]{slofstra2019set}) we see that for any complex $\alpha$, 
+%\[ \big| \sgn\Re\alpha-\alpha\big| \,\leq\, \Big(1+\frac{1}{\sqrt{2}}\Big) \big|\alpha^2 -1 \big|\;.\]
+%For any $i\in \{1,\ldots,N\}$ let $\phi^{(1)}(x_i) = \sgn\Re (\phi(x_i))$. Then the claim follows since 
+%\[ \Es{i\in\{1,\ldots,N\}} \big\| \phi(x_i)^2-\Id \big\|_\tau^2 \,\leq\, 4\eps\;,\]
+%by assumption and the definition of $\mu_R$, which places weight $\frac{1}{4}$ on the relations in $R_k^\sq$. Since $\mu_S$ is uniform on $S$,~\eqref{eq:z2-stab-1a} follows. Furthermore, 
+%because all relations in $R$ have length $O(d)$, and $\mu_S$ is defined from $\mu_R$ as in Remark~\ref{rk-mus}, the same argument as used in the proof of Lemma~\ref{lem:l1} shows that $\phi^{(1)}$ is an $O(d^2\eps)$-homomorphism of $\langle S:R\rangle$.
+%\end{proof}
 
-For ease of notation we relabel $\phi^{(1)}$ and $\eps^{(1)}$ as $\phi$ and $\eps$ respectively. Next we exploit the relations $\{R^\had_k\}$ to show the following. Recall that $q=2^t$.
+%For ease of notation we relabel $\phi^{(1)}$ and $\eps^{(1)}$ as $\phi$ and $\eps$ respectively. 
+We first exploit the relations $\{R^\had_k\}$ to show the following. Recall that $q=2^t$.
 
 \begin{claim}\label{claim:z2-stab-2}
 For every $u\in \F_q^m$ there is a projective measurement $\{P^u_\beta\}_{\beta\in \F_{q}}$ on $\mM$ such that 
@@ -1421,11 +1424,11 @@ The next claim uses the relations $\{R^\com_k\}$.
 \begin{claim}\label{claim:z2-stab-2b}
 For $u\in \F_q^m$, $\alpha\in\F_q$, $j\in\{1,\ldots,m\}$ and $i\in \{0,\ldots,d\}$ let $U_{i,\alpha} = U_{u+t_ie_j,\alpha}$. Then 
 \begin{equation}\label{eq:z2-stab-2b-0a}
-\Es{u\in \F_q^m} \Es{\substack{j\in\{1,\ldots,m\}\\i\neq i' \in \{0,\ldots,d\}}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_{i,\alpha}, U_{i',\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;, 
+\Es{u\in \F_q^m} \Es{\substack{j\in\{1,\ldots,m\}\\i\neq i' \in \{0,\ldots,d\}}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_{i,\alpha}, U_{i',\alpha'}\big]-\Id\big\|_\tau^2\,=\, O({\eps})\;, 
 \end{equation}
 and
 \begin{equation}\label{eq:z2-stab-2b-0b}
- \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_{u,\alpha}, U_{v,\alpha'}\big]-\Id\big\|_\tau^2\,=\, O\big(\sqrt{\eps}\big)\;,
+ \Es{u\in \F_q^m} \Es{j\in\{1,\ldots,m\}} \Es{\substack{v\in \F_q^m \\v_{m-j+2}=u_{m-j+2},\ldots,v_m=u_m}}\Es{\alpha,\alpha'\in \F_q} \big\| \big[ U_{u,\alpha}, U_{v,\alpha'}\big]-\Id\big\|_\tau^2\,=\, O({\eps})\;,
 \end{equation}
 where the expectation is over a uniformly random $u$ and $j$, and a uniformly random $v$ conditioned on its last $(j-1)$ coordinates matching those of $u$. 
 \end{claim}
@@ -1447,7 +1450,7 @@ It follows that, for any distribution on $(u,v)$ such that both marginals are un
 \begin{align}
 \Es{u,v} \Es{\alpha,\alpha'\in \F_q} \big\| [U_{u,\alpha} ,U_{v,\alpha'} ]-\Id\big\|_\tau^2
 &= \Es{u,v}\Es{a,a'\in \F_2^t} \Big\| \Big[\sum_{\beta\in \F_q} (-1)^{a\cdot \kappa(\beta)} P^{u}_\beta ,\sum_{\beta'\in \F_q} (-1)^{a'\cdot \kappa(\beta')} P^{v}_{\beta'} \Big]-\Id\Big\|_\tau^2\notag\\
-&= \Es{u,v}\Es{a,a'\in \F_2^t} \big\| \big[ \phi(s_{u,a}),\phi(s_{v,a'})\big]-\Id\big\|_\tau^2+O\big(\sqrt{\eps}\big)\;,\label{eq:z2-stab-2b-1d}
+&= \Es{u,v}\Es{a,a'\in \F_2^t} \big\| \big[ \phi(s_{u,a}),\phi(s_{v,a'})\big]-\Id\big\|_\tau^2+O({\eps})\;,\label{eq:z2-stab-2b-1d}
 \end{align}
 where the first line is by expanding the square and using~\eqref{eq:z2-stab-2b-1d} and the second line follows from Claim~\ref{claim:z2-stab-2} and the triangle inequality. Thus~\eqref{eq:z2-stab-2b-0a} follows from~\eqref{eq:z2-stab-2b-1}, and~\eqref{eq:z2-stab-2b-0b} follows from~\eqref{eq:z2-stab-2b-1b}.
 \end{proof}
@@ -1516,7 +1519,7 @@ We observe that
 &=\Es{\gamma\in\F_2^t}  \tau\Big( \Big(\sum_{\beta_0\in \F_q} (-1)^{\gamma\cdot \kappa(\alpha_0\beta_0)} P^{(0)}_{\beta_0} \Big)\cdots\Big(\sum_{\beta\in \F_q} (-1)^{-\gamma\cdot \kappa(\beta)} P^{v}_{\beta} \Big)\Big)\\
 &=\Es{\gamma\in\F_q}  \tau\Big( \Big(\sum_{\beta_0\in \F_q} (-1)^{\kappa( \gamma \alpha_0)\cdot\kappa(\beta_0)} P^{(0)}_{\beta_0} \Big)\cdots\Big(\sum_{\beta\in \F_q} (-1)^{\kappa(-\gamma)\cdot \kappa(\beta)} P^{v}_{\beta} \Big)\Big)\;.
 \end{align*}
-By repeated application of Claim~\ref{claim:z2-stab-2}, the last expression is within $O(d\sqrt{\eps})$ of 
+By repeated application of Claim~\ref{claim:z2-stab-2}, the last expression is, on average over $u$, within $O(d\sqrt{\eps})$ of 
 \[ \Es{\gamma\in\F_q}  \tau\big( \phi(s_{u+t_ie_j,\kappa(\gamma \alpha_0)})\cdots \phi(s_{v,\kappa(-\gamma)}) \big)\;.\]
 The latter expression is a random relation in $R^\ld_k$, and so, on average over $u,j$ and $v$ it is $1-O(\eps)$.
 \end{proof}

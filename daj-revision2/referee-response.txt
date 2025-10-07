@@ -158,39 +158,22 @@ to exploit Lemma 2.6 and [GH17] to explain that the modulus of stabil-
 ity in Theorem 4.1 is something like min(C1ε, C2poly(ε, 1/q)) for a good
 (=polynomial in the parameters) constant C2 and a bad (=exponential in
 the parameters) constant C1.
+
+A: You're right, we were overly sloppy there. Yes, your interpretation of the poly() notation is correct and we made a mistake in translating it. This has been corrected. We added discussion around the fact that the bound does not go to 0 with epsilon. 
+
+[T: I am not super happy with this. The discussion is the paragraph right after the statement of Theorem 4.1. Does someone want to look at it and see if they manage to make it better?}
+
 19. page 29, line -2: in [JNV+22], there is an assumption r ≥ 12mt (which
 in the notation here becomes r ≥ 12m(d + 1)). Do you have assumptions
 that ensure that Ω(tm2) satisfies this inequality?
+
+A: If the constant implicit in the Omega(.) is at least 12, the condition is satisfied? We thought this should be clear. 
+
 20. page 29, line -1: you could explain why the existence of Gc implies the
 conclusion of the theorem: write the homomorphism that is δ(ε)-close to
-ϕ.
+
+A: We added it. 
+
 21. Here is what I had in mind in my comment 35.
-Lemma 1. Assume that G = ⟨S, R⟩ is (δ, μR, μS )-stable, and let νR be
-another probability measure on R such that νS = μS .1 Then every (ε, μR)-
-almost representation is a (CEr∼ν |r|2δ(ε), νR)-almost representation.2
-Proof. By the definition of stability, an (ε, μR)-representation is (δ(ε), μS )-
-close to a representation, that is (δ(ε), νS )-close to a representation (νS =
-νR). Lemma 2.7 implies that it is a (Cδ(ε), νR)-almost representation.
-Let us deduce the new inequality in Corollary 2.8:
-∀ε ≤ 1
-k − 1 , δk(ε) ≥ kε
-C′ .
-Let G = ([k], E) be a perfect matching on k vertices, consider νR the
-uniform probability measure on {[xi, xi] | ij ∈ E}. Then νS = μS is the
-uniform probability measure {x1, . . . , xk}.
-1We use the notation from your remark 2.8.
-2C is the universal constant in your Lemma 2.7.
-3
-Consider A the map from Claim 4.2. It is a ( 1
-k−1 , μR)-almost represen-
-tation. So Φ : xi 7 → (Ai, 1) is a (ε, μR)-almost representation if M ⊕ C
-is equipped with the trace τ ε(x, λ) = (k − 1)ετ M(x) + (1 − (k − 1)ε)λ.
-Moreover, for every edge ij, ∥[Φ(xi), Φ(xj )] − 1∥2
-τ ε = 2(k − 1)ε, and the
-lemma implies
-2(k − 1)ε = 1
-|E|
-X
-ij∈E
-∥[Ai, Aj ] − 1∥2
-τ ε ≤ C16δk(ε)
+
+[Michael, I think that this is for you]

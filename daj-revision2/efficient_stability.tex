@@ -1342,11 +1342,11 @@ Having defined $\mu_R$, we define $\mu_S$ as in Remark~\ref{rk-mus}. It is easy 
 
 \begin{theorem}\label{thm:z2-stab}
 Let $\mC$ be the class of all tracial von Neumann algebras. 
-The presentation of  $\Z_2^k$ given in~\eqref{eq:z2k-eff}, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with $\delta(\eps)= C (mdt)^{c_1} \eps^{c_2}(1/q)^{c_3}$, where $C,c_1,c_2,c_3$ are universal positive constants.  
+The presentation of  $\Z_2^k$ given in~\eqref{eq:z2k-eff}, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with $\delta(\eps)= C (mdt)^{c_1} (\eps^{c_2}+(1/q)^{c_3})$, where $C,c_1,c_2,c_3$ are universal positive constants.  
 \end{theorem}
 
 We briefly explain a possible setting of parameters in Theorem~\ref{thm:z2-stab}. For any integer $t\geq 1$, fix $q=2^t$ and let $d=m=c t^c$ for some constant $c>0$. Then $k=t(d+1)^m = 2^{\Theta((\log q)^c \log\log q)}$ and $N=q^{m+1}= 2^{\Theta((\log q)^{c+1} \log\log q)}$. Moreover, the number of relations in~\eqref{eq:z2k-eff} is $O(N^2)$, which scales as $2^{\poly\log k}$; and the maximum length of a relation is $d+2=O(\log k)$. Finally, with this choice of parameters the function $\delta(\eps)$ scales as $\poly(\log k)\cdot (\poly(\eps) + \poly(1/k))$. \tnote{added} While this bound is only good when $\eps$ is much larger than $1/k$,\footnote{If one looks closely the $\poly(1/k)$ term is in fact $2^{-\poly\log k}$.} and in particular it does not necessarily go to $0$ as $\eps\to 0$, this can be remedied by  
-combining the bound we have obtained with the general Theorem~\ref{thm:gh} (which has a much larger prefactor). In this regime of not too small $\eps$, we thus obtain a presentation of $\Z_2^k$ of size only mildly superpolynomial in $k$, and with soundness that depends polylogarithmically on $k$. For smaller $\eps$ one may further adjust the parameters, e.g.\ take a larger $q$ than above but smaller $d$ and $m$ ; this will lead to alternate trade-offs (based on different presentations, since the presentation depends on $q$).
+combining the bound we have obtained with the general Theorem~\ref{thm:gh} (which has a much larger prefactor). In this regime of not too small $\eps$, we thus obtain a presentation of $\Z_2^k$ of size only mildly superpolynomial in $k$, and with soundness that depends polylogarithmically on $k$. %For smaller $\eps$ one may further adjust the parameters, e.g.\ take a larger $q$ than above but smaller $d$ and $m$ ; this will lead to alternate trade-offs (based on different presentations, since the presentation depends on $q$).
 
 
 \begin{proof}
@@ -1553,9 +1553,12 @@ Since $\{R^{u,j}_\alpha\}$ is a projective measurement, we get the desired concl
 
 
 We are now in a position to apply~\cite[Theorem 4.1]{ji2022quantum}. For this we need to define a synchronous strategy in the tensor code test $\code^{\otimes m}$, where $\code$ is the Reed-Solomon code with degree $d$ over $\F_q$, and thus $\code^{\otimes m}$ is the code $\code_\RM$ considered in Section~\ref{sec:rmq} (see the remark right after Lemma~\ref{lem:schwartz-zippel}). For the ``points measurement'' $A^u$ we choose $P^u$. For the ``lines measurement'' $B^\ell$ we choose $Q^\ell$ from Claim~\ref{claim:z2-stab-4}. Finally, for the ``pair measurement'' $P^{u,v}$ we choose $R^{u,v}$ from Claim~\ref{claim:z2-stab-3}. By Claim~\ref{claim:z2-stab-4} this strategy succeeds with probability $1-\poly(d,\eps)$ in the ``axis-parallel lines test'', and by Claim~\ref{claim:z2-stab-3} it succeeds with probability $1-\poly(\eps)$ in the ``subcube commutation test.'' Applying~\cite[Theorem 4.1]{ji2022quantum} we deduce the existence of a projective measurement $\{G_c\}_{c\in\code^{\otimes m}}$ on $\mA$ such that for all integers $r \geq 12mt$,
-\[ \Es{u\in\F_q^m} \sum_{c\in\code^{\otimes m}} \tau\big( G_c P^u_{c(u)}\big) \geq 1-\eta\;,\]
+\begin{equation}\label{eq:41-last}
+ \Es{u\in\F_q^m} \sum_{c\in\code^{\otimes m}} \tau\big( G_c P^u_{c(u)}\big) \geq 1-\eta\;,
+\end{equation}
 where $\eta = \poly(m,d,r) \cdot\poly(\eps,q^{-1},e^{-\Omega(r/m^2)})$. Choosing $r=\Omega(m^2 t)$, since $q=2^{t}$, the bound becomes $\poly(m,d,t) \cdot\poly(\eps,q^{-1})$. The theorem is then proved where explicitly, the homomorphism that is close to $\phi$ is given by
-\[ g: s_{u,a} \mapsto \sum_{\beta\in\F_q} (-1)^{a\cdot \kappa(\beta)} \sum_{c:c(u)=\beta} G_c \;.\]
+\[ g: s_{u,a} \mapsto \sum_{\beta\in\F_q} (-1)^{a\cdot \kappa(\beta)} \sum_{c:\ c(u)=\beta} G_c \;,\]
+and closeness follows from~\eqref{eq:41-last} and~\eqref{eq:z2-stab-2} by expanding the square in the definition. 
 \end{proof}
 
 

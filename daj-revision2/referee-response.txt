@@ -1,5 +1,5 @@
-I am not fully happy with the revision. Most of my comments and sugges
-tions have been taken into account, but not all. Several have been ignored for a
+I am not fully happy with the revision. Most of my comments and suggestions
+ have been taken into account, but not all. Several have been ignored for a
 good reason (14 15 20 were completely wrong and 7 was perhaps not relevant),
 but it seems that the authors have not got what I meant in my comments 34
 and 35.
@@ -20,7 +20,7 @@ the idea as a lemma so that you can only refer to it each time you use it. Now
 that you did it in you new Lemma 2.7, you’d better use it rather than reproving
 it. See 21 below.
 
-A: [Michael, you had looked at this. Can you check the referee comment 21 and the lemma they propose (see the pdf file for that) and decide if we want to reformulate as they suggest?]
+A: See response to 21 below. Unfortunately at this point we feel that we are getting lost in trying to follow the reviewer's desire to rewrite our proof, and would prefer to stop there--see below. 
 
 More importantly, the comments 9 10 13 14 19 21 have not been fully ad-
 dressed, or resulted in adding new inaccuracies (see points 2–5, 8, 7, 10, 18). In
@@ -36,18 +36,14 @@ flexible stability, but maybe it’s worth pointing out the stability results
 that are true for the stronger form of non-flexible stability. In particular,
 this seems to be the case for Theorem 4.1. This deserves to be written.
 
-A: [Michael, are you able to do this? I can do it but I will have to dig out the results one by one as I am not so familiar]
+A: We added a remark right after Definition 2.4 to point to the relevant literature. For our paper, we prefer to use the definition we give and not include comparisons everywhere. 
 
 2. page 9, Claim 2.3. There are squares missing. (3) is certainly correct
 (perhaps with a different constant than 3), but I did not follow, in the
 proof, how you take into account the renormalization of the trace on N .
-(4) is obvious with 5 replaced by 1, because by the trace property, if
-X = Ui − w∗Viw,
-∥X∥τ = ∥X∗∥τ = ∥U −1
-i − w∗V −1
-i w∥.
+[...]
 
-A: Thanks, you are correct. Actually the claim was not needed so we removed it. 
+A: Thanks, you are correct. Actually the claim was not used so we removed it. 
 
 3. page 10, Lemma 2.5: δ sould be √δ. The fact that you do not put paren-
 theses is misleading, it could be understood as (Pr
@@ -93,7 +89,7 @@ A: Right, corrected
 9. page 22, line 1-2: you should write down the assumption you have on d
 (for d ≥ q, the dimension you write is clearly incorrect).
 
-A: added
+A: Added
 
 10. page 24, line 8. You could say more clearly that you fix ti one and for all,
 and that the way they are chosen has no impact on the statements (it was
@@ -110,7 +106,7 @@ A: You are right, this hadn't been updated from an earlier change. We fixed it.
 
 12. page 24, line -7: k = t(d + 1)m?
 
-A: [T: This is what we write, what is the question?]
+A: Yes?
 
 13. page 25, Theorem 4.1. There is a typo in the formula for δ(ε) (your
 formula gives δ(ε) ≥ C; this form of the theorem is of course true, but not
@@ -132,7 +128,7 @@ A: You're right, these relations are supserseded by the "Hadamard" relations and
 E∥[Uu,α, Uv,α′ ] − [ϕ(su,α), ϕ(sv,α′ )]∥2 ≤ 16δ for any probability measure
 on pairs whose marginals are μS .
 
-Yes this was a typo in the last line of the proof, we corrected it.
+A: Yes this was a typo in the last line of the proof, we corrected it.
 
 17. page 28, line 3: what you write is not true for a fixed u, but it is true on
 average over u.
@@ -159,9 +155,7 @@ ity in Theorem 4.1 is something like min(C1ε, C2poly(ε, 1/q)) for a good
 (=polynomial in the parameters) constant C2 and a bad (=exponential in
 the parameters) constant C1.
 
-A: You're right, we were overly sloppy there. Yes, your interpretation of the poly() notation is correct and we made a mistake in translating it. This has been corrected. We added discussion around the fact that the bound does not go to 0 with epsilon. 
-
-[T: I am not super happy with this. The discussion is the paragraph right after the statement of Theorem 4.1. Does someone want to look at it and see if they manage to make it better?}
+A: You're right, we were overly sloppy there. Yes, your interpretation of the poly() notation is correct and we made a mistake in translating it. This has been corrected. We changed the bound in the theorem to have a bound that goes to 0 with eps, as required (by employing a min) and slightly edited the discussion that follows the statement of the theorem. 
 
 19. page 29, line -2: in [JNV+22], there is an assumption r ≥ 12mt (which
 in the notation here becomes r ≥ 12m(d + 1)). Do you have assumptions
@@ -174,6 +168,6 @@ conclusion of the theorem: write the homomorphism that is δ(ε)-close to
 
 A: We added it. 
 
-21. Here is what I had in mind in my comment 35.
+21. Here is what I had in mind in my comment 35. [...]
 
-[Michael, I think that this is for you]
+A: We prefer not to follow the referee's suggestion. To prove a lower bound on the modulus of stability, we need to find a \eps-almost representation which is **far** from all actual representations. In our case, this is done in two Claims --- A2 and A3. Claim A2 shows that some given function is an \eps-almost representation, and Claim A3 shows that this function is far from any actual representation. The referee's general lemma is nice, but in the application to the present situation they seem to claim to find a presentation of F_2^n which uses n generators and only 3n/2 relations (the order 2 relations + commutation of a perfect matching). This is not a presentation of F_2^n, but the free product of n/2 copies of F_2^2. We do not see an easy way of using his lemma to prove our claim. Since we have a proof that works we prefer to stay with it. 

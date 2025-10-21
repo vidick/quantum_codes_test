@@ -660,43 +660,43 @@ If $\phi:\mI\to \mU(\mM)$ and $\psi:\mI\to \mU(\mN)$ then we say that $\phi$ and
 If the measure $\mu$ is omitted then it is understood to be the uniform measure on $\mI$.
 \end{definition}
 
-Regarding this definition, we state the following elementary claim. \tnote{added this, which seems useful; I'm surprised we didn't need it before?}\tnote{I fixed the claim but actually I don't think it is needed..}
-
-\begin{claim}
-Suppose that $\{U_i\}$ and $\{V_i\}$ are $(\delta,\mu)$-close. Then the following hold, where $C$ is a universal constant:
-\begin{align}
-\Es{i\sim \mu} \| wU_i w^* - V_i \|_{\tau^\mN}^2 &\leq C\delta\;,\label{eq:switch-w}\\
-\Es{i\sim \mu} \| U_i^{-1} - w^* V_i^{-1} w \|_{\tau^\mM}^2 &\leq \delta\;. \label{eq:switch-inv}
-\end{align}
-\end{claim}
-
-\begin{proof}
-We first note that by definition
-\begin{align*} 
-1\geq \tau^\mN(ww^*)  
-&= \frac{1}{\tau_\infty(P)}\tau_\infty(ww^*) \\
-&= \frac{1}{\tau_\infty(P)}\tau^\mM(w^*w)  \\
-&\geq \frac{1}{\tau_\infty(P)}(\tau^\mM(I_\mM)-\delta)\;, 
-\end{align*}
-from which it follows that $\tau_\infty(P)\geq 1-\delta$.
-Now for the first inequality, for any $i$ we have by the triangle inequality 
-\begin{align*}
-  \| wU_i w^* - V_i \|_{\tau^\mN} &\leq \| w U_i w^* - w w^* V_i w w^* \|_{\tau^\mN} + \|(P-ww^*)V_i ww^* \|_{\tau^\mN} + \|V_i(P-ww^*)\|_{\tau^\mN}\\
-  &\leq \frac{1}{\tau_\infty(P)}\| U_i - w^* V_i w\|_{\tau^\mM} + 2 \|(P-ww^*)\|_{\tau^\mN}\\
-	&\leq \frac{1}{1-\delta}\| U_i - w^* V_i w\|_{\tau^\mM} + 2\delta \;,
-\end{align*}
-where the second line uses that $w^*$ is a partial isometry. Eq.~\eqref{eq:switch-w} follows. For the second inequality, for any $i$,
-\begin{align*}
-  \| U_i^{-1} - w^* V_i^{-1} w \|_{\tau^\mM} &=  \| (U_i^{-1} - w^* V_i^{-1} w)^* \|_{\tau^\mM}\\
-	%\| 1_\mM -  U_i w^* V_i^{-1} w \|_{\tau^\mM}\\
-  %&\leq \|w^* w - w^* w U_i w^* V_i^{-1} w \|_{\tau^\mM} + \|w^*w-1_\mM\|_{\tau^\mM} \\
-%&\leq \|P - wU_iw^* V_i^{-1}\|_{\tau^\mN}  + \|w^*w-1_\mM\|_{\tau^\mM} \\
-&= \|U_i - w^* V_i^{-1} w \|_{\tau^\mN} \;, %+ \|w^*w-1_\mM\|_{\tau^\mM} \;,
-\end{align*}
-%where the first inequality is the triangle inequality and the second uses that $w$ is a partial isometry. 
-since $U_i$ and $V_i$ are unitaries. 
-%We conclude by taking the average over $i\sim \mu$ and applying~\eqref{eq:switch-w}.
-\end{proof}
+%Regarding this definition, we state the following elementary claim. \tnote{added this, which seems useful; I'm surprised we didn't need it before?}\tnote{I fixed the claim but actually I don't think it is needed..}
+%
+%\begin{claim}
+%Suppose that $\{U_i\}$ and $\{V_i\}$ are $(\delta,\mu)$-close. Then the following hold, where $C$ is a universal constant:
+%\begin{align}
+%\Es{i\sim \mu} \| wU_i w^* - V_i \|_{\tau^\mN}^2 &\leq C\delta\;,\label{eq:switch-w}\\
+%\Es{i\sim \mu} \| U_i^{-1} - w^* V_i^{-1} w \|_{\tau^\mM}^2 &\leq \delta\;. \label{eq:switch-inv}
+%\end{align}
+%\end{claim}
+%
+%\begin{proof}
+%We first note that by definition
+%\begin{align*} 
+%1\geq \tau^\mN(ww^*)  
+%&= \frac{1}{\tau_\infty(P)}\tau_\infty(ww^*) \\
+%&= \frac{1}{\tau_\infty(P)}\tau^\mM(w^*w)  \\
+%&\geq \frac{1}{\tau_\infty(P)}(\tau^\mM(I_\mM)-\delta)\;, 
+%\end{align*}
+%from which it follows that $\tau_\infty(P)\geq 1-\delta$.
+%Now for the first inequality, for any $i$ we have by the triangle inequality 
+%\begin{align*}
+  %\| wU_i w^* - V_i \|_{\tau^\mN} &\leq \| w U_i w^* - w w^* V_i w w^* \|_{\tau^\mN} + \|(P-ww^*)V_i ww^* \|_{\tau^\mN} + \|V_i(P-ww^*)\|_{\tau^\mN}\\
+  %&\leq \frac{1}{\tau_\infty(P)}\| U_i - w^* V_i w\|_{\tau^\mM} + 2 \|(P-ww^*)\|_{\tau^\mN}\\
+	%&\leq \frac{1}{1-\delta}\| U_i - w^* V_i w\|_{\tau^\mM} + 2\delta \;,
+%\end{align*}
+%where the second line uses that $w^*$ is a partial isometry. Eq.~\eqref{eq:switch-w} follows. For the second inequality, for any $i$,
+%\begin{align*}
+  %\| U_i^{-1} - w^* V_i^{-1} w \|_{\tau^\mM} &=  \| (U_i^{-1} - w^* V_i^{-1} w)^* \|_{\tau^\mM}\\
+	%%\| 1_\mM -  U_i w^* V_i^{-1} w \|_{\tau^\mM}\\
+  %%&\leq \|w^* w - w^* w U_i w^* V_i^{-1} w \|_{\tau^\mM} + \|w^*w-1_\mM\|_{\tau^\mM} \\
+%%&\leq \|P - wU_iw^* V_i^{-1}\|_{\tau^\mN}  + \|w^*w-1_\mM\|_{\tau^\mM} \\
+%&= \|U_i - w^* V_i^{-1} w \|_{\tau^\mN} \;, %+ \|w^*w-1_\mM\|_{\tau^\mM} \;,
+%\end{align*}
+%%where the first inequality is the triangle inequality and the second uses that $w$ is a partial isometry. 
+%since $U_i$ and $V_i$ are unitaries. 
+%%We conclude by taking the average over $i\sim \mu$ and applying~\eqref{eq:switch-w}.
+%\end{proof}
 
 
 We now give our definition of stability.
@@ -704,6 +704,10 @@ We now give our definition of stability.
 \begin{definition}[Stability]\label{def:eff-stab}
 Let $G = \langle S:R\rangle $ be a finitely presented group. Let $\mC$ be a class of tracial von Neumann algebras. Let $\mu_S$ be a distribution on $S$ and $\mu_R$ a distribution on $R$. Let $\delta:[0,1]\to[0,1]$ be a function satisfying $\lim_{t\to 0}\delta(t)=0$. The presentation $G=\langle S:R\rangle$ is $(\delta,\mu_S,\mu_R,\mC)$-stable if for every $(\cM,\tau)$ in $\mC$, every $(\eps,\mu_R)$-almost homomorphism of $G$ is $(\delta(\eps),\mu_S)$-close to a unitary representation of $G$ on some $(\mN,\tau^\mN)\in \mC$. We refer to the function $\delta$ as the \emph{modulus of stability} of the presentation.\footnote{Every function that satisfies this condition is a modulus of stability for $G=\langle S\colon R\rangle$, but we occasionally refer that way to the best possible $\delta$ in the definition.} 
 \end{definition}
+
+\begin{remark}
+    Definition \ref{def:eff-stab} is often referred to in the literature as ``flexible pointwise Hilbert--Schmidt stability (in the class $\mC$)''. There are other versions of stability, such as: the non-flexible one (cf.\ \cite{becker2019stability, hadwin2018stability}), in which one does not allow to compare representations of different dimensions; uniform stability, in which almost representations are with respect to  the (often) infinite multiplication table presentation (cf.\ \cite{kazhdan1982e,becker2022stability}); stability in permutations, where instead of studying approximate representations one studies approximate actions (cf.\ \cite{becker2019stability,becker2020group, ioana2020stability}); and so on. In the cited papers above there are thorough literature surveys that we avoid herein.
+\end{remark}
 
 While the quantitative aspects of this definition of stability depend on the choice of presentation, qualitatively a finitely presented group $G$ is stable with respect to some presentation if and only if it is stable with respect to any presentation. This is shown in Lemma~\ref{lem:stab-group} below, which includes some rough quantitative estimates. We start with a simple but useful calculation.
 \tnote{Added the lemma. The proof is pretty annoying. Michael, did you say there are references for it?}
@@ -1265,7 +1269,6 @@ The reason that this construction is referred to as ``composition'' is the follo
 Given an $r$-local tester $M=(h,\nu)$ for $\code$, there is a natural $\max(r,3)$-local tester $M'$ for $\code'$ which can be described as follows. Index coordinates of $\code'$ by pairs $(i,\alpha)\in [n]\times\F_2^t$, fixing a bijection between $[qn]$ and $[n]\times \F_2^t$.  We describe an $\max(r,3)$-local tester $M' = (h',\nu')$ for $\code'$. Informally, $h'$ contains two type of checks. First, the $A$-checks consist of the repetition of $n$ copies of the checks for the Hadamard code, one for each Hadamard-code encoding $\varphi(x)$ of an $\F_q$-symbol $x$ from $\code$. Second, the $B$-checks implement the checks of $\code$ specified by $M$, directly on the Hadamard encoding. 
 
 
-\tnote{Maybe we should cut the end of the section, starting from here? It seems that the informal discussion would be enough, and the formal claim does not seem to be used. In particular, the tester is basically redefined in Figure~\ref{fig:bRM-tester}. So we could just write that we spell things out there.}
 More precisely, define $h'$ to be the block matrix $h'=\begin{pmatrix} A \\ B \end{pmatrix}$ where 
 \begin{itemize}
 	\item $A \in \F_2^{nq^2 \times nq}$ is itself a block-diagonal matrix where the diagonal blocks are the $q^2 \times q$ parity check matrix for the Hadamard code. 
@@ -1342,17 +1345,21 @@ Having defined $\mu_R$, we define $\mu_S$ as in Remark~\ref{rk-mus}. It is easy 
 
 \begin{theorem}\label{thm:z2-stab}
 Let $\mC$ be the class of all tracial von Neumann algebras. 
-The presentation of  $\Z_2^k$ given in~\eqref{eq:z2k-eff}, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with $\delta(\eps)= C (mdt)^{c_1} (\eps^{c_2}+(1/q)^{c_3})$, where $C,c_1,c_2,c_3$ are universal positive constants.  
+The presentation of  $\Z_2^k$ given in~\eqref{eq:z2k-eff}, together with the distributions $\mu_S$ and $\mu_R$ defined above, is $(\delta,\mC)$ stable with 
+\begin{equation}\label{eq:th-min}
+ \delta(\eps) = \min\Big\{ C (mdt)^{c_1} (\eps^{c_2}+(1/q)^{c_3})\ ,\ C'_{t,d,m}\ \eps\Big\}\;,
+\end{equation}
+where $C,c_1,c_2,c_3$ are universal positive constants and $C'_{t,d,m}$ depends on $t,d,m$ but not $\eps$.\footnote{We do not attempt to compute the dependence of $C'_{t,d,m}$ on the parameters because we are more interested in the regime of parameters where the first part of the min is relevant. Nevertheless, we include it so that $\delta(\eps)\to_{\eps\to 0} 0$, as required.}   
 \end{theorem}
 
-We briefly explain a possible setting of parameters in Theorem~\ref{thm:z2-stab}. For any integer $t\geq 1$, fix $q=2^t$ and let $d=m=c t^c$ for some constant $c>0$. Then $k=t(d+1)^m = 2^{\Theta((\log q)^c \log\log q)}$ and $N=q^{m+1}= 2^{\Theta((\log q)^{c+1} \log\log q)}$. Moreover, the number of relations in~\eqref{eq:z2k-eff} is $O(N^2)$, which scales as $2^{\poly\log k}$; and the maximum length of a relation is $d+2=O(\log k)$. Finally, with this choice of parameters the function $\delta(\eps)$ scales as $\poly(\log k)\cdot (\poly(\eps) + \poly(1/k))$. \tnote{added} While this bound is only good when $\eps$ is much larger than $1/k$,\footnote{If one looks closely the $\poly(1/k)$ term is in fact $2^{-\poly\log k}$.} and in particular it does not necessarily go to $0$ as $\eps\to 0$, this can be remedied by  
-combining the bound we have obtained with the general Theorem~\ref{thm:gh} (which has a much larger prefactor). In this regime of not too small $\eps$, we thus obtain a presentation of $\Z_2^k$ of size only mildly superpolynomial in $k$, and with soundness that depends polylogarithmically on $k$. %For smaller $\eps$ one may further adjust the parameters, e.g.\ take a larger $q$ than above but smaller $d$ and $m$ ; this will lead to alternate trade-offs (based on different presentations, since the presentation depends on $q$).
+We briefly explain a possible setting of parameters in Theorem~\ref{thm:z2-stab}. For any integer $t\geq 1$, fix $q=2^t$ and let $d=m=c t^c$ for some constant $c>0$. Then $k=t(d+1)^m = 2^{\Theta((\log q)^c \log\log q)}$ and $N=q^{m+1}= 2^{\Theta((\log q)^{c+1} \log\log q)}$. Moreover, the number of relations in~\eqref{eq:z2k-eff} is $O(N^2)$, which scales as $2^{\poly\log k}$; and the maximum length of a relation is $d+2=O(\log k)$. Finally, with this choice of parameters the function $\delta(\eps)$ scales as $\min\{ \poly(\log k)\cdot (\poly(\eps) + \poly(1/k)),C'_k\eps\}$. When $\eps$ is much larger than $1/k$, the first term in the $\min$ scales as $\poly(\log k)\cdot \poly(\eps)$, which gives a favorable tradeoff between the presentation size and the modulus of stability. For very small $\eps$, the bound is what we would generically expect from Theorem~\ref{thm:gh} and the size of the presentation ; in particular the constant $C'_k$ necessarily scales exponentially with $k$. 
 
 
 \begin{proof}
-Let $(\mM,\tau)$ be a tracial von Neumann algebra and $\phi$ be an $(\eps,\mu_S)$-homomorphism of $\langle S:R\rangle$ on $(\mM,\tau)$. 
+Let $(\mM,\tau)$ be a tracial von Neumann algebra and $\phi$ be an $(\eps,\mu_R)$-homomorphism of $\langle S:R\rangle$ on $(\mM,\tau)$. 
  Here, $S = \{s_{u,a}: u\in (\F_2^t)^m, a\in \F_2^t\}$. We sometimes enumerate the items of $S$ as $S=\{x_i: i\in\{1,\ldots,N\}\}$, where $N=2^{tm+t}$ and we fixed an arbitrary bijection between $(\F_2^t)^m\times \F_2^t$ and $\{1,\ldots,N\}$. Let $R$ be the set of all relations in~\eqref{eq:z2k-eff}, i.e.\ $R=  \{R^\ld_k\}\cup\{R^\had_k\}\cup\{R^\com_k\}$. 
 
+The second bound in the $\min$ in~\eqref{eq:th-min} follows immediately from Theorem~\ref{thm:gh} and Lemma~\ref{lem:stab-group} according to Remark~\ref{rk:linear-modulus}. Therefore, the bulk of the proof focuses on establishing the first bound. 
 The proof strategy is to perform a reduction to~\cite[Theorem 4.1]{ji2022quantum}. Towards this, the main technical work in the proof consists in using the unitaries $\phi(s_{u,a})$ in order to define a synchronous strategy in the tensor code test from~\cite{ji2022quantum}, where the underlying code is the Reed-Solomon code with degree $d$ over $\F_q$. To define the synchronous strategy, we need ``points,'' ``lines,'' and ``pair'' measurements (see~\cite{ji2022quantum} for the terminology). Each of these is a family of projective measurements that obey certain constraints. 
 
 The proof consists of a sequence of claims, which examine the constraints imposed on the $\phi(s_{u,a})$ by each of the four collections of relations in~\eqref{eq:z2k-eff} in turn.% each time using a set of relations to evidence a particular structure among these unitaries. Eventually, this will allow us to define the required families of projective measurements from them. 
@@ -1556,9 +1563,10 @@ We are now in a position to apply~\cite[Theorem 4.1]{ji2022quantum}. For this we
 \begin{equation}\label{eq:41-last}
  \Es{u\in\F_q^m} \sum_{c\in\code^{\otimes m}} \tau\big( G_c P^u_{c(u)}\big) \geq 1-\eta\;,
 \end{equation}
-where $\eta = \poly(m,d,r) \cdot\poly(\eps,q^{-1},e^{-\Omega(r/m^2)})$. Choosing $r=\Omega(m^2 t)$, since $q=2^{t}$, the bound becomes $\poly(m,d,t) \cdot\poly(\eps,q^{-1})$. The theorem is then proved where explicitly, the homomorphism that is close to $\phi$ is given by
+where $\eta = \poly(m,d,r) \cdot\poly(\eps,q^{-1},e^{-\Omega(r/m^2)})$. Choosing $r=\Omega(m^2 t)$, since $q=2^{t}$, the bound becomes $\poly(m,d,t) \cdot\poly(\eps,q^{-1})$. The first bound in the $\min$ in~\eqref{eq:th-min} then follows where explicitly, the homomorphism that is close to $\phi$ is given by
 \[ g: s_{u,a} \mapsto \sum_{\beta\in\F_q} (-1)^{a\cdot \kappa(\beta)} \sum_{c:\ c(u)=\beta} G_c \;,\]
-and closeness follows from~\eqref{eq:41-last} and~\eqref{eq:z2-stab-2} by expanding the square in the definition. 
+and closeness follows from~\eqref{eq:41-last} and~\eqref{eq:z2-stab-2} by expanding the square in the definition.
+ %It suffices to verify that the constant implicit in the $O(\eps)$ in Remark~\ref{rk:linear-modulus} is of order $\poly(|\mathbb{Z}_2^k|)=2^{O(k)}$. 
 \end{proof}
 
 
@@ -1931,7 +1939,7 @@ Since $\omega_W = G_\mC e_i$, $(G_\mC^T c)_i = c\cdot \omega_W$. Thus~\eqref{eq:
 
 By instantiating $\code$ using the Reed-Muller code from Section~\ref{sec:eff-z2k} we obtain an efficient qubit test.  Because we do not know if $G(h_\bRM)$ is Abelian, we need to introduce an additional test for the relations $\{R_k^\com\}$ in~\eqref{eq:z2k-eff}. The resulting test is described in Figure~\ref{fig:pbt}. It is a variant of a test first introduced in~\cite{natarajan2018low} (with a flawed analysis). This paper (together with the work on which our analysis relies) corrects this, and Corollary~\ref{cor:qld} below recovers~\cite[Theorem 3.2]{natarajan2018low}, with essentially the same parameters but a slightly different test. (Some of the complexity-theoretic applications of the theorem given in~\cite{natarajan2018low} remain flawed, see~\cite{natarajan2024status} for an explanation.)
 
-In the next section we detail an important application of this test, Proposition~\ref{prop:dim-test}, which is used in the work~\cite{ji2020mip}. (The present proof somewhat simplifies the one given in~\cite{ji2020mip}, but it keeps the same overall strategy. \tnote{added for revision 2:}We also note that Corollary~\ref{cor:qld} below is qualitatively stronger than~\cite[Theorem 7.14]{ji2020mip} as the latter applies to a slightly different game which in particular has a pair of questions with long answers, of $O(2^m\log q)$ bits, whereas the tester in Figure~\ref{fig:bRM-tester}, which is analysed in the corollary, has short answers, $O(d)$ bits long. The presence of long answers helps the analysis.)
+In the next section we detail an important application of this test, Proposition~\ref{prop:dim-test}, which is used in the work~\cite{ji2020mip}. The present proof somewhat simplifies the one given in~\cite{ji2020mip}, but it keeps the same overall strategy. \tnote{added for revision 2:}Moreover, Corollary~\ref{cor:qld} below is qualitatively stronger than~\cite[Theorem 7.14]{ji2020mip} as the latter applies to a slightly different game which in particular has a pair of questions with long answers, of $O(2^m\log q)$ bits, whereas the tester in Figure~\ref{fig:bRM-tester}, which is analyzed in the corollary, has short answers, $O(d)$ bits long; with a typical parameter setting (see the discussion following Theorem~\ref{thm:z2-stab}) this is exponentially smaller. The presence of long answers makes the analysis easier.
 
 \begin{figure}[!htbp]
   \centering

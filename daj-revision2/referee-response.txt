@@ -78,7 +78,7 @@ A: Right, we corrected this
 ment of the lemma are only isomorphic, and I kind of agreed that the two
 groups in the proofs were equal.
 
-A: [T: He is referring to Lemma 3.1. I don't really get it. We should say that Z_2^k and the presentation are isomorphic, not equal? Then we need to update this all over. Michael?]
+A: Ok
 
 8. page 20, Definition 3.3 and above. You write “we state the definition for
 the case of a general prime power q” but then there is no q, just 2. So

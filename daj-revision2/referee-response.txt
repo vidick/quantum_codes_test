@@ -1,8 +1,9 @@
-I am not fully happy with the revision. Most of my comments and suggestions
- have been taken into account, but not all. Several have been ignored for a
-good reason (14 15 20 were completely wrong and 7 was perhaps not relevant),
-but it seems that the authors have not got what I meant in my comments 34
-and 35.
+We thank the reviewer for their thorough comments. Most of the changes have been made, although we decided to not follow the referee's suggestion regarding the use of Lemma 2.7, see the response to point 21 below. 
+
+Follows a redacted copy of the referee's comments. To follow the conversation it may be helpful to pull up the original referee comments pdf ; but we found it more helpful to provide responses inline, hence the txt format. 
+
+----------
+[...]
 
 In 34, I was just asking that you explain in the text of your paper how
 Corollary 5.12 improves Theorem 7.14 in [JNV+20a]. What you wrote The
@@ -22,11 +23,7 @@ it. See 21 below.
 
 A: See response to 21 below. Unfortunately at this point we feel that we are getting lost in trying to follow the reviewer's desire to rewrite our proof, and would prefer to stop there--see below. 
 
-More importantly, the comments 9 10 13 14 19 21 have not been fully ad-
-dressed, or resulted in adding new inaccuracies (see points 2–5, 8, 7, 10, 18). In
-particular I fully disagree with your reply to 21, see point 18 below.
-Here are some comments. Some are new and some are about previous com-
-ments.
+[...]
 
 1. page 9, Definition 2.4. You made the choice to only discuss what is usually
 called flexible stability and not the more restrictive notion where you do

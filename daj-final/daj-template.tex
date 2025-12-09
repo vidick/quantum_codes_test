@@ -1,0 +1,177 @@
+%% daj-template.tex v0.33     23 Sep 2016   Alex Russell/Laszlo Babai
+%%
+%% AUTHOR: Fill in fields (or see warnings) below marked with "AUTHOR"
+%% ** Add as few macro / package definitions as possible
+%% ** Compile with "pdflatex"; make sure that
+%%           daj.cls and tocbase.cls are in the same directory.
+%%
+%% EDITOR: Fill in fields below marked with "EDITOR"
+%%    and check that authors proprely filled in field marked with "AUTHOR"
+
+\documentclass{daj}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% AUTHOR: Fill in meta-data below:
+\dajAUTHORdetails{%
+  title = {Efficiently Stable Presentations from Error-Correcting Codes}, %% please capitalize all significant words
+  author = {Michael Chapman, Thomas Vidick and Henry Yuen},
+    %% Please use the format for commas as follows:
+    %% "A", or "A and B", or "A, B, and C", or "A, B, C, and D", etc.
+  plaintextauthor = {Michael Chapman, Thomas Vidick and Henry Yuen},
+    %% An author list in plain text: Use the format
+    %% "A", or "A, B", or "A, B, C", etc.
+    %% NOTE: No LaTeX code in author names.
+    %% NOTE: No "and" at the end--simply comma separated,
+    % 
+ %% The remaing lines in this section are optional:
+    %
+    %% IF YOUR TITLE CONTAINS MATH OR LATEX such as accented characters: 
+    %% Add a "plain text title";  otherwise comment out the next line:
+  plaintexttitle = {Efficiently Stable Presentations from Error-Correcting Codes}, %%  title without math or LaTeX
+    %
+    %% ONLY IF YOUR TITLE IS TOO LONG to fit in the page headers, please 
+    %% add an abbreviated version of the title, otherwise comment it out:
+  %runningtitle = {R\"odl's $n^{\log\log n}$ Bound}, 
+    %
+    %% ONLY IF YOUR AUTHOR LIST IS TOO LONG to fit in the page headers, 
+    %% add an abbreviated version, otherwise comment it out:
+ % runningauthor = {Paul Erd\H{o}s, Johan H{\aa}stad, L\'aszl\'o Lov\'asz, and Andrew C-C. Yao},
+    %% you can replace first names and/or middle names with initials.
+    %
+    %% ONLY IF YOUR AUTHOR LIST IS TOO LONG to fit the copyright entry
+    %% on the bottom of the front page,
+    %% add an abbreviated version, otherwise comment it out:
+  copyrightauthor = {M. Chapman, T. Vidick and H. Yuen},
+    %% Note that the copyrightauthor  field will seldom be necessary;
+    %% for instance, in this example with four authors, it would be 
+    %% all right to comment it out and have all authors' full names 
+    %% appear on the Copyright line
+   %
+   %% Include keywords of your choice: comma separated, lower case;
+   %% comment out the "keywords" line if you don't wish to provide them
+  keywords = {group stability, error-correcting codes},
+}   %%% END \dajAUTHORdetails
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% EDITOR: please fill in the following data:
+\dajEDITORdetails{%
+   year={20XX},
+   volume={XX},
+   number={XX},
+   received={XX Month 20XX},   % received date: example: 7 January 2017
+   revised={XX Month 20XX},    % Optional revised date (you may comment it out)
+   published={XX Month 20XX},  % published date
+   doi={10.19086/daXXX},       % XXX = number of paper, e.g. da006 for paper#6
+%                              % or  da0006 (length of string arbitrary)
+}   %%% END \dajEDITORdetails
+
+\begin{document}
+
+\begin{frontmatter}[classification=text]
+%% EDITOR: this will force the keywords to appear right after the Abstract.
+%%   If the abstract is too long and would force the keywords off the
+%%   front page, please comment out % [classification=text] above
+%%   This way the keywords will be floated on the bottom of the first page
+%%   even though the Abstract spills over to the next page.
+
+%%% AUTHOR: Title goes here.  This line is optional.  You must use it
+%%   if title has footnote attached or requires nontrivial typesetting,
+%%   e.g., inclusion of linebreaks to force nice layout.
+\title{Efficiently Stable Presentations from Error-Correcting Codes} %% please capitalize all significant words
+
+%%% AUTHOR:
+%%% List all authors. If you wish, place grant acknowledgements in \thanks.
+%%% In brackets include a short tag for each author.
+\author[mc]{Michael Chapman\thanks{Supported by...}}
+\author[tv]{Thomas Vidick\thanks{Supported by...}}
+\author[hy]{Henry Yuen\thanks{Supported by...}}
+
+%%% AUTHOR: Abstract goes here
+\begin{abstract}
+We introduce a notion of \emph{efficient stability} for finite presentations of groups. Informally, a finite presentation using generators $S$ and relations $R$ is \emph{stable} if any map from $S$ to unitaries 
+that approximately satisfies the relations (in the tracial norm) is close to the restriction of a representation of $G$ to the subset $S$. This notion and variants thereof have been extensively studied in recent years, in part motivated by connections to property testing in computer science. The novelty in our work is the focus on \emph{efficiency}, which, informally, places an onus on small presentations --- in the sense of encoding length.  
+%(of size, say, logarithmic in the group size)
+The goal in this setup is to achieve non-trivial tradeoffs between the presentation length and its modulus of stability.
+%---as, intuitively, more generators and relations place more constraints on the approximate homomorphism, making stability easier to achieve---whereas we wish to minimize the number of variables and constraints. 
+
+With this goal in mind we analyze various natural examples of presentations. We provide a general method for constructing presentations of $\Z_2^k$ from linear error-correcting codes. We observe that the resulting presentation has a weak form of stability exactly when the code is  \emph{testable}. This raises the question of whether testable codes give rise to genuinely stable presentations using this method.  While we cannot show that this is the case in general, we leverage recent results in the study of non-local games in quantum information theory (Ji et al., Discrete Analysis 2021) to show that a specific instantiation of our construction, based on the Reed-Muller family of codes, leads to a stable presentation of $\Z_2^k$ of size $\poly\log(k)$ only. As an application, we combine this result with recent work of de la Salle (arXiv:2204.07084) to re-derive  the quantum low-degree test of Natarajan and Vidick (IEEE FOCS'18), which is a key building block in the recent refutation of Connes' Embedding Problem via complexity theory (Ji et al., arXiv:2001.04383). 
+\end{abstract}
+\end{frontmatter}
+
+%%% AUTHOR: body of paper starts here
+\section{Introduction}
+ The body of your paper goes here~\cite{cilleruelo}.
+
+\newpage %% AUTHOR: please comment out this line.  It serves only
+%%   to demonstrate both types of header line in daj-template.pdf
+
+\section{Expansion estimates}
+
+ More of the body of your paper goes here~\cite{bergelson-johnson-moreira}.
+
+%%% AUTHOR: optional appendix here
+\appendix %% you may comment this out if no Appendix
+\section*{Appendix}
+\section{Improving the constants}
+Material is placed here as needed.
+
+%%% AUTHOR: optional acknowledgments here
+\section*{Acknowledgments} %%  you may comment this out if no Ackno
+The authors are grateful to the anonymous reviewers for finding
+a bug in the main result.
+
+%%% AUTHOR:
+%%% Bibliography goes here. Note that the arXiv cannot process bibtex
+%%% or biber bibliographies.  Example of acceptable bibliograpy format:
+\bibliographystyle{amsplain}
+\begin{thebibliography}{99}
+\bibitem{bergelson-johnson-moreira}
+Vitaly Bergelson, John H. Johnson Jr., and Joel Moreira.
+\newblock New polynomial and multidimensional extensions of classical partition
+  results.
+\newblock 2015, arXiv:1501.02408.
+
+\bibitem{cilleruelo}
+Javier Cilleruelo.
+\newblock Combinatorial problems in finite fields and {S}idon sets.
+\newblock {\em Combinatorica}, 32(5):497--511, 2012.
+
+\end{thebibliography}
+%% AUTHOR: You can generate such a bibliography from a .bib file by 
+%% running pdflatex/bibtex/pdflatex/pdflatex and then pasting the .bbl file
+%% between \begin{thebibliography} and \end{bibliography}
+
+%%% AUTHOR: Include a short description of each author following the
+%%% structure below. Use the same short tags used previously.  
+%%% Use \imageat{} and \imagedot{} instead of "@" and "." in
+%%% email addresses-this replaces the symbols with graphics to avoid 
+%%% e-mail address harvesting from the .pdf file
+\begin{dajauthors}
+\begin{authorinfo}[mc]
+  Michael Chapman\\
+  R\'enyi Institute\\
+  Budapest, Hungary\\
+  paulerdos\imageat{}renyiinstitute\imagedot{}hu \\
+\end{authorinfo}
+\begin{authorinfo}[tv]
+  Thomas Vidick\\
+  Professor\\
+  École Polytechnique Fédérale de Lausanne\\
+  Lausanne, Switzerland\\
+  thomas\imagedot{}vidick\imageat{}epfl\imagedot{}ch \\
+\end{authorinfo}
+\begin{authorinfo}[hy]
+  Henry Yuen\\
+  Professor\\
+   Columbia University\\
+  New York, United States of America\\
+  hyuen\imageat{}columbia\imagedot{}edu\\
+\end{authorinfo}
+\end{dajauthors}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "daj-template"
+%%% End:

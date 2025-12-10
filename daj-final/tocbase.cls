@@ -167,8 +167,7 @@
 %% We now require graphicx for icon layout.
 \RequirePackage{graphicx}
 
-% Load the eXtensible Metadata Platform package, so that we can include licensing information in our .pdf files.
-\RequirePackage{hyperxmp}
+
 
 % Load the hyperref package. As loaded, it uses the default hpdftex
 % driver code; this appears to be fine.  The colors selected are
@@ -186,6 +185,9 @@
   breaklinks=true,
   pdfstartview=FitH,
   pdfpagelayout=OneColumn]{hyperref}
+
+% Load the eXtensible Metadata Platform package, so that we can include licensing information in our .pdf files.
+\RequirePackage{hyperxmp}
 
 % Load the ccicons package (N.b., This must occur after loading
 % hyperref in order for the \textcopyright symbol to be set correctly.)
